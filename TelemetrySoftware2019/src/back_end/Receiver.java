@@ -1,10 +1,6 @@
 package back_end;
 
-import com.fazecast.jSerialComm.SerialPort;
-import com.fazecast.jSerialComm.SerialPortEvent;
-import com.fazecast.jSerialComm.SerialPortPacketListener;
-
-import Receiver.PacketListener;
+import com.fazecast.jSerialComm.*;
 
 public class Receiver {
 	/*
