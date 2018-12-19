@@ -22,8 +22,8 @@ public class Receiver {
 		strRead = new char[1028];
 		strIndex = 0;
 		openBracketIndex = -1;
-		baudRate = 115200;
-		commPort = new String("COM5");
+		baudRate = 115200; //TODO read from confReader
+		commPort = new String("COM5"); //TODO read from confReader
 	}
 
 	/*
