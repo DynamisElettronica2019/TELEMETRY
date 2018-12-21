@@ -27,21 +27,21 @@ public class Parser {
 		recogniser = stringToParse.charAt(0);
 		if (recogniser == recogniserData) {
 			if (stringToParse.length() != lenData) {
-				
+				throw new InvalidReadingException();
 			}
 		}
 		else if (recogniser == recogniserState) {
 			if (stringToParse.length() != lenState) {
-				
+				throw new InvalidReadingException();
 			}
 		}
 		else if (recogniser == recogniserDebug) {
 			if (stringToParse.length() != lenDebug) {
-				
+				throw new InvalidReadingException();
 			}
 		}
 		else {
-			
+			throw new InvalidReadingException();
 		}
 	}
 
