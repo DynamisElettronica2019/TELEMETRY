@@ -14,21 +14,8 @@ public class Parser {
 	/*
 	 * Set class attributes through ConfReader
 	 */
-	public Parser(String receivedString) {
-			char recogniser;
-			recogniser = receivedString.charAt(0);
-			if (recogniser == recogniserData) {
-				
-			}
-			else if (recogniser == recogniserState) {
-				
-			}
-			else if (recogniser == recogniserDebug) {
-				
-			}
-			else {
-				
-			}
+	public Parser() {
+			//TODO
 	}
 
 	/*
@@ -36,7 +23,26 @@ public class Parser {
 	 * exception if the input string is not valid.
 	 */
 	Parsed parseString(String stringToParse) throws InvalidReadingException {
-		// TODO
+		char recogniser;
+		recogniser = stringToParse.charAt(0);
+		if (recogniser == recogniserData) {
+			if (stringToParse.length() != lenData) {
+				
+			}
+		}
+		else if (recogniser == recogniserState) {
+			if (stringToParse.length() != lenState) {
+				
+			}
+		}
+		else if (recogniser == recogniserDebug) {
+			if (stringToParse.length() != lenDebug) {
+				
+			}
+		}
+		else {
+			
+		}
 	}
 
 }
