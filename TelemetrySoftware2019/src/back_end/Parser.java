@@ -10,14 +10,12 @@ public class Parser {
 	private char recogniserState;
 	private int lenDebug;
 	private char recogniserDebug;
-	private int currElement;
 
 	/*
 	 * Set class attributes through ConfReader
 	 */
 	public Parser() {
 		// TODO
-		currElement = 0;
 	}
 
 	/*
@@ -38,7 +36,6 @@ public class Parser {
 						String strToAdd = stringToParse.substring(startIndex, i - 1);
 						startIndex = i + 1;
 						parse.parsedEdit(strToAdd);
-						currElement++;
 					}
 				}
 			}
@@ -52,7 +49,6 @@ public class Parser {
 						String strToAdd = stringToParse.substring(startIndex, i - 1);
 						startIndex = i + 1;
 						parse.parsedEdit(strToAdd);
-						currElement++;
 					}
 				}
 
@@ -67,7 +63,6 @@ public class Parser {
 						String strToAdd = stringToParse.substring(startIndex, i - 1);
 						startIndex = i + 1;
 						parse.parsedEdit(strToAdd);
-						currElement++;
 					}
 				}
 			}
