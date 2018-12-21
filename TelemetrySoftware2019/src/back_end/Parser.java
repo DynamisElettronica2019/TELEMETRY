@@ -37,7 +37,7 @@ public class Parser {
 					if (stringToParse.charAt(i) == ';') {
 						String strToAdd = stringToParse.substring(startIndex, i - 1);
 						startIndex = i + 1;
-						parse.parsedInfo[currElement] = strToAdd;
+						parse.parsedEdit(strToAdd);
 						currElement++;
 					}
 				}
@@ -51,7 +51,7 @@ public class Parser {
 					if (stringToParse.charAt(i) == ';') {
 						String strToAdd = stringToParse.substring(startIndex, i - 1);
 						startIndex = i + 1;
-						parse.parsedInfo[currElement] = strToAdd;
+						parse.parsedEdit(strToAdd);
 						currElement++;
 					}
 				}
@@ -66,7 +66,7 @@ public class Parser {
 					if (stringToParse.charAt(i) == ';') {
 						String strToAdd = stringToParse.substring(startIndex, i - 1);
 						startIndex = i + 1;
-						parse.parsedInfo[currElement] = strToAdd;
+						parse.parsedEdit(strToAdd);
 						currElement++;
 					}
 				}
