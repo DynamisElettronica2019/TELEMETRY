@@ -12,7 +12,8 @@ public class InvalidReadingException extends Exception {
 	}
 	
 	private void log(String type) {
-		//TODO
+		//Testing
+		System.err.println(type);
 	}
 	
 	
