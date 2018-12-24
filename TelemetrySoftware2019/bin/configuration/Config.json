@@ -1,0 +1,23 @@
+{	
+	"data":	{
+		"channels":	{
+				"names": ["A","B"],
+				"packetLen": 3,
+				"recogniser": "C"
+				},
+		"states": {
+				"names": ["C"],
+				"packetLen": 2,
+				"recogniser": "S" 
+				},
+		"debug": {
+				"names": ["D","E"],
+				"packetLen": 3,
+				"recogniser": "D"
+				}
+		},
+    "receiver": {
+        "baudRate": 115200,
+        "commPort": "COM5"
+    }
+}

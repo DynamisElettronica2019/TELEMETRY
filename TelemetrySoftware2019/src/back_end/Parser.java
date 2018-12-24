@@ -1,5 +1,6 @@
 package back_end;
 
+import configuration.ConfReader;
 import exceptions.InvalidReadingException;
 
 public class Parser {
@@ -15,7 +16,12 @@ public class Parser {
 	 * Set class attributes through ConfReader
 	 */
 	public Parser() {
-		// TODO
+		lenData = (int)ConfReader.getPacketLen("channels");
+		recogniserData = ConfReader.getRecogniser("channels");
+		lenState = (int)ConfReader.getPacketLen("states");
+		recogniserState = ConfReader.getRecogniser("states");
+		lenDebug = (int)ConfReader.getPacketLen("debug");
+		recogniserDebug = ConfReader.getRecogniser("debug");
 	}
 
 	/*

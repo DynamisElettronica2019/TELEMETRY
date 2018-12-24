@@ -2,6 +2,8 @@ package back_end;
 
 import com.fazecast.jSerialComm.*;
 
+import configuration.ConfReader;
+
 public class Receiver {
 	/*
 	 * Attributi
@@ -22,8 +24,8 @@ public class Receiver {
 		strRead = new char[1028];
 		strIndex = 0;
 		openBracketIndex = -1;
-		baudRate = 115200; //TODO read from confReader
-		commPort = new String("COM5"); //TODO read from confReader
+		baudRate = (int)ConfReader.getRecBaud();
+		commPort = ConfReader.getRecPort();
 	}
 
 	/*
@@ -94,7 +96,7 @@ public class Receiver {
 		strIndex = 0;
 		openBracketIndex = -1;
 		closeBracketIndex = -1;
-		printString();
+		printString(); //TODO Parser.parseString e data update se non ho eccezioni
 	}
 
 	/*
