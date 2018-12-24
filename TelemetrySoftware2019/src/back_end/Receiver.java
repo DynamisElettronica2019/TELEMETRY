@@ -23,7 +23,7 @@ public class Receiver {
 	 * Costruttore
 	 */
 	public Receiver() {
-		strRead = new char[1028];
+		strRead = new char[2056];
 		strIndex = 0;
 		openBracketIndex = -1;
 		baudRate = (int)ConfReader.getRecBaud();
@@ -59,7 +59,7 @@ public class Receiver {
 							createString(); // Chiamata alla funziona che crea la stringa da inviare
 						}
 					}
-					if (strIndex==2047) {
+					if (strIndex==2055) {
 						strIndex = 0;
 						openBracketIndex = -1;
 					}
