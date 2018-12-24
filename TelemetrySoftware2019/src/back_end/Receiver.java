@@ -3,6 +3,7 @@ package back_end;
 import com.fazecast.jSerialComm.*;
 
 import configuration.ConfReader;
+import exceptions.InvalidReadingException;
 
 public class Receiver {
 	/*
@@ -16,6 +17,7 @@ public class Receiver {
 	private SerialPort comPort;
 	private int baudRate;
 	private String commPort;
+	private Parsed parsedStr;
 
 	/*
 	 * Costruttore
@@ -96,14 +98,13 @@ public class Receiver {
 		strIndex = 0;
 		openBracketIndex = -1;
 		closeBracketIndex = -1;
-		printString(); //TODO Parser.parseString e data update se non ho eccezioni
-	}
-
-	/*
-	 * Stampa la stringa preparata
-	 */
-	private void printString() {
-		System.out.println(strToSend);
+		Parser parserStr = new Parser();
+		try {
+			parsedStr = parserStr.parseString(strToSend);
+		}
+		catch (InvalidReadingException e){
+			// Qualcosa da mettere?
+		}
 	}
 
 	/*
