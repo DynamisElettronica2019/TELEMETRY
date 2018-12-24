@@ -6,7 +6,7 @@ public class ParsedDebug extends Parsed {
 	 * Create parsedInfo and set string to parsed information
 	 */
 	public ParsedDebug(String strToParse) {
-		//TODO
+		super(strToParse);
 	}
 
 }

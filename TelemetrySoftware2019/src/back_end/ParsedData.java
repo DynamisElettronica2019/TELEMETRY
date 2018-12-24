@@ -6,7 +6,7 @@ public class ParsedData extends Parsed {
 	 * Create parsedInfo and set strings to parsed and computed informations
 	 */
 	public ParsedData(String strToParse) {
-		//TODO
+		super(strToParse);
 	}
 	
 	/*
