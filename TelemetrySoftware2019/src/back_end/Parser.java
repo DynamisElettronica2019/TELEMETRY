@@ -30,51 +30,28 @@ public class Parser {
 	 */
 	Parsed parseString(String stringToParse) throws InvalidReadingException {
 		char recogniser;
-		Parsed parse = new Parsed();
 		recogniser = stringToParse.charAt(0);
 		if (recogniser == recogniserData) {
 			if (stringToParse.length() != lenData) {
 				throw new InvalidReadingException("Message lenght Error");
 			} else {
-				int startIndex = 0;
-				for (int i = 0; i < stringToParse.length(); i++) {
-					if (stringToParse.charAt(i) == ';') {
-						String strToAdd = stringToParse.substring(startIndex, i - 1);
-						startIndex = i + 1;
-						parse.parsedEdit(strToAdd);
-					}
-				}
+				return new ParsedData(stringToParse);
 			}
 		} else if (recogniser == recogniserState) {
 			if (stringToParse.length() != lenState) {
 				throw new InvalidReadingException("Message lenght Error");
 			} else {
-				int startIndex = 0;
-				for (int i = 0; i < stringToParse.length(); i++) {
-					if (stringToParse.charAt(i) == ';') {
-						String strToAdd = stringToParse.substring(startIndex, i - 1);
-						startIndex = i + 1;
-						parse.parsedEdit(strToAdd);
-					}
-				}
+				return new ParsedState(stringToParse);
 
 			}
 		} else if (recogniser == recogniserDebug) {
 			if (stringToParse.length() != lenDebug) {
 				throw new InvalidReadingException("Message lenght Error");
 			} else {
-				int startIndex = 0;
-				for (int i = 0; i < stringToParse.length(); i++) {
-					if (stringToParse.charAt(i) == ';') {
-						String strToAdd = stringToParse.substring(startIndex, i - 1);
-						startIndex = i + 1;
-						parse.parsedEdit(strToAdd);
-					}
-				}
+				return new ParsedDebug(stringToParse);
 			}
 		} else {
 			throw new InvalidReadingException("First letter reading Error");
 		}
-		return parse;
 	}
 }
