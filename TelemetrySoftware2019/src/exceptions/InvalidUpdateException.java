@@ -1,5 +1,7 @@
 package exceptions;
 
+import java.time.LocalDateTime;
+
 public class InvalidUpdateException extends MyException {
 	private static final long serialVersionUID = 1L;
 	private static final String type = "[Update error]";
@@ -9,7 +11,6 @@ public class InvalidUpdateException extends MyException {
 	}
 	
 	public void log() {
-		//TODO print error ts
-		System.err.println(type+" "+msg);
+		System.err.println("["+LocalDateTime.now()+" "+type+"] "+msg);
 	}
 }
