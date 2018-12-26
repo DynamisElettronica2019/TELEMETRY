@@ -42,7 +42,6 @@ public class Parser {
 				throw new InvalidReadingException("Message lenght Error");
 			} else {
 				return new ParsedState(stringToParse);
-
 			}
 		} else if (recogniser == recogniserDebug) {
 			if (stringToParse.length() != lenDebug) {

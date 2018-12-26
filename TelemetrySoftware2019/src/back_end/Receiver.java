@@ -9,6 +9,8 @@ public class Receiver {
 	/*
 	 * Attributi
 	 */
+	private Parser parser;
+	private Data data;
 	private char[] strRead; // Vengono salvati i dati letti
 	private int strIndex; // Primo elemento libero dell'array
 	private int openBracketIndex; // Indice parentesi aperta, -1 se non trovata
@@ -17,12 +19,13 @@ public class Receiver {
 	private SerialPort comPort;
 	private int baudRate;
 	private String commPort;
-	private Parsed parsedStr;
 
 	/*
 	 * Costruttore
 	 */
 	public Receiver() {
+		parser = new Parser();
+		data = new Data();
 		strRead = new char[2056];
 		strIndex = 0;
 		openBracketIndex = -1;
@@ -98,12 +101,11 @@ public class Receiver {
 		strIndex = 0;
 		openBracketIndex = -1;
 		closeBracketIndex = -1;
-		Parser parserStr = new Parser();
 		try {
-			parsedStr = parserStr.parseString(strToSend);
+			data.update(parser.parseString(strToSend));
 		}
 		catch (InvalidReadingException e){
-			// Qualcosa da mettere?
+			e.log();
 		}
 	}
 

@@ -7,4 +7,8 @@ public class Parsed {
 	public Parsed(String strToParse) {
 		parsedInfo = strToParse.split(";");
 	}
+	
+	public String[] getParsedInfo() {
+		return parsedInfo;
+	}
 }
