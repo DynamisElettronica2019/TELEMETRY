@@ -11,6 +11,7 @@ public class Receiver {
 	 * Attributi
 	 */
 	private Parser parser;
+	private Data data;
 	private char[] strRead; // Vengono salvati i dati letti
 	private int strIndex; // Primo elemento libero dell'array
 	private int openBracketIndex; // Indice parentesi aperta, -1 se non trovata
@@ -24,7 +25,8 @@ public class Receiver {
 	 * Costruttore
 	 */
 	public Receiver() {
-		parser = new Parser();
+		data = new Data();
+		parser = new Parser(data);
 		strRead = new char[2056];
 		strIndex = 0;
 		openBracketIndex = -1;

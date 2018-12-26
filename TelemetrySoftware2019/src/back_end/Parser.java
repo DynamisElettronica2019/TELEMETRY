@@ -17,8 +17,8 @@ public class Parser {
 	/*
 	 * Set class attributes through ConfReader
 	 */
-	public Parser() {
-		data = new Data();
+	public Parser(Data data) {
+		this.data = data;
 		lenData = (int)ConfReader.getPacketLen("channels");
 		recogniserData = ConfReader.getRecogniser("channels");
 		lenState = (int)ConfReader.getPacketLen("states");
