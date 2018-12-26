@@ -2,9 +2,11 @@ package back_end;
 
 import configuration.ConfReader;
 import exceptions.InvalidReadingException;
+import exceptions.InvalidUpdateException;
 
 public class Parser {
 
+	private Data data;
 	private int lenData;
 	private char recogniserData;
 	private int lenState;
@@ -16,6 +18,7 @@ public class Parser {
 	 * Set class attributes through ConfReader
 	 */
 	public Parser() {
+		data = new Data();
 		lenData = (int)ConfReader.getPacketLen("channels");
 		recogniserData = ConfReader.getRecogniser("channels");
 		lenState = (int)ConfReader.getPacketLen("states");
@@ -28,29 +31,28 @@ public class Parser {
 	 * Check input string validity and create corresponding Parsed object. Throw
 	 * exception if the input string is not valid.
 	 */
-	Parsed parseString(String stringToParse) throws InvalidReadingException {
-		char recogniser;
-		recogniser = stringToParse.charAt(0);
-		if (recogniser == recogniserData) {
+	public void parseString(String stringToParse) throws InvalidReadingException, InvalidUpdateException {
+		if (stringToParse.charAt(0) == recogniserData && stringToParse.charAt(1) == ';') {
 			if (stringToParse.length() != lenData) {
 				throw new InvalidReadingException("Message lenght Error");
 			} else {
-				return new ParsedData(stringToParse);
+				data.update(new ParsedData(stringToParse.substring(2)));
 			}
-		} else if (recogniser == recogniserState) {
+		} else if (stringToParse.charAt(0) == recogniserState && stringToParse.charAt(1) == ';') {
 			if (stringToParse.length() != lenState) {
 				throw new InvalidReadingException("Message lenght Error");
 			} else {
-				return new ParsedState(stringToParse);
+				data.update(new ParsedState(stringToParse.substring(2)));
 			}
-		} else if (recogniser == recogniserDebug) {
+		} else if (stringToParse.charAt(0) == recogniserDebug && stringToParse.charAt(1) == ';') {
 			if (stringToParse.length() != lenDebug) {
 				throw new InvalidReadingException("Message lenght Error");
 			} else {
-				return new ParsedDebug(stringToParse);
+				data.update(new ParsedDebug(stringToParse.substring(2)));
 			}
 		} else {
 			throw new InvalidReadingException("First letter reading Error");
 		}
 	}
+	
 }

@@ -1,12 +1,11 @@
 package exceptions;
 
-public class InvalidReadingException extends Exception {
-	private static final long serialVersionUID = 7802809916810716256L;
+public class InvalidReadingException extends MyException {
+	private static final long serialVersionUID = 1L;
 	private static final String type = "[Reading error]";
-	private String msg;
 	
 	public InvalidReadingException(String err) {
-		msg = err;
+		super(err);
 	}
 	
 	public void log() {

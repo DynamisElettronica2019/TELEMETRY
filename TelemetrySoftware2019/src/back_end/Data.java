@@ -1,7 +1,10 @@
 package back_end;
 
+
 import java.time.*;
 import java.util.ArrayList;
+
+import exceptions.InvalidUpdateException;
 
 public class Data {
 	
@@ -20,21 +23,21 @@ public class Data {
 	/*
 	 * Update channels and timestamps adding the new elements
 	 */
-	public void update(ParsedData data) {
+	public void update(ParsedData data) throws InvalidUpdateException {
 		// TODO
 	}
 	
 	/*
 	 * Update states with new values
 	 */
-	public void update(ParsedState data) {
+	public void update(ParsedState data) throws InvalidUpdateException {
 		// TODO
 	}
 	
 	/*
 	 * Update debug with new values
 	 */
-	public void update(ParsedDebug data) {
+	public void update(ParsedDebug data) throws InvalidUpdateException {
 		// TODO
 	}
 	

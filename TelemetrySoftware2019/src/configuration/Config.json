@@ -2,17 +2,17 @@
 	"data":	{
 		"channels":	{
 				"names": ["A","B"],
-				"packetLen": 3,
+				"packetLen": 12,
 				"recogniser": "C"
 				},
 		"states": {
 				"names": ["C"],
-				"packetLen": 2,
+				"packetLen": 12,
 				"recogniser": "S" 
 				},
 		"debug": {
 				"names": ["D","E"],
-				"packetLen": 3,
+				"packetLen": 12,
 				"recogniser": "D"
 				}
 		},
