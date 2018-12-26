@@ -11,11 +11,13 @@ public class ParsedData extends Parsed {
 	 */
 	public ParsedData(String strToParse) {
 		super(strToParse);
+		compute(strToParse);
 	}
 	
 	/*
 	 * Compute complex data and add them to parsedInfo.
-	 * This part is not configurable by configuration file
+	 * This part is not configurable by configuration file.
+	 * Computed channels must be in configuration file channels names
 	 */
 	private void compute(String strToParse) {
 		//TODO

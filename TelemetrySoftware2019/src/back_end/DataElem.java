@@ -2,7 +2,7 @@ package back_end;
 
 public class DataElem {
 	
-	private String name;
+	protected String name;
 	
 	/*
 	 * Create an element with a given name
