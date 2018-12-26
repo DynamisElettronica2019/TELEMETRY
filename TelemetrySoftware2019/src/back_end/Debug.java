@@ -2,35 +2,35 @@ package back_end;
 
 public class Debug extends DataElem {
 	
-	private boolean value;
+	private Double value;
 
 	/*
 	 * Call superclass constructor and initialize value
 	 */
 	public Debug(String name) {
 		super(name);
-		//TODO
+		value = 0.0;
 	}
 	
 	/*
 	 * Set value to val
 	 */
 	public void setValue(Double val){
-		//TODO
+		value = val;
 	}
 
 	/*
 	 * Get state value
 	 */
 	public Double getValue(){
-		//TODO
+		return value;
 	}
 	
 	/*
 	 * Reset state value
 	 */
 	public void reset(){
-		//TODO
+		value = 0.0;
 	}
 
 }

@@ -9,27 +9,27 @@ public class State extends DataElem {
 	 */
 	public State(String name) {
 		super(name);
-		// TODO
+		value = false;
 	}
 	
 	/*
 	 * Set value to val
 	 */
 	public void setValue(boolean val){
-		//TODO
+		value = val;
 	}
 
 	/*
 	 * Get state value
 	 */
 	public boolean getValue(){
-		//TODO
+		return value;
 	}
 	
 	/*
 	 * Reset state value
 	 */
 	public void reset(){
-		//TODO
+		value = false;
 	}
 }

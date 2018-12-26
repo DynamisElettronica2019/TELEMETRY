@@ -8,7 +8,7 @@ public class DataElem {
 	 * Create an element with a given name
 	 */
 	public DataElem(String name) {
-		//TODO
+		this.name = name;
 	}
 
 }
