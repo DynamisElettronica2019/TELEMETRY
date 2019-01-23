@@ -33,6 +33,8 @@ public class Data {
 		ArrayList<String> deNames = ConfReader.getNames("debug");
 		debug = new Debug[deNames.size()];
 		for(int i=0;i<debug.length;i++) debug[i] = new Debug(deNames.get(i));
+		
+		//TODO CREARE QUI GLI ARRAY DI DCUCOMMANDS E DCUERRORS LEGGENDO DA CONF
 	}
 	
 	/*

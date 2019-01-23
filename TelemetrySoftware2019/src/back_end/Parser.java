@@ -27,8 +27,8 @@ public class Parser {
 		recogniserState = ConfReader.getRecogniser("states");
 		lenDebug = (int)ConfReader.getPacketLen("debug");
 		recogniserDebug = ConfReader.getRecogniser("debug");
-		
-		//TODO SETTARE QUI I NUOVI PARAMETRI DA CONF READER
+		recogniserDcuErr = ConfReader.getRecogniser("error");
+		recogniserAckComm = ConfReader.getRecogniser("error");
 	}
 
 	/*

@@ -67,14 +67,16 @@ public class ConfReader {
 	
 	/*
 	 * Read and return the len of the packets of type type
-	 * type -> "channels","states","debug"
+	 * type -> "channels","states","debug","error","command"
 	 * On reading error log and return 0
 	 */
 	public static char getRecogniser(String type){
 		try {
 			JSONObject obj = readJSONObject();
-			JSONObject data = (JSONObject)obj.get("data");
-			JSONObject ty = (JSONObject)data.get(type);
+			if(type.equals("channels") || type.equals("states") || type.equals("debug")){
+				obj = (JSONObject)obj.get("data");
+			}
+			JSONObject ty = (JSONObject)obj.get(type);
 			return ((String)ty.get("recogniser")).charAt(0);
 		} catch (Exception e) {
 			System.err.println("Config file reading error. Return "+type.charAt(0)+" for "+type+" recogniser");
@@ -109,6 +111,79 @@ public class ConfReader {
 		} catch (Exception e) {
 			System.err.println("Config file reading error. Return 115200 as receiver baud rate");
 			return "COM5";
+		}
+	}
+	
+	/*
+	 * Read and return command board
+	 * On reading error log and return "D"
+	 */
+	public static char getCommandBoard(){
+		try {
+			JSONObject obj = readJSONObject();
+			JSONObject rec = (JSONObject)obj.get("command");
+			return ((String)rec.get("board")).charAt(0);
+		} catch (Exception e) {
+			System.err.println("Config file reading error. Return D as default command board");
+			return 'D';
+		}
+	}
+	
+	/*
+	 * Read and return error names for type "error" or "command"
+	 * On reading error log and return an empty ArrayList
+	 */
+	public static ArrayList<String> getErrorNames(String type){
+		try {
+			JSONObject obj = readJSONObject();
+			JSONObject ty = (JSONObject)obj.get(type);
+			JSONArray list = (JSONArray)ty.get("list");
+			ArrayList<String> myList = new ArrayList<String>();
+			for(int i=0;i<list.size();i++) myList.add((String)((JSONObject)list.get(i)).get("name"));
+			return myList;
+		} catch (Exception e) {
+			System.err.println("Config file reading error. Return empty ArrayList for "+type+" names");
+			return new ArrayList<>();
+		}
+	}
+	
+	/*
+	 * Read and return error codes for type "error" or "command"
+	 * On reading error log and return an empty ArrayList
+	 */
+	public static ArrayList<Character> getErrorCode(String type){
+		try {
+			JSONObject obj = readJSONObject();
+			JSONObject ty = (JSONObject)obj.get(type);
+			JSONArray list = (JSONArray)ty.get("list");
+			ArrayList<Character> myList = new ArrayList<Character>();
+			for(int i=0;i<list.size();i++) myList.add((Character)((String)((JSONObject)list.get(i)).get("code")).charAt(0));
+			return myList;
+		} catch (Exception e) {
+			System.err.println("Config file reading error. Return empty ArrayList for "+type+" codes");
+			return new ArrayList<>();
+		}
+	}
+	
+	/*
+	 * Read and return command params boolean (allowed vs not allowed)
+	 * On reading error log and return an empty ArrayList
+	 */
+	public static ArrayList<Boolean> getCommandParams(){
+		try {
+			JSONObject obj = readJSONObject();
+			JSONObject ty = (JSONObject)obj.get("command");
+			JSONArray list = (JSONArray)ty.get("list");
+			ArrayList<Boolean> myList = new ArrayList<Boolean>();
+			for(int i=0;i<list.size();i++) {
+				long tempLong = (long)((JSONObject)list.get(i)).get("params");
+				if(tempLong == 1) myList.add(true);
+				else myList.add(false); //default return false
+			}
+			return myList;
+		} catch (Exception e) {
+			System.err.println("Config file reading error. Return empty ArrayList for commands parameters");
+			return new ArrayList<>();
 		}
 	}
 

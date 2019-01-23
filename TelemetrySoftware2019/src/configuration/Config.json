@@ -31,12 +31,12 @@
 		},
 	"command": {
 		"board": "D",
-		"ackRecogniser": "A",
+		"recogniser": "A",
 		"list": [
 				{
 				"name": "START_TELEMETRY",
 				"code": "M",
-				"params": 0
+				"params": 1
 				},
 				{
 				"name": "STOP_TELEMETRY",

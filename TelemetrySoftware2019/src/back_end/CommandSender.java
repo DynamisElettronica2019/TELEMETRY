@@ -1,5 +1,7 @@
 package back_end;
 
+import configuration.ConfReader;
+
 public class CommandSender {
 	
 	private Receiver receiver;
@@ -10,7 +12,9 @@ public class CommandSender {
 	 * Create a new command sender associated with a specific 'receiver' and a specific 'data'
 	 */
 	public CommandSender(Receiver receiver, Data data) {
-		// TODO
+		this.receiver=receiver;
+		this.data=data;
+		boardChar=ConfReader.getCommandBoard();
 	}
 	
 	/*
