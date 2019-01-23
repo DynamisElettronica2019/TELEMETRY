@@ -4,6 +4,7 @@ import java.time.*;
 import java.util.ArrayList;
 
 import configuration.ConfReader;
+import exceptions.InvalidCodeException;
 import exceptions.InvalidUpdateException;
 
 public class Data {
@@ -12,6 +13,8 @@ public class Data {
 	private Channel[] channels;
 	private State[] states;
 	private Debug[] debug;
+	private Command[] dcuCommands;
+	private Error[] dcuErrors;
 	
 	/*
 	 * Create channels,states,debug through ConfReader and initialize timeStamps
@@ -95,6 +98,42 @@ public class Data {
 		for(Channel c : channels) c.reset();
 		for(State s : states) s.reset();
 		for(Debug d : debug) d.reset();
+	}
+	
+	/*
+	 * Verify if exist a Command with name 'name' and that accept 'params', return the corresponding code or throws an Exception.
+	 * No control about parameters syntax is performed
+	 */
+	public char authorizedNameAndParams(String name, String params) throws InvalidCodeException {
+		//TODO
+	}
+	
+	/*
+	 * Start timer for command with code 'code' and set the command sending. Throws an exception if doesn't exist
+	 */
+	public void startTimer(char code) throws InvalidCodeException {
+		//TODO
+	}
+	
+	/*
+	 * Stop timer for command with code 'code'. Throws an exception if doesn't exist
+	 */
+	public void delTimer(char code) throws InvalidCodeException {
+		//TODO
+	}
+	
+	/*
+	 * Set a new occurence for command error (ack not arrived in time) with code 'code'. Throws an exception if doesn't exist
+	 */
+	public void setCommandError(char code) throws InvalidCodeException {
+		//TODO
+	}
+	
+	/*
+	 * Set a new occurence for dcu error with code 'code'. Throws an exception if doesn't exist
+	 */
+	public void setDcuError(char code) throws InvalidCodeException {
+		//TODO
 	}
 	
 }

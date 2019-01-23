@@ -12,6 +12,7 @@ public class Receiver {
 	 */
 	private Parser parser;
 	private Data data;
+	private CommandSender commandSender;
 	private char[] strRead; // Vengono salvati i dati letti
 	private int strIndex; // Primo elemento libero dell'array
 	private int openBracketIndex; // Indice parentesi aperta, -1 se non trovata
@@ -32,6 +33,13 @@ public class Receiver {
 		openBracketIndex = -1;
 		baudRate = (int)ConfReader.getRecBaud();
 		commPort = ConfReader.getRecPort();
+	}
+	
+	/*
+	 * Send string 'toSend' through comPort
+	 */
+	public void send(String toSend) {
+		//TODO
 	}
 
 	/*
@@ -77,6 +85,7 @@ public class Receiver {
 			}
 		}
 	}
+
 	
 	/*
 	 * Su un nuovo thread viene aperta la porta seriale e messa in ascolto

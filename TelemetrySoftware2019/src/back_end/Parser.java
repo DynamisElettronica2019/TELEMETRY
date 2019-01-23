@@ -13,6 +13,8 @@ public class Parser {
 	private char recogniserState;
 	private int lenDebug;
 	private char recogniserDebug;
+	private char recogniserDcuErr;
+	private char recogniserAckComm;
 
 	/*
 	 * Set class attributes through ConfReader
@@ -25,6 +27,8 @@ public class Parser {
 		recogniserState = ConfReader.getRecogniser("states");
 		lenDebug = (int)ConfReader.getPacketLen("debug");
 		recogniserDebug = ConfReader.getRecogniser("debug");
+		
+		//TODO SETTARE QUI I NUOVI PARAMETRI DA CONF READER
 	}
 
 	/*
@@ -50,9 +54,13 @@ public class Parser {
 			} else {
 				data.update(new ParsedDebug(stringToParse.substring(2)));
 			}
+			
+		//TODO AGGIUNGERE QUI I NUOVI CASI PER LA GESTIONE DI COMANDI ED ERRORI
+			
 		} else {
 			throw new InvalidReadingException("First letter reading Error");
 		}
+		
 	}
 	
 }
