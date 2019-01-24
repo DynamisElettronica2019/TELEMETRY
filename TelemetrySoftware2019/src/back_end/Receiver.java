@@ -21,6 +21,8 @@ public class Receiver {
 	private SerialPort comPort;
 	private int baudRate;
 	private String commPort;
+	private char pktStart;
+	private char pktEnd;
 
 	/*
 	 * Costruttore
@@ -33,6 +35,8 @@ public class Receiver {
 		openBracketIndex = -1;
 		baudRate = (int)ConfReader.getRecBaud();
 		commPort = ConfReader.getRecPort();
+		pktStart = ConfReader.getPktStart();
+		pktEnd = ConfReader.getPktEnd();
 	}
 	
 	/*
@@ -63,10 +67,10 @@ public class Receiver {
 				byte[] newData = event.getReceivedData();
 				for (int i = 0; i < newData.length; ++i) {
 					strRead[strIndex] = (char) (newData[i]); // Salva i caratteri letti nell'array
-					if (strRead[strIndex] == '[') { // Salva l'indice della parentesi aperta
+					if (strRead[strIndex] == pktStart) { // Salva l'indice della parentesi aperta
 						openBracketIndex = strIndex;
 					} else if (openBracketIndex != -1) { // Cerco una parentesi chiusa solo se ne ho trovata una aperta
-						if (strRead[strIndex] == ']') {
+						if (strRead[strIndex] == pktEnd) {
 							closeBracketIndex = strIndex;
 							createString(); // Chiamata alla funziona che crea la stringa da inviare
 						}

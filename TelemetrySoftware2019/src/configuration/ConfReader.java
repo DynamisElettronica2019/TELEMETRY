@@ -186,5 +186,49 @@ public class ConfReader {
 			return new ArrayList<>();
 		}
 	}
-
+	
+	/*
+	 * Read and return packet start char
+	 * On reading error log and return [
+	 */
+	public static char getPktStart(){
+		try {
+			JSONObject obj = readJSONObject();
+			JSONObject rec = (JSONObject)obj.get("receiver");
+			return ((String)rec.get("pktStart")).charAt(0);
+		} catch (Exception e) {
+			System.err.println("Config file reading error. Return [ as packet start char");
+			return '[';
+		}
+	}
+	
+	/*
+	 * Read and return packet end char
+	 * On reading error log and return ]
+	 */
+	public static char getPktEnd(){
+		try {
+			JSONObject obj = readJSONObject();
+			JSONObject rec = (JSONObject)obj.get("receiver");
+			return ((String)rec.get("pktEnd")).charAt(0);
+		} catch (Exception e) {
+			System.err.println("Config file reading error. Return ] as packet end char");
+			return ']';
+		}
+	}
+	
+	/*
+	 * Read and return timer lenght in ms
+	 * On reading error log and return 3000
+	 */
+	public static int getTimerLen(){
+		try {
+			JSONObject obj = readJSONObject();
+			JSONObject rec = (JSONObject)obj.get("command");
+			return (int)rec.get("timer");
+		} catch (Exception e) {
+			System.err.println("Config file reading error. Return 3000 as default lenght");
+			return 3000;
+		}
+	}
 }
