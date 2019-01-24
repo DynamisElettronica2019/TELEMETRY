@@ -1,11 +1,15 @@
 package back_end;
 
 import java.util.Timer;
+import java.util.TimerTask;
+
+import configuration.ConfReader;
 
 public class Command extends Error {
 	
 	private boolean sending;
 	private Timer timer;
+	private long timerLen;
 	private Boolean params;
 
 	/*
@@ -13,21 +17,32 @@ public class Command extends Error {
 	 */
 	public Command(String name, char code, boolean params) {
 		super(name, code);
-		//TODO
+		this.params = params;
+		timer = new Timer();
+		timerLen=ConfReader.getTimerLen();
 	}
 	
 	/*
 	 * Verify if the command is on sending state
 	 */
 	public boolean isSending(){
-		//TODO
+		return sending;
 	}
 	
 	/*
-	 * Startn timer and set this command to sending
+	 * Start timer and set this command to sending
 	 */
 	public void startSending(){
-		//TODO
+		sending = true;
+		timer.schedule(new CommandTimerTask(this), timerLen);
+	}
+	
+	/*
+	 * Stop the timer and set sending to false
+	 */
+	public void stopTimer(){
+		timer.cancel();
+		sending = false;
 	}
 
 }

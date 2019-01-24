@@ -13,14 +13,18 @@ public class Error {
 	 * Create an error with a given name and a given identificator
 	 */
 	public Error(String name, char code) {
-		//TODO
+		this.name = name;
+		this.code = code;
+		numbOcc = 0;
+		lastOcc = null;
 	}
 	
 	/*
 	 * Set a new occurence for this error updating lastOcc to now and incrementing numbOcc
 	 */
 	public void setOcc() {
-		//TODO
+		numbOcc++;
+		lastOcc = LocalDateTime.now();
 	}
 
 }

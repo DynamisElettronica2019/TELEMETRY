@@ -125,13 +125,6 @@ public class Data {
 	}
 	
 	/*
-	 * Set a new occurence for command error (ack not arrived in time) with code 'code'. Throws an exception if doesn't exist
-	 */
-	public void setCommandError(char code) throws InvalidCodeException {
-		//TODO
-	}
-	
-	/*
 	 * Set a new occurence for dcu error with code 'code'. Throws an exception if doesn't exist
 	 */
 	public void setDcuError(char code) throws InvalidCodeException {
