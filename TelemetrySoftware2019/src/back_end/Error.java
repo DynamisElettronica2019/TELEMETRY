@@ -27,4 +27,19 @@ public class Error {
 		lastOcc = LocalDateTime.now();
 	}
 
+	/*
+	 * Reset error value
+	 */
+	public void reset() {
+		lastOcc = null;
+		numbOcc = 0;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public char getCode() {
+		return code;
+	}
 }

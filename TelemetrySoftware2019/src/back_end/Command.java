@@ -44,5 +44,9 @@ public class Command extends Error {
 		timer.cancel();
 		sending = false;
 	}
+	
+	public boolean haveParams(){
+		return params;
+	}
 
 }
