@@ -48,5 +48,9 @@ public class Command extends Error {
 	public boolean haveParams(){
 		return params;
 	}
+	
+	public void setSending(boolean sending) {
+		this.sending = sending;
+	}
 
 }
