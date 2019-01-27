@@ -44,6 +44,7 @@ public class Receiver {
 	 */
 	public void send(String toSend) {
 		//TODO
+		//Aggiungere le quadre e mandare pacchetto
 	}
 
 	/*

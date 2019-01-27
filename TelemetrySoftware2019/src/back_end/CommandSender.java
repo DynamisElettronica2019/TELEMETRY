@@ -1,6 +1,7 @@
 package back_end;
 
 import configuration.ConfReader;
+import exceptions.InvalidCodeException;
 
 public class CommandSender {
 	
@@ -19,10 +20,16 @@ public class CommandSender {
 	
 	/*
 	 * Directly called from view. Check if 'comm' is a legal command, extract the correspondent code and check if 'params' are legal fot this command.
-	 * If legal create a string accepted from DCU and send it throught receiver. Start also the timer for 'comm'
+	 * If legal create a string accepted from DCU and send it through receiver. Start also the timer for 'comm'
 	 */
 	public void sendCommand(String comm,String params) {
-		//TODO
+		try {
+			char myCode = data.authorizedNameAndParams(comm, params);
+			data.startTimer(myCode);
+			receiver.send(""+boardChar+myCode);
+		} catch (InvalidCodeException e) {
+			e.log();
+		}
 	}
 
 }
