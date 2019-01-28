@@ -30,6 +30,7 @@ public class Receiver {
 	public Receiver() {
 		data = new Data();
 		parser = new Parser(data);
+		commandSender=new CommandSender(this, data);
 		strRead = new char[2056];
 		strIndex = 0;
 		openBracketIndex = -1;
@@ -40,11 +41,11 @@ public class Receiver {
 	}
 	
 	/*
-	 * Send string 'toSend' through comPort
+	 * Send string 'toSend' through comPort adding pktStart and pktEnd
 	 */
 	public void send(String toSend) {
-		//TODO
-		//Aggiungere le quadre e mandare pacchetto
+		toSend = pktStart+toSend+pktEnd;
+		comPort.writeBytes(toSend.getBytes(), toSend.getBytes().length);
 	}
 
 	/*
