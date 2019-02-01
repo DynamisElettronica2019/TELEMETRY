@@ -1,7 +1,10 @@
 package back_end;
 
+import java.util.ArrayList;
+
 import configuration.ConfReader;
 import exceptions.InvalidCodeException;
+import front_end.View;
 
 public class CommandSender {
 	
@@ -10,12 +13,15 @@ public class CommandSender {
 	private char boardChar;
 	
 	/*
-	 * Create a new command sender associated with a specific 'receiver' and a specific 'data'
+	 * Create a new command sender associated with a specific 'receiver' and a specific 'data'. Set the command sender as command sender of all views
 	 */
-	public CommandSender(Receiver receiver, Data data) {
+	public CommandSender(Receiver receiver, Data data, ArrayList<View> myViews) {
 		this.receiver=receiver;
 		this.data=data;
 		boardChar=ConfReader.getCommandBoard();
+		for(View v: myViews){
+			v.setCommandSender(this);
+		}
 	}
 	
 	/*

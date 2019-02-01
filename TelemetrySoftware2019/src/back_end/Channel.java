@@ -2,6 +2,8 @@ package back_end;
 
 import java.util.ArrayList;
 
+import front_end.View;
+
 public class Channel extends DataElem {
 
 	private ArrayList<Double> serie;
@@ -9,9 +11,10 @@ public class Channel extends DataElem {
 	/*
 	 * Call superclass constructor and initialize serie
 	 */
-	public Channel(String name) {
-		super(name);
+	public Channel(String name, ArrayList<View> myViews) {
+		super(name, myViews);
 		serie = new ArrayList<>();
+		for(View v: myViews) this.addObserver(v.getChObs());
 	}
 	
 	/*
@@ -19,6 +22,9 @@ public class Channel extends DataElem {
 	 */
 	public void addElem(Double elem) {
 		serie.add(elem);
+		
+		setChanged();
+		notifyObservers();
 	}
 	
 	/*

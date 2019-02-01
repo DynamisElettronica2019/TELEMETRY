@@ -1,10 +1,14 @@
 package back_end;
 
+import java.util.ArrayList;
+
 import com.fazecast.jSerialComm.*;
 
 import configuration.ConfReader;
 import exceptions.InvalidReadingException;
 import exceptions.InvalidUpdateException;
+import front_end.View;
+import front_end.DebugView;
 
 public class Receiver {
 	/*
@@ -28,9 +32,13 @@ public class Receiver {
 	 * Costruttore
 	 */
 	public Receiver() {
-		data = new Data();
+	
+		ArrayList<View> myViews = new ArrayList<>();
+		myViews.add(new DebugView());
+		
+		data = new Data(myViews);
 		parser = new Parser(data);
-		commandSender=new CommandSender(this, data);
+		commandSender=new CommandSender(this, data, myViews);
 		strRead = new char[2056];
 		strIndex = 0;
 		openBracketIndex = -1;
@@ -128,6 +136,7 @@ public class Receiver {
 	 * Main
 	 */
 	public static void main(String[] args) {
+		
 		Receiver rec = new Receiver();
 		Thread threadLettura = new Thread(new Runnable() {
 			@Override

@@ -1,5 +1,9 @@
 package back_end;
 
+import java.util.ArrayList;
+
+import front_end.View;
+
 public class Debug extends DataElem {
 	
 	private Double value;
@@ -7,16 +11,22 @@ public class Debug extends DataElem {
 	/*
 	 * Call superclass constructor and initialize value
 	 */
-	public Debug(String name) {
-		super(name);
+	public Debug(String name, ArrayList<View> myViews) {
+		super(name, myViews);
 		value = 0.0;
+		for(View v: myViews) this.addObserver(v.getDeObs());
 	}
 	
 	/*
 	 * Set value to val
 	 */
 	public void setValue(Double val){
-		value = val;
+		if(value!=val){
+			value = val;
+			
+			setChanged();
+			notifyObservers();
+		}
 	}
 
 	/*

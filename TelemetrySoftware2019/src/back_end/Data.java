@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import configuration.ConfReader;
 import exceptions.InvalidCodeException;
 import exceptions.InvalidUpdateException;
+import front_end.View;
 
 public class Data {
 	
@@ -19,31 +20,31 @@ public class Data {
 	/*
 	 * Create channels,states,debug through ConfReader and initialize timeStamps
 	 */
-	public Data() {
+	public Data(ArrayList<View> myViews) {
 		timestamps = new ArrayList<>();
 		
 		ArrayList<String> chNames = ConfReader.getNames("channels");
 		channels = new Channel[chNames.size()];
-		for(int i=0;i<channels.length;i++) channels[i] = new Channel(chNames.get(i));
+		for(int i=0;i<channels.length;i++) channels[i] = new Channel(chNames.get(i), myViews);
 		
 		ArrayList<String> stNames = ConfReader.getNames("states");
 		states = new State[stNames.size()];
-		for(int i=0;i<states.length;i++) states[i] = new State(stNames.get(i));
+		for(int i=0;i<states.length;i++) states[i] = new State(stNames.get(i), myViews);
 		
 		ArrayList<String> deNames = ConfReader.getNames("debug");
 		debug = new Debug[deNames.size()];
-		for(int i=0;i<debug.length;i++) debug[i] = new Debug(deNames.get(i));
+		for(int i=0;i<debug.length;i++) debug[i] = new Debug(deNames.get(i), myViews);
 		
 		ArrayList<String> erNames = ConfReader.getErrorNames("error");
 		ArrayList<Character> erCodes = ConfReader.getErrorCode("error");
 		dcuErrors = new Error[erNames.size()];
-		for(int i=0;i<dcuErrors.length;i++) dcuErrors[i] = new Error(erNames.get(i), erCodes.get(i));
+		for(int i=0;i<dcuErrors.length;i++) dcuErrors[i] = new Error(erNames.get(i), erCodes.get(i), myViews);
 		
 		ArrayList<String> coNames = ConfReader.getErrorNames("command");
 		ArrayList<Character> coCodes = ConfReader.getErrorCode("command");
 		ArrayList<Boolean> coParams = ConfReader.getCommandParams();
 		dcuCommands = new Command[coNames.size()];
-		for(int i=0;i<dcuCommands.length;i++) dcuCommands[i] = new Command(coNames.get(i), coCodes.get(i), coParams.get(i));
+		for(int i=0;i<dcuCommands.length;i++) dcuCommands[i] = new Command(coNames.get(i), coCodes.get(i), coParams.get(i), myViews);
 	}
 	
 	/*
