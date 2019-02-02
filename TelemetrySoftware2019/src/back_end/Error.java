@@ -50,4 +50,8 @@ public class Error extends Observable{
 	public char getCode() {
 		return code;
 	}
+	
+	public LocalDateTime getLastOcc() {
+		return lastOcc;
+	}
 }

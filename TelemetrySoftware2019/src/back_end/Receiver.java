@@ -131,6 +131,11 @@ public class Receiver {
 			e.log();
 		}
 	}
+	
+	///////only for TEST
+	public Parser getParser() {
+		return parser;
+	}
 
 	/*
 	 * Main
@@ -145,5 +150,18 @@ public class Receiver {
 			}
 		});
 		threadLettura.start();
+		
+		/////////TEST
+		try {
+			rec.getParser().parseString("ES");
+			//rec.getParser().parseString("AM");
+			rec.getParser().parseString("S;1");
+			rec.getParser().parseString("S;0");
+			rec.getParser().parseString("D;13.45;3.77");
+			rec.getParser().parseString("C;13.45;3.77");
+		} catch (InvalidReadingException | InvalidUpdateException e) {
+			e.log();
+		}
+		///////////
 	}
 }

@@ -30,7 +30,7 @@ public class ParsedData extends Parsed {
 	public ArrayList<Double> convert() throws InvalidUpdateException{
 		try {
 			ArrayList<Double> temp = new ArrayList<>();
-			for(int i=1;i<parsedInfo.length;i++) temp.add(Double.parseDouble(parsedInfo[i]));
+			for(int i=0;i<parsedInfo.length;i++) temp.add(Double.parseDouble(parsedInfo[i]));
 			return temp;
 		} catch (NumberFormatException e) {
 			throw new InvalidUpdateException("Channels -> Cannot convert received strings to double");

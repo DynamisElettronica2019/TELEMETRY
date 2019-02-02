@@ -15,5 +15,9 @@ public class DataElem extends Observable{
 	public DataElem(String name, ArrayList<View> myViews) {
 		this.name = name;
 	}
+	
+	public String getName() {
+		return name;
+	}
 
 }

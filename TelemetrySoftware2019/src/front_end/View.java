@@ -16,13 +16,16 @@ public abstract class View {
 	private ErrorObserver erObs;
 	private CommandObserver coObs;
 	
-	public void setCommandSender(CommandSender commandSender) {
-		this.commandSender = commandSender;
+	public View() {
 		chObs = new ChannelObserver(this);
 		stObs = new StateObserver(this);
 		deObs = new DebugObserver(this);
 		erObs = new ErrorObserver(this);
 		coObs = new CommandObserver(this);
+	}
+	
+	public void setCommandSender(CommandSender commandSender) {
+		this.commandSender = commandSender;
 	}
 	
 	public ChannelObserver getChObs() {

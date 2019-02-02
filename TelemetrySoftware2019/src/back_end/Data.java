@@ -25,7 +25,7 @@ public class Data {
 		
 		ArrayList<String> chNames = ConfReader.getNames("channels");
 		channels = new Channel[chNames.size()];
-		for(int i=0;i<channels.length;i++) channels[i] = new Channel(chNames.get(i), myViews);
+		for(int i=0;i<channels.length;i++) channels[i] = new Channel(chNames.get(i), this, myViews);
 		
 		ArrayList<String> stNames = ConfReader.getNames("states");
 		states = new State[stNames.size()];
@@ -52,8 +52,8 @@ public class Data {
 	 */
 	public void update(ParsedData data) throws InvalidUpdateException {
 		ArrayList<Double> dbList = data.convert();
-		for(int i=0;i<channels.length;i++) channels[i].addElem(dbList.get(i));
 		timestamps.add(LocalDateTime.now());
+		for(int i=0;i<channels.length;i++) channels[i].addElem(dbList.get(i));
 	}
 	
 	/*

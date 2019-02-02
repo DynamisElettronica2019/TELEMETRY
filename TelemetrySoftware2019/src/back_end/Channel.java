@@ -1,5 +1,6 @@
 package back_end;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import front_end.View;
@@ -7,13 +8,15 @@ import front_end.View;
 public class Channel extends DataElem {
 
 	private ArrayList<Double> serie;
+	private Data data;
 	
 	/*
 	 * Call superclass constructor and initialize serie
 	 */
-	public Channel(String name, ArrayList<View> myViews) {
+	public Channel(String name, Data data, ArrayList<View> myViews) {
 		super(name, myViews);
 		serie = new ArrayList<>();
+		this.data=data;
 		for(View v: myViews) this.addObserver(v.getChObs());
 	}
 	
@@ -34,6 +37,13 @@ public class Channel extends DataElem {
 		ArrayList<Double> temp = new ArrayList<>();
 		for(int i=serie.size()-n;i<serie.size();i++) temp.add(serie.get(i));
 		return temp;
+	}
+	
+	/*
+	 * Get n last serie timestamps
+	 */
+	public ArrayList<LocalDateTime> getLastTs(int n){
+		return data.getLastTs(n);
 	}
 
 	/*

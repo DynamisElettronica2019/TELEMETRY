@@ -19,7 +19,7 @@ public class ParsedState extends Parsed {
 	 */
 	public ArrayList<Boolean> convert() throws InvalidUpdateException{
 		ArrayList<Boolean> temp = new ArrayList<>();
-		for(int i=1;i<parsedInfo.length;i++){
+		for(int i=0;i<parsedInfo.length;i++){
 			if(parsedInfo[i].equals("0")||parsedInfo[i].equals("1")) temp.add("1".equals(parsedInfo[i]));
 			else throw new InvalidUpdateException("States -> Cannot convert received strings to boolean");
 		}
