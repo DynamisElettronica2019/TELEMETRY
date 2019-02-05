@@ -67,6 +67,9 @@ public class Command extends Observable{
 	public void notAcked() {
 		sending=false;
 		commandError.setOcc();
+		
+		setChanged();
+		notifyObservers();
 	}
 	
 	/*
