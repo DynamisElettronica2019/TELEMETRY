@@ -37,7 +37,7 @@
 				{
 				"name": "START_TELEMETRY",
 				"code": "M",
-				"params": 1
+				"params": 0
 				},
 				{
 				"name": "STOP_TELEMETRY",

@@ -9,7 +9,7 @@ import back_end.State;
 
 public abstract class View {
 	
-	private CommandSender commandSender;
+	protected CommandSender commandSender;
 	private ChannelObserver chObs;
 	private StateObserver stObs;
 	private DebugObserver deObs;

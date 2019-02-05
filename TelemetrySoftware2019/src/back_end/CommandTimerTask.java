@@ -12,8 +12,7 @@ public class CommandTimerTask extends TimerTask {
 	
 	@Override
 	public void run() {
-		command.setOcc();
-		command.setSending(false);
+		command.notAcked();
 	}
 
 }

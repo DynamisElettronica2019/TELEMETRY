@@ -73,16 +73,16 @@ public class Data {
 	}
 	
 	/*
-	 * Return last n timestamps
+	 * Return last n (or less) timestamps
 	 */
 	public ArrayList<LocalDateTime> getLastTs(int n){
 		ArrayList<LocalDateTime> temp = new ArrayList<>();
-		for(int i=timestamps.size()-n;i<timestamps.size();i++) temp.add(timestamps.get(i));
+		for(int i=Math.max(timestamps.size()-n,0);i<timestamps.size();i++) temp.add(timestamps.get(i));
 		return temp;
 	}
 	
 	/*
-	 * Return last n elements of channel ch
+	 * Return last n (or less) elements of channel ch
 	 */
 	public ArrayList<Double> getLastElemsChannel(int ch,int n){
 		return channels[ch].getLastElems(n);

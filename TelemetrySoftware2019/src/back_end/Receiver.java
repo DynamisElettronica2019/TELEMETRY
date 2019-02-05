@@ -8,7 +8,7 @@ import configuration.ConfReader;
 import exceptions.InvalidReadingException;
 import exceptions.InvalidUpdateException;
 import front_end.View;
-import front_end.DebugView;
+import front_end.CommandLineView;
 
 public class Receiver {
 	/*
@@ -34,7 +34,7 @@ public class Receiver {
 	public Receiver() {
 	
 		ArrayList<View> myViews = new ArrayList<>();
-		myViews.add(new DebugView());
+		myViews.add(new CommandLineView());
 		
 		data = new Data(myViews);
 		parser = new Parser(data);
@@ -53,7 +53,7 @@ public class Receiver {
 	 */
 	public void send(String toSend) {
 		toSend = pktStart+toSend+pktEnd;
-		comPort.writeBytes(toSend.getBytes(), toSend.getBytes().length);
+		//comPort.writeBytes(toSend.getBytes(), toSend.getBytes().length);
 	}
 
 	/*
@@ -136,6 +136,10 @@ public class Receiver {
 	public Parser getParser() {
 		return parser;
 	}
+	public CommandSender getCommandSender() {
+		return commandSender;
+	}
+	//N.B. togliere commento riga 56 alla finde dei test
 
 	/*
 	 * Main
@@ -154,11 +158,12 @@ public class Receiver {
 		/////////TEST
 		try {
 			rec.getParser().parseString("ES");
-			//rec.getParser().parseString("AM");
+			rec.getParser().parseString("AM");
 			rec.getParser().parseString("S;1");
 			rec.getParser().parseString("S;0");
 			rec.getParser().parseString("D;13.45;3.77");
 			rec.getParser().parseString("C;13.45;3.77");
+			rec.getParser().parseString("C;13.44;3.90");
 		} catch (InvalidReadingException | InvalidUpdateException e) {
 			e.log();
 		}

@@ -31,11 +31,11 @@ public class Channel extends DataElem {
 	}
 	
 	/*
-	 * Get n last serie elements
+	 * Get n (or less) last serie elements
 	 */
 	public ArrayList<Double> getLastElems(int n){
 		ArrayList<Double> temp = new ArrayList<>();
-		for(int i=serie.size()-n;i<serie.size();i++) temp.add(serie.get(i));
+		for(int i=Math.max(serie.size()-n,0);i<serie.size();i++) temp.add(serie.get(i));
 		return temp;
 	}
 	
