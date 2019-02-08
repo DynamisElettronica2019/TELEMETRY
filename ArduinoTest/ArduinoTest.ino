@@ -8,8 +8,8 @@
 Timer t;
 bool received, started;
 int state = 2;
-int dataCount = 1;
-int debugCount = 1;
+int dataCount = '1';
+int debugCount = '1';
 int secondDebug = 0;
 int randomState = 0;
 int pos = 0;
@@ -81,8 +81,8 @@ void loop() {
 void SendData()
 {
   Serial.write(dataToSend);
-  if(dataCount == 9) {
-    dataCount = 0;
+  if(dataCount == '9') {
+    dataCount = '0';
   }
   else {
     dataToSend[2] = dataCount;
@@ -179,32 +179,32 @@ void SendData()
 void SendDebug()
 {
   Serial.write(debugToSend);
-  if((debugCount == 9) && (secondDebug == 0)) {
+  if((debugCount == '9') && (secondDebug == '0')) {
     secondDebug = 1;
-    debugCount = 0;
+    debugCount = '0';
   }
   else if ((debugCount == 9) && (secondDebug == 1)) {
-    debugToSend[4-secondDebug] = 0;
-    debugToSend[9-secondDebug] = 0;
-    debugToSend[13-secondDebug] = 0;
-    debugToSend[18-secondDebug] = 0;
-    debugToSend[22-secondDebug] = 0;
-    debugToSend[27-secondDebug] = 0;
-    debugToSend[31-secondDebug] = 0;
-    debugToSend[36-secondDebug] = 0;
-    debugToSend[40-secondDebug] = 0;
-    debugToSend[44-secondDebug] = 0;
-    debugToSend[49-secondDebug] = 0;
-    debugToSend[54-secondDebug] = 0;
-    debugToSend[58-secondDebug] = 0;
-    debugToSend[64-secondDebug] = 0;
-    debugToSend[70-secondDebug] = 0;
-    debugToSend[76-secondDebug] = 0;
-    debugToSend[82-secondDebug] = 0;
-    debugToSend[88-secondDebug] = 0;
-    debugToSend[95-secondDebug] = 0;
+    debugToSend[4-secondDebug] = '0';
+    debugToSend[9-secondDebug] = '0';
+    debugToSend[13-secondDebug] = '0';
+    debugToSend[18-secondDebug] = '0';
+    debugToSend[22-secondDebug] = '0';
+    debugToSend[27-secondDebug] = '0';
+    debugToSend[31-secondDebug] = '0';
+    debugToSend[36-secondDebug] = '0';
+    debugToSend[40-secondDebug] = '0';
+    debugToSend[44-secondDebug] = '0';
+    debugToSend[49-secondDebug] = '0';
+    debugToSend[54-secondDebug] = '0';
+    debugToSend[58-secondDebug] = '0';
+    debugToSend[64-secondDebug] = '0';
+    debugToSend[70-secondDebug] = '0';
+    debugToSend[76-secondDebug] = '0';
+    debugToSend[82-secondDebug] = '0';
+    debugToSend[88-secondDebug] = '0';
+    debugToSend[95-secondDebug] = '0';
     secondDebug = 0;
-    debugCount = 1;
+    debugCount = '1';
   }
   else {
     debugToSend[4-secondDebug] = debugCount;
@@ -233,11 +233,11 @@ void SendDebug()
 void SendState()
 {
   Serial.write(stateToSend);
-  if (stateToSend[state] == 0) {
-    stateToSend[state] = 1;
+  if (stateToSend[state] == '0') {
+    stateToSend[state] = '1';
   }
   else {
-    stateToSend[state] = 0;
+    stateToSend[state] = '0';
   }
   if (state == (STATE_LEN - 1)) {
     state = 2;
