@@ -8,11 +8,12 @@
 Timer t;
 bool received, started;
 int state = 2;
+int dataCount = 1;
 int debugCount = 1;
 int secondDebug = 0;
 int randomState = 0;
 int pos = 0;
-char dataToSend[] = "A;0000000;000.0;000.0;000.0;000.0;000;000;000;000;000;000;000;00.0;0;00000;000;000;000.0;000.0;0000.0;0;0;000;0;00000;00000;0.000;00000;0;0;000;000;00.00;00000;00.0;00.00;00000;00.0;00000;00.00;00000;00.00;00000;00000;00000;000;000;000;000;000;000;000;000;000;000;000;000;0000.00;0000.00;000.00;0000.00;0000.00;0000.00;000;000;0;0;0;000;000;00000;00000;00000;00000;00000;00000;000;0000;000;0000;000;0000;000;0000;000;0000000000;0000000;0000000;0000000;00000000000000000000000000000000000000000000000000000000000";
+char dataToSend[] = "A;0000000;000.0;000.0;000.0;000.0;000;000;000;000;000;000;000;00.0;0;00000;000;000;000.0;000.0;0000.0;0;0;000;0;00000;00000;0.000;00000;0;0;000;000;00.00;00000;00.0;00.00;00000;00.0;00000;00.00;00000;00.00;00000;00000;00000;000;000;000;000;000;000;000;000;000;000;000;000;0000.00;0000.00;000.00;0000.00;0000.00;0000.00;000;000;0;0;0;000;000;00000;00000;00000;00000;00000;00000;000;0000;000;0000;000;0000;000;0000;000;0000000000;0000000;0000000;0000000;000000000000000000000000000000000000000000000000000000000000";
 char debugToSend[] = "X;000;0000;000;0000;000;0000;000;0000;000;000;0000;0000;000;00000;00000;00000;00000;00000;000000";
 char stateToSend[] = "C;0;0;0;0;0;0;0";
 char strReceived[20];
@@ -80,6 +81,99 @@ void loop() {
 void SendData()
 {
   Serial.write(dataToSend);
+  if(dataCount == 9) {
+    dataCount = 0;
+  }
+  else {
+    dataToSend[2] = dataCount;
+    dataToSend[10] = dataCount;
+    dataToSend[16] = dataCount;
+    dataToSend[22] = dataCount;
+    dataToSend[28] = dataCount;
+    dataToSend[34] = dataCount;
+    dataToSend[42] = dataCount;
+    dataToSend[46] = dataCount;
+    dataToSend[50] = dataCount;
+    dataToSend[54] = dataCount;
+    dataToSend[58] = dataCount;
+    dataToSend[62] = dataCount;
+    dataToSend[67] = dataCount;
+    dataToSend[69] = dataCount;
+    dataToSend[75] = dataCount;
+    dataToSend[79] = dataCount;
+    dataToSend[83] = dataCount;
+    dataToSend[89] = dataCount;
+    dataToSend[95] = dataCount;
+    dataToSend[102] = dataCount;
+    dataToSend[104] = dataCount;
+    dataToSend[106] = dataCount;
+    dataToSend[110] = dataCount;
+    dataToSend[112] = dataCount;
+    dataToSend[118] = dataCount;
+    dataToSend[124] = dataCount;
+    dataToSend[130] = dataCount;
+    dataToSend[136] = dataCount;
+    dataToSend[138] = dataCount;
+    dataToSend[140] = dataCount;
+    dataToSend[144] = dataCount;
+    dataToSend[148] = dataCount;
+    dataToSend[154] = dataCount;
+    dataToSend[160] = dataCount;
+    dataToSend[165] = dataCount;
+    dataToSend[171] = dataCount;
+    dataToSend[177] = dataCount;
+    dataToSend[182] = dataCount;
+    dataToSend[188] = dataCount;
+    dataToSend[194] = dataCount;
+    dataToSend[200] = dataCount;
+    dataToSend[206] = dataCount;
+    dataToSend[212] = dataCount;
+    dataToSend[218] = dataCount;
+    dataToSend[224] = dataCount;
+    dataToSend[232] = dataCount;
+    dataToSend[236] = dataCount;
+    dataToSend[240] = dataCount;
+    dataToSend[244] = dataCount;
+    dataToSend[248] = dataCount;
+    dataToSend[252] = dataCount;
+    dataToSend[256] = dataCount;
+    dataToSend[260] = dataCount;
+    dataToSend[264] = dataCount;
+    dataToSend[268] = dataCount;
+    dataToSend[272] = dataCount;
+    dataToSend[280] = dataCount;
+    dataToSend[288] = dataCount;
+    dataToSend[295] = dataCount;
+    dataToSend[303] = dataCount;
+    dataToSend[311] = dataCount;
+    dataToSend[319] = dataCount;
+    dataToSend[323] = dataCount;
+    dataToSend[327] = dataCount;
+    dataToSend[329] = dataCount;
+    dataToSend[331] = dataCount;
+    dataToSend[333] = dataCount;
+    dataToSend[337] = dataCount;
+    dataToSend[341] = dataCount;
+    dataToSend[347] = dataCount;
+    dataToSend[353] = dataCount;
+    dataToSend[359] = dataCount;
+    dataToSend[365] = dataCount;
+    dataToSend[371] = dataCount;
+    dataToSend[377] = dataCount;
+    dataToSend[381] = dataCount;
+    dataToSend[386] = dataCount;
+    dataToSend[390] = dataCount;
+    dataToSend[395] = dataCount;
+    dataToSend[399] = dataCount;
+    dataToSend[404] = dataCount;
+    dataToSend[408] = dataCount;
+    dataToSend[413] = dataCount;
+    dataToSend[417] = dataCount;
+    dataToSend[428] = dataCount;
+    dataToSend[436] = dataCount;
+    dataToSend[444] = dataCount;
+    dataToSend[452] = dataCount;
+  }
 }
 
 void SendDebug()
@@ -113,7 +207,6 @@ void SendDebug()
     debugCount = 1;
   }
   else {
-    debugCount++;
     debugToSend[4-secondDebug] = debugCount;
     debugToSend[9-secondDebug] = debugCount;
     debugToSend[13-secondDebug] = debugCount;
@@ -133,6 +226,7 @@ void SendDebug()
     debugToSend[82-secondDebug] = debugCount;
     debugToSend[88-secondDebug] = debugCount;
     debugToSend[95-secondDebug] = debugCount;
+    debugCount++;
   }
 }
 
