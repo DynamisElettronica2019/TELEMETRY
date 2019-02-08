@@ -25,7 +25,7 @@ public class ParsedData extends Parsed {
 	
 	/*
 	 * Convert String ArrayList in double ArrayList
-	 * On error do not update (expected sintax: "123.45" "456.00")
+	 * On error do not update (expected sintax: "123" "456.00")
 	 */
 	public ArrayList<Double> convert() throws InvalidUpdateException{
 		try {
