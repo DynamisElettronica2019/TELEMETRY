@@ -161,7 +161,7 @@ public class Receiver {
 			rec.getParser().parseString("AM");
 			rec.getParser().parseString("S;1");
 			rec.getParser().parseString("S;0");
-			rec.getParser().parseString("D;13.45;3.77");
+			rec.getParser().parseString("D;13245;3.77");
 			rec.getParser().parseString("C;13.45;3.77");
 			rec.getParser().parseString("C;13.44;3.90");
 		} catch (InvalidReadingException | InvalidUpdateException e) {
