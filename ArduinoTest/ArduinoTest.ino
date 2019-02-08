@@ -8,8 +8,8 @@
 Timer t;
 bool received, started;
 int state = 2;
-int dataCount = '1';
-int debugCount = '1';
+char dataCount = '1';
+char debugCount = '1';
 int secondDebug = 0;
 int randomState = 0;
 int pos = 0;
