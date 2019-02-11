@@ -13,9 +13,9 @@ char debugCount = '1';
 int secondDebug = 0;
 int randomState = 0;
 int pos = 0;
-char dataToSend[] = "A;0000000;000.0;000.0;000.0;000.0;000;000;000;000;000;000;000;00.0;0;00000;000;000;000.0;000.0;0000.0;0;0;000;0;00000;00000;0.000;00000;0;0;000;000;00.00;00000;00.0;00.00;00000;00.0;00000;00.00;00000;00.00;00000;00000;00000;000;000;000;000;000;000;000;000;000;000;000;000;0000.00;0000.00;000.00;0000.00;0000.00;0000.00;000;000;0;0;0;000;000;00000;00000;00000;00000;00000;00000;000;0000;000;0000;000;0000;000;0000;000;0000000000;0000000;0000000;0000000;000000000000000000000000000000000000000000000000000000000000";
-char debugToSend[] = "X;000;0000;000;0000;000;0000;000;0000;000;000;0000;0000;000;00000;00000;00000;00000;00000;000000";
-char stateToSend[] = "C;0;0;0;0;0;0;0";
+char dataToSend[] = "A;0000000;000.0;000.0;000.0;000.0;000;000;000;000;000;000;000;00.0;0;00000;000;000;000.0;000.0;0000.0;0;0;000;0;00000;00000;0.000;00000;0;0;000;000;00.00;00000;00.0;00.00;00000;00.0;00000;00.00;00000;00.00;00000;00000;00000;000;000;000;000;000;000;000;000;000;000;000;000;0000.00;0000.00;000.00;0000.00;0000.00;0000.00;000;000;0;0;0;000;000;00000;00000;00000;00000;00000;00000;000;0000;000;0000;000;0000;000;0000;000;0000000000;0000000;0000000;0000000;000000000000000000000000000000000000000000000000000000000000\n";
+char debugToSend[] = "X;000;0000;000;0000;000;0000;000;0000;000;000;0000;0000;000;00000;00000;00000;00000;00000;000000\n";
+char stateToSend[] = "C;0;0;0;0;0;0;0\n";
 char strReceived[20];
 
 void SendData();
@@ -25,9 +25,10 @@ void SendState();
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
-  t.every(500, SendData, 0);
-  t.every(2000, SendDebug, 0);
-  t.every(10000, SendState, 0);
+  t.oscillate(13, 500, HIGH);
+  t.every(5000, SendData, 0);
+  t.every(1000, SendDebug, 0);
+  t.every(15000, SendState, 0);
 }
 
 void loop() {
@@ -76,15 +77,16 @@ void loop() {
   else if(randomState == 10) {
     randomState = 0;
   }
+  t.update();
 }
 
 void SendData()
 {
-  Serial.write(dataToSend);
-  if(dataCount == '9') {
+  if(dataCount == ('9'+1)) {
     dataCount = '0';
   }
   else {
+    Serial.write(dataToSend);
     dataToSend[2] = dataCount;
     dataToSend[10] = dataCount;
     dataToSend[16] = dataCount;
@@ -173,17 +175,19 @@ void SendData()
     dataToSend[436] = dataCount;
     dataToSend[444] = dataCount;
     dataToSend[452] = dataCount;
+    dataCount++;
   }
 }
 
 void SendDebug()
 {
-  Serial.write(debugToSend);
+  /*
   if((debugCount == '9') && (secondDebug == '0')) {
     secondDebug = 1;
     debugCount = '0';
+    Serial.write("pollo");
   }
-  else if ((debugCount == 9) && (secondDebug == 1)) {
+  else if ((debugCount == '9') && (secondDebug == 1)) {
     debugToSend[4-secondDebug] = '0';
     debugToSend[9-secondDebug] = '0';
     debugToSend[13-secondDebug] = '0';
@@ -206,7 +210,12 @@ void SendDebug()
     secondDebug = 0;
     debugCount = '1';
   }
+  */
+  if(debugCount == ('9'+1)) {
+    debugCount = '0';
+  }
   else {
+    Serial.write(debugToSend);
     debugToSend[4-secondDebug] = debugCount;
     debugToSend[9-secondDebug] = debugCount;
     debugToSend[13-secondDebug] = debugCount;
@@ -243,7 +252,7 @@ void SendState()
     state = 2;
   }
   else {
-    state+2;
+    state = state+2;
   }
 }
 
