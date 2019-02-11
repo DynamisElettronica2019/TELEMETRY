@@ -4,6 +4,9 @@
 #define STATE_LEN 15
 #define DEBUG_LEN 96
 #define DATA_LEN 512
+#define DATA_INTERVAL 1000
+#define DEBUG_INTERVAL 2000
+#define STATE_INTERVAL 5000
 
 Timer t;
 bool received, started;
@@ -26,9 +29,9 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
   t.oscillate(13, 500, HIGH);
-  t.every(5000, SendData, 0);
-  t.every(1000, SendDebug, 0);
-  t.every(15000, SendState, 0);
+  t.every(DATA_INTERVAL, SendData, 0);
+  t.every(DEBUG_INTERVAL, SendDebug, 0);
+  t.every(STATE_INTERVAL, SendState, 0);
 }
 
 void loop() {
