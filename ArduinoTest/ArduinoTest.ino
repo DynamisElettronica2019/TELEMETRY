@@ -36,49 +36,53 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  if((received==true) && (randomState<9)) {
-    switch(strReceived[1])
-    {
-      case 'M':
-        Serial.write("[AM]");
-        randomState++;
-        break;
-      case 'N':
-        Serial.write("[AN]");
-        randomState++;
-        break;
-      case 'B':
-        Serial.write("[AB]");
-        randomState++;
-        break; 
-      case 'V':
-        Serial.write("[AV]");
-        randomState++;
-        break;
-      case 'X':
-        Serial.write("[AX]");
-        randomState++;
-        break;
-      case 'Z':
-        Serial.write("[AZ]");
-        randomState++;
-        break;
-      case 'J':
-        Serial.write("[AJ]");
-        randomState++;
-        break;
-      case 'H':
-        Serial.write("[AH]");
-        randomState++;
-        break;
-      case 'R':
-        Serial.write("[AR11:22:33;01:01:2019]");
-        randomState++;
-        break;
+  if(received==true) {
+    randomState++;
+    if(randomState<10) {
+      switch(strReceived[1])
+      {
+        case 'M':
+          Serial.write("[AM]");
+          received=false;
+          break;
+        case 'N':
+          Serial.write("[AN]");
+          received=false;
+          break;
+        case 'B':
+          Serial.write("[AB]");
+          received=false;
+          break; 
+        case 'V':
+          Serial.write("[AV]");
+          received=false;
+          break;
+        case 'X':
+          Serial.write("[AX]");
+          received=false;
+          break;
+        case 'Z':
+          Serial.write("[AZ]");
+          received=false;
+          break;
+        case 'J':
+          Serial.write("[AJ]");
+          received=false;
+          break;
+        case 'H':
+          Serial.write("[AH]");
+          received=false;
+          break;
+        case 'R':
+          Serial.write("[AR11:22:33;01:01:2019]");
+          received=false;
+          break;
+      }
     }
-  }
-  else if(randomState == 10) {
-    randomState = 0;
+    else if(randomState == 10) {
+      received=false;
+      randomState = 0;
+    } 
   }
   t.update();
 }
