@@ -31,10 +31,7 @@ public class Receiver {
 	/*
 	 * Costruttore
 	 */
-	public Receiver() {
-	
-		ArrayList<View> myViews = new ArrayList<>();
-		myViews.add(new CommandLineView());
+	public Receiver(ArrayList<View> myViews) {
 		
 		data = new Data(myViews);
 		parser = new Parser(data);
@@ -53,7 +50,7 @@ public class Receiver {
 	 */
 	public void send(String toSend) {
 		toSend = pktStart+toSend+pktEnd;
-		//comPort.writeBytes(toSend.getBytes(), toSend.getBytes().length);
+		comPort.writeBytes(toSend.getBytes(), toSend.getBytes().length);
 	}
 
 	/*
@@ -131,42 +128,5 @@ public class Receiver {
 			e.log();
 		}
 	}
-	
-	///////only for TEST
-	public Parser getParser() {
-		return parser;
-	}
-	public CommandSender getCommandSender() {
-		return commandSender;
-	}
-	//N.B. togliere commento riga 56 alla finde dei test
 
-	/*
-	 * Main
-	 */
-	public static void main(String[] args) {
-		
-		Receiver rec = new Receiver();
-		Thread threadLettura = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				rec.Reader();
-			}
-		});
-		threadLettura.start();
-		
-		/////////TEST
-		try {
-			rec.getParser().parseString("ES");
-			rec.getParser().parseString("AM");
-			rec.getParser().parseString("S;1");
-			rec.getParser().parseString("S;0");
-			rec.getParser().parseString("D;13245;3.77");
-			rec.getParser().parseString("C;13.45;3.77");
-			rec.getParser().parseString("C;13.44;3.90");
-		} catch (InvalidReadingException | InvalidUpdateException e) {
-			e.log();
-		}
-		///////////
-	}
 }
