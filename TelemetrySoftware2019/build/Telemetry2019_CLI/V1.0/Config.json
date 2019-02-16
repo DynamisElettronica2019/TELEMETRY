@@ -1,0 +1,55 @@
+{	
+	"data":	{
+		"channels":	{
+				"names": ["A","B"],
+				"packetLen": 12,
+				"recogniser": "C"
+				},
+		"states": {
+				"names": ["C"],
+				"packetLen": 3,
+				"recogniser": "S" 
+				},
+		"debug": {
+				"names": ["X","Y"],
+				"packetLen": 12,
+				"recogniser": "D"
+				}
+		},
+	"error": {
+		"recogniser": "E",
+		"list": [
+				{
+				"name": "OPEN_FILE_ERROR",
+				"code": "Q"
+				},
+				{
+				"name": "CLOSE_FILE_ERROR",
+				"code": "S"
+				}
+			]
+		},
+	"command": {
+		"board": "D",
+		"recogniser": "A",
+		"timer": 5000,
+		"list": [
+				{
+				"name": "START_TELEMETRY",
+				"code": "M",
+				"params": 0
+				},
+				{
+				"name": "STOP_TELEMETRY",
+				"code": "N",
+				"params": 0
+				}
+			]
+	}
+    "receiver": {
+        "baudRate": 115200,
+        "commPort": "COM5",
+        "pktStart": "[",
+        "pktEnd": "]"
+    }
+}

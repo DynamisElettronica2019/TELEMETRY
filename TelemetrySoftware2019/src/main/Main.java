@@ -21,7 +21,7 @@ public class Main extends Application {
 		//View construction
 		ArrayList<View> myViews = new ArrayList<>();
 		myViews.add(new CommandLineView());
-		myViews.add(new GUIView(arg0));
+		//myViews.add(new GUIView(arg0));
 		
 		//Receiver launch
 		Receiver rec = new Receiver(myViews);

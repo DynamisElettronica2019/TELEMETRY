@@ -12,7 +12,7 @@ import org.json.simple.parser.ParseException;
 
 public class ConfReader {
 	
-	private final static String filePath = "src/configuration/Config.json";
+	private final static String filePath = "Config.json";
 	
 	/*
 	 * Return JSONObject at filePath
