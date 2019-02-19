@@ -109,7 +109,7 @@ public class ConfReader {
 			JSONObject rec = (JSONObject)obj.get("receiver");
 			return (String)rec.get("commPort");
 		} catch (Exception e) {
-			System.err.println("Config file reading error. Return 115200 as receiver baud rate");
+			System.err.println("Config file reading error. Return COM5 as receiver port");
 			return "COM5";
 		}
 	}

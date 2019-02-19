@@ -24,7 +24,7 @@ public class Receiver {
 	private String strToSend; // Stringa pronta da inviare a parsed
 	private SerialPort comPort;
 	private int baudRate;
-	private String commPort;
+	private String portName;
 	private char pktStart;
 	private char pktEnd;
 
@@ -40,7 +40,7 @@ public class Receiver {
 		strIndex = 0;
 		openBracketIndex = -1;
 		baudRate = (int)ConfReader.getRecBaud();
-		commPort = ConfReader.getRecPort();
+		portName = ConfReader.getRecPort();
 		pktStart = ConfReader.getPktStart();
 		pktEnd = ConfReader.getPktEnd();
 	}
@@ -102,7 +102,7 @@ public class Receiver {
 	 * Su un nuovo thread viene aperta la porta seriale e messa in ascolto
 	 */
 	public void Reader() {
-		comPort = SerialPort.getCommPort(commPort);
+		comPort = SerialPort.getCommPort(portName);
 		comPort.openPort(); // Apertura della porta
 		if (comPort.isOpen() == false) {
 			System.err.println("Impossibile aprire la porta");
