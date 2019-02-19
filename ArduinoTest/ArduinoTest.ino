@@ -29,13 +29,29 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
   t.oscillate(13, 500, HIGH);
-  t.every(DATA_INTERVAL, (void (*) (void*))SendData, 0);
-  t.every(DEBUG_INTERVAL, (void (*) (void*))SendDebug, 0);
-  t.every(STATE_INTERVAL, (void (*) (void*))SendState, 0);
+  //t.every(DATA_INTERVAL, (void (*) (void*))SendData, 0);
+  //t.every(DEBUG_INTERVAL, (void (*) (void*))SendDebug, 0);
+  //t.every(STATE_INTERVAL, (void (*) (void*))SendState, 0);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
+  while (Serial.available()) {
+    char recChar = (char)Serial.read();
+    if (recChar == '[') {
+      started = true;
+      received = false;
+      pos = 0;
+    }
+    else if (recChar == ']') {
+      received = true;
+    }
+    else {
+      strReceived[pos] = recChar;
+      pos++;
+    }
+  }
+  
   if(received==true) {
     randomState++;
     if(randomState<10) {
@@ -262,7 +278,7 @@ void SendState()
     state = state+2;
   }
 }
-
+/*
 void serialEvent() {
   while (Serial.available()) {
     char recChar = (char)Serial.read();
@@ -280,3 +296,4 @@ void serialEvent() {
     }
   }
 }
+*/
