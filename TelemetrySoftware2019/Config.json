@@ -1,18 +1,22 @@
 {	
 	"data":	{
 		"channels":	{
-				"names": ["A","B"],
-				"packetLen": 12,
+				"names": ["A","B","C","D","E","F","G","H","I","L","M","N","O","P","Q","R","S","T","U","V",
+                          "A","B","C","D","E","F","G","H","I","L","M","N","O","P","Q","R","S","T","U","V",
+                          "A","B","C","D","E","F","G","H","I","L","M","N","O","P","Q","R","S","T","U","V",
+                          "A","B","C","D","E","F","G","H","I","L","M","N","O","P","Q","R","S","T","U","V",
+                          "A","B","C","D","E","F","G","H","I","L"],
+				"packetLen": 512,
 				"recogniser": "C"
 				},
 		"states": {
-				"names": ["C"],
-				"packetLen": 3,
+				"names": ["A","B","C","D","E","F","G"],
+				"packetLen": 15,
 				"recogniser": "S" 
 				},
 		"debug": {
-				"names": ["X","Y"],
-				"packetLen": 12,
+				"names": ["A","B","C","D","E","F","G","H","I","L","M","N","O","P","Q","R","S","T","U"],
+				"packetLen": 96,
 				"recogniser": "D"
 				}
 		},
