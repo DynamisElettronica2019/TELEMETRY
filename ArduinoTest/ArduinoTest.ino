@@ -29,9 +29,9 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
   t.oscillate(13, 500, HIGH);
-  t.every(DATA_INTERVAL, SendData, 0);
-  t.every(DEBUG_INTERVAL, SendDebug, 0);
-  t.every(STATE_INTERVAL, SendState, 0);
+  t.every(DATA_INTERVAL, (void (*) (void*))SendData, 0);
+  t.every(DEBUG_INTERVAL, (void (*) (void*))SendDebug, 0);
+  t.every(STATE_INTERVAL, (void (*) (void*))SendState, 0);
 }
 
 void loop() {

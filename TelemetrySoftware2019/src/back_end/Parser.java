@@ -93,7 +93,6 @@ public class Parser {
 		} else {
 			throw new InvalidReadingException("First letter reading Error");
 		}
-		
 	}
 	
 }

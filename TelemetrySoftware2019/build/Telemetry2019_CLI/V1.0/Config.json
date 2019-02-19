@@ -48,7 +48,7 @@
 	}
     "receiver": {
         "baudRate": 115200,
-        "commPort": "COM5",
+        "commPort": "COM12",
         "pktStart": "[",
         "pktEnd": "]"
     }
