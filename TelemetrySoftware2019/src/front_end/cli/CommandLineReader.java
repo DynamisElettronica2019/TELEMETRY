@@ -1,4 +1,4 @@
-package front_end;
+package front_end.cli;
 
 import java.util.Scanner;
 

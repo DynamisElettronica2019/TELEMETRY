@@ -3,8 +3,8 @@ package main;
 import java.util.ArrayList;
 
 import back_end.Receiver;
-import front_end.CommandLineView;
-import front_end.GUIView;
+import front_end.cli.CommandLineView;
+import front_end.gui_ground.GUIGroundView;
 import front_end.View;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -21,7 +21,7 @@ public class Main extends Application {
 		//View construction
 		ArrayList<View> myViews = new ArrayList<>();
 		myViews.add(new CommandLineView());
-		//myViews.add(new GUIView(arg0));
+		myViews.add(new GUIGroundView());
 		
 		//Receiver launch
 		Receiver rec = new Receiver(myViews);

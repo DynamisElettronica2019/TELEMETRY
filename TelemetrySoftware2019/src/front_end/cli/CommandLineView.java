@@ -1,4 +1,4 @@
-package front_end;
+package front_end.cli;
 
 import back_end.Channel;
 import back_end.Command;
@@ -6,6 +6,7 @@ import back_end.CommandSender;
 import back_end.Debug;
 import back_end.Error;
 import back_end.State;
+import front_end.View;
 
 public class CommandLineView extends View {
 	

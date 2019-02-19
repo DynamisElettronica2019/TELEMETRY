@@ -8,7 +8,7 @@ import configuration.ConfReader;
 import exceptions.InvalidReadingException;
 import exceptions.InvalidUpdateException;
 import front_end.View;
-import front_end.CommandLineView;
+import front_end.cli.CommandLineView;
 
 public class Receiver {
 	/*
