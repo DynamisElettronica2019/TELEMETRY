@@ -7,6 +7,8 @@
 #define DATA_INTERVAL 20000
 #define DEBUG_INTERVAL 10000
 #define STATE_INTERVAL 5000
+#define ERROR_INTERVAL 20000
+#define ERROR_TYPES 12
 
 Timer t;
 bool received, started;
@@ -15,27 +17,31 @@ char dataCount = '1';
 char debugCount = '1';
 int secondDebug = 0;
 int randomState = 0;
+int errorNumber = 0;
 int pos = 0;
 char dataToSend[] = "[C;0000000;000.0;000.0;000.0;000.0;000;000;000;000;000;000;000;00.0;0;00000;000;000;000.0;000.0;0000.0;0;0;000;0;00000;00000;0.000;00000;0;0;000;000;00.00;00000;00.0;00.00;00000;00.0;00000;00.00;00000;00.00;00000;00000;00000;000;000;000;000;000;000;000;000;000;000;000;000;0000.00;0000.00;000.00;0000.00;0000.00;0000.00;000;000;0;0;0;000;000;00000;00000;00000;00000;00000;00000;000;0000;000;0000;000;0000;000;0000;000;0000000000;0000000;0000000;0000000;000000000000000000000000000000000000000000000000000000000000]";
 char debugToSend[] = "[D;000;0000;000;0000;000;0000;000;0000;000;000;0000;0000;000;00000;00000;00000;00000;00000;000000]";
 char stateToSend[] = "[S;0;0;0;0;0;0;0]";
+char errors[] = {'Q','W','S','R','T','Y','D','E','U','O','P','A'};
 char strReceived[20];
 
 void SendData();
 void SendDebug();
 void SendState();
+void SendError();
 
 void setup() {
-  // put your setup code here, to run once:
+  // Start all the timers for running periodically
   Serial.begin(115200);
   t.oscillate(13, 500, HIGH);
   t.every(DATA_INTERVAL, (void (*) (void*))SendData, 0);
   t.every(DEBUG_INTERVAL, (void (*) (void*))SendDebug, 0);
   t.every(STATE_INTERVAL, (void (*) (void*))SendState, 0);
+  t.every(ERROR_INTERVAL, (void (*) (void*))SendError, 0);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  //Check if there is serial data aviable
   while (Serial.available()) {
     char recChar = (char)Serial.read();
     if (recChar == '[') {
@@ -51,7 +57,8 @@ void loop() {
       pos++;
     }
   }
-  
+
+  //Reply to the received command (ack)
   if(received==true) {
     randomState++;
     if(randomState<10) {
@@ -100,9 +107,10 @@ void loop() {
       randomState = 0;
     } 
   }
-  t.update();
+  t.update(); //Update the timer
 }
 
+//Send data message periodically, first digit varies
 void SendData()
 {
   if(dataCount == ('9'+1)) {
@@ -202,6 +210,7 @@ void SendData()
   }
 }
 
+//Send debug message periodically, last digit varies
 void SendDebug()
 {
   /*
@@ -262,6 +271,7 @@ void SendDebug()
   }
 }
 
+//Send state message periodically, every digit goes to 1 one by one and then return to 0
 void SendState()
 {
   Serial.write(stateToSend);
@@ -278,6 +288,23 @@ void SendState()
     state = state+2;
   }
 }
+
+//Send error message periodically
+void SendError() 
+{
+  if(errorNumber == ERROR_TYPES) {
+    errorNumber = 0;
+  }
+  else {
+    Serial.write("[E");
+    Serial.write(errors[errorNumber]);
+    Serial.write("]");
+    errorNumber++;
+  }
+}
+
+
+//Not used
 /*
 void serialEvent() {
   while (Serial.available()) {
