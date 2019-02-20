@@ -4,7 +4,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import back_end.CommandSender;
 import back_end.State;
 import javafx.fxml.Initializable;
 import java.net.URL;
@@ -13,12 +15,13 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class SxController implements Initializable {
+	public TextField commandField;
 	public TableView<StateList> stateTable;
 	public TableColumn<StateList, String> stateColumn;
 	public TableColumn<StateList, Boolean> valueColumn;
 	public ObservableList<StateList> states = FXCollections.observableArrayList();
-	private StateList[] stateArray;
 	private Map<String, Integer> indexMap = new HashMap<>();
+	private CommandSender commandSender;
 	
 	@Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -30,6 +33,10 @@ public class SxController implements Initializable {
 		Boolean newValue = state.getValue();
 		states.set(indexMap.get(newName), new StateList(newName, newValue));
 		stateTable.refresh();
+	}
+	
+	public void passCommandSender(CommandSender commandSender) {
+		this.commandSender = commandSender;
 	}
 	
 	public void SetState() {
@@ -56,6 +63,6 @@ public class SxController implements Initializable {
 	
 	public void ButtonClick()
 	{
-		System.err.println("Pollo");
+		System.out.println(commandField.getText());
 	}
 }

@@ -57,6 +57,7 @@ public class GUIGroundView extends View {
         
         //Initialize sxstage
         SXControl.SetState();
+        SXControl.passCommandSender(commandSender);
        
         stageSX.show();
         /*
