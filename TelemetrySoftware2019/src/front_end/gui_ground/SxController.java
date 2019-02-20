@@ -63,6 +63,6 @@ public class SxController implements Initializable {
 	
 	public void ButtonClick()
 	{
-		System.out.println(commandField.getText());
+		commandSender.sendCommand(commandField.getText(), "");
 	}
 }
