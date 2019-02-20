@@ -129,7 +129,7 @@ void SendData()
     dataToSend[51] = dataCount;
     dataToSend[55] = dataCount;
     dataToSend[59] = dataCount;
-    dataToSend[53] = dataCount;
+    dataToSend[63] = dataCount;
     dataToSend[68] = dataCount;
     dataToSend[70] = dataCount;
     dataToSend[76] = dataCount;
