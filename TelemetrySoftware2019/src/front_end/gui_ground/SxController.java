@@ -25,7 +25,6 @@ public class SxController implements Initializable {
 		String newName = state.getName();
 		Boolean newValue = state.getValue();
 		stateTable.getItems().add(new StateList(newName, newValue));
-		stateTable.getItems().add(new StateList("Pollo", true));
 		stateTable.refresh();
 	}
 	
@@ -33,7 +32,6 @@ public class SxController implements Initializable {
 		stateTable.setItems(states);
 		stateColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 		valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
-		stateTable.getItems().add(new StateList("Pollo", true));
 	}
 	
 	public void ButtonClick()
