@@ -8,6 +8,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import back_end.State;
 import javafx.fxml.Initializable;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class SxController implements Initializable {
@@ -16,6 +18,7 @@ public class SxController implements Initializable {
 	public TableColumn<StateList, Boolean> valueColumn;
 	public ObservableList<StateList> states = FXCollections.observableArrayList();
 	private StateList[] stateArray;
+	private Map<String, Integer> indexMap = new HashMap<>();
 	
 	@Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -24,10 +27,8 @@ public class SxController implements Initializable {
 	
 	public void AddState(State state) {
 		String newName = state.getName();
-		int index = newName.charAt(0)-'A';
-		char str = (char) ('A' + index);
 		Boolean newValue = state.getValue();
-		states.set(index, new StateList(String.valueOf(str), newValue));
+		states.set(indexMap.get(newName), new StateList(newName, newValue));
 		stateTable.refresh();
 	}
 	
@@ -35,11 +36,22 @@ public class SxController implements Initializable {
 		stateTable.setItems(states);
 		stateColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 		valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
-		for(int i=0; i<8; i++)
-		{
-			char str = (char) ('A' + i);
-			stateTable.getItems().add(new StateList(String.valueOf(str), false));
-		}
+		indexMap.put("A", 0);
+		indexMap.put("B", 1);
+		indexMap.put("C", 2);
+		indexMap.put("D", 3);
+		indexMap.put("E", 4);
+		indexMap.put("F", 5);
+		indexMap.put("G", 6);
+		indexMap.put("H", 7);
+		stateTable.getItems().add(new StateList("A", false));
+		stateTable.getItems().add(new StateList("B", false));
+		stateTable.getItems().add(new StateList("C", false));
+		stateTable.getItems().add(new StateList("D", false));
+		stateTable.getItems().add(new StateList("E", false));
+		stateTable.getItems().add(new StateList("F", false));
+		stateTable.getItems().add(new StateList("G", false));
+		stateTable.getItems().add(new StateList("H", false));
 	}
 	
 	public void ButtonClick()
