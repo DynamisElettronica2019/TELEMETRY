@@ -22,8 +22,14 @@ public class GUIGroundView extends View {
 	
 	private Stage stageSX;
 	private Stage stageDX;
+	private Scene firstSceneSX;
 	private Parent firstPaneSX;
 	private Parent firstPaneDX;
+	private SxController SXControl;
+	private DxController DXControl;
+	private FXMLLoader SXLoader;
+	private FXMLLoader DXLoader;
+
 	
 	public GUIGroundView() throws IOException {
 		System.out.println("Starting GUI view (Ground Station Version)..");
@@ -34,7 +40,9 @@ public class GUIGroundView extends View {
 	
 	private void setDoubleScreen() throws IOException{
 		//Set stage SX
-		firstPaneSX = FXMLLoader.load(getClass().getResource("SxStage.fxml"));
+		SXLoader = new FXMLLoader(getClass().getResource("SxStage.fxml"));
+		firstPaneSX = SXLoader.load();
+		SXControl = (SxController)(SXLoader.getController());
 		stageSX = new Stage();
 		stageSX.setTitle("Telemetry2019_SX");
 		Screen mainScreen = Screen.getScreens().get(0); 
@@ -43,10 +51,17 @@ public class GUIGroundView extends View {
         stageSX.setY(bounds.getMinY()+SCREEN_OFFSET_Y);
         stageSX.setMaximized(true);
         stageSX.setOnCloseRequest( event -> {stageDX.close();} );
-        stageSX.setScene(new Scene(firstPaneSX));
-        stageSX.show();
+        firstSceneSX = new Scene(firstPaneSX);
+        stageSX.setScene(firstSceneSX);
+        
+        //Initialize sxstage
+        SXControl.SetState();
+       
+        //stageSX.show();
         //Set stage DX
-        firstPaneDX = FXMLLoader.load(getClass().getResource("DxStage.fxml"));
+        DXLoader = new FXMLLoader(getClass().getResource("DxStage.fxml"));
+        firstPaneDX = DXLoader.load();
+        DXControl = DXLoader.getController();
         stageDX = new Stage();
         stageDX.setTitle("Telemetry2019_DX");
         Screen secondScreen = Screen.getScreens().get(0);
@@ -57,7 +72,7 @@ public class GUIGroundView extends View {
         stageDX.setMaximized(true);
         stageDX.setOnCloseRequest( event -> {stageSX.close();} );
         stageSX.setScene(new Scene(firstPaneDX));
-        stageDX.show();
+        stageDX.show(); //uncomment to run second stage
 	}
 
 	@Override
@@ -86,8 +101,6 @@ public class GUIGroundView extends View {
 
 	@Override
 	public void UpdateState(State state) {
-		// TODO Auto-generated method stub
-
+		SXControl.AddState(state);
 	}
-
 }
