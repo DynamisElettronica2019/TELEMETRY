@@ -42,7 +42,7 @@ public class GUIGroundView extends View {
 		//Set stage SX
 		SXLoader = new FXMLLoader(getClass().getResource("SxStage.fxml"));
 		firstPaneSX = SXLoader.load();
-		SXControl = (SxController)(SXLoader.getController());
+		SXControl = SXLoader.getController();
 		stageSX = new Stage();
 		stageSX.setTitle("Telemetry2019_SX");
 		Screen mainScreen = Screen.getScreens().get(0); 
@@ -50,14 +50,16 @@ public class GUIGroundView extends View {
         stageSX.setX(bounds.getMinX()+SCREEN_OFFSET_X);
         stageSX.setY(bounds.getMinY()+SCREEN_OFFSET_Y);
         stageSX.setMaximized(true);
-        stageSX.setOnCloseRequest( event -> {stageDX.close();} );
+        //stageSX.setOnCloseRequest( event -> {stageDX.close();} );
         firstSceneSX = new Scene(firstPaneSX);
         stageSX.setScene(firstSceneSX);
+        
         
         //Initialize sxstage
         SXControl.SetState();
        
-        //stageSX.show();
+        stageSX.show();
+        /*
         //Set stage DX
         DXLoader = new FXMLLoader(getClass().getResource("DxStage.fxml"));
         firstPaneDX = DXLoader.load();
@@ -72,7 +74,8 @@ public class GUIGroundView extends View {
         stageDX.setMaximized(true);
         stageDX.setOnCloseRequest( event -> {stageSX.close();} );
         stageSX.setScene(new Scene(firstPaneDX));
-        stageDX.show(); //uncomment to run second stage
+        //stageDX.show(); //uncomment to run second stage
+         */
 	}
 
 	@Override
