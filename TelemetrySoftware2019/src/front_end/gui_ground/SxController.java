@@ -32,9 +32,7 @@ public class SxController implements Initializable {
     }
 	
 	public void AddState(State state) {
-		String newName = state.getName();
-		Boolean newValue = state.getValue();
-		states.set(indexMap.get(newName), new StateList(newName, newValue));
+		states.set(indexMap.get(state.getName()), new StateList(state.getName(), state.getValue()));
 		stateTable.refresh();
 	}
 	
