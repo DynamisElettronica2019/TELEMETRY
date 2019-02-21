@@ -25,7 +25,7 @@ public class SxController implements Initializable {
 	
 	@Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("View is now loaded!");
+        System.out.println("View sx is now loaded!");
     }
 	
 	public void AddState(State state) {

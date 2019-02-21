@@ -76,14 +76,17 @@ public class GUIGroundView extends View {
         stageDX.setMaximized(true);
         stageDX.setOnCloseRequest( event -> {stageSX.close();} );
         stageDX.setScene(new Scene(firstPaneDX));
+        
+        
+        DXControl.SetChannel();
+        DXControl.SetDebug();
         stageDX.show(); //uncomment to run second stage
         
 	}
 
 	@Override
 	public void UpdateChannel(Channel channel) {
-		// TODO Auto-generated method stub
-
+		DXControl.EditChannel(channel);
 	}
 
 	@Override
@@ -94,7 +97,7 @@ public class GUIGroundView extends View {
 
 	@Override
 	public void UpdateDebug(Debug debug) {
-		// TODO Auto-generated method stub
+		DXControl.EditDebug(debug);
 
 	}
 

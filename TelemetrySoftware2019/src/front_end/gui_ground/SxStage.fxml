@@ -15,8 +15,8 @@
                   <Insets top="4.0" />
                </HBox.margin>
             </Label>
-            <TextField promptText="Comando" />
-            <Button mnemonicParsing="false" onAction="#ButtonClick" text="Invia" />
+            <TextField fx:id="commandField" promptText="Comando" />
+            <Button fx:id="button" mnemonicParsing="false" onAction="#ButtonClick" text="Invia" />
          </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

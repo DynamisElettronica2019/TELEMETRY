@@ -5,15 +5,29 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.GridPane?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Button mnemonicParsing="false" text="Button" />
-      <Pane prefHeight="200.0" prefWidth="200.0">
-         <children>
-            <Label layoutX="107.0" layoutY="100.0" text="Label" />
-            <Label layoutX="286.0" layoutY="83.0" text="Label" />
-            <Label layoutX="314.0" layoutY="109.0" text="Label" />
-         </children>
-      </Pane>
-   </children>
-</VBox>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.gui_ground.DxController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <RadioMenuItem fx:id="channelsButton" mnemonicParsing="false" onAction="#channelButtonClick" selected="true" text="Channels">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="radio" />
+                     </toggleGroup>
+                  </RadioMenuItem>
+                  <RadioMenuItem fx:id="debugButton" mnemonicParsing="false" onAction="#debugButtonClick" text="Debug" toggleGroup="$radio" />
+               </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <center>
+      <TableView fx:id="mainTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="channelColumn" editable="false" prefWidth="75.0" text="Channel" />
+          <TableColumn fx:id="valueColumn" editable="false" prefWidth="75.0" text="Value" />
+        </columns>
+      </TableView>
+   </center>
+</BorderPane>
