@@ -25,8 +25,8 @@
    <center>
       <TableView fx:id="mainTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="channelColumn" editable="false" prefWidth="75.0" text="Channel" />
-          <TableColumn fx:id="valueColumn" editable="false" prefWidth="75.0" text="Value" />
+          <TableColumn fx:id="channelColumn" editable="false" minWidth="20.0" prefWidth="120.0" text="Channel" />
+          <TableColumn fx:id="valueColumn" editable="false" prefWidth="120.0" text="Value" />
         </columns>
       </TableView>
    </center>

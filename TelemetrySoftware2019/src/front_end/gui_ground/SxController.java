@@ -8,8 +8,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import back_end.CommandSender;
 import back_end.State;
+import configuration.ConfReader;
 import javafx.fxml.Initializable;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -22,6 +24,7 @@ public class SxController implements Initializable {
 	public ObservableList<StateList> states = FXCollections.observableArrayList();
 	private Map<String, Integer> indexMap = new HashMap<>();
 	private CommandSender commandSender;
+	private ArrayList<String> stateList;
 	
 	@Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -43,22 +46,11 @@ public class SxController implements Initializable {
 		stateTable.setItems(states);
 		stateColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 		valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
-		indexMap.put("A", 0);
-		indexMap.put("B", 1);
-		indexMap.put("C", 2);
-		indexMap.put("D", 3);
-		indexMap.put("E", 4);
-		indexMap.put("F", 5);
-		indexMap.put("G", 6);
-		indexMap.put("H", 7);
-		stateTable.getItems().add(new StateList("A", false));
-		stateTable.getItems().add(new StateList("B", false));
-		stateTable.getItems().add(new StateList("C", false));
-		stateTable.getItems().add(new StateList("D", false));
-		stateTable.getItems().add(new StateList("E", false));
-		stateTable.getItems().add(new StateList("F", false));
-		stateTable.getItems().add(new StateList("G", false));
-		stateTable.getItems().add(new StateList("H", false));
+		stateList = ConfReader.getNames("states");
+		for (int i = 0; i < stateList.size(); i++) {
+			indexMap.put(stateList.get(i), i);
+			stateTable.getItems().add(new StateList(stateList.get(i), false));
+		}	
 	}
 	
 	public void ButtonClick()
