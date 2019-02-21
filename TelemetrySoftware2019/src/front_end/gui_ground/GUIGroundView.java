@@ -52,7 +52,7 @@ public class GUIGroundView extends View {
         stageSX.setX(bounds.getMinX()+SCREEN_OFFSET_X);
         stageSX.setY(bounds.getMinY()+SCREEN_OFFSET_Y);
         stageSX.setMaximized(true);
-        //stageSX.setOnCloseRequest( event -> {stageDX.close();} );
+        stageSX.setOnCloseRequest( event -> {stageDX.close();} );
         firstSceneSX = new Scene(firstPaneSX);
         stageSX.setScene(firstSceneSX);
         
@@ -61,7 +61,7 @@ public class GUIGroundView extends View {
         SXControl.SetState();
        
         stageSX.show();
-        /*
+        
         //Set stage DX
         DXLoader = new FXMLLoader(getClass().getResource("DxStage.fxml"));
         firstPaneDX = DXLoader.load();
@@ -75,9 +75,9 @@ public class GUIGroundView extends View {
         stageDX.setY(bounds.getMinY()+SCREEN_OFFSET_Y);
         stageDX.setMaximized(true);
         stageDX.setOnCloseRequest( event -> {stageSX.close();} );
-        stageSX.setScene(new Scene(firstPaneDX));
-        //stageDX.show(); //uncomment to run second stage
-         */
+        stageDX.setScene(new Scene(firstPaneDX));
+        stageDX.show(); //uncomment to run second stage
+        
 	}
 
 	@Override
