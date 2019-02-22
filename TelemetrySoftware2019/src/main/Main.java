@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import back_end.Receiver;
 import front_end.cli.CommandLineView;
-import front_end.gui_ground.GUIGroundView;
+import front_end.gui_row.GUIRowView;
 import front_end.View;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -21,7 +21,7 @@ public class Main extends Application {
 		//View construction
 		ArrayList<View> myViews = new ArrayList<>();
 		myViews.add(new CommandLineView());
-		myViews.add(new GUIGroundView());
+		myViews.add(new GUIRowView());
 		
 		//Receiver launch
 		Receiver rec = new Receiver(myViews);
