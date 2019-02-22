@@ -1,4 +1,4 @@
-package front_end.gui_ground;
+package front_end.gui_row;
 
 public class StateList {
 	private String name;

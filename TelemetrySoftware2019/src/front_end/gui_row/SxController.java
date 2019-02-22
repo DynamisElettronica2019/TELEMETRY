@@ -1,4 +1,4 @@
-package front_end.gui_ground;
+package front_end.gui_row;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

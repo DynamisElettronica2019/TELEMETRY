@@ -1,4 +1,4 @@
-package front_end.gui_ground;
+package front_end.gui_row;
 
 import java.io.IOException;
 
@@ -9,7 +9,6 @@ import back_end.Debug;
 import back_end.Error;
 import back_end.State;
 import front_end.View;
-import front_end.cli.CommandLineReader;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -17,7 +16,7 @@ import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-public class GUIGroundView extends View {
+public class GUIRowView extends View {
 	
 	private final int SCREEN_OFFSET_X = -8;
 	private final int SCREEN_OFFSET_Y = 0;
@@ -25,6 +24,7 @@ public class GUIGroundView extends View {
 	private Stage stageSX;
 	private Stage stageDX;
 	private Scene firstSceneSX;
+	private Scene firstSceneDX;
 	private Parent firstPaneSX;
 	private Parent firstPaneDX;
 	private SxController SXControl;
@@ -33,14 +33,9 @@ public class GUIGroundView extends View {
 	private FXMLLoader DXLoader;
 
 	
-	public GUIGroundView() throws IOException {
+	public GUIRowView() throws IOException {
 		System.out.println("Starting GUI view (Ground Station Version)..");
-		setDoubleScreen();
 		
-		//TODO
-	}
-	
-	private void setDoubleScreen() throws IOException{
 		//Set stage SX
 		SXLoader = new FXMLLoader(getClass().getResource("SxStage.fxml"));
 		firstPaneSX = SXLoader.load();
@@ -55,11 +50,8 @@ public class GUIGroundView extends View {
         stageSX.setOnCloseRequest( event -> {stageDX.close();} );
         firstSceneSX = new Scene(firstPaneSX);
         stageSX.setScene(firstSceneSX);
-        
-        
         //Initialize sxstage
         SXControl.SetState();
-       
         stageSX.show();
         
         //Set stage DX
@@ -75,13 +67,12 @@ public class GUIGroundView extends View {
         stageDX.setY(bounds.getMinY()+SCREEN_OFFSET_Y);
         stageDX.setMaximized(true);
         stageDX.setOnCloseRequest( event -> {stageSX.close();} );
-        stageDX.setScene(new Scene(firstPaneDX));
-        
-        
+        firstSceneDX = new Scene(firstPaneDX);
+        stageDX.setScene(firstSceneDX);
+        //Initialize dxstage
         DXControl.SetChannel();
         DXControl.SetDebug();
-        stageDX.show(); //uncomment to run second stage
-        
+        stageDX.show(); 
 	}
 
 	@Override
@@ -91,8 +82,6 @@ public class GUIGroundView extends View {
 
 	@Override
 	public void UpdateCommand(Command command) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -103,8 +92,6 @@ public class GUIGroundView extends View {
 
 	@Override
 	public void UpdateError(Error error) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

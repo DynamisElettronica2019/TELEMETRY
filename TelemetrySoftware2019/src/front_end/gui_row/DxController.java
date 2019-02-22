@@ -1,4 +1,4 @@
-package front_end.gui_ground;
+package front_end.gui_row;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -17,9 +17,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class DxController implements Initializable {
 	public TableView<ChannelList> mainTable;
