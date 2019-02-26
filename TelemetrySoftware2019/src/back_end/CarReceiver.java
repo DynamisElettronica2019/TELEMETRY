@@ -102,19 +102,30 @@ public class CarReceiver {
 
 	
 	/*
-	 * Su un nuovo thread viene aperta la porta seriale e messa in ascolto
+	 * Su un nuovo thread viene aperta la porta seriale e messa in ascolto. Parte un nuovo thread per la
+	 * gestione di eventuali disconnessioni
 	 */
 	public void Reader() {
 		comPort = SerialPort.getCommPort(portName);
-		comPort.openPort(); // Apertura della porta
-		while(comPort.isOpen() == false){
-			try {
-				TimeUnit.SECONDS.sleep(1);
-				comPort.openPort(); 
-			} catch (InterruptedException e) {
-				System.err.println("CarReceiver interrupted");
+		Thread portListener = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while(true){
+					if((comPort.isOpen() == false)){
+						comPort.openPort(); //Open port
+						if((comPort.isOpen() == true)){
+							System.out.println("Car receiver connected on port "+portName);
+						}
+					}
+					try {
+						TimeUnit.SECONDS.sleep(2); //Wait
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
 			}
-		}
+		});
+		portListener.start();
 		comPort.setBaudRate(baudRate);
 		PacketListener listener = new PacketListener();
 		comPort.addDataListener(listener);
