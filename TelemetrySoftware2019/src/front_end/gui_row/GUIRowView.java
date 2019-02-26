@@ -7,6 +7,7 @@ import back_end.Command;
 import back_end.CommandSender;
 import back_end.Debug;
 import back_end.Error;
+import back_end.LapTime;
 import back_end.State;
 import front_end.View;
 import javafx.fxml.FXMLLoader;
@@ -97,6 +98,10 @@ public class GUIRowView extends View {
 	@Override
 	public void UpdateState(State state) {
 		SXControl.AddState(state);
+	}
+	
+	@Override
+	public void UpdateLap(LapTime lapTime) {
 	}
 	
 	@Override

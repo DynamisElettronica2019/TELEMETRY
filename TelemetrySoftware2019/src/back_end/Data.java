@@ -16,6 +16,7 @@ public class Data {
 	private Debug[] debug;
 	private Command[] dcuCommands;
 	private Error[] dcuErrors;
+	private LapTimer lapTimer;
 	
 	/*
 	 * Create channels,states,debug through ConfReader and initialize timeStamps
@@ -45,6 +46,8 @@ public class Data {
 		ArrayList<Boolean> coParams = ConfReader.getCommandParams();
 		dcuCommands = new Command[coNames.size()];
 		for(int i=0;i<dcuCommands.length;i++) dcuCommands[i] = new Command(coNames.get(i), coCodes.get(i), coParams.get(i), myViews);
+		
+		lapTimer = new LapTimer(myViews);
 	}
 	
 	/*
@@ -112,6 +115,7 @@ public class Data {
 		for(Debug d : debug) d.reset();
 		for(Command c: dcuCommands) c.reset();
 		for(Error e: dcuErrors) e.reset();
+		lapTimer.reset();
 	}
 	
 	/*
@@ -169,6 +173,13 @@ public class Data {
 			}
 		}
 		throw new InvalidCodeException("Not valid error code received: "+code);
+	}
+
+	/*
+	 * Set a new lap time
+	 */
+	public void newLap(ParsedLap parsedLap) {
+		lapTimer.newLap(parsedLap);
 	}
 	
 }

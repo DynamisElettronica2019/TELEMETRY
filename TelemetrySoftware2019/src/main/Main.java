@@ -25,18 +25,25 @@ public class Main extends Application {
 		myViews.add(new CommandLineView());
 		myViews.add(new GUIRowView());
 		
+		//Data and Parser creation
 		Data data = new Data(myViews);
 		Parser parser = new Parser(data);
 		
-		//Receiver launch
-		Receiver rec = new Receiver(myViews,data,parser,'C');
-		Thread threadLettura = new Thread(new Runnable() {
+		//Car Receiver launch
+		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				rec.Reader();
+				new Receiver(myViews,data,parser,'C').Reader();
 			}
-		});
-		threadLettura.start();
+		}).start();
+		
+		//Lap Receiver launch
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				new Receiver(myViews,data,parser,'L').Reader();
+			}
+		}).start();
 		
 	}
 

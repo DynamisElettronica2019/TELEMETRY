@@ -4,6 +4,7 @@ import back_end.Channel;
 import back_end.Command;
 import back_end.CommandSender;
 import back_end.Error;
+import back_end.LapTime;
 import back_end.Debug;
 import back_end.State;
 
@@ -15,6 +16,7 @@ public abstract class View {
 	private DebugObserver deObs;
 	private ErrorObserver erObs;
 	private CommandObserver coObs;
+	private LapObserver lapObs;
 	
 	public View() {
 		chObs = new ChannelObserver(this);
@@ -22,6 +24,7 @@ public abstract class View {
 		deObs = new DebugObserver(this);
 		erObs = new ErrorObserver(this);
 		coObs = new CommandObserver(this);
+		lapObs = new LapObserver(this);
 	}
 	
 	public void setCommandSender(CommandSender commandSender) {
@@ -57,5 +60,11 @@ public abstract class View {
 	}
 	
 	public abstract void UpdateState(State state);
+	
+	public LapObserver getLapObs() {
+		return lapObs;
+	}
+	
+	public abstract void UpdateLap(LapTime lapTime);
 
 }

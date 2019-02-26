@@ -5,6 +5,7 @@ import back_end.Command;
 import back_end.CommandSender;
 import back_end.Debug;
 import back_end.Error;
+import back_end.LapTime;
 import back_end.State;
 import front_end.View;
 
@@ -48,6 +49,12 @@ public class CommandLineView extends View {
 	@Override
 	public void UpdateState(State state) {
 		System.out.println("[State] "+state.getName()+" -> "+state.getValue());
+	}
+
+	@Override
+	public void UpdateLap(LapTime lapTime) {
+		System.out.println("[LapTime] "+"Mode:"+lapTime.getMode().toString()+"/Type:"+lapTime.getType().toString()+
+				"/LapNumber:"+lapTime.getLapNumber()+"/"+lapTime.getMinutes()+":"+lapTime.getmSeconds()+":"+lapTime.getmSeconds());
 	}
 
 }

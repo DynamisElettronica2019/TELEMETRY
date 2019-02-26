@@ -53,11 +53,13 @@ public class Receiver {
 	}
 	
 	/*
-	 * Send string 'toSend' through comPort adding pktStart and pktEnd
+	 * Send string 'toSend' through comPort adding pktStart and pktEnd. Sending disable in L mode
 	 */
 	public void send(String toSend) {
-		toSend = pktStart+toSend+pktEnd;
-		comPort.writeBytes(toSend.getBytes(), toSend.getBytes().length);
+		if(mode == 'C'){
+			toSend = pktStart+toSend+pktEnd;
+			comPort.writeBytes(toSend.getBytes(), toSend.getBytes().length);
+		}
 	}
 
 	/*

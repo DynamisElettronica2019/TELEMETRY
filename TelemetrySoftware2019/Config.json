@@ -49,12 +49,19 @@
 				"params": 0
 				}
 			]
-	}
+	},
+	"laptimer": {
+		"accModeRecogniser": "K",
+		"endModeRecogniser": "G",
+		"intTypeRecogniser": "I",
+		"lapTypeRecogniser": "E",
+		"packetLen": 15,
+	},
     "receiver": {
-        "CarBaudRate": 115200,
-        "CarCommPort": "COM12",
-        "LapBaudRate": 115200,
-        "LapCommPort": "COM11",
+        "carBaudRate": 115200,
+        "carCommPort": "COM12",
+        "lapBaudRate": 115200,
+        "lapCommPort": "COM11",
         "pktStart": "[",
         "pktEnd": "]"
     }

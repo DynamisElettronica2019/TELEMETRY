@@ -16,6 +16,11 @@ public class Parser {
 	private char recogniserDebug;
 	private char recogniserDcuErr;
 	private char recogniserAckComm;
+	private char recogniserLapAccMode;
+	private char recogniserLapEndMode;
+	private char recogniserLapIntType;
+	private char recogniserLapLapType;
+	private int lenLap;
 
 	/*
 	 * Set class attributes through ConfReader
@@ -30,6 +35,11 @@ public class Parser {
 		recogniserDebug = ConfReader.getRecogniser("debug");
 		recogniserDcuErr = ConfReader.getRecogniser("error");
 		recogniserAckComm = ConfReader.getRecogniser("command");
+		recogniserLapAccMode = ConfReader.getLapTimerRecogniser("accMode");
+		recogniserLapEndMode = ConfReader.getLapTimerRecogniser("endMode");
+		recogniserLapIntType = ConfReader.getLapTimerRecogniser("intType");
+		recogniserLapLapType = ConfReader.getLapTimerRecogniser("lapType");
+		lenLap = (int)ConfReader.getPacketLen("lap");
 	}
 
 	/*
@@ -89,6 +99,22 @@ public class Parser {
 						e.log();
 					}
 				}
+			}
+		//Laptimer
+		} else if ((stringToParse.charAt(0) == recogniserLapAccMode || stringToParse.charAt(0) == recogniserLapEndMode) && stringToParse.charAt(1) == ';') {
+			if (stringToParse.length() != lenLap) {
+				throw new InvalidReadingException("Message lenght Error ("+stringToParse.charAt(0)+")");
+			} else {
+				if(stringToParse.charAt(0) == recogniserLapAccMode && stringToParse.charAt(2) == recogniserLapIntType) 
+					data.newLap(new ParsedLap(stringToParse,LapMode.ACC,LapType.INT));
+				else if(stringToParse.charAt(0) == recogniserLapAccMode && stringToParse.charAt(2) == recogniserLapLapType) 
+					data.newLap(new ParsedLap(stringToParse,LapMode.ACC,LapType.LAP));
+				else if(stringToParse.charAt(0) == recogniserLapEndMode && stringToParse.charAt(2) == recogniserLapIntType) 
+					data.newLap(new ParsedLap(stringToParse,LapMode.END,LapType.INT));
+				else if(stringToParse.charAt(0) == recogniserLapEndMode && stringToParse.charAt(2) == recogniserLapLapType) 
+					data.newLap(new ParsedLap(stringToParse,LapMode.END,LapType.LAP));
+				else 
+					throw new InvalidReadingException("Laptimer second letter reading Error");
 			}
 		} else {
 			throw new InvalidReadingException("First letter reading Error");

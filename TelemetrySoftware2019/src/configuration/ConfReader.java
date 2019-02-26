@@ -50,15 +50,21 @@ public class ConfReader {
 	
 	/*
 	 * Read and return the len of the packets of type type
-	 * type -> "channels","states","debug"
+	 * type -> "channels","states","debug","lap"
 	 * On reading error log and return 0
 	 */
 	public static long getPacketLen(String type){
 		try {
 			JSONObject obj = readJSONObject();
-			JSONObject data = (JSONObject)obj.get("data");
-			JSONObject ty = (JSONObject)data.get(type);
-			return (long)ty.get("packetLen");
+			if(!type.equals("lap")){
+				JSONObject data = (JSONObject)obj.get("data");
+				JSONObject ty = (JSONObject)data.get(type);
+				return (long)ty.get("packetLen");
+			}
+			else{
+				JSONObject laptimer = (JSONObject)obj.get("laptimer");
+				return (long)laptimer.get("packetLen");
+			}
 		} catch (Exception e) {
 			System.err.println("Config file reading error. Return 0 for "+type+" packetLen");
 			return 0;
@@ -92,7 +98,7 @@ public class ConfReader {
 		try {
 			JSONObject obj = readJSONObject();
 			JSONObject rec = (JSONObject)obj.get("receiver");
-			return (long)rec.get("CarBaudRate");
+			return (long)rec.get("carBaudRate");
 		} catch (Exception e) {
 			System.err.println("Config file reading error. Return 115200 as receiver car baud rate");
 			return 115200;
@@ -107,7 +113,7 @@ public class ConfReader {
 		try {
 			JSONObject obj = readJSONObject();
 			JSONObject rec = (JSONObject)obj.get("receiver");
-			return (String)rec.get("CarCommPort");
+			return (String)rec.get("carCommPort");
 		} catch (Exception e) {
 			System.err.println("Config file reading error. Return COM5 as receiver car port");
 			return "COM5";
@@ -122,7 +128,7 @@ public class ConfReader {
 		try {
 			JSONObject obj = readJSONObject();
 			JSONObject rec = (JSONObject)obj.get("receiver");
-			return (long)rec.get("LapBaudRate");
+			return (long)rec.get("lapBaudRate");
 		} catch (Exception e) {
 			System.err.println("Config file reading error. Return 115200 as receiver lap baud rate");
 			return 115200;
@@ -137,7 +143,7 @@ public class ConfReader {
 		try {
 			JSONObject obj = readJSONObject();
 			JSONObject rec = (JSONObject)obj.get("receiver");
-			return (String)rec.get("LapCommPort");
+			return (String)rec.get("lapCommPort");
 		} catch (Exception e) {
 			System.err.println("Config file reading error. Return COM6 as receiver lap port");
 			return "COM5";
@@ -259,6 +265,22 @@ public class ConfReader {
 		} catch (Exception e) {
 			System.err.println("Config file reading error. Return 3000 as default lenght");
 			return 3000;
+		}
+	}
+	
+	/*
+	 * Read and return selected recogniser for lap timer
+	 * modeType -> "accMode","endMode","intType","lapType"
+	 * On reading error log and return a,e,i,l
+	 */
+	public static char getLapTimerRecogniser(String modeType){
+		try {
+			JSONObject obj = readJSONObject();
+			JSONObject rec = (JSONObject)obj.get("laptimer");
+			return ((String)rec.get(modeType+"Recogniser")).charAt(0);
+		} catch (Exception e) {
+			System.err.println("Config file reading error. Return "+modeType.charAt(0)+" for "+modeType+" recogniser");
+			return ']';
 		}
 	}
 }
