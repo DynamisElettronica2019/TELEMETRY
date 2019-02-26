@@ -1,4 +1,4 @@
-package front_end.gui;
+package front_end.gui_ground;
 
 import back_end.Channel;
 import back_end.Command;
@@ -9,9 +9,9 @@ import back_end.LapTime;
 import back_end.State;
 import front_end.View;
 
-public class GuiView extends View {
+public class GuiGroundView extends View {
 
-	public GuiView() {
+	public GuiGroundView() {
 		// TODO Auto-generated constructor stub
 	}
 	

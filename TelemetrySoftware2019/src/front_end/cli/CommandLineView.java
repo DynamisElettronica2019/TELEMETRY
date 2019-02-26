@@ -17,7 +17,7 @@ public class CommandLineView extends View {
 	
 	@Override
 	public void setCommandSender(CommandSender commandSender) {
-		System.out.println("Setting command sender.. (insert COMMAND_NAME or COMMAND_NAME;PARAMETERS)");
+		System.out.println("Command Sender set (insert COMMAND_NAME or COMMAND_NAME;PARAMETERS)");
 		super.setCommandSender(commandSender);
 		CommandLineReader clr = new CommandLineReader(commandSender);
 		Thread t = new Thread(clr);

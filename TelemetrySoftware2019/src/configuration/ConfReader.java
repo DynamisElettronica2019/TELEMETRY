@@ -280,7 +280,23 @@ public class ConfReader {
 			return ((String)rec.get(modeType+"Recogniser")).charAt(0);
 		} catch (Exception e) {
 			System.err.println("Config file reading error. Return "+modeType.charAt(0)+" for "+modeType+" recogniser");
-			return ']';
+			return modeType.charAt(0);
 		}
 	}
+	
+	/*
+	 * Read and return selected launch mode
+	 * On reading error return GROUND
+	 */
+	public static String getLaunchMode(){
+		JSONObject obj;
+		try {
+			obj = readJSONObject();
+			return (String)obj.get("mode");
+		} catch (Exception e) {
+			System.err.println("Config file reading error. Return GROUND for launch mode");
+			return "GROUND";
+		}
+	}
+	
 }

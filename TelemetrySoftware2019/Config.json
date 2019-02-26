@@ -1,4 +1,6 @@
 {	
+	"_mode": "Accepted: GROUND,GUI_ROW,CLI",
+	"mode": "GUI_ROW",
 	"data":	{
 		"channels":	{
 				"names": ["Recognizer","time","vWheelFR","vWheelFL","vWheelRR","vWheelRL","tWaterL_In","tWaterL_Out","tWaterR_In","tWaterR_Out","tOil_In","tOil_Out","tWaterEngine","Vbattery","nGear","nRPM","XTPS","XPedal","vCar","XSlipTarget",

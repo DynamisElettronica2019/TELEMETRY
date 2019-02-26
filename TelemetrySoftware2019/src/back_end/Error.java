@@ -51,6 +51,10 @@ public class Error extends Observable{
 		return code;
 	}
 	
+	public int getNumbOcc() {
+		return numbOcc;
+	}
+	
 	public LocalDateTime getLastOcc() {
 		return lastOcc;
 	}

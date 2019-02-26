@@ -35,7 +35,7 @@ public class GUIRowView extends View {
 
 	
 	public GUIRowView() throws IOException {
-		System.out.println("Starting GUI view (Ground Station Version)..");
+		System.out.println("Starting row gui view..");
 		
 		//Set stage SX
 		SXLoader = new FXMLLoader(getClass().getResource("SxStage.fxml"));
