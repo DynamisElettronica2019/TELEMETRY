@@ -1,6 +1,6 @@
 {	
 	"_mode": "Accepted: GROUND,GUI_ROW,CLI",
-	"mode": "GUI_ROW",
+	"mode": "CLI",
 	"data":	{
 		"channels":	{
 				"names": ["Recognizer","time","vWheelFR","vWheelFL","vWheelRR","vWheelRL","tWaterL_In","tWaterL_Out","tWaterR_In","tWaterR_Out","tOil_In","tOil_Out","tWaterEngine","Vbattery","nGear","nRPM","XTPS","XPedal","vCar","XSlipTarget",
@@ -36,18 +36,19 @@
 			]
 		},
 	"command": {
-		"board": "D",
 		"recogniser": "A",
 		"timer": 5000,
 		"list": [
 				{
 				"name": "START_TELEMETRY",
 				"code": "M",
+				"board": "D",
 				"params": 0
 				},
 				{
 				"name": "STOP_TELEMETRY",
 				"code": "N",
+				"board": "D",
 				"params": 0
 				}
 			]

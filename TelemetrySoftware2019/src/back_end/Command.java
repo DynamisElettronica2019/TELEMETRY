@@ -10,7 +10,8 @@ import front_end.View;
 public class Command extends Observable{
 	
 	private String name;
-	private char code;
+	private char code; //Must uniquely identify the command
+	private char board;
 	private boolean sending;
 	private Timer timer;
 	private long timerLen;
@@ -20,9 +21,10 @@ public class Command extends Observable{
 	/*
 	 * Create a command with a given name and a given identificator, spcifying if it is allowed to receive parameters
 	 */
-	public Command(String name, char code, boolean params, ArrayList<View> myViews) {
+	public Command(String name, char code, char board, boolean params, ArrayList<View> myViews) {
 		this.name = name;
 		this.code = code;
+		this.board = board;
 		sending = false;
 		timer = new Timer();
 		timerLen=ConfReader.getTimerLen();
@@ -92,5 +94,9 @@ public class Command extends Observable{
 	
 	public char getCode() {
 		return code;
+	}
+	
+	public char getBoard() {
+		return board;
 	}
 }

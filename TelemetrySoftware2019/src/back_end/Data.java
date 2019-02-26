@@ -43,9 +43,10 @@ public class Data {
 		
 		ArrayList<String> coNames = ConfReader.getErrorNames("command");
 		ArrayList<Character> coCodes = ConfReader.getErrorCode("command");
+		ArrayList<Character> coBoards = ConfReader.getCommandBoardCode();
 		ArrayList<Boolean> coParams = ConfReader.getCommandParams();
 		dcuCommands = new Command[coNames.size()];
-		for(int i=0;i<dcuCommands.length;i++) dcuCommands[i] = new Command(coNames.get(i), coCodes.get(i), coParams.get(i), myViews);
+		for(int i=0;i<dcuCommands.length;i++) dcuCommands[i] = new Command(coNames.get(i), coCodes.get(i), coBoards.get(i), coParams.get(i), myViews);
 		
 		lapTimer = new LapTimer(myViews);
 	}
@@ -180,6 +181,16 @@ public class Data {
 	 */
 	public void newLap(ParsedLap parsedLap) {
 		lapTimer.newLap(parsedLap);
+	}
+
+	/*
+	 * Get board for command with code myCode
+	 */
+	public char getBoard(char myCode) throws InvalidCodeException {
+		for(Command c: dcuCommands){
+			if(c.getCode()==myCode) return c.getBoard();
+		}
+		throw new InvalidCodeException("Not valid command code received: "+myCode);
 	}
 	
 }

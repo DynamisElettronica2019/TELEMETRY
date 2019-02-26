@@ -151,21 +151,6 @@ public class ConfReader {
 	}
 	
 	/*
-	 * Read and return command board
-	 * On reading error log and return "D"
-	 */
-	public static char getCommandBoard(){
-		try {
-			JSONObject obj = readJSONObject();
-			JSONObject rec = (JSONObject)obj.get("command");
-			return ((String)rec.get("board")).charAt(0);
-		} catch (Exception e) {
-			System.err.println("Config file reading error. Return D as default command board");
-			return 'D';
-		}
-	}
-	
-	/*
 	 * Read and return error names for type "error" or "command"
 	 * On reading error log and return an empty ArrayList
 	 */
@@ -197,6 +182,24 @@ public class ConfReader {
 			return myList;
 		} catch (Exception e) {
 			System.err.println("Config file reading error. Return empty ArrayList for "+type+" codes");
+			return new ArrayList<>();
+		}
+	}
+	
+	/*
+	 * Read and return command boards
+	 * On reading error log and return an empty ArrayList
+	 */
+	public static ArrayList<Character> getCommandBoardCode(){
+		try {
+			JSONObject obj = readJSONObject();
+			JSONObject ty = (JSONObject)obj.get("command");
+			JSONArray list = (JSONArray)ty.get("list");
+			ArrayList<Character> myList = new ArrayList<Character>();
+			for(int i=0;i<list.size();i++) myList.add((Character)((String)((JSONObject)list.get(i)).get("board")).charAt(0));
+			return myList;
+		} catch (Exception e) {
+			System.err.println("Config file reading error. Return empty ArrayList for command boards");
 			return new ArrayList<>();
 		}
 	}
