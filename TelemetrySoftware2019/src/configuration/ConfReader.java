@@ -85,31 +85,61 @@ public class ConfReader {
 	}
 	
 	/*
-	 * Read and return receiver baud rate
+	 * Read and return car receiver baud rate
 	 * On reading error log and return 115200
 	 */
-	public static long getRecBaud(){
+	public static long getCarRecBaud(){
 		try {
 			JSONObject obj = readJSONObject();
 			JSONObject rec = (JSONObject)obj.get("receiver");
-			return (long)rec.get("baudRate");
+			return (long)rec.get("CarBaudRate");
 		} catch (Exception e) {
-			System.err.println("Config file reading error. Return 115200 as receiver baud rate");
+			System.err.println("Config file reading error. Return 115200 as receiver car baud rate");
 			return 115200;
 		}
 	}
 	
 	/*
-	 * Read and return receiver port
+	 * Read and return car receiver port
 	 * On reading error log and return "COM5"
 	 */
-	public static String getRecPort(){
+	public static String getCarRecPort(){
 		try {
 			JSONObject obj = readJSONObject();
 			JSONObject rec = (JSONObject)obj.get("receiver");
-			return (String)rec.get("commPort");
+			return (String)rec.get("CarCommPort");
 		} catch (Exception e) {
-			System.err.println("Config file reading error. Return COM5 as receiver port");
+			System.err.println("Config file reading error. Return COM5 as receiver car port");
+			return "COM5";
+		}
+	}
+	
+	/*
+	 * Read and return lap receiver baud rate
+	 * On reading error log and return 115200
+	 */
+	public static long getLapRecBaud(){
+		try {
+			JSONObject obj = readJSONObject();
+			JSONObject rec = (JSONObject)obj.get("receiver");
+			return (long)rec.get("LapBaudRate");
+		} catch (Exception e) {
+			System.err.println("Config file reading error. Return 115200 as receiver lap baud rate");
+			return 115200;
+		}
+	}
+	
+	/*
+	 * Read and return Lap receiver port
+	 * On reading error log and return "COM6"
+	 */
+	public static String getLapRecPort(){
+		try {
+			JSONObject obj = readJSONObject();
+			JSONObject rec = (JSONObject)obj.get("receiver");
+			return (String)rec.get("LapCommPort");
+		} catch (Exception e) {
+			System.err.println("Config file reading error. Return COM6 as receiver lap port");
 			return "COM5";
 		}
 	}

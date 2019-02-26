@@ -8,14 +8,14 @@ import front_end.View;
 
 public class CommandSender {
 	
-	private CarReceiver receiver;
+	private Receiver receiver;
 	private Data data;
 	private char boardChar;
 	
 	/*
 	 * Create a new command sender associated with a specific 'receiver' and a specific 'data'. Set the command sender as command sender of all views
 	 */
-	public CommandSender(CarReceiver receiver, Data data, ArrayList<View> myViews) {
+	public CommandSender(Receiver receiver, Data data, ArrayList<View> myViews) {
 		this.receiver=receiver;
 		this.data=data;
 		boardChar=ConfReader.getCommandBoard();

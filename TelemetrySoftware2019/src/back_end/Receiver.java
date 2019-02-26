@@ -10,7 +10,7 @@ import exceptions.InvalidReadingException;
 import exceptions.InvalidUpdateException;
 import front_end.View;
 
-public class CarReceiver {
+public class Receiver {
 	/*
 	 * Attributi
 	 */
@@ -27,20 +27,27 @@ public class CarReceiver {
 	private String portName;
 	private char pktStart;
 	private char pktEnd;
+	private char mode;
 
 	/*
-	 * Costruttore
+	 * Costruttore. Selezionare modalità car ("C") o lap ("L"). La modalità L non ha il command sender
 	 */
-	public CarReceiver(ArrayList<View> myViews) {
-		
-		data = new Data(myViews);
-		parser = new Parser(data);
-		commandSender=new CommandSender(this, data, myViews);
+	public Receiver(ArrayList<View> myViews, Data data, Parser parser, char mode) {
+		this.mode = mode;
+		this.data = data;
+		this.parser = parser;
 		strRead = new char[2056];
 		strIndex = 0;
 		openBracketIndex = -1;
-		baudRate = (int)ConfReader.getRecBaud();
-		portName = ConfReader.getRecPort();
+		if(mode == 'C'){
+			commandSender=new CommandSender(this, data, myViews);
+			baudRate = (int)ConfReader.getCarRecBaud();
+			portName = ConfReader.getCarRecPort();
+		}
+		else if(mode == 'L'){
+			baudRate = (int)ConfReader.getLapRecBaud();
+			portName = ConfReader.getLapRecPort();
+		}
 		pktStart = ConfReader.getPktStart();
 		pktEnd = ConfReader.getPktEnd();
 	}
@@ -58,8 +65,6 @@ public class CarReceiver {
 	 * di parentesi e ne salva gli indici
 	 */
 	public final class PacketListener implements SerialPortPacketListener {
-		
-		
 		
 		@Override
 		public int getListeningEvents() {
@@ -114,7 +119,8 @@ public class CarReceiver {
 					if((comPort.isOpen() == false)){
 						comPort.openPort(); //Open port
 						if((comPort.isOpen() == true)){
-							System.out.println("Car receiver connected on port "+portName);
+							if(mode == 'C') System.out.println("Car receiver connected on port "+portName);
+							if(mode == 'L') System.out.println("Lap receiver connected on port "+portName);
 						}
 					}
 					try {

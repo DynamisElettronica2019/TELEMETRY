@@ -51,8 +51,10 @@
 			]
 	}
     "receiver": {
-        "baudRate": 115200,
-        "commPort": "COM12",
+        "CarBaudRate": 115200,
+        "CarCommPort": "COM12",
+        "LapBaudRate": 115200,
+        "LapCommPort": "COM11",
         "pktStart": "[",
         "pktEnd": "]"
     }
