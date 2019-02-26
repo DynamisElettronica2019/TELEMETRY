@@ -2,7 +2,7 @@ package main;
 
 import java.util.ArrayList;
 
-import back_end.Receiver;
+import back_end.CarReceiver;
 import front_end.cli.CommandLineView;
 import front_end.gui_row.GUIRowView;
 import front_end.View;
@@ -24,7 +24,7 @@ public class Main extends Application {
 		myViews.add(new GUIRowView());
 		
 		//Receiver launch
-		Receiver rec = new Receiver(myViews);
+		CarReceiver rec = new CarReceiver(myViews);
 		Thread threadLettura = new Thread(new Runnable() {
 			@Override
 			public void run() {

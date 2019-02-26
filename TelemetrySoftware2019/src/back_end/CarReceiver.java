@@ -1,6 +1,7 @@
 package back_end;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import com.fazecast.jSerialComm.*;
 
@@ -8,9 +9,8 @@ import configuration.ConfReader;
 import exceptions.InvalidReadingException;
 import exceptions.InvalidUpdateException;
 import front_end.View;
-import front_end.cli.CommandLineView;
 
-public class Receiver {
+public class CarReceiver {
 	/*
 	 * Attributi
 	 */
@@ -31,7 +31,7 @@ public class Receiver {
 	/*
 	 * Costruttore
 	 */
-	public Receiver(ArrayList<View> myViews) {
+	public CarReceiver(ArrayList<View> myViews) {
 		
 		data = new Data(myViews);
 		parser = new Parser(data);
@@ -58,6 +58,9 @@ public class Receiver {
 	 * di parentesi e ne salva gli indici
 	 */
 	public final class PacketListener implements SerialPortPacketListener {
+		
+		
+		
 		@Override
 		public int getListeningEvents() {
 			return SerialPort.LISTENING_EVENT_DATA_RECEIVED; // Verifica la presenza di dati da leggere
@@ -104,13 +107,17 @@ public class Receiver {
 	public void Reader() {
 		comPort = SerialPort.getCommPort(portName);
 		comPort.openPort(); // Apertura della porta
-		if (comPort.isOpen() == false) {
-			System.err.println("Impossibile aprire la porta");
-		} else {
-			comPort.setBaudRate(baudRate);
-			PacketListener listener = new PacketListener();
-			comPort.addDataListener(listener);
+		while(comPort.isOpen() == false){
+			try {
+				TimeUnit.SECONDS.sleep(1);
+				comPort.openPort(); 
+			} catch (InterruptedException e) {
+				System.err.println("CarReceiver interrupted");
+			}
 		}
+		comPort.setBaudRate(baudRate);
+		PacketListener listener = new PacketListener();
+		comPort.addDataListener(listener);
 	}
 
 	/*
