@@ -49,6 +49,25 @@ public class ConfReader {
 	}
 	
 	/*
+	 * Define if a name have a channel name have a threshold. 
+	 * If yes return {name,threshold}, else return {name}.
+	 */
+	public static String[] haveThreshold(String name){
+		if(name.split("\\[").length == 2) {
+			String th = name.split("\\[")[1];
+			if(th.toCharArray()[th.toCharArray().length-1]==']')
+				if(th.toCharArray()[0]=='<'||th.toCharArray()[0]=='>')
+					try {
+				        Double.parseDouble(th.substring(1,th.length()-1));
+				        return new String[]{name.split("\\[")[0],th.substring(0,th.length()-1)}; 
+				    } catch (NumberFormatException | NullPointerException nfe) {
+				        return new String[]{name.split("\\[")[0]};
+				    }
+		}
+		return new String[]{name};	
+	}
+	
+	/*
 	 * Read and return the len of the packets of type type
 	 * type -> "channels","states","debug","lap"
 	 * On reading error log and return 0

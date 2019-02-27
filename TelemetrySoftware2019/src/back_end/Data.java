@@ -26,7 +26,11 @@ public class Data {
 		
 		ArrayList<String> chNames = ConfReader.getNames("channels");
 		channels = new Channel[chNames.size()];
-		for(int i=0;i<channels.length;i++) channels[i] = new Channel(chNames.get(i), this, myViews);
+		for(int i=0;i<channels.length;i++) {
+			String[] NaTh = ConfReader.haveThreshold(chNames.get(i));
+			if(NaTh.length==1) channels[i] = new Channel(NaTh[0], this, myViews);
+			else ;//TODO CREO UN CANALE CON SOGLIA CON SOGLIA NaTh[1] GESTITA DAL COSTRUTTORE
+		}
 		
 		ArrayList<String> stNames = ConfReader.getNames("states");
 		states = new State[stNames.size()];
