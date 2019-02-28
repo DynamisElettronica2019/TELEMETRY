@@ -13,7 +13,7 @@ import front_end.gui_row.GUIRowView;
 
 public class ModeLauncher {
 	
-	public static ArrayList<View> createViews(){
+	public static ArrayList<View> createViews() throws IOException{
 		ArrayList<View> myViews = new ArrayList<>();
 		String mode = ConfReader.getLaunchMode();
 		//Cli mode

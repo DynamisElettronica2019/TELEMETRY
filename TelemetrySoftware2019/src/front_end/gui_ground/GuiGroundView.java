@@ -1,5 +1,7 @@
 package front_end.gui_ground;
 
+import java.io.IOException;
+
 import back_end.Channel;
 import back_end.Command;
 import back_end.CommandSender;
@@ -9,53 +11,121 @@ import back_end.LapTime;
 import back_end.State;
 import back_end.Threshold;
 import front_end.View;
+import front_end.gui_row.DxController;
+import front_end.gui_row.SxController;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 
 public class GuiGroundView extends View {
+	private final int SCREEN_OFFSET_X = -8;
+	private final int SCREEN_OFFSET_Y = 0;
+	
+	private Stage stageSX;
+	private Stage stageDX;
+	private Scene sceneSX;
+	private Scene sceneDX;
+	private Parent PaneSX;
+	private Parent PaneDX;
+	private Controller SXController;
+	private Controller DXController;
+	private FXMLLoader SXLoader;
+	private FXMLLoader DXLoader;
+	private BorderPane borderPaneSX, borderPaneDX;
 
-	public GuiGroundView() {
-		// TODO Auto-generated constructor stub
+	
+	public GuiGroundView() throws IOException {
+		System.out.println("Starting row gui view..");
+		
+		//Set stage SX
+		stageSX = new Stage();
+		stageSX.setTitle("Telemetry2019_SX");
+		Screen mainScreen = Screen.getScreens().get(0); 
+        Rectangle2D bounds = mainScreen.getVisualBounds();
+        stageSX.setX(bounds.getMinX()+SCREEN_OFFSET_X);
+        stageSX.setY(bounds.getMinY()+SCREEN_OFFSET_Y);
+        stageSX.setMaximized(true);
+        stageSX.setOnCloseRequest( event -> {stageDX.close();} );
+        
+        //Initialize stage SX
+        borderPaneSX = new BorderPane();
+        SXLoader = new FXMLLoader();
+        PaneSX = SXLoader.load(getClass().getResource("TopBar.fxml").openStream());
+        SXController = SXLoader.getController();
+        borderPaneSX.setTop(PaneSX);
+        sceneSX = new Scene(borderPaneSX);
+        stageSX.setScene(sceneSX);
+        stageSX.show();
+        
+        
+        //Set stage DX
+        stageDX = new Stage();
+        stageDX.setTitle("Telemetry2019_DX");
+        Screen secondScreen = Screen.getScreens().get(0);
+        if(Screen.getScreens().size()>1) secondScreen = Screen.getScreens().get(1);
+        bounds = secondScreen.getVisualBounds();
+        stageDX.setX(bounds.getMinX()+SCREEN_OFFSET_X);
+        stageDX.setY(bounds.getMinY()+SCREEN_OFFSET_Y);
+        stageDX.setMaximized(true);
+        stageDX.setOnCloseRequest( event -> {stageSX.close();} );
+        
+        //Initialize stage DX
+        borderPaneDX = new BorderPane();
+        DXLoader = new FXMLLoader();
+        PaneDX = DXLoader.load(getClass().getResource("TopBar.fxml").openStream());
+        DXController = DXLoader.getController();
+        borderPaneDX.setTop(PaneDX);
+        sceneDX = new Scene(borderPaneDX);
+        stageDX.setScene(sceneDX);
+        stageDX.show();
+        SXController.SetState();
 	}
 	
+	//Update functions call controller relative functions, always defined in controlelr
 	@Override
 	public void UpdateChannel(Channel channel) {
-		// TODO Auto-generated method stub
-
+		SXController.EditChannel();
+		DXController.EditChannel();
 	}
 
 	@Override
 	public void UpdateCommand(Command command) {
-		// TODO Auto-generated method stub
-
+		SXController.EditCommand();
+		DXController.EditCommand();
 	}
 
 	@Override
 	public void UpdateDebug(Debug debug) {
-		// TODO Auto-generated method stub
-
+		SXController.EditDebug();
+		DXController.EditDebug();
 	}
 
 	@Override
 	public void UpdateError(Error error) {
-		// TODO Auto-generated method stub
-
+		SXController.EditError();
+		DXController.EditError();
 	}
 
 	@Override
 	public void UpdateState(State state) {
-		// TODO Auto-generated method stub
-
+		SXController.EditState();
+		DXController.EditState();
 	}
 
 	@Override
 	public void UpdateLap(LapTime lapTime) {
-		// TODO Auto-generated method stub
-		
+		SXController.EditLap();
+		DXController.EditLap();
 	}
 
 	@Override
 	public void UpdateTS(Threshold thresholdState) {
-		// TODO Auto-generated method stub
-		
+		SXController.EditTS();
+		DXController.EditTS();
 	}
 	
 	@Override

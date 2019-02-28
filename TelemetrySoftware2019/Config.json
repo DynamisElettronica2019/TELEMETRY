@@ -1,6 +1,6 @@
 {	
 	"_mode": "Accepted: GROUND,GUI_ROW,CLI",
-	"mode": "CLI",
+	"mode": "GROUND",
 	"data":	{
 		"channels":	{
 				"_names": "use name[<double] || name[>double] for threshold indicator",

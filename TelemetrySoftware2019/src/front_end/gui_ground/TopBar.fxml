@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.gui_ground.TopBarController">
+   <children>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="Engine" />
+          <Menu mnemonicParsing="false" text="Dynamics" />
+            <Menu mnemonicParsing="false" text="Commands">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Raw Data" />
+        </menus>
+      </MenuBar>
+      <HBox prefHeight="56.0" prefWidth="600.0" spacing="10.0">
+         <children>
+            <VBox>
+               <children>
+                  <Circle fx:id="usbPresent" fill="#1f93ff" radius="20.0" stroke="BLACK" strokeType="INSIDE">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Circle>
+                  <Label text="USB Present" textAlignment="CENTER" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Circle fx:id="usbReady" fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label text="USB Ready" textAlignment="CENTER" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Circle fx:id="acqOn" fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label text="Acquisition ON" textAlignment="CENTER" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Circle fx:id="telOn" fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label text="Telemetry ON" textAlignment="CENTER" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Circle fx:id="sdPresent" fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label text="SD Present" textAlignment="CENTER" />
+               </children>
+            </VBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="5.0" top="5.0" />
+         </VBox.margin>
+      </HBox>
+   </children>
+</VBox>
