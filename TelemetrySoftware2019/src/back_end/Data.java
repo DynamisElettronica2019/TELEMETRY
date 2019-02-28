@@ -29,7 +29,7 @@ public class Data {
 		for(int i=0;i<channels.length;i++) {
 			String[] NaTh = ConfReader.haveThreshold(chNames.get(i));
 			if(NaTh.length==1) channels[i] = new Channel(NaTh[0], this, myViews);
-			else ;//TODO CREO UN CANALE CON SOGLIA CON SOGLIA NaTh[1] GESTITA DAL COSTRUTTORE
+			else channels[i] = new ThresholdChannel(NaTh[0], this, myViews, NaTh[1]);
 		}
 		
 		ArrayList<String> stNames = ConfReader.getNames("states");

@@ -7,6 +7,7 @@ import back_end.Error;
 import back_end.LapTime;
 import back_end.Debug;
 import back_end.State;
+import back_end.Threshold;
 
 public abstract class View {
 	
@@ -17,6 +18,7 @@ public abstract class View {
 	private ErrorObserver erObs;
 	private CommandObserver coObs;
 	private LapObserver lapObs;
+	private ThStateObserver tsObs;
 	
 	public View() {
 		chObs = new ChannelObserver(this);
@@ -25,6 +27,7 @@ public abstract class View {
 		erObs = new ErrorObserver(this);
 		coObs = new CommandObserver(this);
 		lapObs = new LapObserver(this);
+		tsObs = new ThStateObserver(this);
 	}
 	
 	public void setCommandSender(CommandSender commandSender) {
@@ -35,36 +38,63 @@ public abstract class View {
 		return chObs;
 	}
 	
+	/*
+	 * Implement for update of last element of a channel
+	 */
 	public abstract void UpdateChannel(Channel channel);
 	
 	public CommandObserver getCoObs() {
 		return coObs;
 	}
 	
+	/*
+	 * Implement for update of the state sending value of a command
+	 */
 	public abstract void UpdateCommand(Command command);
 	
 	public DebugObserver getDeObs() {
 		return deObs;
 	}
 	
+	/*
+	 * Implement for update of a debug value
+	 */
 	public abstract void UpdateDebug(Debug debug);
 	
 	public ErrorObserver getErObs() {
 		return erObs;
 	}
 	
+	/*
+	 * Implement for new error event
+	 */
 	public abstract void UpdateError(Error error);
 	
 	public StateObserver getStObs() {
 		return stObs;
 	}
 	
+	/*
+	 * Implement for update of a state value
+	 */
 	public abstract void UpdateState(State state);
 	
 	public LapObserver getLapObs() {
 		return lapObs;
 	}
 	
+	/*
+	 * Implement for new instance of a lap time
+	 */
 	public abstract void UpdateLap(LapTime lapTime);
+	
+	public ThStateObserver getTsObs() {
+		return tsObs;
+	}
+	
+	/*
+	 * Implement for update of a threshold state value
+	 */
+	public abstract void UpdateTS(Threshold thresholdState);
 
 }

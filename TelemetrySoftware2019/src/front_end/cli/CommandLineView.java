@@ -7,6 +7,7 @@ import back_end.Debug;
 import back_end.Error;
 import back_end.LapTime;
 import back_end.State;
+import back_end.Threshold;
 import front_end.View;
 
 public class CommandLineView extends View {
@@ -15,6 +16,9 @@ public class CommandLineView extends View {
 		System.out.println("Starting command line view..");
 	}
 	
+	/*
+	 * Launch a command reader on a new thread
+	 */
 	@Override
 	public void setCommandSender(CommandSender commandSender) {
 		System.out.println("Command Sender set (insert COMMAND_NAME or COMMAND_NAME;PARAMETERS)");
@@ -55,6 +59,11 @@ public class CommandLineView extends View {
 	public void UpdateLap(LapTime lapTime) {
 		System.out.println("[LapTime] "+"Mode:"+lapTime.getMode().toString()+"/Type:"+lapTime.getType().toString()+
 				"/LapNumber:"+lapTime.getLapNumber()+"/"+lapTime.getMinutes()+":"+lapTime.getmSeconds()+":"+lapTime.getmSeconds());
+	}
+
+	@Override
+	public void UpdateTS(Threshold thresholdState) {
+		System.out.println("[ThState] "+thresholdState.getChName()+" -> "+thresholdState.isError());
 	}
 
 }
