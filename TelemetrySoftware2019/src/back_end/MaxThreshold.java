@@ -21,7 +21,7 @@ public class MaxThreshold extends Threshold {
 			setChanged();
 			notifyObservers();
 		}
-		else if(value<threshold && error){
+		else if(value<=threshold && error){
 			error = false;
 			
 			setChanged();
