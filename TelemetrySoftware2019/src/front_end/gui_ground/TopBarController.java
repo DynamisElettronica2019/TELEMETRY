@@ -2,11 +2,14 @@ package front_end.gui_ground;
 
 import javafx.scene.shape.Circle;
 import javafx.fxml.FXML;
+import javafx.scene.control.Menu;
 import javafx.scene.paint.Color;
 
 public class TopBarController extends Controller {
 	@FXML
 	private Circle usbPresent, usbReady, acqOn, telOn, sdPresent;
+	@FXML
+	private Menu commandsPage, debugPage, dynamicsPage, enginePage, rawPage;
 	
 	@Override
 	public void SetDebug() {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.shape.*?>
@@ -10,25 +11,22 @@
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.gui_ground.TopBarController">
    <children>
-      <MenuBar>
+      <MenuBar prefWidth="1366.0">
         <menus>
-          <Menu mnemonicParsing="false" text="Engine" />
-          <Menu mnemonicParsing="false" text="Dynamics" />
-            <Menu mnemonicParsing="false" text="Commands">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-              </items>
-            </Menu>
-          <Menu mnemonicParsing="false" text="Raw Data" />
+          <Menu fx:id="enginePage" mnemonicParsing="false" text="Engine" />
+          <Menu fx:id="dynamicsPage" mnemonicParsing="false" text="Dynamics" />
+            <Menu fx:id="commandsPage" mnemonicParsing="false" text="Commands" />
+          <Menu fx:id="rawPage" mnemonicParsing="false" text="Raw Data" />
+            <Menu fx:id="debugPage" mnemonicParsing="false" text="Debug" />
         </menus>
       </MenuBar>
-      <HBox prefHeight="56.0" prefWidth="600.0" spacing="10.0">
+      <HBox spacing="10.0">
          <children>
             <VBox>
                <children>
                   <Circle fx:id="usbPresent" fill="#1f93ff" radius="20.0" stroke="BLACK" strokeType="INSIDE">
                      <VBox.margin>
-                        <Insets />
+                        <Insets left="5.0" />
                      </VBox.margin>
                   </Circle>
                   <Label text="USB Present" textAlignment="CENTER" />
@@ -57,6 +55,69 @@
                   <Circle fx:id="sdPresent" fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
                   <Label text="SD Present" textAlignment="CENTER" />
                </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Circle fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label text="SD Ready" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Circle fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label text="P Oil" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Circle fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label text="T Oil" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Circle fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label text="T H20" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Circle fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label text="P Fuel" />
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Circle fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label text="V Bat" />
+               </children>
+            </VBox>
+            <Region maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+            <VBox>
+               <children>
+                  <Label text="Mappa" />
+                  <Label text="5">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox>
+               <children>
+                  <Label text="Traction" />
+                  <Label text="4">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets right="5.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin>
             </VBox>
          </children>
          <VBox.margin>

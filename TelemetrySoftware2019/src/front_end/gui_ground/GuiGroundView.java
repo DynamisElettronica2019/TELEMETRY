@@ -29,12 +29,12 @@ public class GuiGroundView extends View {
 	private Stage stageDX;
 	private Scene sceneSX;
 	private Scene sceneDX;
-	private Parent PaneSX;
-	private Parent PaneDX;
+	private Parent SXTopBarPane;
+	private Parent DXTopBarPane;
 	private Controller SXController;
 	private Controller DXController;
-	private FXMLLoader SXLoader;
-	private FXMLLoader DXLoader;
+	private FXMLLoader SXTopBarLoader;
+	private FXMLLoader DXTopBarLoader;
 	private BorderPane borderPaneSX, borderPaneDX;
 
 	
@@ -53,10 +53,10 @@ public class GuiGroundView extends View {
         
         //Initialize stage SX
         borderPaneSX = new BorderPane();
-        SXLoader = new FXMLLoader();
-        PaneSX = SXLoader.load(getClass().getResource("TopBar.fxml").openStream());
-        SXController = SXLoader.getController();
-        borderPaneSX.setTop(PaneSX);
+        SXTopBarLoader = new FXMLLoader();
+        SXTopBarPane = SXTopBarLoader.load(getClass().getResource("TopBar.fxml").openStream());
+        SXController = SXTopBarLoader.getController();
+        borderPaneSX.setTop(SXTopBarPane);
         sceneSX = new Scene(borderPaneSX);
         stageSX.setScene(sceneSX);
         stageSX.show();
@@ -75,10 +75,10 @@ public class GuiGroundView extends View {
         
         //Initialize stage DX
         borderPaneDX = new BorderPane();
-        DXLoader = new FXMLLoader();
-        PaneDX = DXLoader.load(getClass().getResource("TopBar.fxml").openStream());
-        DXController = DXLoader.getController();
-        borderPaneDX.setTop(PaneDX);
+        DXTopBarLoader = new FXMLLoader();
+        DXTopBarPane = DXTopBarLoader.load(getClass().getResource("TopBar.fxml").openStream());
+        DXController = DXTopBarLoader.getController();
+        borderPaneDX.setTop(DXTopBarPane);
         sceneDX = new Scene(borderPaneDX);
         stageDX.setScene(sceneDX);
         stageDX.show();
