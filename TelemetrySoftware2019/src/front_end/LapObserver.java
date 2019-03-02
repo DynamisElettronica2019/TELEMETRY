@@ -2,7 +2,7 @@ package front_end;
 
 import java.util.Observable;
 
-import back_end.LapTime;
+import back_end.LapTimer;
 
 public class LapObserver extends MyObserver {
 	
@@ -12,7 +12,7 @@ public class LapObserver extends MyObserver {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		myView.UpdateLap((LapTime)arg);
+		myView.UpdateLap((LapTimer)o);
 	}
 
 }

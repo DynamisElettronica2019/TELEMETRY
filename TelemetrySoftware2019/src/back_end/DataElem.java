@@ -19,5 +19,13 @@ public class DataElem extends Observable{
 	public String getName() {
 		return name;
 	}
+	
+	/*
+	 * Notify view
+	 */
+	public void load() {
+		setChanged();
+		notifyObservers();
+	}
 
 }

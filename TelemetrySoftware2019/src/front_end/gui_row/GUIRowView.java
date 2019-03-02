@@ -7,7 +7,7 @@ import back_end.Command;
 import back_end.CommandSender;
 import back_end.Debug;
 import back_end.Error;
-import back_end.LapTime;
+import back_end.LapTimer;
 import back_end.State;
 import back_end.Threshold;
 import front_end.View;
@@ -102,7 +102,7 @@ public class GUIRowView extends View {
 	}
 	
 	@Override
-	public void UpdateLap(LapTime lapTime) {
+	public void UpdateLap(LapTimer lapTimer) {
 	}
 
 	@Override

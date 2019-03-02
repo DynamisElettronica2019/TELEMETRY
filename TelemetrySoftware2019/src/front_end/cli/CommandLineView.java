@@ -5,7 +5,7 @@ import back_end.Command;
 import back_end.CommandSender;
 import back_end.Debug;
 import back_end.Error;
-import back_end.LapTime;
+import back_end.LapTimer;
 import back_end.State;
 import back_end.Threshold;
 import front_end.View;
@@ -30,8 +30,11 @@ public class CommandLineView extends View {
 
 	@Override
 	public void UpdateChannel(Channel channel) {
+		if(channel.getLastTs(1).size()>0)
 		System.out.println("[Channel] "+channel.getName()+" @"+channel.getLastTs(1).get(0).toString()
 							+" -> "+channel.getLastElems(1).get(0).toString());
+		else
+		System.out.println("[Channel] "+channel.getName()+" has no elements");
 	}
 
 	@Override
@@ -56,9 +59,12 @@ public class CommandLineView extends View {
 	}
 
 	@Override
-	public void UpdateLap(LapTime lapTime) {
-		System.out.println("[LapTime] "+"Mode:"+lapTime.getMode().toString()+"/Type:"+lapTime.getType().toString()+
-				"/LapNumber:"+lapTime.getLapNumber()+"/"+lapTime.getMinutes()+":"+lapTime.getmSeconds()+":"+lapTime.getmSeconds());
+	public void UpdateLap(LapTimer lapTimer) {
+		if(lapTimer.getLastTime()!=null)
+		System.out.println("[LastLapTime] "+"Mode:"+lapTimer.getLastTime().getMode().toString()+"/Type:"+lapTimer.getLastTime().getType().toString()+
+				"/LapNumber:"+lapTimer.getLastTime().getLapNumber()+"/"+lapTimer.getLastTime().getMinutes()+":"+lapTimer.getLastTime().getmSeconds()+":"+lapTimer.getLastTime().getmSeconds());
+		else
+		System.out.println("[LastLapTime] LapTimer has no elements");
 	}
 
 	@Override

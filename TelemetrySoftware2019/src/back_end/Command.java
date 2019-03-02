@@ -99,4 +99,12 @@ public class Command extends Observable{
 	public char getBoard() {
 		return board;
 	}
+	
+	/*
+	 * Notify view
+	 */
+	public void load() {
+		setChanged();
+		notifyObservers();
+	}
 }

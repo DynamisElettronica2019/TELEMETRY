@@ -19,7 +19,8 @@ public class Data {
 	private LapTimer lapTimer;
 	
 	/*
-	 * Create channels,states,debug through ConfReader and initialize timeStamps
+	 * Create channels,states,debug,dcuCommands,dcuErrors,lapTimer through ConfReader and initialize timeStamps
+	 * Set viewLoader for all views
 	 */
 	public Data(ArrayList<View> myViews) {
 		timestamps = new ArrayList<>();
@@ -53,6 +54,9 @@ public class Data {
 		for(int i=0;i<dcuCommands.length;i++) dcuCommands[i] = new Command(coNames.get(i), coCodes.get(i), coBoards.get(i), coParams.get(i), myViews);
 		
 		lapTimer = new LapTimer(myViews);
+		
+		ViewLoader vl = new ViewLoader(this);
+		for(View v : myViews) v.setViewLoader(vl);
 	}
 	
 	/*
@@ -195,6 +199,26 @@ public class Data {
 			if(c.getCode()==myCode) return c.getBoard();
 		}
 		throw new InvalidCodeException("Not valid command code received: "+myCode);
+	}
+	
+	public Channel[] getChannels() {
+		return channels;
+	}
+	
+	public State[] getStates() {
+		return states;
+	}
+	
+	public Debug[] getDebug(){
+		return debug;
+	}
+	
+	public Command[] getDcuCommands() {
+		return dcuCommands;
+	}
+	
+	public LapTimer getLapTimer() {
+		return lapTimer;
 	}
 	
 }

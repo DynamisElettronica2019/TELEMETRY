@@ -1,6 +1,6 @@
 {	
 	"_mode": "Accepted: GROUND,GUI_ROW,CLI",
-	"mode": "GROUND",
+	"mode": "CLI",
 	"data":	{
 		"channels":	{
 				"_names": "use name[<double] || name[>double] for threshold indicator",
@@ -63,7 +63,7 @@
 	},
     "receiver": {
         "carBaudRate": 115200,
-        "carCommPort": "COM3",
+        "carCommPort": "COM12",
         "lapBaudRate": 115200,
         "lapCommPort": "COM11",
         "pktStart": "[",

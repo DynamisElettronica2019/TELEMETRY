@@ -4,14 +4,16 @@ import back_end.Channel;
 import back_end.Command;
 import back_end.CommandSender;
 import back_end.Error;
-import back_end.LapTime;
+import back_end.LapTimer;
 import back_end.Debug;
 import back_end.State;
 import back_end.Threshold;
+import back_end.ViewLoader;
 
 public abstract class View {
 	
 	protected CommandSender commandSender;
+	protected ViewLoader viewLoader;
 	private ChannelObserver chObs;
 	private StateObserver stObs;
 	private DebugObserver deObs;
@@ -32,6 +34,10 @@ public abstract class View {
 	
 	public void setCommandSender(CommandSender commandSender) {
 		this.commandSender = commandSender;
+	}
+	
+	public void setViewLoader(ViewLoader viewLoader) {
+		this.viewLoader = viewLoader;
 	}
 	
 	public ChannelObserver getChObs() {
@@ -84,9 +90,9 @@ public abstract class View {
 	}
 	
 	/*
-	 * Implement for new instance of a lap time
+	 * Implement for lap timer modified
 	 */
-	public abstract void UpdateLap(LapTime lapTime);
+	public abstract void UpdateLap(LapTimer lapTimer);
 	
 	public ThStateObserver getTsObs() {
 		return tsObs;
@@ -96,5 +102,13 @@ public abstract class View {
 	 * Implement for update of a threshold state value
 	 */
 	public abstract void UpdateTS(Threshold thresholdState);
+	
+	public CommandSender getCommandSender() {
+		return commandSender;
+	}
+	
+	public ViewLoader getViewLoader() {
+		return viewLoader;
+	}
 
 }

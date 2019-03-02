@@ -34,5 +34,14 @@ public class ThresholdChannel extends Channel {
 		super.reset();
 		threshold.reset();
 	}
+	
+	/*
+	 * Notify view
+	 */
+	@Override
+	public void load() {
+		super.load();
+		threshold.load();
+	}
 
 }

@@ -40,5 +40,13 @@ public abstract class Threshold extends Observable{
 	public boolean isError() {
 		return error;
 	}
+	
+	/*
+	 * Notify view
+	 */
+	public void load() {
+		setChanged();
+		notifyObservers();
+	}
 
 }

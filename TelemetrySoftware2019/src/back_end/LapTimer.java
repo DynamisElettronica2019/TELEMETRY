@@ -19,11 +19,19 @@ public class LapTimer extends Observable {
 	 * Notify observers with the new LapTime
 	 */
 	public void newLap(ParsedLap pl){
-		LapTime newTime = new LapTime(pl);
-		lapTimes.add(newTime);
+		lapTimes.add(new LapTime(pl));
 		
 		setChanged();
-		notifyObservers(newTime);
+		notifyObservers();
+	}
+	
+	/*
+	 * Get last time in lapTimes
+	 * Return null if no times is available
+	 */
+	public LapTime getLastTime() {
+		if(lapTimes.size()>0) return lapTimes.get(lapTimes.size());
+		else return null;
 	}
 	
 	/*
@@ -31,6 +39,18 @@ public class LapTimer extends Observable {
 	 */
 	public void reset(){
 		lapTimes = new ArrayList<>();
+	}
+	
+	public ArrayList<LapTime> getLapTimes() {
+		return lapTimes;
+	}
+	
+	/*
+	 * Notify view
+	 */
+	public void load() {
+		setChanged();
+		notifyObservers();
 	}
 
 }
