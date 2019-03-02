@@ -10,6 +10,7 @@ import back_end.Error;
 import back_end.LapTimer;
 import back_end.State;
 import back_end.Threshold;
+import back_end.ViewLoader;
 import front_end.View;
 import front_end.gui_row.DxController;
 import front_end.gui_row.SxController;
@@ -150,6 +151,12 @@ public class GuiGroundView extends View {
 	public void setCommandSender(CommandSender commandSender) {
 		super.setCommandSender(commandSender);
 		// TODO Auto-generated method stub
+	}
+	
+	@Override
+	public void setViewLoader(ViewLoader viewLoader) {
+		super.setViewLoader(viewLoader);
+		// TODO CREARE QUI I CONTROLLER DELLE PRIME DUE SCHERMATE DISPONIBILI, CHE SI PRENDONO I DATI CHIAMANDO viewLoader.load()
 	}
 
 }

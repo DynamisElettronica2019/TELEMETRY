@@ -12,8 +12,8 @@ import back_end.ViewLoader;
 
 public abstract class View {
 	
-	protected CommandSender commandSender;
-	protected ViewLoader viewLoader;
+	protected CommandSender commandSender; //Not available before setCommandSender call
+	protected ViewLoader viewLoader; //Not available before setViewLoader call
 	private ChannelObserver chObs;
 	private StateObserver stObs;
 	private DebugObserver deObs;
