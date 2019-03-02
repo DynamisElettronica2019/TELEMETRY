@@ -13,7 +13,7 @@
 				"recogniser": "C"
 				},
 		"states": {
-				"names": ["A","B","C","D","E","F","G"],
+				"names": ["USB Present","USB Ready","Acquisition ON","Telemetry ON","SD Present","SD Ready","P Oil"],
 				"packetLen": 15,
 				"recogniser": "S" 
 				},
@@ -63,7 +63,7 @@
 	},
     "receiver": {
         "carBaudRate": 115200,
-        "carCommPort": "COM12",
+        "carCommPort": "COM3",
         "lapBaudRate": 115200,
         "lapCommPort": "COM11",
         "pktStart": "[",

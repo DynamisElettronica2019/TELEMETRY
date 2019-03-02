@@ -82,14 +82,13 @@ public class GuiGroundView extends View {
         sceneDX = new Scene(borderPaneDX);
         stageDX.setScene(sceneDX);
         stageDX.show();
-        SXController.SetState();
 	}
 	
 	//Update functions call controller relative functions, always defined in controlelr
 	@Override
 	public void UpdateChannel(Channel channel) {
-		SXController.EditChannel();
-		DXController.EditChannel();
+		SXController.EditChannel(channel);
+		DXController.EditChannel(channel);
 	}
 
 	@Override
@@ -112,8 +111,8 @@ public class GuiGroundView extends View {
 
 	@Override
 	public void UpdateState(State state) {
-		SXController.EditState();
-		DXController.EditState();
+		SXController.EditState(state);
+		DXController.EditState(state);
 	}
 
 	@Override
@@ -132,7 +131,6 @@ public class GuiGroundView extends View {
 	public void setCommandSender(CommandSender commandSender) {
 		super.setCommandSender(commandSender);
 		// TODO Auto-generated method stub
-		
 	}
 
 }

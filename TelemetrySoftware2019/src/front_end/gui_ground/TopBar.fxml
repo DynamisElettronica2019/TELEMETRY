@@ -11,92 +11,99 @@
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.gui_ground.TopBarController">
    <children>
-      <MenuBar prefWidth="1366.0">
-        <menus>
-          <Menu fx:id="enginePage" mnemonicParsing="false" text="Engine" />
-          <Menu fx:id="dynamicsPage" mnemonicParsing="false" text="Dynamics" />
-            <Menu fx:id="commandsPage" mnemonicParsing="false" text="Commands" />
-          <Menu fx:id="rawPage" mnemonicParsing="false" text="Raw Data" />
-            <Menu fx:id="debugPage" mnemonicParsing="false" text="Debug" />
-        </menus>
-      </MenuBar>
+      <HBox spacing="10.0">
+         <children>
+            <Button fx:id="enginePage" mnemonicParsing="false" onAction="#engClick" text="Engine">
+               <HBox.margin>
+                  <Insets left="5.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="dynamicsPage" mnemonicParsing="false" onAction="#dynClick" text="Dynamics" />
+            <Button fx:id="commandsPage" mnemonicParsing="false" onAction="#commandClick" text="Commands" />
+            <Button fx:id="rawPage" mnemonicParsing="false" onAction="#rawClick" text="Raw Data" />
+            <Button fx:id="debugPage" mnemonicParsing="false" onAction="#debugClick" text="Debug" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" top="5.0" />
+         </padding>
+      </HBox>
+      <Line endX="2000.0" startX="-100.0" />
       <HBox spacing="10.0">
          <children>
             <VBox>
                <children>
-                  <Circle fx:id="usbPresent" fill="#1f93ff" radius="20.0" stroke="BLACK" strokeType="INSIDE">
+                  <Circle fx:id="circle1" fill="RED" radius="20.0" stroke="BLACK" strokeType="INSIDE">
                      <VBox.margin>
                         <Insets left="5.0" />
                      </VBox.margin>
                   </Circle>
-                  <Label text="USB Present" textAlignment="CENTER" />
+                  <Label fx:id="label1" text="USB Present" textAlignment="CENTER" />
                </children>
             </VBox>
             <VBox>
                <children>
-                  <Circle fx:id="usbReady" fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Label text="USB Ready" textAlignment="CENTER" />
+                  <Circle fx:id="circle2" fill="RED" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label fx:id="label2" text="USB Ready" textAlignment="CENTER" />
                </children>
             </VBox>
             <VBox>
                <children>
-                  <Circle fx:id="acqOn" fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Label text="Acquisition ON" textAlignment="CENTER" />
+                  <Circle fx:id="circle3" fill="RED" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label fx:id="label3" text="Acquisition ON" textAlignment="CENTER" />
                </children>
             </VBox>
             <VBox>
                <children>
-                  <Circle fx:id="telOn" fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Label text="Telemetry ON" textAlignment="CENTER" />
+                  <Circle fx:id="circle4" fill="RED" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label fx:id="label4" text="Telemetry ON" textAlignment="CENTER" />
                </children>
             </VBox>
             <VBox>
                <children>
-                  <Circle fx:id="sdPresent" fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Label text="SD Present" textAlignment="CENTER" />
+                  <Circle fx:id="circle5" fill="RED" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label fx:id="label5" text="SD Present" textAlignment="CENTER" />
                </children>
             </VBox>
             <VBox>
                <children>
-                  <Circle fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Label text="SD Ready" />
+                  <Circle fx:id="circle6" fill="RED" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label fx:id="label6" text="SD Ready" />
                </children>
             </VBox>
             <VBox>
                <children>
-                  <Circle fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Label text="P Oil" />
+                  <Circle fx:id="circle7" fill="RED" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label fx:id="label7" text="P Oil" />
                </children>
             </VBox>
             <VBox>
                <children>
-                  <Circle fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Label text="T Oil" />
+                  <Circle fx:id="circle8" fill="RED" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label fx:id="label8" text="T Oil" />
                </children>
             </VBox>
             <VBox>
                <children>
-                  <Circle fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Label text="T H20" />
+                  <Circle fx:id="circle9" fill="RED" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label fx:id="label9" text="T H20" />
                </children>
             </VBox>
             <VBox>
                <children>
-                  <Circle fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Label text="P Fuel" />
+                  <Circle fx:id="circle10" fill="RED" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label fx:id="label10" text="P Fuel" />
                </children>
             </VBox>
             <VBox>
                <children>
-                  <Circle fill="DODGERBLUE" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Label text="V Bat" />
+                  <Circle fx:id="circle11" fill="RED" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Label fx:id="label11" text="V Bat" />
                </children>
             </VBox>
-            <Region maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
             <VBox>
                <children>
                   <Label text="Mappa" />
-                  <Label text="5">
+                  <Label fx:id="map" text="5">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -106,7 +113,7 @@
             <VBox>
                <children>
                   <Label text="Traction" />
-                  <Label text="4">
+                  <Label fx:id="traction" text="4">
                      <font>
                         <Font size="24.0" />
                      </font>
