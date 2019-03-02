@@ -31,10 +31,16 @@ public class GuiGroundView extends View {
 	private Scene sceneDX;
 	private Parent SXTopBarPane;
 	private Parent DXTopBarPane;
-	private Controller SXController;
-	private Controller DXController;
+	//private Parent SXMainPane;
+	//private Parent DXMainPane;
+	private TopBarController SXTopBarController;
+	private TopBarController DXTopBarController;
+	//private Controller SXMainController;
+	//private Controller DXMainController;
 	private FXMLLoader SXTopBarLoader;
 	private FXMLLoader DXTopBarLoader;
+	//private FXMLLoader SXMainLoader;
+	//private FXMLLoader DXMainLoader;
 	private BorderPane borderPaneSX, borderPaneDX;
 
 	
@@ -55,8 +61,12 @@ public class GuiGroundView extends View {
         borderPaneSX = new BorderPane();
         SXTopBarLoader = new FXMLLoader();
         SXTopBarPane = SXTopBarLoader.load(getClass().getResource("TopBar.fxml").openStream());
-        SXController = SXTopBarLoader.getController();
+        SXTopBarController = SXTopBarLoader.getController();
+        //SXMainLoader = new FXMLLoader();
+        //SXMainPane = SXMainLoader.load(getClass().getResource("EngineScreen.fxml").openStream());
+        //SXMainController = SXMainLoader.getController();
         borderPaneSX.setTop(SXTopBarPane);
+        //borderPaneSX.setCenter(SXMainPane);
         sceneSX = new Scene(borderPaneSX);
         stageSX.setScene(sceneSX);
         stageSX.show();
@@ -77,55 +87,64 @@ public class GuiGroundView extends View {
         borderPaneDX = new BorderPane();
         DXTopBarLoader = new FXMLLoader();
         DXTopBarPane = DXTopBarLoader.load(getClass().getResource("TopBar.fxml").openStream());
-        DXController = DXTopBarLoader.getController();
+        DXTopBarController = DXTopBarLoader.getController();
+        //DXMainLoader = new FXMLLoader();
+        //DXMainPane = DXMainLoader.load(getClass().getResource("CommandScreen.fxml").openStream());
+        //DXMainController = DXMainLoader.getController();
         borderPaneDX.setTop(DXTopBarPane);
+        //borderPaneDX.setCenter(DXMainPane);
         sceneDX = new Scene(borderPaneDX);
         stageDX.setScene(sceneDX);
         stageDX.show();
+        
+        //Pass borderpane
+        SXTopBarController.SetParent(borderPaneSX);
+        DXTopBarController.SetParent(borderPaneDX);
 	}
 	
 	//Update functions call controller relative functions, always defined in controlelr
 	@Override
 	public void UpdateChannel(Channel channel) {
-		SXController.EditChannel(channel);
-		DXController.EditChannel(channel);
+		SXTopBarController.EditChannel(channel);
+		DXTopBarController.EditChannel(channel);
 	}
 
 	@Override
 	public void UpdateCommand(Command command) {
-		SXController.EditCommand();
-		DXController.EditCommand();
+		SXTopBarController.EditCommand();
+		DXTopBarController.EditCommand();
 	}
 
 	@Override
 	public void UpdateDebug(Debug debug) {
-		SXController.EditDebug();
-		DXController.EditDebug();
+		SXTopBarController.EditDebug();
+		DXTopBarController.EditDebug();
 	}
 
 	@Override
 	public void UpdateError(Error error) {
-		SXController.EditError();
-		DXController.EditError();
+		SXTopBarController.EditError();
+		DXTopBarController.EditError();
 	}
 
 	@Override
 	public void UpdateState(State state) {
-		SXController.EditState(state);
-		DXController.EditState(state);
+		SXTopBarController.EditState(state);
+		DXTopBarController.EditState(state);
 	}
 
 	@Override
 	public void UpdateLap(LapTime lapTime) {
-		SXController.EditLap();
-		DXController.EditLap();
+		SXTopBarController.EditLap();
+		DXTopBarController.EditLap();
 	}
 
 	@Override
 	public void UpdateTS(Threshold thresholdState) {
-		SXController.EditTS();
-		DXController.EditTS();
+		SXTopBarController.EditTS();
+		DXTopBarController.EditTS();
 	}
+	
 	
 	@Override
 	public void setCommandSender(CommandSender commandSender) {

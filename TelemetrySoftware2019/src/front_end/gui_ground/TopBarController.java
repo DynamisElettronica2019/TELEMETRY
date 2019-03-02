@@ -2,6 +2,7 @@ package front_end.gui_ground;
 
 import javafx.scene.shape.Circle;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,13 +12,19 @@ import back_end.State;
 import configuration.ConfReader;
 import front_end.gui_row.StateList;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 
 public class TopBarController extends Controller {
@@ -26,9 +33,14 @@ public class TopBarController extends Controller {
 	private static final String TRACTION_CHANNEL = "GCU_TRACTION_FB";
 	private Map<String, Circle> stateMap = new HashMap<>();
 	private ArrayList<String> stateList;
-	private ArrayList<String> channelList;
 	private Circle[] circleList;
 	private Label[] labelList;
+	private BorderPane rootPane;
+	
+	private Parent MainPane;
+	private Controller MainController;
+	private FXMLLoader MainLoader;
+	
 	@FXML
 	private Circle circle1, circle2, circle3, circle4, circle5, circle6, circle7, circle8, circle9, circle10, circle11;
 	@FXML
@@ -37,6 +49,8 @@ public class TopBarController extends Controller {
 	private Label label1, label2, label3, label4, label5, label6, label7, label8, label9, label10, label11;
 	@FXML
 	private Label map, traction;
+	@FXML
+	private Button button;
 	
 	@Override
 	public void SetDebug() {
@@ -50,6 +64,7 @@ public class TopBarController extends Controller {
 		
 	}
 
+	//Updates the top bar states
 	@Override
 	public void SetState() { 
 		stateList = ConfReader.getNames("states");
@@ -96,9 +111,9 @@ public class TopBarController extends Controller {
 
 	@Override
 	public void SetChannel() {
-		channelList = ConfReader.getNames("channels");
 	}
 
+	//If detects a new map/traction mode changes the value in the top bar
 	@Override
 	public void EditChannel(Channel channel) {
 		
@@ -169,25 +184,47 @@ public class TopBarController extends Controller {
 	}
 	
 	@FXML
-	private void commandClick() {
+	private void commandClick() throws IOException {
+		MainLoader = new FXMLLoader();
+        MainPane = MainLoader.load(getClass().getResource("CommandScreen.fxml").openStream());
+        MainController = MainLoader.getController();
+        rootPane.setCenter(MainPane);
 	}
 	
 	@FXML
-	private void engClick() {
-		
+	private void engClick() throws IOException {
+		MainLoader = new FXMLLoader();
+        MainPane = MainLoader.load(getClass().getResource("EngineScreen.fxml").openStream());
+        MainController = MainLoader.getController();
+        rootPane.setCenter(MainPane);
 	}
 	
 	@FXML
-	private void dynClick() {
-		
+	private void dynClick() throws IOException {
+		MainLoader = new FXMLLoader();
+        MainPane = MainLoader.load(getClass().getResource("DynamicsScreen.fxml").openStream());
+        MainController = MainLoader.getController();
+        rootPane.setCenter(MainPane);
 	}
 	
 	@FXML
-	private void rawClick() {
-		
+	private void rawClick() throws IOException {
+		MainLoader = new FXMLLoader();
+        MainPane = MainLoader.load(getClass().getResource("RawScreen.fxml").openStream());
+        MainController = MainLoader.getController();
+        rootPane.setCenter(MainPane);
 	}
 	@FXML
-	private void debugClick() {
-		
+	private void debugClick() throws IOException {
+		MainLoader = new FXMLLoader();
+        MainPane = MainLoader.load(getClass().getResource("DebugScreen.fxml").openStream());
+        MainController = MainLoader.getController();
+        rootPane.setCenter(MainPane);
 	}
+	
+	public void SetParent(BorderPane borderPane) {
+		rootPane = borderPane;
+	}
+	
+	
 }
