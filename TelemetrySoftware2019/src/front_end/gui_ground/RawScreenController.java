@@ -1,6 +1,9 @@
 package front_end.gui_ground;
 
 import back_end.Channel;
+import back_end.Command;
+import back_end.Debug;
+import back_end.Error;
 import back_end.State;
 
 public class RawScreenController extends Controller {
@@ -12,7 +15,7 @@ public class RawScreenController extends Controller {
 	}
 
 	@Override
-	public void EditDebug() {
+	public void EditDebug(Debug debug) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -48,7 +51,7 @@ public class RawScreenController extends Controller {
 	}
 
 	@Override
-	public void EditCommand() {
+	public void EditCommand(Command command) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -60,7 +63,7 @@ public class RawScreenController extends Controller {
 	}
 
 	@Override
-	public void EditError() {
+	public void EditError(Error error) {
 		// TODO Auto-generated method stub
 		
 	}

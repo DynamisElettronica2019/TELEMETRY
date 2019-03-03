@@ -1,5 +1,6 @@
 package back_end;
 
+import java.io.IOException;
 import java.time.*;
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ public class Data {
 	 * Create channels,states,debug,dcuCommands,dcuErrors,lapTimer through ConfReader and initialize timeStamps
 	 * Set viewLoader for all views
 	 */
-	public Data(ArrayList<View> myViews) {
+	public Data(ArrayList<View> myViews) throws IOException {
 		timestamps = new ArrayList<>();
 		
 		ArrayList<String> chNames = ConfReader.getNames("channels");

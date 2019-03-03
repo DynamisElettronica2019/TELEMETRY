@@ -8,7 +8,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import back_end.Channel;
+import back_end.Command;
+import back_end.Debug;
 import back_end.State;
+import back_end.Error;
+import back_end.ViewLoader;
 import configuration.ConfReader;
 import front_end.gui_row.StateList;
 import javafx.application.Platform;
@@ -35,11 +39,7 @@ public class TopBarController extends Controller {
 	private ArrayList<String> stateList;
 	private Circle[] circleList;
 	private Label[] labelList;
-	private BorderPane rootPane;
-	
-	private Parent MainPane;
-	private Controller MainController;
-	private FXMLLoader MainLoader;
+	private char side;
 	
 	@FXML
 	private Circle circle1, circle2, circle3, circle4, circle5, circle6, circle7, circle8, circle9, circle10, circle11;
@@ -59,7 +59,7 @@ public class TopBarController extends Controller {
 	}
 
 	@Override
-	public void EditDebug() {
+	public void EditDebug(Debug debug) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -142,7 +142,7 @@ public class TopBarController extends Controller {
 	}
 
 	@Override
-	public void EditCommand() {
+	public void EditCommand(Command command) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -154,7 +154,7 @@ public class TopBarController extends Controller {
 	}
 
 	@Override
-	public void EditError() {
+	public void EditError(Error error) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -185,46 +185,59 @@ public class TopBarController extends Controller {
 	
 	@FXML
 	private void commandClick() throws IOException {
-		MainLoader = new FXMLLoader();
-        MainPane = MainLoader.load(getClass().getResource("CommandScreen.fxml").openStream());
-        MainController = MainLoader.getController();
-        rootPane.setCenter(MainPane);
+		if(side == 's') {
+			view.CommandScreenSX();
+		}
+		else if(side =='d')
+		{
+			view.CommandScreenDX();
+		}
 	}
 	
 	@FXML
 	private void engClick() throws IOException {
-		MainLoader = new FXMLLoader();
-        MainPane = MainLoader.load(getClass().getResource("EngineScreen.fxml").openStream());
-        MainController = MainLoader.getController();
-        rootPane.setCenter(MainPane);
+		if(side == 's') {
+			view.EngineScreenSX();
+		}
+		else if(side =='d')
+		{
+			view.EngineScreenDX();
+		}
 	}
 	
 	@FXML
 	private void dynClick() throws IOException {
-		MainLoader = new FXMLLoader();
-        MainPane = MainLoader.load(getClass().getResource("DynamicsScreen.fxml").openStream());
-        MainController = MainLoader.getController();
-        rootPane.setCenter(MainPane);
+		if(side == 's') {
+			view.DynamicsScreenSX();
+		}
+		else if(side =='d')
+		{
+			view.DynamicsScreenDX();
+		}
 	}
 	
 	@FXML
 	private void rawClick() throws IOException {
-		MainLoader = new FXMLLoader();
-        MainPane = MainLoader.load(getClass().getResource("RawScreen.fxml").openStream());
-        MainController = MainLoader.getController();
-        rootPane.setCenter(MainPane);
+		if(side == 's') {
+			view.RawScreenSX();
+		}
+		else if(side =='d')
+		{
+			view.RawScreenDX();
+		}
 	}
 	@FXML
 	private void debugClick() throws IOException {
-		MainLoader = new FXMLLoader();
-        MainPane = MainLoader.load(getClass().getResource("DebugScreen.fxml").openStream());
-        MainController = MainLoader.getController();
-        rootPane.setCenter(MainPane);
+		if(side == 's') {
+			view.DebugScreenSX();
+		}
+		else if(side =='d')
+		{
+			view.DebugScreenDX();
+		}
 	}
 	
-	public void SetParent(BorderPane borderPane) {
-		rootPane = borderPane;
+	public void SetSide(char side) {
+		this.side = side;
 	}
-	
-	
 }

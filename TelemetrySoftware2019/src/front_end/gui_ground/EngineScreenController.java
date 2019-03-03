@@ -1,10 +1,16 @@
 package front_end.gui_ground;
 
 import back_end.Channel;
+import back_end.Command;
+import back_end.Debug;
+import back_end.Error;
 import back_end.State;
+import back_end.ViewLoader;
 
 public class EngineScreenController extends Controller {
 
+	private ViewLoader viewLoader;
+	
 	@Override
 	public void SetDebug() {
 		// TODO Auto-generated method stub
@@ -12,7 +18,7 @@ public class EngineScreenController extends Controller {
 	}
 
 	@Override
-	public void EditDebug() {
+	public void EditDebug(Debug debug) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -48,7 +54,7 @@ public class EngineScreenController extends Controller {
 	}
 
 	@Override
-	public void EditCommand() {
+	public void EditCommand(Command command) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -60,7 +66,7 @@ public class EngineScreenController extends Controller {
 	}
 
 	@Override
-	public void EditError() {
+	public void EditError(Error error) {
 		// TODO Auto-generated method stub
 		
 	}

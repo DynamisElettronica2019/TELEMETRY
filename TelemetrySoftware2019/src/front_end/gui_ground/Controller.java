@@ -4,13 +4,21 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import back_end.Channel;
+import back_end.Command;
+import back_end.Debug;
 import back_end.State;
+import back_end.Error;
+import back_end.ViewLoader;
 import javafx.fxml.Initializable;
 
 public abstract class Controller implements Initializable {
+	
+	protected GuiGroundView view;
+	protected ViewLoader viewLoader;
+	
+	//Call setter before loading viewLoader
 	@Override
     public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("");
 		SetDebug();
 		SetState();
 		SetChannel();
@@ -20,8 +28,17 @@ public abstract class Controller implements Initializable {
 		SetTS();
     }
 	
+	public void SetView(GuiGroundView view) {
+		this.view = view;
+	}
+	
+	public void SetViewLoader(ViewLoader viewLoader) {
+		this.viewLoader = viewLoader;
+		//this.viewLoader.load();
+	}
+	
 	public abstract void SetDebug();
-	public abstract void EditDebug();
+	public abstract void EditDebug(Debug debug);
 	
 	public abstract void SetState();
 	public abstract void EditState(State state);
@@ -30,10 +47,10 @@ public abstract class Controller implements Initializable {
 	public abstract void EditChannel(Channel channel);
 	
 	public abstract void SetCommand();
-	public abstract void EditCommand();
+	public abstract void EditCommand(Command command);
 	
 	public abstract void SetError();
-	public abstract void EditError();
+	public abstract void EditError(Error error);
 	
 	public abstract void SetLap();
 	public abstract void EditLap();
