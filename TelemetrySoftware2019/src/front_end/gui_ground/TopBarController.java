@@ -220,56 +220,26 @@ public class TopBarController extends Controller {
 	
 	@FXML
 	private void commandClick() throws IOException {
-		if(side == 's') {
-			view.CommandScreenSX();
-		}
-		else if(side =='d')
-		{
-			view.CommandScreenDX();
-		}
+		view.SetScreen("CommandScreen.fxml", side);
 	}
 	
 	@FXML
 	private void engClick() throws IOException {
-		if(side == 's') {
-			view.EngineScreenSX();
-		}
-		else if(side =='d')
-		{
-			view.EngineScreenDX();
-		}
+		view.SetScreen("EngineScreen.fxml", side);
 	}
 	
 	@FXML
 	private void dynClick() throws IOException {
-		if(side == 's') {
-			view.DynamicsScreenSX();
-		}
-		else if(side =='d')
-		{
-			view.DynamicsScreenDX();
-		}
+		view.SetScreen("DynamicsScreen.fxml", side);
 	}
 	
 	@FXML
 	private void rawClick() throws IOException {
-		if(side == 's') {
-			view.RawScreenSX();
-		}
-		else if(side =='d')
-		{
-			view.RawScreenDX();
-		}
+		view.SetScreen("RawScreen.fxml", side);
 	}
 	@FXML
 	private void debugClick() throws IOException {
-		if(side == 's') {
-			view.DebugScreenSX();
-		}
-		else if(side =='d')
-		{
-			view.DebugScreenDX();
-		}
+		view.SetScreen("DebugScreen.fxml", side);
 	}
 	
 	//Set if the top bar is on the left or right side of the screen

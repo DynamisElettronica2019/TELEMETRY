@@ -16,7 +16,6 @@ import javafx.fxml.Initializable;
 public abstract class Controller implements Initializable {
 	
 	protected GuiGroundView view;
-	protected ViewLoader viewLoader;
 	
 	//Call setter before loading viewLoader
 	@Override
@@ -33,11 +32,6 @@ public abstract class Controller implements Initializable {
 	//Setting the view for accessing his controller managing functions
 	public void SetView(GuiGroundView view) {
 		this.view = view;
-	}
-	
-	//Set the view loader for calling load and further use
-	public void SetViewLoader(ViewLoader viewLoader) {
-		this.viewLoader = viewLoader;
 	}
 	
 	/*

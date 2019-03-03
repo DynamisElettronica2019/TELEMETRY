@@ -155,7 +155,7 @@ public class GuiGroundView extends View {
         DXTopBarLoader = new FXMLLoader();
         DXTopBarPane = DXTopBarLoader.load(getClass().getResource("TopBar.fxml").openStream());
         DXTopBarController = DXTopBarLoader.getController();
-		SXMainLoader = new FXMLLoader();
+        SXMainLoader = new FXMLLoader();
 	    SXMainPane = SXMainLoader.load(getClass().getResource("EngineScreen.fxml").openStream());
 	    SXMainController = SXMainLoader.getController();
 	    DXMainLoader = new FXMLLoader();
@@ -169,108 +169,32 @@ public class GuiGroundView extends View {
 	    DXTopBarController.SetView(this);
 	    SXMainController.SetView(this);
 	    DXMainController.SetView(this);
-	    SXTopBarController.SetViewLoader(viewLoader);
-	    DXTopBarController.SetViewLoader(viewLoader);
-	    SXMainController.SetViewLoader(viewLoader);
-	    DXMainController.SetViewLoader(viewLoader);
 	    SXTopBarController.SetSide('s');
 	    DXTopBarController.SetSide('d');
 	    viewLoader.load();
-	}
-
-	//Function for getting the viewloader from controller
-	public ViewLoader GetViewLoader() {
-		return this.viewLoader;
-	}
-	
-	//Function for getting the commandsender from controller
-	public CommandSender GetCommandSender() {
-		return this.commandSender;
 	}
 	
 	/*
 	 * From here functions for changing screen when pressing buttons on the top bar
 	 * Called from top bar controllers
 	 */
-	
-	public void EngineScreenSX() throws IOException {
-		SXMainLoader = new FXMLLoader();
-	    SXMainPane = SXMainLoader.load(getClass().getResource("EngineScreen.fxml").openStream());
-	    SXMainController = SXMainLoader.getController();
-	    borderPaneSX.setCenter(SXMainPane);
-	    viewLoader.load();
-	}
-	
-	public void EngineScreenDX() throws IOException {
-		DXMainLoader = new FXMLLoader();
-	    DXMainPane = DXMainLoader.load(getClass().getResource("EngineScreen.fxml").openStream());
-	    DXMainController = DXMainLoader.getController();
-	    borderPaneDX.setCenter(DXMainPane);
-	    viewLoader.load();
-	}
-	
-	public void RawScreenSX() throws IOException {
-		SXMainLoader = new FXMLLoader();
-	    SXMainPane = SXMainLoader.load(getClass().getResource("RawScreen.fxml").openStream());
-	    SXMainController = SXMainLoader.getController();
-	    borderPaneSX.setCenter(SXMainPane);
-	    viewLoader.load();
-	}
-	
-	public void RawScreenDX() throws IOException {
-		DXMainLoader = new FXMLLoader();
-		DXMainPane = DXMainLoader.load(getClass().getResource("RawScreen.fxml").openStream());
-		DXMainController = DXMainLoader.getController();
-		borderPaneDX.setCenter(DXMainPane);
-		viewLoader.load();
-	}
-	
-	public void DynamicsScreenSX() throws IOException {
-		SXMainLoader = new FXMLLoader();
-	    SXMainPane = SXMainLoader.load(getClass().getResource("DynamicsScreen.fxml").openStream());
-	    SXMainController = SXMainLoader.getController();
-	    borderPaneSX.setCenter(SXMainPane);
-	    viewLoader.load();
-	}
-	
-	public void DynamicsScreenDX() throws IOException {
-		DXMainLoader = new FXMLLoader();
-		DXMainPane = DXMainLoader.load(getClass().getResource("DynamicsScreen.fxml").openStream());
-		DXMainController = DXMainLoader.getController();
-		borderPaneDX.setCenter(DXMainPane);
-		viewLoader.load();
-	}
-	
-	public void DebugScreenSX() throws IOException {
-		SXMainLoader = new FXMLLoader();
-	    SXMainPane = SXMainLoader.load(getClass().getResource("DebugScreen.fxml").openStream());
-	    SXMainController = SXMainLoader.getController();
-	    borderPaneSX.setCenter(SXMainPane);
-	    viewLoader.load();
-	}
-	
-	public void DebugScreenDX() throws IOException {
-		DXMainLoader = null;
-		DXMainLoader = new FXMLLoader();
-		DXMainPane = DXMainLoader.load(getClass().getResource("DebugScreen.fxml").openStream());
-		DXMainController = DXMainLoader.getController();
-		borderPaneDX.setCenter(DXMainPane);
-		viewLoader.load();
-	}
-	
-	public void CommandScreenSX() throws IOException {
-		SXMainLoader = new FXMLLoader();
-	    SXMainPane = SXMainLoader.load(getClass().getResource("CommandScreen.fxml").openStream());
-	    DXMainController = SXMainLoader.getController();
-	    borderPaneSX.setCenter(SXMainPane);
-	    viewLoader.load();
-	}
-	
-	public void CommandScreenDX() throws IOException {
-		DXMainLoader = new FXMLLoader();
-		DXMainPane = DXMainLoader.load(getClass().getResource("CommandScreen.fxml").openStream());
-		DXMainController = DXMainLoader.getController();
-		borderPaneDX.setCenter(DXMainPane);
+	public void SetScreen(String fxml, char side) throws IOException {
+		if (side == 's') {
+			SXMainLoader = new FXMLLoader();
+		    SXMainPane = SXMainLoader.load(getClass().getResource(fxml).openStream());
+		    SXMainController = SXMainLoader.getController();
+		    borderPaneSX.setCenter(SXMainPane);
+		}
+		else if (side == 'd')
+		{
+			DXMainLoader = new FXMLLoader();
+			DXMainPane = DXMainLoader.load(getClass().getResource(fxml).openStream());
+			DXMainController = DXMainLoader.getController();
+			borderPaneDX.setCenter(DXMainPane);
+		}
+		else {
+			System.err.println("Side screen error");
+		}
 		viewLoader.load();
 	}
 }
