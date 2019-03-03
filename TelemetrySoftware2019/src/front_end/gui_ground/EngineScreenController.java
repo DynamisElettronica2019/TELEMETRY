@@ -4,7 +4,9 @@ import back_end.Channel;
 import back_end.Command;
 import back_end.Debug;
 import back_end.Error;
+import back_end.LapTimer;
 import back_end.State;
+import back_end.Threshold;
 import back_end.ViewLoader;
 
 public class EngineScreenController extends Controller {
@@ -78,7 +80,7 @@ public class EngineScreenController extends Controller {
 	}
 
 	@Override
-	public void EditLap() {
+	public void EditLap(LapTimer lapTimer) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -90,7 +92,7 @@ public class EngineScreenController extends Controller {
 	}
 
 	@Override
-	public void EditTS() {
+	public void EditTS(Threshold thresholdState) {
 		// TODO Auto-generated method stub
 		
 	}

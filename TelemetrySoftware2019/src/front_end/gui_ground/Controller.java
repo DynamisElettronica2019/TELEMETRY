@@ -7,7 +7,9 @@ import back_end.Channel;
 import back_end.Command;
 import back_end.Debug;
 import back_end.State;
+import back_end.Threshold;
 import back_end.Error;
+import back_end.LapTimer;
 import back_end.ViewLoader;
 import javafx.fxml.Initializable;
 
@@ -36,7 +38,7 @@ public abstract class Controller implements Initializable {
 	//Set the view loader for calling load and further use
 	public void SetViewLoader(ViewLoader viewLoader) {
 		this.viewLoader = viewLoader;
-		//this.viewLoader.load();
+		this.viewLoader.load();
 	}
 	
 	/*
@@ -59,8 +61,8 @@ public abstract class Controller implements Initializable {
 	public abstract void EditError(Error error);
 	
 	public abstract void SetLap();
-	public abstract void EditLap();
+	public abstract void EditLap(LapTimer lapTimer);
 	
 	public abstract void SetTS();
-	public abstract void EditTS();
+	public abstract void EditTS(Threshold thresholdState);
 }

@@ -86,42 +86,56 @@ public class GuiGroundView extends View {
 	public void UpdateChannel(Channel channel) {
 		SXTopBarController.EditChannel(channel);
 		DXTopBarController.EditChannel(channel);
+		SXMainController.EditChannel(channel);
+		DXMainController.EditChannel(channel);
 	}
 
 	@Override
 	public void UpdateCommand(Command command) {
 		SXTopBarController.EditCommand(command);
 		DXTopBarController.EditCommand(command);
+		SXMainController.EditCommand(command);
+		DXMainController.EditCommand(command);
 	}
 
 	@Override
 	public void UpdateDebug(Debug debug) {
 		SXTopBarController.EditDebug(debug);
 		DXTopBarController.EditDebug(debug);
+		SXMainController.EditDebug(debug);
+		DXMainController.EditDebug(debug);
 	}
 
 	@Override
 	public void UpdateError(Error error) {
 		SXTopBarController.EditError(error);
 		DXTopBarController.EditError(error);
+		SXMainController.EditError(error);
+		DXMainController.EditError(error);
 	}
 
 	@Override
 	public void UpdateState(State state) {
 		SXTopBarController.EditState(state);
 		DXTopBarController.EditState(state);
+		SXMainController.EditState(state);
+		DXMainController.EditState(state);
 	}
 
 	@Override
 	public void UpdateLap(LapTimer lapTimer) {
-		SXTopBarController.EditLap();
-		DXTopBarController.EditLap();
+		SXTopBarController.EditLap(lapTimer);
+		DXTopBarController.EditLap(lapTimer);
+		SXMainController.EditLap(lapTimer);
+		DXMainController.EditLap(lapTimer);
 	}
 
 	@Override
 	public void UpdateTS(Threshold thresholdState) {
-		SXTopBarController.EditTS();
-		DXTopBarController.EditTS();
+		SXTopBarController.EditTS(thresholdState);
+		DXTopBarController.EditTS(thresholdState);
+		SXMainController.EditTS(thresholdState);
+		DXMainController.EditTS(thresholdState);
 	}
 	
 	
