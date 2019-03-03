@@ -118,8 +118,10 @@ public class TopBarController extends Controller {
 	//If detects a new map/traction mode changes the value in the top bar
 	@Override
 	public void EditChannel(Channel channel) {
-		
-		if (channel.getName().equals(MAP_CHANNEL)) {
+		if (channel.getLastElems(1).size()==0) {
+			//No channel data present, exit the function
+		}
+		else if (channel.getName().equals(MAP_CHANNEL)) {
 			Platform.runLater(new Runnable() {
 			    @Override
 			    public void run() {
@@ -146,7 +148,6 @@ public class TopBarController extends Controller {
 	@Override
 	public void EditCommand(Command command) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

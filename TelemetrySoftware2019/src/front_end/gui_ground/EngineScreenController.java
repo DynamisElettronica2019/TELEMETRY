@@ -46,7 +46,9 @@ public class EngineScreenController extends Controller {
 	@Override
 	public void EditChannel(Channel channel) {
 		// TODO Auto-generated method stub
-		
+		if (channel.getLastElems(1).size()==0) {
+			//No channel data present, exit the function
+		}
 	}
 
 	@Override
