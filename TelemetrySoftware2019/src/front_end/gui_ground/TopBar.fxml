@@ -103,7 +103,7 @@
             <VBox>
                <children>
                   <Label text="Mappa" />
-                  <Label fx:id="map" text="5">
+                  <Label fx:id="map" text="/">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -113,7 +113,7 @@
             <VBox>
                <children>
                   <Label text="Traction" />
-                  <Label fx:id="traction" text="4">
+                  <Label fx:id="traction" text="/">
                      <font>
                         <Font size="24.0" />
                      </font>

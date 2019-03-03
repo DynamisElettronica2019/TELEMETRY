@@ -106,13 +106,13 @@ public class Parser {
 				throw new InvalidReadingException("Message lenght Error ("+stringToParse.charAt(0)+")");
 			} else {
 				if(stringToParse.charAt(0) == recogniserLapAccMode && stringToParse.charAt(2) == recogniserLapIntType) 
-					data.newLap(new ParsedLap(stringToParse,LapMode.ACC,LapType.INT));
+					data.newLap(new ParsedLap(stringToParse.substring(4),LapMode.ACC,LapType.INT));
 				else if(stringToParse.charAt(0) == recogniserLapAccMode && stringToParse.charAt(2) == recogniserLapLapType) 
-					data.newLap(new ParsedLap(stringToParse,LapMode.ACC,LapType.LAP));
+					data.newLap(new ParsedLap(stringToParse.substring(4),LapMode.ACC,LapType.LAP));
 				else if(stringToParse.charAt(0) == recogniserLapEndMode && stringToParse.charAt(2) == recogniserLapIntType) 
-					data.newLap(new ParsedLap(stringToParse,LapMode.END,LapType.INT));
+					data.newLap(new ParsedLap(stringToParse.substring(4),LapMode.END,LapType.INT));
 				else if(stringToParse.charAt(0) == recogniserLapEndMode && stringToParse.charAt(2) == recogniserLapLapType) 
-					data.newLap(new ParsedLap(stringToParse,LapMode.END,LapType.LAP));
+					data.newLap(new ParsedLap(stringToParse.substring(4),LapMode.END,LapType.LAP));
 				else 
 					throw new InvalidReadingException("Laptimer second letter reading Error");
 			}
