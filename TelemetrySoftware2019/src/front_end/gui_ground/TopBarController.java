@@ -50,7 +50,7 @@ public class TopBarController extends Controller {
 	@FXML
 	private Label label1, label2, label3, label4, label5, label6, label7, label8, label9, label10, label11;
 	@FXML
-	private Label map, traction;
+	private Label map, traction, lastLap;
 	@FXML
 	private Button button;
 	
@@ -168,10 +168,21 @@ public class TopBarController extends Controller {
 		
 	}
 
+	//Set last lap time on label, second top bar
 	@Override
 	public void EditLap(LapTimer lapTimer) {
-		// TODO Auto-generated method stub
-		
+		Platform.runLater(new Runnable() {
+		    @Override
+		    public void run() {
+		    	if (lapTimer.getLastTime()==null)
+		    	{
+		    		
+		    	}
+		    	else {
+		    		lastLap.setText(Integer.toString(lapTimer.getLastTime().getMinutes())+":"+Integer.toString(lapTimer.getLastTime().getSeconds())+":"+Integer.toString(lapTimer.getLastTime().getmSeconds()));
+		    	}
+		    }
+		});
 	}
 
 	@Override
