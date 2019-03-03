@@ -38,7 +38,6 @@ public abstract class Controller implements Initializable {
 	//Set the view loader for calling load and further use
 	public void SetViewLoader(ViewLoader viewLoader) {
 		this.viewLoader = viewLoader;
-		this.viewLoader.load();
 	}
 	
 	/*

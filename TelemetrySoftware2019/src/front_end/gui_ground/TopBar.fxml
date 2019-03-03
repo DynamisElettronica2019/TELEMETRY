@@ -126,6 +126,16 @@
                   <Insets right="5.0" />
                </HBox.margin>
             </VBox>
+            <VBox>
+               <children>
+                  <Label text="Last lap" />
+                  <Label fx:id="lastLap" text="0:00:00">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
          </children>
          <VBox.margin>
             <Insets bottom="5.0" top="5.0" />

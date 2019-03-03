@@ -175,6 +175,7 @@ public class GuiGroundView extends View {
 	    DXMainController.SetViewLoader(viewLoader);
 	    SXTopBarController.SetSide('s');
 	    DXTopBarController.SetSide('d');
+	    //viewLoader.load();
 	}
 
 	//Function for getting the viewloader from controller
@@ -196,6 +197,7 @@ public class GuiGroundView extends View {
 		SXMainLoader = new FXMLLoader();
 	    SXMainPane = SXMainLoader.load(getClass().getResource("EngineScreen.fxml").openStream());
 	    SXMainController = SXMainLoader.getController();
+	    //viewLoader.load();
 	    borderPaneSX.setCenter(SXMainPane);
 	}
 	
@@ -203,6 +205,7 @@ public class GuiGroundView extends View {
 		DXMainLoader = new FXMLLoader();
 	    DXMainPane = DXMainLoader.load(getClass().getResource("EngineScreen.fxml").openStream());
 	    DXMainController = DXMainLoader.getController();
+	    //viewLoader.load();
 	    borderPaneDX.setCenter(DXMainPane);
 	}
 	
@@ -210,6 +213,7 @@ public class GuiGroundView extends View {
 		SXMainLoader = new FXMLLoader();
 	    SXMainPane = SXMainLoader.load(getClass().getResource("RawScreen.fxml").openStream());
 	    SXMainController = SXMainLoader.getController();
+	    //viewLoader.load();
 	    borderPaneSX.setCenter(SXMainPane);
 	}
 	
@@ -217,6 +221,7 @@ public class GuiGroundView extends View {
 		DXMainLoader = new FXMLLoader();
 		DXMainPane = DXMainLoader.load(getClass().getResource("RawScreen.fxml").openStream());
 		DXMainController = DXMainLoader.getController();
+		//viewLoader.load();
 		borderPaneDX.setCenter(DXMainPane);
 	}
 	
@@ -224,6 +229,7 @@ public class GuiGroundView extends View {
 		SXMainLoader = new FXMLLoader();
 	    SXMainPane = SXMainLoader.load(getClass().getResource("DynamicsScreen.fxml").openStream());
 	    SXMainController = SXMainLoader.getController();
+	    //viewLoader.load();
 	    borderPaneSX.setCenter(SXMainPane);
 	}
 	
@@ -231,6 +237,7 @@ public class GuiGroundView extends View {
 		DXMainLoader = new FXMLLoader();
 		DXMainPane = DXMainLoader.load(getClass().getResource("DynamicsScreen.fxml").openStream());
 		DXMainController = DXMainLoader.getController();
+		//viewLoader.load();
 		borderPaneDX.setCenter(DXMainPane);
 	}
 	
@@ -238,6 +245,7 @@ public class GuiGroundView extends View {
 		SXMainLoader = new FXMLLoader();
 	    SXMainPane = SXMainLoader.load(getClass().getResource("DebugScreen.fxml").openStream());
 	    SXMainController = SXMainLoader.getController();
+	    //viewLoader.load();
 	    borderPaneSX.setCenter(SXMainPane);
 	}
 	
@@ -245,6 +253,7 @@ public class GuiGroundView extends View {
 		DXMainLoader = new FXMLLoader();
 		DXMainPane = DXMainLoader.load(getClass().getResource("DebugScreen.fxml").openStream());
 		DXMainController = DXMainLoader.getController();
+		//viewLoader.load();
 		borderPaneDX.setCenter(DXMainPane);
 	}
 	
@@ -252,6 +261,7 @@ public class GuiGroundView extends View {
 		SXMainLoader = new FXMLLoader();
 	    SXMainPane = SXMainLoader.load(getClass().getResource("CommandScreen.fxml").openStream());
 	    DXMainController = SXMainLoader.getController();
+	    //viewLoader.load();
 	    borderPaneSX.setCenter(SXMainPane);
 	}
 	
@@ -259,6 +269,7 @@ public class GuiGroundView extends View {
 		DXMainLoader = new FXMLLoader();
 		DXMainPane = DXMainLoader.load(getClass().getResource("CommandScreen.fxml").openStream());
 		DXMainController = DXMainLoader.getController();
+		//viewLoader.load();
 		borderPaneDX.setCenter(DXMainPane);
 	}
 }
