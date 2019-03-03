@@ -28,14 +28,20 @@ public abstract class Controller implements Initializable {
 		SetTS();
     }
 	
+	//Setting the view for accessing his controller managing functions
 	public void SetView(GuiGroundView view) {
 		this.view = view;
 	}
 	
+	//Set the view loader for calling load and further use
 	public void SetViewLoader(ViewLoader viewLoader) {
 		this.viewLoader = viewLoader;
 		//this.viewLoader.load();
 	}
+	
+	/*
+	 *  From here abstract function declarations
+	 */
 	
 	public abstract void SetDebug();
 	public abstract void EditDebug(Debug debug);

@@ -64,7 +64,7 @@ public class TopBarController extends Controller {
 		
 	}
 
-	//Updates the top bar states
+	//Initzialize the top bar states
 	@Override
 	public void SetState() { 
 		stateList = ConfReader.getNames("states");
@@ -183,6 +183,10 @@ public class TopBarController extends Controller {
 		
 	}
 	
+	/*
+	 *  From here functions for managing the button clicks, calling view functions for loading new fxml
+	 */
+	
 	@FXML
 	private void commandClick() throws IOException {
 		if(side == 's') {
@@ -237,6 +241,7 @@ public class TopBarController extends Controller {
 		}
 	}
 	
+	//Set if the top bar is on the left or right side of the screen
 	public void SetSide(char side) {
 		this.side = side;
 	}

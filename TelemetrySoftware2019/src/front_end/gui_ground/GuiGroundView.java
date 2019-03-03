@@ -163,13 +163,20 @@ public class GuiGroundView extends View {
 	    DXTopBarController.SetSide('d');
 	}
 
+	//Function for getting the viewloader from controller
 	public ViewLoader GetViewLoader() {
 		return this.viewLoader;
 	}
 	
+	//Function for getting the commandsender from controller
 	public CommandSender GetCommandSender() {
 		return this.commandSender;
 	}
+	
+	/*
+	 * From here functions for changing screen when pressing buttons on the top bar
+	 * Called from top bar controllers
+	 */
 	
 	public void EngineScreenSX() throws IOException {
 		SXMainLoader = new FXMLLoader();
