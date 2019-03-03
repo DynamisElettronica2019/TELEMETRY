@@ -7,11 +7,8 @@ import back_end.Error;
 import back_end.LapTimer;
 import back_end.State;
 import back_end.Threshold;
-import back_end.ViewLoader;
 
 public class EngineScreenController extends Controller {
-
-	private ViewLoader viewLoader;
 	
 	@Override
 	public void SetDebug() {

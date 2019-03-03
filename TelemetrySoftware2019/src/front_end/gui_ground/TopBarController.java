@@ -12,26 +12,13 @@ import back_end.Command;
 import back_end.Debug;
 import back_end.State;
 import back_end.Threshold;
-import back_end.ThresholdChannel;
 import back_end.Error;
 import back_end.LapTimer;
-import back_end.ViewLoader;
 import configuration.ConfReader;
-import front_end.gui_row.StateList;
 import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 
 public class TopBarController extends Controller {

@@ -10,7 +10,6 @@ import back_end.State;
 import back_end.Threshold;
 import back_end.Error;
 import back_end.LapTimer;
-import back_end.ViewLoader;
 import javafx.fxml.Initializable;
 
 public abstract class Controller implements Initializable {
