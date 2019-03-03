@@ -30,7 +30,7 @@ public class LapTimer extends Observable {
 	 * Return null if no times is available
 	 */
 	public LapTime getLastTime() {
-		if(lapTimes.size()>0) return lapTimes.get(lapTimes.size());
+		if(lapTimes.size()>0) return lapTimes.get(lapTimes.size()-1);
 		else return null;
 	}
 	
