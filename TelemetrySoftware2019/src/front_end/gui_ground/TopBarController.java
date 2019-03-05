@@ -22,9 +22,9 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 
 public class TopBarController extends Controller {
-	private static final int STATES = 6;
-	private static final String MAP_CHANNEL = "GCU_AUTOX_FB";
-	private static final String TRACTION_CHANNEL = "GCU_TRACTION_FB";
+	private final int STATES = 6;
+	private final String MAP_CHANNEL = "GCU_AUTOX_FB";
+	private final String TRACTION_CHANNEL = "GCU_TRACTION_FB";
 	private Map<String, Circle> stateMap = new HashMap<>();
 	private ArrayList<String> stateList;
 	private Circle[] circleList;
