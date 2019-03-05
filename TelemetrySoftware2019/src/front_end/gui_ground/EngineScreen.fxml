@@ -8,114 +8,209 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<SplitPane dividerPositions="0.7006688963210702" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.gui_ground.EngineScreenController">
+<SplitPane dividerPositions="0.5" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.gui_ground.EngineScreenController">
    <items>
-      <VBox prefHeight="200.0" prefWidth="100.0">
+      <VBox>
          <children>
-            <HBox>
+            <HBox VBox.vgrow="ALWAYS">
                <children>
                   <TitledPane animated="false" text="Oil Temperatures" HBox.hgrow="ALWAYS">
                     <content>
                       <AnchorPane>
                            <children>
-                              <LineChart fx:id="oilTempChart" animated="false" layoutX="-73.0" layoutY="-143.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                <xAxis>
-                                  <CategoryAxis fx:id="XAxis" side="BOTTOM" />
-                                </xAxis>
-                                <yAxis>
-                                  <NumberAxis fx:id="YAxis" side="LEFT" />
-                                </yAxis>
-                              </LineChart>
+                              <HBox prefHeight="420.0" prefWidth="656.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <LineChart fx:id="oilTempChart" animated="false" HBox.hgrow="ALWAYS">
+                                      <xAxis>
+                                        <CategoryAxis fx:id="XAxis" side="BOTTOM" />
+                                      </xAxis>
+                                      <yAxis>
+                                        <NumberAxis fx:id="YAxis" side="LEFT" />
+                                      </yAxis>
+                                    </LineChart>
+                                    <VBox minWidth="180.0" spacing="5.0">
+                                       <children>
+                                          <HBox>
+                                             <children>
+                                                <Label text="Oil Temp in:">
+                                                   <HBox.margin>
+                                                      <Insets right="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="oilTempInLabel" text="No Value" />
+                                             </children>
+                                          </HBox>
+                                          <HBox>
+                                             <children>
+                                                <Label text="Oil Temp out:">
+                                                   <HBox.margin>
+                                                      <Insets right="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="oilTempOutLabel" text="No Value" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </HBox>
                            </children>
                         </AnchorPane>
                     </content>
                   </TitledPane>
-                  <VBox minWidth="200.0" prefWidth="200.0" spacing="5.0">
-                     <children>
-                        <HBox>
-                           <children>
-                              <Label text="Oil Temp in:">
-                                 <HBox.margin>
-                                    <Insets right="5.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <Label fx:id="oilTempInLabel" text="No Value" />
-                           </children>
-                        </HBox>
-                        <HBox>
-                           <children>
-                              <Label text="Oil Temp out:">
-                                 <HBox.margin>
-                                    <Insets right="5.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <Label fx:id="oilTempOutLabel" text="No Value" />
-                           </children>
-                        </HBox>
-                     </children>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </VBox>
                </children>
             </HBox>
-            <HBox>
+            <HBox VBox.vgrow="ALWAYS">
                <children>
                   <TitledPane animated="false" text="Water Temperatures" HBox.hgrow="ALWAYS">
                      <content>
                         <AnchorPane>
                            <children>
-                              <LineChart fx:id="waterTempChart" layoutX="19.0" layoutY="20.0" prefHeight="440.0" prefWidth="751.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <xAxis>
-                                    <CategoryAxis fx:id="XAxis1" side="BOTTOM" />
-                                 </xAxis>
-                                 <yAxis>
-                                    <NumberAxis fx:id="YAxis1" side="LEFT" />
-                                 </yAxis>
-                              </LineChart>
+                              <HBox prefHeight="420.0" prefWidth="638.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <LineChart fx:id="waterTempChart" animated="false" prefHeight="400.0" prefWidth="478.0" HBox.hgrow="ALWAYS">
+                                       <xAxis>
+                                          <CategoryAxis fx:id="XAxis1" side="BOTTOM" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis fx:id="YAxis1" side="LEFT" />
+                                       </yAxis>
+                                    </LineChart>
+                                    <VBox minWidth="180.0" prefHeight="400.0" prefWidth="180.0" spacing="5.0">
+                                       <children>
+                                          <HBox>
+                                             <children>
+                                                <Label text="Water Temp in Left:">
+                                                   <HBox.margin>
+                                                      <Insets right="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="waterTempInLLabel" text="No Value" />
+                                             </children>
+                                          </HBox>
+                                          <HBox>
+                                             <children>
+                                                <Label text="Water Temp in Right:">
+                                                   <HBox.margin>
+                                                      <Insets right="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="waterTempOutLLabel" text="No Value" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </HBox>
                            </children>
                         </AnchorPane>
                      </content>
                   </TitledPane>
-                  <VBox minWidth="200.0" prefWidth="200.0" spacing="5.0">
-                     <children>
-                        <HBox>
-                           <children>
-                              <Label text="Water Temp in Left:">
-                                 <HBox.margin>
-                                    <Insets right="5.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <Label fx:id="waterTempInLLabel" text="No Value" />
-                           </children>
-                        </HBox>
-                        <HBox>
-                           <children>
-                              <Label text="Water Temp in Right:">
-                                 <HBox.margin>
-                                    <Insets right="5.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <Label fx:id="waterTempOutLLabel" text="No Value" />
-                           </children>
-                        </HBox>
-                     </children>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </VBox>
                </children>
             </HBox>
          </children>
       </VBox>
-      <VBox prefHeight="200.0" prefWidth="100.0">
+      <VBox>
          <children>
-            <TableView fx:id="table" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-              <columns>
-                <TableColumn fx:id="elColumn" prefWidth="75.0" text="Element" />
-                <TableColumn fx:id="valColumn" prefWidth="75.0" text="Value" />
-              </columns>
-            </TableView>
+            <HBox VBox.vgrow="ALWAYS">
+               <children>
+                  <TitledPane animated="false" text="Exhaust Temperatures" HBox.hgrow="ALWAYS">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <HBox prefHeight="420.0" prefWidth="638.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <LineChart fx:id="exhaustTempChart" animated="false" HBox.hgrow="ALWAYS">
+                                       <xAxis>
+                                          <CategoryAxis fx:id="XAxis11" side="BOTTOM" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis fx:id="YAxis11" side="LEFT" />
+                                       </yAxis>
+                                    </LineChart>
+                                    <VBox minWidth="180.0" prefHeight="400.0" prefWidth="180.0" spacing="5.0">
+                                       <children>
+                                          <HBox>
+                                             <children>
+                                                <Label text="Exhaust 1 Temp:">
+                                                   <HBox.margin>
+                                                      <Insets right="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="exhaust1TempLabel" text="No Value" />
+                                             </children>
+                                          </HBox>
+                                          <HBox>
+                                             <children>
+                                                <Label text="Exhaust 2 Temp:">
+                                                   <HBox.margin>
+                                                      <Insets right="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="exhaust2TempLabel" text="No Value" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </TitledPane>
+               </children>
+            </HBox>
+            <HBox VBox.vgrow="ALWAYS">
+               <children>
+                  <TitledPane animated="false" text="Pression" HBox.hgrow="ALWAYS">
+                     <content>
+                        <AnchorPane>
+                           <children>
+                              <HBox prefHeight="420.0" prefWidth="656.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <LineChart fx:id="pressChart" animated="false" HBox.hgrow="ALWAYS">
+                                       <xAxis>
+                                          <CategoryAxis fx:id="XAxis2" side="BOTTOM" />
+                                       </xAxis>
+                                       <yAxis>
+                                          <NumberAxis fx:id="YAxis2" side="LEFT" />
+                                       </yAxis>
+                                    </LineChart>
+                                    <VBox minWidth="180.0" prefWidth="180.0" spacing="5.0">
+                                       <children>
+                                          <HBox>
+                                             <children>
+                                                <Label text="Oil Pression:">
+                                                   <HBox.margin>
+                                                      <Insets right="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                                <Label fx:id="oilPressLabel" text="No Value" />
+                                             </children>
+                                          </HBox>
+                                          <HBox />
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </TitledPane>
+               </children>
+            </HBox>
          </children></VBox>
    </items>
 </SplitPane>
