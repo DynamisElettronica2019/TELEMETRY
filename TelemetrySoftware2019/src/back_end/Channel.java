@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import front_end.View;
+import javafx.scene.chart.XYChart;
 
 public class Channel extends DataElem {
 

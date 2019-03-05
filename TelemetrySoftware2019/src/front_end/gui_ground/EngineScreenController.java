@@ -12,12 +12,16 @@ import back_end.LapTimer;
 import back_end.State;
 import back_end.Threshold;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.chart.XYChart.Data;
 
 public class EngineScreenController extends Controller {
@@ -25,12 +29,19 @@ public class EngineScreenController extends Controller {
 	private final String OUT_OIL_TEMP = "tOil_Out";
 	private final String IN_WATER_L_TEMP = "tWaterL_In";
 	private final String OUT_WATER_L_TEMP = "tWaterL_Out";
+	private final String LAST_TIME = "time";
 	private Series<String, Double> oilTempIn, oilTempOut;
 	private Series<String, Double> waterTempLIN, waterTempLOut;
-	private ObservableList<XYChart.Series<String,Double>> waterTempChartData;
+	private ObservableList<XYChart.Series<String,Double>> waterTempChartData, oiltempChartData;
+	private double lastTime;
+	private int elCount = 0;
 	private int element = 0;
 	@FXML
 	private LineChart<String, Double> oilTempChart, waterTempChart;
+	@FXML
+	private Label oilTempInLabel, oilTempOutLabel, waterTempInLLabel, waterTempOutLLabel;
+	@FXML
+	private TableView table;
 	
 	@Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -80,12 +91,31 @@ public class EngineScreenController extends Controller {
 		if (channel.getLastElems(1).size()==0) {
 			//No channel data present, exit the function
 		}
+		else if(channel.getName().equals(LAST_TIME)) {
+			Platform.runLater(new Runnable() {
+			    @Override
+			    public void run() {
+			    	lastTime = channel.getLastElems(1).get(0);
+			    	element++;
+			    	if(elCount == 8) {
+			    		oilTempIn.getData().remove(0);
+			    		oilTempOut.getData().remove(0);
+			    		//waterTempLIN.getData().remove(0);
+			    		//waterTempLOut.getData().remove(0);
+			    	}
+			    	else {
+			    		elCount++;
+			    	}
+			    }
+			});
+		}
 		else if(channel.getName().equals(IN_OIL_TEMP)) {
 			Platform.runLater(new Runnable() {
 			    @Override
 			    public void run() {
-			    	oilTempIn.getData().add(new Data<String, Double>(Integer.toString(element), channel.getLastElems(1).get(0)));
-			    	element++;
+			    	//oilTempIn.getData().add(new Data<>(Double.toString(lastTime), channel.getLastElems(1).get(0)));
+			    	oilTempIn.getData().add(new Data<>(Integer.toString(element), channel.getLastElems(1).get(0)));
+			    	oilTempInLabel.setText(Double.toString(channel.getLastElems(1).get(0)));
 			    }
 			});
 		}
@@ -93,8 +123,9 @@ public class EngineScreenController extends Controller {
 			Platform.runLater(new Runnable() {
 			    @Override
 			    public void run() {
-			    	oilTempOut.getData().add(new Data<String, Double>(Integer.toString(element), channel.getLastElems(1).get(0)));
-			    	element++;
+			    	//oilTempOut.getData().add(new Data<>(Double.toString(lastTime), channel.getLastElems(1).get(0)));
+			    	oilTempOut.getData().add(new Data<>(Integer.toString(element), channel.getLastElems(1).get(0)));
+			    	oilTempOutLabel.setText(Double.toString(channel.getLastElems(1).get(0)));
 			    }
 			});
 		}
@@ -102,7 +133,9 @@ public class EngineScreenController extends Controller {
 			Platform.runLater(new Runnable() {
 			    @Override
 			    public void run() {
-			    	waterTempLIN.setData(value);
+			    	//waterTempLIN.getData().add(new Data<>(Double.toString(lastTime), channel.getLastElems(1).get(0)));
+			    	waterTempLIN.getData().add(new Data<>(Integer.toString(element), channel.getLastElems(1).get(0)));
+			    	waterTempInLLabel.setText(Double.toString(channel.getLastElems(1).get(0)));
 			    }
 			});
 		}
@@ -110,7 +143,9 @@ public class EngineScreenController extends Controller {
 			Platform.runLater(new Runnable() {
 			    @Override
 			    public void run() {
-			    	waterTempLOut.setData(value);
+			    	//waterTempLOut.getData().add(new Data<>(Double.toString(lastTime), channel.getLastElems(1).get(0)));
+			    	waterTempLOut.getData().add(new Data<>(Integer.toString(element), channel.getLastElems(1).get(0)));
+			    	waterTempOutLLabel.setText(Double.toString(channel.getLastElems(1).get(0)));
 			    }
 			});
 		}
@@ -165,13 +200,21 @@ public class EngineScreenController extends Controller {
 	}
 	
 	private void SetChart() {
+		waterTempChartData = FXCollections.observableArrayList();
+		oiltempChartData = FXCollections.observableArrayList();
 		oilTempIn = new Series<>();
 		oilTempOut = new Series<>();
-		oilTempChart.getData().add(oilTempIn);
-		oilTempChart.getData().add(oilTempOut);
 		waterTempLIN = new Series<>();
+		waterTempLOut = new Series<>();
+		oilTempIn.setName("Oil Temp In");
+		oilTempOut.setName("Oil Temp Out");
+		waterTempLIN.setName("Water temp left In");
+		waterTempLOut.setName("Water temp left Out");
 		waterTempChartData.add(waterTempLIN);
 		waterTempChartData.add(waterTempLOut);
+		oiltempChartData.add(oilTempIn);
+		oiltempChartData.add(oilTempOut);
 		waterTempChart.setData(waterTempChartData);
+		oilTempChart.setData(oiltempChartData);
 	}
 }
