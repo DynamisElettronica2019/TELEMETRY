@@ -33,9 +33,7 @@ public class EngineScreenController extends Controller {
 	private Series<String, Double> oilTempIn, oilTempOut;
 	private Series<String, Double> waterTempLIN, waterTempLOut;
 	private ObservableList<XYChart.Series<String,Double>> waterTempChartData, oiltempChartData;
-	private double lastTime;
 	private int elCount = 0;
-	private int element = 0;
 	@FXML
 	private LineChart<String, Double> oilTempChart, waterTempChart;
 	@FXML
@@ -95,8 +93,6 @@ public class EngineScreenController extends Controller {
 			Platform.runLater(new Runnable() {
 			    @Override
 			    public void run() {
-			    	lastTime = channel.getLastElems(1).get(0);
-			    	element++;
 			    	if(elCount == 8) {
 			    		oilTempIn.getData().remove(0);
 			    		oilTempOut.getData().remove(0);
@@ -113,8 +109,7 @@ public class EngineScreenController extends Controller {
 			Platform.runLater(new Runnable() {
 			    @Override
 			    public void run() {
-			    	//oilTempIn.getData().add(new Data<>(Double.toString(lastTime), channel.getLastElems(1).get(0)));
-			    	oilTempIn.getData().add(new Data<>(Integer.toString(element), channel.getLastElems(1).get(0)));
+			    	oilTempIn.getData().add(channel.getLastChartEl());
 			    	oilTempInLabel.setText(Double.toString(channel.getLastElems(1).get(0)));
 			    }
 			});
@@ -123,8 +118,7 @@ public class EngineScreenController extends Controller {
 			Platform.runLater(new Runnable() {
 			    @Override
 			    public void run() {
-			    	//oilTempOut.getData().add(new Data<>(Double.toString(lastTime), channel.getLastElems(1).get(0)));
-			    	oilTempOut.getData().add(new Data<>(Integer.toString(element), channel.getLastElems(1).get(0)));
+			    	oilTempOut.getData().add(channel.getLastChartEl());
 			    	oilTempOutLabel.setText(Double.toString(channel.getLastElems(1).get(0)));
 			    }
 			});
@@ -133,8 +127,7 @@ public class EngineScreenController extends Controller {
 			Platform.runLater(new Runnable() {
 			    @Override
 			    public void run() {
-			    	//waterTempLIN.getData().add(new Data<>(Double.toString(lastTime), channel.getLastElems(1).get(0)));
-			    	waterTempLIN.getData().add(new Data<>(Integer.toString(element), channel.getLastElems(1).get(0)));
+			    	waterTempLIN.getData().add(channel.getLastChartEl());
 			    	waterTempInLLabel.setText(Double.toString(channel.getLastElems(1).get(0)));
 			    }
 			});
@@ -143,8 +136,7 @@ public class EngineScreenController extends Controller {
 			Platform.runLater(new Runnable() {
 			    @Override
 			    public void run() {
-			    	//waterTempLOut.getData().add(new Data<>(Double.toString(lastTime), channel.getLastElems(1).get(0)));
-			    	waterTempLOut.getData().add(new Data<>(Integer.toString(element), channel.getLastElems(1).get(0)));
+			    	waterTempLOut.getData().add(channel.getLastChartEl());
 			    	waterTempOutLLabel.setText(Double.toString(channel.getLastElems(1).get(0)));
 			    }
 			});

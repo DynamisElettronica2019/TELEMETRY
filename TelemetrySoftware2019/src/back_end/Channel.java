@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import front_end.View;
-import javafx.scene.chart.XYChart;
 
 public class Channel extends DataElem {
 
@@ -52,5 +51,9 @@ public class Channel extends DataElem {
 	 */
 	public void reset() {
 		serie.clear();
+	}
+	
+	public javafx.scene.chart.XYChart.Data<String, Double> getLastChartEl() {
+		return new javafx.scene.chart.XYChart.Data<String, Double>(getLastTs(1).get(0).toString(), serie.get(serie.size()));
 	}
 }
