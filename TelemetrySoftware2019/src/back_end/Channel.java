@@ -54,6 +54,6 @@ public class Channel extends DataElem {
 	}
 	
 	public javafx.scene.chart.XYChart.Data<String, Double> getLastChartEl() {
-		return new javafx.scene.chart.XYChart.Data<String, Double>(getLastTs(1).get(0).toString(), serie.get(serie.size()));
+		return new javafx.scene.chart.XYChart.Data<String, Double>(getLastTs(1).get(0).getHour()+":"+getLastTs(1).get(0).getMinute()+":"+getLastTs(1).get(0).getSecond(), serie.get(serie.size()-1));
 	}
 }
