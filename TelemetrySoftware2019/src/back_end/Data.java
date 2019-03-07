@@ -95,6 +95,16 @@ public class Data {
 	}
 	
 	/*
+	 * Return last timestamp
+	 */
+	public LocalDateTime getLastTs(){
+		if(timestamps.size()>0)
+			return timestamps.get(timestamps.size()-1);
+		else
+			return null;
+	}
+	
+	/*
 	 * Return last n (or less) elements of channel ch
 	 */
 	public ArrayList<Double> getLastElemsChannel(int ch,int n){

@@ -45,6 +45,31 @@ public class Channel extends DataElem {
 	public ArrayList<LocalDateTime> getLastTs(int n){
 		return data.getLastTs(n);
 	}
+	
+	/*
+	 * Get last serie element
+	 */
+	public Double getLastElems(){
+		if(serie.size()>0)
+			return serie.get(serie.size()-1);
+		else
+			return null;
+	}
+	
+	/*
+	 * Get last ts element
+	 */
+	public LocalDateTime getLastTs(){
+		return data.getLastTs();
+	}
+	
+	/*
+	 * Verify if there are data in serie
+	 */
+	public boolean isEmpty(){
+		if(serie.size()>0) return false;
+		return true;
+	}
 
 	/*
 	 * Reset serie
@@ -53,7 +78,4 @@ public class Channel extends DataElem {
 		serie.clear();
 	}
 	
-	public javafx.scene.chart.XYChart.Data<String, Double> getLastChartEl() {
-		return new javafx.scene.chart.XYChart.Data<String, Double>(getLastTs(1).get(0).getHour()+":"+getLastTs(1).get(0).getMinute()+":"+getLastTs(1).get(0).getSecond(), serie.get(serie.size()-1));
-	}
 }

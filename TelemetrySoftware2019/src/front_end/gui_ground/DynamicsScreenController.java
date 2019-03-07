@@ -24,11 +24,10 @@ public class DynamicsScreenController extends Controller {
 
 	@Override
 	public void editChannel(Channel channel) {
-		// TODO Auto-generated method stub
-		if (channel.getLastElems(1).size()==0) {
-			//No channel data present, exit the function
+		if(!channel.isEmpty()){
+			// TODO Auto-generated method stub
+			
 		}
-		
 	}
 
 	@Override
