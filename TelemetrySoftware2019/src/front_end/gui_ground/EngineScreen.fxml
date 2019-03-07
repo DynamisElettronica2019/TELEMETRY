@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<GridPane gridLinesVisible="true" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.gui_ground.EngineScreenController">
+<GridPane gridLinesVisible="true" prefHeight="1200.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.gui_ground.EngineScreenController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -30,7 +30,7 @@
                         <NumberAxis fx:id="YAxis11" side="LEFT" />
                      </yAxis>
                   </LineChart>
-                  <VBox minWidth="180.0" prefHeight="400.0" prefWidth="180.0" spacing="5.0">
+                  <VBox minWidth="180.0" prefWidth="180.0" spacing="5.0">
                      <children>
                         <HBox>
                            <children>
@@ -150,7 +150,7 @@
                         <NumberAxis fx:id="YAxis1" side="LEFT" />
                      </yAxis>
                   </LineChart>
-                  <VBox minWidth="180.0" prefHeight="400.0" prefWidth="180.0" spacing="5.0">
+                  <VBox minWidth="180.0" prefWidth="180.0" spacing="5.0">
                      <children>
                         <HBox>
                            <children>
