@@ -16,7 +16,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -40,7 +42,8 @@ public class GuiGroundView extends View {
 	private FXMLLoader DXTopBarLoader;
 	private FXMLLoader SXMainLoader;
 	private FXMLLoader DXMainLoader;
-	private BorderPane borderPaneSX, borderPaneDX;
+	private AnchorPane AnchorPaneSX, AnchorPaneDX;
+	private VBox vboxSX, vboxDX;
 
 	
 	public GuiGroundView() throws IOException {
@@ -57,8 +60,9 @@ public class GuiGroundView extends View {
         stageSX.setOnCloseRequest( event -> {stageDX.close();} );
         
         //Initialize stage SX
-        borderPaneSX = new BorderPane();
-        sceneSX = new Scene(borderPaneSX);
+        vboxSX = new VBox(5);
+        AnchorPaneSX = new AnchorPane();
+        sceneSX = new Scene(AnchorPaneSX);
         stageSX.setScene(sceneSX);
         stageSX.show();
         
@@ -75,8 +79,9 @@ public class GuiGroundView extends View {
         stageDX.setOnCloseRequest( event -> {stageSX.close();} );
         
         //Initialize stage DX
-        borderPaneDX = new BorderPane();
-        sceneDX = new Scene(borderPaneDX);
+        vboxDX = new VBox(5);
+        AnchorPaneDX = new AnchorPane();
+        sceneDX = new Scene(AnchorPaneDX);
         stageDX.setScene(sceneDX);
         stageDX.show();
 	}
@@ -161,10 +166,25 @@ public class GuiGroundView extends View {
 	    DXMainLoader = new FXMLLoader();
 	    DXMainPane = DXMainLoader.load(getClass().getResource("CommandScreen.fxml").openStream());
 	    DXMainController = DXMainLoader.getController();
-        borderPaneSX.setTop(SXTopBarPane);
-        borderPaneDX.setTop(DXTopBarPane);
-	    borderPaneSX.setCenter(SXMainPane);
-	    borderPaneDX.setCenter(DXMainPane);
+	    
+	    //Set SX constraints
+	    AnchorPane.setTopAnchor(vboxSX, 0.0);
+	    AnchorPane.setBottomAnchor(vboxSX, 0.0);
+	    AnchorPane.setLeftAnchor(vboxSX, 0.0);
+	    AnchorPane.setRightAnchor(vboxSX, 0.0);
+	    vboxSX.getChildren().add(SXTopBarPane);
+	    vboxSX.getChildren().add(SXMainPane);
+	    AnchorPaneSX.getChildren().add(vboxSX);
+	    
+	   //Set DX constraints
+	    AnchorPane.setTopAnchor(vboxDX, 0.0);
+	    AnchorPane.setBottomAnchor(vboxDX, 0.0);
+	    AnchorPane.setLeftAnchor(vboxDX, 0.0);
+	    AnchorPane.setRightAnchor(vboxDX, 0.0);
+	    vboxDX.getChildren().add(DXTopBarPane);
+	    vboxDX.getChildren().add(DXMainPane);
+	    AnchorPaneDX.getChildren().add(vboxDX);
+	    
 	    SXTopBarController.SetView(this);
 	    DXTopBarController.SetView(this);
 	    SXMainController.SetView(this);
@@ -183,14 +203,14 @@ public class GuiGroundView extends View {
 			SXMainLoader = new FXMLLoader();
 		    SXMainPane = SXMainLoader.load(getClass().getResource(fxml).openStream());
 		    SXMainController = SXMainLoader.getController();
-		    borderPaneSX.setCenter(SXMainPane);
+		    vboxSX.getChildren().set(1, SXMainPane);
 		}
 		else if (side == 'd')
 		{
 			DXMainLoader = new FXMLLoader();
 			DXMainPane = DXMainLoader.load(getClass().getResource(fxml).openStream());
 			DXMainController = DXMainLoader.getController();
-			borderPaneDX.setCenter(DXMainPane);
+			vboxDX.getChildren().set(1, DXMainPane);
 		}
 		else {
 			System.err.println("Side screen error");
