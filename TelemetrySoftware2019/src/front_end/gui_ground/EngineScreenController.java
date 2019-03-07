@@ -16,13 +16,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.chart.XYChart.Data;
 
 public class EngineScreenController extends Controller {
 	private final String IN_OIL_TEMP = "tOil_In";
@@ -45,49 +41,25 @@ public class EngineScreenController extends Controller {
 	private Label oilTempInLabel, oilTempOutLabel, waterTempInLLabel, waterTempOutLLabel, exhaust1TempLabel, exhaust2TempLabel, oilPressLabel;
 	
 	@Override
-    public void initialize(URL location, ResourceBundle resources) {
-		SetDebug();
-		SetState();
-		SetChannel();
-		SetCommand();
-		SetError();
-		SetLap();
-		SetTS();
-		SetChart();
-    }
-	
+	public void initialize(URL location, ResourceBundle resources) {
+		super.initialize(location, resources);
+		setChart();
+	}
+
 	@Override
-	public void SetDebug() {
+	public void editDebug(Debug debug) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void EditDebug(Debug debug) {
+	public void editState(State state) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void SetState() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void EditState(State state) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void SetChannel() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void EditChannel(Channel channel) {
+	public void editChannel(Channel channel) {
 		// TODO Auto-generated method stub
 		if (channel.getLastElems(1).size()==0) {
 			//No channel data present, exit the function
@@ -174,54 +146,30 @@ public class EngineScreenController extends Controller {
 	}
 
 	@Override
-	public void SetCommand() {
+	public void editCommand(Command command) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void EditCommand(Command command) {
+	public void editError(Error error) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void SetError() {
+	public void editLap(LapTimer lapTimer) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void EditError(Error error) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void SetLap() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void EditLap(LapTimer lapTimer) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void SetTS() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void EditTS(Threshold thresholdState) {
+	public void editTS(Threshold thresholdState) {
 		// TODO Auto-generated method stub
 		
 	}
 	
-	private void SetChart() {
+	private void setChart() {
 		waterTempChartData = FXCollections.observableArrayList();
 		oiltempChartData = FXCollections.observableArrayList();
 		exhaustTempChartData = FXCollections.observableArrayList();

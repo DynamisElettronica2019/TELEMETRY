@@ -84,58 +84,58 @@ public class GuiGroundView extends View {
 	//Update functions call controller relative functions, always defined in controlelr
 	@Override
 	public void UpdateChannel(Channel channel) {
-		SXTopBarController.EditChannel(channel);
-		DXTopBarController.EditChannel(channel);
-		SXMainController.EditChannel(channel);
-		DXMainController.EditChannel(channel);
+		SXTopBarController.editChannel(channel);
+		DXTopBarController.editChannel(channel);
+		SXMainController.editChannel(channel);
+		DXMainController.editChannel(channel);
 	}
 
 	@Override
 	public void UpdateCommand(Command command) {
-		SXTopBarController.EditCommand(command);
-		DXTopBarController.EditCommand(command);
-		SXMainController.EditCommand(command);
-		DXMainController.EditCommand(command);
+		SXTopBarController.editCommand(command);
+		DXTopBarController.editCommand(command);
+		SXMainController.editCommand(command);
+		DXMainController.editCommand(command);
 	}
 
 	@Override
 	public void UpdateDebug(Debug debug) {
-		SXTopBarController.EditDebug(debug);
-		DXTopBarController.EditDebug(debug);
-		SXMainController.EditDebug(debug);
-		DXMainController.EditDebug(debug);
+		SXTopBarController.editDebug(debug);
+		DXTopBarController.editDebug(debug);
+		SXMainController.editDebug(debug);
+		DXMainController.editDebug(debug);
 	}
 
 	@Override
 	public void UpdateError(Error error) {
-		SXTopBarController.EditError(error);
-		DXTopBarController.EditError(error);
-		SXMainController.EditError(error);
-		DXMainController.EditError(error);
+		SXTopBarController.editError(error);
+		DXTopBarController.editError(error);
+		SXMainController.editError(error);
+		DXMainController.editError(error);
 	}
 
 	@Override
 	public void UpdateState(State state) {
-		SXTopBarController.EditState(state);
-		DXTopBarController.EditState(state);
-		SXMainController.EditState(state);
-		DXMainController.EditState(state);
+		SXTopBarController.editState(state);
+		DXTopBarController.editState(state);
+		SXMainController.editState(state);
+		DXMainController.editState(state);
 	}
 
 	@Override
 	public void UpdateLap(LapTimer lapTimer) {
-		SXTopBarController.EditLap(lapTimer);
-		DXTopBarController.EditLap(lapTimer);
-		SXMainController.EditLap(lapTimer);
-		DXMainController.EditLap(lapTimer);
+		SXTopBarController.editLap(lapTimer);
+		DXTopBarController.editLap(lapTimer);
+		SXMainController.editLap(lapTimer);
+		DXMainController.editLap(lapTimer);
 	}
 
 	@Override
 	public void UpdateTS(Threshold thresholdState) {
-		SXTopBarController.EditTS(thresholdState);
-		DXTopBarController.EditTS(thresholdState);
-		SXMainController.EditTS(thresholdState);
-		DXMainController.EditTS(thresholdState);
+		SXTopBarController.editTS(thresholdState);
+		DXTopBarController.editTS(thresholdState);
+		SXMainController.editTS(thresholdState);
+		DXMainController.editTS(thresholdState);
 	}
 	
 	
