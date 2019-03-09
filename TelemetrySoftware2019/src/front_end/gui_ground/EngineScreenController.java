@@ -2,6 +2,8 @@ package front_end.gui_ground;
 
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import back_end.Channel;
@@ -20,23 +22,17 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Label;
+import javafx.scene.shape.Circle;
 import javafx.scene.chart.XYChart.Data;
 
 public class EngineScreenController extends Controller {
-	private final String IN_OIL_TEMP = "tOil_In";
-	private final String OUT_OIL_TEMP = "tOil_Out";
-	private final String IN_WATER_L_TEMP = "tWaterL_In";
-	private final String OUT_WATER_L_TEMP = "tWaterL_Out";
-	private final String EXHAUST_TEMP_1 = "tExhaust_1";
-	private final String EXHAUST_TEMP_2 = "tExhaust_2";
-	private final String OIL_PRESS = "pOil";
-	private final String LAST_TIME = "time";
+	private Map<String, Label> chartLabelMap = new HashMap<>();
+	private Map<String, Series<String, Double>> chartChannelMap = new HashMap<>();
 	private Series<String, Double> oilTempIn, oilTempOut;
 	private Series<String, Double> waterTempLIN, waterTempLOut;
 	private Series<String, Double> exhaust1Temp, exhaust2Temp;
 	private Series<String, Double> oilPress;
 	private ObservableList<XYChart.Series<String,Double>> waterTempChartData, oiltempChartData, exhaustTempChartData, pressChartData;
-	private int elCount = 0;
 	@FXML
 	private LineChart<String, Double> oilTempChart, waterTempChart, exhaustTempChart, pressChart;
 	@FXML
@@ -63,85 +59,21 @@ public class EngineScreenController extends Controller {
 	@Override
 	public void editChannel(Channel channel) {
 		if(!channel.isEmpty()){
-			if(channel.getName().equals(LAST_TIME)) {
-				Platform.runLater(new Runnable() {
-				    @Override
-				    public void run() {
-				    	if(elCount == 8) {
-				    		oilTempIn.getData().remove(0);
-				    		oilTempOut.getData().remove(0);
-				    		//waterTempLIN.getData().remove(0);
-				    		//waterTempLOut.getData().remove(0);
+			Platform.runLater(new Runnable() {
+			    @Override
+			    public void run() {
+			    	if(chartChannelMap.get(channel.getName()) == null) {
+			    		
+			    	}
+			    	else {
+			    		if(chartChannelMap.get(channel.getName()).getData().size() > 20) {
+				    		chartChannelMap.get(channel.getName()).getData().remove(0);
 				    	}
-				    	else {
-				    		elCount++;
-				    	}
-				    }
-				});
-			}
-			else if(channel.getName().equals(IN_OIL_TEMP)) {
-				Platform.runLater(new Runnable() {
-				    @Override
-				    public void run() {
-				    	oilTempIn.getData().add(getLastChartElem(channel));
-				    	oilTempInLabel.setText(Double.toString(channel.getLastElems(1).get(0)));
-				    }
-				});
-			}
-			else if(channel.getName().equals(OUT_OIL_TEMP)) {
-				Platform.runLater(new Runnable() {
-				    @Override
-				    public void run() {
-				    	oilTempOut.getData().add(getLastChartElem(channel));
-				    	oilTempOutLabel.setText(Double.toString(channel.getLastElems(1).get(0)));
-				    }
-				});
-			}
-			else if(channel.getName().equals(IN_WATER_L_TEMP)) {
-				Platform.runLater(new Runnable() {
-				    @Override
-				    public void run() {
-				    	waterTempLIN.getData().add(getLastChartElem(channel));
-				    	waterTempInLLabel.setText(Double.toString(channel.getLastElems(1).get(0)));
-				    }
-				});
-			}
-			else if(channel.getName().equals(OUT_WATER_L_TEMP)) {
-				Platform.runLater(new Runnable() {
-				    @Override
-				    public void run() {
-				    	waterTempLOut.getData().add(getLastChartElem(channel));
-				    	waterTempOutLLabel.setText(Double.toString(channel.getLastElems(1).get(0)));
-				    }
-				});
-			}
-			else if(channel.getName().equals(EXHAUST_TEMP_1)) {
-				Platform.runLater(new Runnable() {
-				    @Override
-				    public void run() {
-				    	exhaust1Temp.getData().add(getLastChartElem(channel));
-				    	exhaust1TempLabel.setText(Double.toString(channel.getLastElems(1).get(0)));
-				    }
-				});
-			}
-			else if(channel.getName().equals(EXHAUST_TEMP_2)) {
-				Platform.runLater(new Runnable() {
-				    @Override
-				    public void run() {
-				    	exhaust2Temp.getData().add(getLastChartElem(channel));
-				    	exhaust2TempLabel.setText(Double.toString(channel.getLastElems(1).get(0)));
-				    }
-				});
-			}
-			else if(channel.getName().equals(OIL_PRESS)) {
-				Platform.runLater(new Runnable() {
-				    @Override
-				    public void run() {
-				    	oilPress.getData().add(getLastChartElem(channel));
-				    	oilPressLabel.setText(Double.toString(channel.getLastElems(1).get(0)));
-				    }
-				});
-			}
+			    		chartChannelMap.get(channel.getName()).getData().add(getLastChartElem(channel));
+				    	chartLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));
+			    	}	    	
+			    }
+			});
 		}
 	}
 
@@ -203,6 +135,22 @@ public class EngineScreenController extends Controller {
 		oilTempChart.setData(oiltempChartData);
 		exhaustTempChart.setData(exhaustTempChartData);
 		pressChart.setData(pressChartData);
+		
+		chartLabelMap.put("tOil_In", oilTempInLabel);
+		chartLabelMap.put("tOil_Out", oilTempOutLabel);
+		chartLabelMap.put("tWaterL_In", waterTempInLLabel);
+		chartLabelMap.put("tWaterL_Out", waterTempOutLLabel);
+		chartLabelMap.put("tExhaust_1", exhaust1TempLabel);
+		chartLabelMap.put("tExhaust_2", exhaust2TempLabel);
+		chartLabelMap.put("pOil", oilPressLabel);
+		
+		chartChannelMap.put("tOil_In", oilTempIn);
+		chartChannelMap.put("tOil_Out", oilTempOut);
+		chartChannelMap.put("tWaterL_In", waterTempLIN);
+		chartChannelMap.put("tWaterL_Out", waterTempLOut);
+		chartChannelMap.put("tExhaust_1", exhaust1Temp);
+		chartChannelMap.put("tExhaust_2", exhaust2Temp);
+		chartChannelMap.put("pOil", oilPress);
 	}
 	
 	private Data<String, Double> getLastChartElem(Channel channel) {
