@@ -155,6 +155,6 @@ public class EngineScreenController extends Controller {
 	
 	private Data<String, Double> getLastChartElem(Channel channel) {
 		LocalDateTime ts = channel.getLastTs();
-		return new Data<String, Double>(ts.getHour()+":"+ts.getMinute()+":"+ts.getSecond(), channel.getLastElems());
+		return new Data<String, Double>(ts.getHour()+":"+ts.getMinute()+":"+ts.getSecond()+":"+ts.getNano()/1000000, channel.getLastElems());
 	}
 }
