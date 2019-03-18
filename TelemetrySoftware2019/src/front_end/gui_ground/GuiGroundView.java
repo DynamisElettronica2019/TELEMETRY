@@ -150,6 +150,10 @@ public class GuiGroundView extends View {
 		// TODO Auto-generated method stub
 	}
 	
+	public CommandSender getCommandSender() {
+		return commandSender;
+	}
+	
 	@Override
 	public void setViewLoader(ViewLoader viewLoader) throws IOException {
 		super.setViewLoader(viewLoader);
