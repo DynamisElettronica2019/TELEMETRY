@@ -11,10 +11,10 @@
    <top>
       <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
-          <Button mnemonicParsing="false" onAction="#StartAcqAction" text="Start Acquisition" />
-            <Button mnemonicParsing="false" onAction="#StopAcqAction" text="Stop Acquisition" />
-            <Button mnemonicParsing="false" onAction="#StartTelemAction" text="Start Telemetry" />
-            <Button mnemonicParsing="false" onAction="#StopTelemAction" text="Stop Telemetry" />
+          <Button fx:id="StartAcqButton" mnemonicParsing="false" onAction="#StartAcqAction" text="Start Acquisition" />
+            <Button fx:id="StopAcqButton" mnemonicParsing="false" onAction="#StopAcqAction" text="Stop Acquisition" />
+            <Button fx:id="StartTelemButton" mnemonicParsing="false" onAction="#StartTelemAction" text="Start Telemetry" />
+            <Button fx:id="StopTelemButton" mnemonicParsing="false" onAction="#StopTelemAction" text="Stop Telemetry" />
         </items>
       </ToolBar>
    </top>

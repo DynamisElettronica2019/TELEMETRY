@@ -23,19 +23,29 @@ import javafx.scene.control.Label;
 
 public class CommandScreenController extends Controller {
 	private Map<String, String> driverMessageMap = new HashMap<>();
-	@FXML
-	private ComboBox<String> PilotMessageList;
+	private Map<String, Button> buttonMap = new HashMap<>();
 	private CommandSender commandSender;
 	ObservableList<String> driverMessages;
+	@FXML
+	private Button StartAcqButton, StopAcqButton, StartTelemButton, StopTelemButton;
+	@FXML
+	private ComboBox<String> PilotMessageList;
+	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		super.initialize(location, resources);
 		driverMessages = FXCollections.observableArrayList("Stop the car", "Keep going", "Pit");
 		PilotMessageList.setItems(driverMessages);
+		
 		driverMessageMap.put("Stop the car", "CAR_STOP");
 		driverMessageMap.put("Keep going", "GO");
 		driverMessageMap.put("Pit", "PIT");
+		
+		buttonMap.put("START_ACQUISITION", StartAcqButton);
+		buttonMap.put("STOP_ACQUISITION", StopAcqButton);
+		buttonMap.put("START_TELEMETRY", StartTelemButton);
+		buttonMap.put("STOP_TELEMETRY", StopTelemButton);
 	}
 	
 	@Override
@@ -58,10 +68,12 @@ public class CommandScreenController extends Controller {
 		}
 	}
 
+	//Enable the button again
 	@Override
 	public void editCommand(Command command) {
-		// TODO Auto-generated method stub
-		
+		if(command.isSending() == false) {
+			buttonMap.get(command.getName()).setDisable(false);
+		}
 	}
 
 	@Override
@@ -93,6 +105,7 @@ public class CommandScreenController extends Controller {
 			commandSender = view.getCommandSender();
 		}	
 		commandSender.sendCommand("START_ACQUISITION", "");
+		StartAcqButton.setDisable(true);
 	}
 	
 	@FXML
@@ -101,6 +114,7 @@ public class CommandScreenController extends Controller {
 			commandSender = view.getCommandSender();
 		}	
 		commandSender.sendCommand("STOP_ACQUISITION", "");
+		StopAcqButton.setDisable(true);
 	}
 	
 	@FXML
@@ -109,6 +123,7 @@ public class CommandScreenController extends Controller {
 			commandSender = view.getCommandSender();
 		}	
 		commandSender.sendCommand("START_TELEMETRY", "");
+		StartTelemButton.setDisable(true);
 	}
 	
 	@FXML
@@ -117,6 +132,7 @@ public class CommandScreenController extends Controller {
 			commandSender = view.getCommandSender();
 		}	
 		commandSender.sendCommand("STOP_TELEMETRY", "");
+		StopTelemButton.setDisable(true);
 	}
 	
 	@FXML
