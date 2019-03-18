@@ -16,16 +16,8 @@ public abstract class Controller implements Initializable {
 	
 	protected GuiGroundView view;
 	
-	//Call setter before loading viewLoader
 	@Override
     public void initialize(URL location, ResourceBundle resources) {
-		SetDebug();
-		SetState();
-		SetChannel();
-		SetCommand();
-		SetError();
-		SetLap();
-		SetTS();
     }
 	
 	//Setting the view for accessing his controller managing functions
@@ -36,25 +28,11 @@ public abstract class Controller implements Initializable {
 	/*
 	 *  From here abstract function declarations
 	 */
-	
-	public abstract void SetDebug();
-	public abstract void EditDebug(Debug debug);
-	
-	public abstract void SetState();
-	public abstract void EditState(State state);
-	
-	public abstract void SetChannel();
-	public abstract void EditChannel(Channel channel);
-	
-	public abstract void SetCommand();
-	public abstract void EditCommand(Command command);
-	
-	public abstract void SetError();
-	public abstract void EditError(Error error);
-	
-	public abstract void SetLap();
-	public abstract void EditLap(LapTimer lapTimer);
-	
-	public abstract void SetTS();
-	public abstract void EditTS(Threshold thresholdState);
+	public abstract void editDebug(Debug debug);
+	public abstract void editState(State state);
+	public abstract void editChannel(Channel channel);
+	public abstract void editCommand(Command command);
+	public abstract void editError(Error error);
+	public abstract void editLap(LapTimer lapTimer);
+	public abstract void editTS(Threshold thresholdState);
 }

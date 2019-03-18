@@ -3,9 +3,11 @@ package front_end.gui_ground;
 import javafx.scene.shape.Circle;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import back_end.Channel;
 import back_end.Command;
@@ -22,9 +24,9 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 
 public class TopBarController extends Controller {
-	private static final int STATES = 6;
-	private static final String MAP_CHANNEL = "GCU_AUTOX_FB";
-	private static final String TRACTION_CHANNEL = "GCU_TRACTION_FB";
+	private final int STATES = 6;
+	private final String MAP_CHANNEL = "GCU_AUTOX_FB";
+	private final String TRACTION_CHANNEL = "GCU_TRACTION_FB";
 	private Map<String, Circle> stateMap = new HashMap<>();
 	private ArrayList<String> stateList;
 	private Circle[] circleList;
@@ -43,20 +45,20 @@ public class TopBarController extends Controller {
 	private Button button;
 	
 	@Override
-	public void SetDebug() {
-		// TODO Auto-generated method stub
-		
+	public void initialize(URL location, ResourceBundle resources) {
+		super.initialize(location, resources);
+		initState();
+		initTS();
 	}
 
 	@Override
-	public void EditDebug(Debug debug) {
+	public void editDebug(Debug debug) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	//Initzialize the top bar states
-	@Override
-	public void SetState() { 
+	private void initState() { 
 		stateList = ConfReader.getNames("states");
 		circleList = new Circle[11];
 		labelList = new Label[11];
@@ -80,7 +82,7 @@ public class TopBarController extends Controller {
 	}
 
 	@Override
-	public void EditState(State state) {
+	public void editState(State state) {
 		if(state.getValue() == true) {
 			stateMap.get(state.getName()).setFill(Color.GREEN);
 		}
@@ -89,66 +91,43 @@ public class TopBarController extends Controller {
 		}
 	}
 
-	@Override
-	public void SetChannel() {
-	}
-
 	//If detects a new map/traction mode changes the value in the top bar
 	@Override
-	public void EditChannel(Channel channel) {
-		if (channel.getLastElems(1).size()==0) {
-			//No channel data present, exit the function
+	public void editChannel(Channel channel) {
+		if(!channel.isEmpty()){
+			if (channel.getName().equals(MAP_CHANNEL)) {
+				Platform.runLater(new Runnable() {
+				    @Override
+				    public void run() {
+				    	map.setText(channel.getLastElems(1).get(0).toString());
+				    }
+				});
+			}
+			else if (channel.getName().equals(TRACTION_CHANNEL)) {
+				Platform.runLater(new Runnable() {
+				    @Override
+				    public void run() {
+				    	traction.setText(channel.getLastElems(1).get(0).toString());
+				    }
+				});
+			}
 		}
-		else if (channel.getName().equals(MAP_CHANNEL)) {
-			Platform.runLater(new Runnable() {
-			    @Override
-			    public void run() {
-			    	map.setText(channel.getLastElems(1).get(0).toString());
-			    }
-			});
-		}
-		else if (channel.getName().equals(TRACTION_CHANNEL)) {
-			Platform.runLater(new Runnable() {
-			    @Override
-			    public void run() {
-			    	traction.setText(channel.getLastElems(1).get(0).toString());
-			    }
-			});
-		}
 	}
 
 	@Override
-	public void SetCommand() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void EditCommand(Command command) {
+	public void editCommand(Command command) {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public void SetError() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void EditError(Error error) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void SetLap() {
+	public void editError(Error error) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	//Set last lap time on label, second top bar
 	@Override
-	public void EditLap(LapTimer lapTimer) {
+	public void editLap(LapTimer lapTimer) {
 		Platform.runLater(new Runnable() {
 		    @Override
 		    public void run() {
@@ -164,8 +143,7 @@ public class TopBarController extends Controller {
 	}
 
 	//Set labels, you cannot have more than 5 Threshold states
-	@Override
-	public void SetTS() {
+	private void initTS() {
 		int element = STATES+1;
 		ArrayList<String> chNames = ConfReader.getNames("channels");
 		circleList[6] = circle7;
@@ -192,7 +170,7 @@ public class TopBarController extends Controller {
 	}
 
 	@Override
-	public void EditTS(Threshold thresholdState) {
+	public void editTS(Threshold thresholdState) {
 		if (thresholdState.isError()) {
 			stateMap.get(thresholdState.getChName()).setFill(Color.RED);
 		}

@@ -16,7 +16,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -40,7 +42,8 @@ public class GuiGroundView extends View {
 	private FXMLLoader DXTopBarLoader;
 	private FXMLLoader SXMainLoader;
 	private FXMLLoader DXMainLoader;
-	private BorderPane borderPaneSX, borderPaneDX;
+	private AnchorPane AnchorPaneSX, AnchorPaneDX;
+	private VBox vboxSX, vboxDX;
 
 	
 	public GuiGroundView() throws IOException {
@@ -57,8 +60,9 @@ public class GuiGroundView extends View {
         stageSX.setOnCloseRequest( event -> {stageDX.close();} );
         
         //Initialize stage SX
-        borderPaneSX = new BorderPane();
-        sceneSX = new Scene(borderPaneSX);
+        vboxSX = new VBox(5);
+        AnchorPaneSX = new AnchorPane();
+        sceneSX = new Scene(AnchorPaneSX);
         stageSX.setScene(sceneSX);
         stageSX.show();
         
@@ -75,8 +79,9 @@ public class GuiGroundView extends View {
         stageDX.setOnCloseRequest( event -> {stageSX.close();} );
         
         //Initialize stage DX
-        borderPaneDX = new BorderPane();
-        sceneDX = new Scene(borderPaneDX);
+        vboxDX = new VBox(5);
+        AnchorPaneDX = new AnchorPane();
+        sceneDX = new Scene(AnchorPaneDX);
         stageDX.setScene(sceneDX);
         stageDX.show();
 	}
@@ -84,58 +89,58 @@ public class GuiGroundView extends View {
 	//Update functions call controller relative functions, always defined in controlelr
 	@Override
 	public void UpdateChannel(Channel channel) {
-		SXTopBarController.EditChannel(channel);
-		DXTopBarController.EditChannel(channel);
-		SXMainController.EditChannel(channel);
-		DXMainController.EditChannel(channel);
+		SXTopBarController.editChannel(channel);
+		DXTopBarController.editChannel(channel);
+		SXMainController.editChannel(channel);
+		DXMainController.editChannel(channel);
 	}
 
 	@Override
 	public void UpdateCommand(Command command) {
-		SXTopBarController.EditCommand(command);
-		DXTopBarController.EditCommand(command);
-		SXMainController.EditCommand(command);
-		DXMainController.EditCommand(command);
+		SXTopBarController.editCommand(command);
+		DXTopBarController.editCommand(command);
+		SXMainController.editCommand(command);
+		DXMainController.editCommand(command);
 	}
 
 	@Override
 	public void UpdateDebug(Debug debug) {
-		SXTopBarController.EditDebug(debug);
-		DXTopBarController.EditDebug(debug);
-		SXMainController.EditDebug(debug);
-		DXMainController.EditDebug(debug);
+		SXTopBarController.editDebug(debug);
+		DXTopBarController.editDebug(debug);
+		SXMainController.editDebug(debug);
+		DXMainController.editDebug(debug);
 	}
 
 	@Override
 	public void UpdateError(Error error) {
-		SXTopBarController.EditError(error);
-		DXTopBarController.EditError(error);
-		SXMainController.EditError(error);
-		DXMainController.EditError(error);
+		SXTopBarController.editError(error);
+		DXTopBarController.editError(error);
+		SXMainController.editError(error);
+		DXMainController.editError(error);
 	}
 
 	@Override
 	public void UpdateState(State state) {
-		SXTopBarController.EditState(state);
-		DXTopBarController.EditState(state);
-		SXMainController.EditState(state);
-		DXMainController.EditState(state);
+		SXTopBarController.editState(state);
+		DXTopBarController.editState(state);
+		SXMainController.editState(state);
+		DXMainController.editState(state);
 	}
 
 	@Override
 	public void UpdateLap(LapTimer lapTimer) {
-		SXTopBarController.EditLap(lapTimer);
-		DXTopBarController.EditLap(lapTimer);
-		SXMainController.EditLap(lapTimer);
-		DXMainController.EditLap(lapTimer);
+		SXTopBarController.editLap(lapTimer);
+		DXTopBarController.editLap(lapTimer);
+		SXMainController.editLap(lapTimer);
+		DXMainController.editLap(lapTimer);
 	}
 
 	@Override
 	public void UpdateTS(Threshold thresholdState) {
-		SXTopBarController.EditTS(thresholdState);
-		DXTopBarController.EditTS(thresholdState);
-		SXMainController.EditTS(thresholdState);
-		DXMainController.EditTS(thresholdState);
+		SXTopBarController.editTS(thresholdState);
+		DXTopBarController.editTS(thresholdState);
+		SXMainController.editTS(thresholdState);
+		DXMainController.editTS(thresholdState);
 	}
 	
 	
@@ -161,10 +166,25 @@ public class GuiGroundView extends View {
 	    DXMainLoader = new FXMLLoader();
 	    DXMainPane = DXMainLoader.load(getClass().getResource("CommandScreen.fxml").openStream());
 	    DXMainController = DXMainLoader.getController();
-        borderPaneSX.setTop(SXTopBarPane);
-        borderPaneDX.setTop(DXTopBarPane);
-	    borderPaneSX.setCenter(SXMainPane);
-	    borderPaneDX.setCenter(DXMainPane);
+	    
+	    //Set SX constraints
+	    AnchorPane.setTopAnchor(vboxSX, 0.0);
+	    AnchorPane.setBottomAnchor(vboxSX, 0.0);
+	    AnchorPane.setLeftAnchor(vboxSX, 0.0);
+	    AnchorPane.setRightAnchor(vboxSX, 0.0);
+	    vboxSX.getChildren().add(SXTopBarPane);
+	    vboxSX.getChildren().add(SXMainPane);
+	    AnchorPaneSX.getChildren().add(vboxSX);
+	    
+	   //Set DX constraints
+	    AnchorPane.setTopAnchor(vboxDX, 0.0);
+	    AnchorPane.setBottomAnchor(vboxDX, 0.0);
+	    AnchorPane.setLeftAnchor(vboxDX, 0.0);
+	    AnchorPane.setRightAnchor(vboxDX, 0.0);
+	    vboxDX.getChildren().add(DXTopBarPane);
+	    vboxDX.getChildren().add(DXMainPane);
+	    AnchorPaneDX.getChildren().add(vboxDX);
+	    
 	    SXTopBarController.SetView(this);
 	    DXTopBarController.SetView(this);
 	    SXMainController.SetView(this);
@@ -183,14 +203,14 @@ public class GuiGroundView extends View {
 			SXMainLoader = new FXMLLoader();
 		    SXMainPane = SXMainLoader.load(getClass().getResource(fxml).openStream());
 		    SXMainController = SXMainLoader.getController();
-		    borderPaneSX.setCenter(SXMainPane);
+		    vboxSX.getChildren().set(1, SXMainPane);
 		}
 		else if (side == 'd')
 		{
 			DXMainLoader = new FXMLLoader();
 			DXMainPane = DXMainLoader.load(getClass().getResource(fxml).openStream());
 			DXMainController = DXMainLoader.getController();
-			borderPaneDX.setCenter(DXMainPane);
+			vboxDX.getChildren().set(1, DXMainPane);
 		}
 		else {
 			System.err.println("Side screen error");

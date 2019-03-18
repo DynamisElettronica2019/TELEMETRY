@@ -11,87 +11,45 @@ import back_end.Threshold;
 public class CommandScreenController extends Controller {
 
 	@Override
-	public void SetDebug() {
+	public void editDebug(Debug debug) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void EditDebug(Debug debug) {
+	public void editState(State state) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void SetState() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void EditState(State state) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void SetChannel() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void EditChannel(Channel channel) {
-		// TODO Auto-generated method stub
-		if (channel.getLastElems(1).size()==0) {
-			//No channel data present, exit the function
+	public void editChannel(Channel channel) {
+		if(!channel.isEmpty()){
+			// TODO Auto-generated method stub
+			
 		}
 	}
 
 	@Override
-	public void SetCommand() {
+	public void editCommand(Command command) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void EditCommand(Command command) {
+	public void editError(Error error) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void SetError() {
+	public void editLap(LapTimer lapTimer) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void EditError(Error error) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void SetLap() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void EditLap(LapTimer lapTimer) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void SetTS() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void EditTS(Threshold thresholdState) {
+	public void editTS(Threshold thresholdState) {
 		// TODO Auto-generated method stub
 		
 	}
