@@ -70,18 +70,10 @@ public class CommandScreenController extends Controller {
 				but.setDisable(true);
 			});
 		}
-		
-			
-		/*
+
 		driverMessageMap.put("Stop the car", "CAR_STOP");
 		driverMessageMap.put("Keep going", "GO");
 		driverMessageMap.put("Pit", "PIT");
-		
-		buttonMap.put("START_ACQUISITION", StartAcqButton);
-		buttonMap.put("STOP_ACQUISITION", StopAcqButton);
-		buttonMap.put("START_TELEMETRY", StartTelemButton);
-		buttonMap.put("STOP_TELEMETRY", StopTelemButton);
-		*/
 	}
 	
 	@Override
@@ -130,48 +122,6 @@ public class CommandScreenController extends Controller {
 		
 	}
 
-	/*
-	 * From here button actions
-	 * Command sender get is here because the view does not have it when you initialize the screen
-	 */
-	/*
-	@FXML
-	private void StartAcqAction() {
-		if(commandSender == null) {
-			commandSender = view.getCommandSender();
-		}	
-		commandSender.sendCommand("START_ACQUISITION", "");
-		StartAcqButton.setDisable(true);
-	}
-	
-	@FXML
-	private void StopAcqAction() {
-		if(commandSender == null) {
-			commandSender = view.getCommandSender();
-		}	
-		commandSender.sendCommand("STOP_ACQUISITION", "");
-		StopAcqButton.setDisable(true);
-	}
-	
-	@FXML
-	private void StartTelemAction() {
-		if(commandSender == null) {
-			commandSender = view.getCommandSender();
-		}	
-		commandSender.sendCommand("START_TELEMETRY", "");
-		StartTelemButton.setDisable(true);
-	}
-	
-	@FXML
-	private void StopTelemAction() {
-		if(commandSender == null) {
-			commandSender = view.getCommandSender();
-		}	
-		commandSender.sendCommand("STOP_TELEMETRY", "");
-		StopTelemButton.setDisable(true);
-	}
-	*/
-	
 	@FXML
 	private void SendToDriverAction() {
 		if(commandSender == null) {
