@@ -22,6 +22,10 @@
 				"packetLen": 96,
 				"recogniser": "D"
 				}
+		"commandButton": {
+				"names": ["Start telemetry", "Stop telemetry", "Start acquisition", "Stop acquisition"],
+				"command": ["START_TELEMETRY", "STOP_TELEMETRY", "START_ACQUISITION", "STOP_ACQUISITION"]
+				}
 		},
 	"error": {
 		"recogniser": "E",
@@ -68,5 +72,5 @@
         "lapCommPort": "COM12",
         "pktStart": "[",
         "pktEnd": "]"
-    }
+    },
 }

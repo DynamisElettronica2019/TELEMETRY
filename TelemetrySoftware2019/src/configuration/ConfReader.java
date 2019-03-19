@@ -321,4 +321,20 @@ public class ConfReader {
 		}
 	}
 	
+	/*
+	 * Read and return button names
+	 * On reading error log and return an empty ArrayList
+	 */
+	public static ArrayList<String> getCommandButtons(String type){
+		try {
+			JSONObject obj = readJSONObject();
+			JSONObject data = (JSONObject)obj.get("data");
+			JSONObject ty = (JSONObject)data.get(type);
+			return JSONToArray((JSONArray)ty.get("command"));
+		} catch (Exception e) {
+			System.err.println("Config file reading error. Return empty ArrayList for "+type+" names");
+			return new ArrayList<>();
+		}
+	}
+	
 }
