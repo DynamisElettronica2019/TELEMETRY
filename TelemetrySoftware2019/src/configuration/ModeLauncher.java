@@ -10,6 +10,7 @@ import front_end.View;
 import front_end.cli.CommandLineView;
 import front_end.gui_ground.GuiGroundView;
 import front_end.gui_row.GUIRowView;
+import front_end.server_adapter.ServerAdapterView;
 
 public class ModeLauncher {
 	
@@ -31,6 +32,7 @@ public class ModeLauncher {
 		else{
 			if(!mode.equals("GROUND")) System.err.println("Launch mode "+mode+" not found. Launch in GROUND mode");
 			myViews.add(new GuiGroundView());
+			myViews.add(new ServerAdapterView());
 		}
 		return myViews;
 	}

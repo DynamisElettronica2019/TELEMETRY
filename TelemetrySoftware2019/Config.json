@@ -73,4 +73,5 @@
         "pktStart": "[",
         "pktEnd": "]"
     },
+    "serverPort": 8080
 }

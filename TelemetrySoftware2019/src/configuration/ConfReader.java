@@ -337,4 +337,19 @@ public class ConfReader {
 		}
 	}
 	
+	/*
+	 * Read and return selected server port
+	 * On reading error return 8080
+	 */
+	public static long getServerPort(){
+		JSONObject obj;
+		try {
+			obj = readJSONObject();
+			return (long)obj.get("serverPort");
+		} catch (Exception e) {
+			System.err.println("Config file reading error. Return 8080 for server port");
+			return 8080;
+		}
+	}
+	
 }

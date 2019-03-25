@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html>
+<head>
+     
+<script src="moment.js"></script>
+<script src="graph.js"></script>
+<script src="jQuery.js"></script>
+<link href="myStyle.css" rel="stylesheet">
+
+<script>
+   //SETTINGS ************************************************************************************************************
+
+   //************* SETTARE INDIRIZZO E PORTA DEL SERVER
+   myHost = "ws://192.168.1.3:8080";
+   
+   //************* SETTARE MAPPING CHANNEL-DATASETNUMB (n.b. non ripetere valori tra CHANEL, settare DATASETNUMB da 0 a N)
+   var mapping = { 
+    "1": "0", "2": "1", "3": "3", "4": "5", "6": "2", "7": "4", "10": "6", "11": "7", "12": "8", "13": "9", "14": "10", "15": "11", "16": "12", "17": "13", "18": "14", "19": "15" 
+   };
+   //************* SETTARE CHANNEL DEL LAP TIMER
+   var ltChannel = -1;
+
+   /************** SETTARE I VARI CANALI SECONDO LO SCHEMA D'ESEMPIO (* = opzionale)
+   
+   page [name, graphs[name*, unit*, numbData*, max*, min*, minInterval*, maxInterval*, dataset[name, mean, color, datasetNumb]]]
+   
+   page.name: String, nome della scheda
+   graphs.name: String, nome del grafico
+   graphs.unit: String, unità di misura ordinata grafico
+   graphs.numbData: Int, numero di valori inizialmente visualizzati nel grafico
+   graphs.max: Number, soglia per errore massima
+   graphs.min: Number, soglia per errore minima
+   graphs.minInterval: Number, valore iniziale asse verticale grafico minimo
+   graphs.maxInterval: Number, valore iniziale asse verticale grafico massimo
+   dataset.name: String, nome del dataset
+   dataset.mean: Boolean, specificare se vuoi rappresentare la media o meno
+   dataset.color: Color, colore del dataset
+   dataset.datasetNumb: Int, numero del dataset con riferimento al mapping sopra specificato
+   */
+    
+   var page = [
+       {
+       name: "Acc",
+       graphs: [
+                {
+                min: 0, minInterval: -4, maxInterval: 4, unit: "G",
+                dataset: [
+                          {
+                          name: "Acc X", mean: true, color: $(":root").css("--colorA"), datasetNumb: 0
+                          },
+                          {
+                          name: "Acc Y", mean: true, color: $(":root").css("--colorB"), datasetNumb: 1
+                          },
+                          {
+                          name: "Acc Z", mean: false, color: $(":root").css("--colorD"), datasetNumb: 2
+                          }
+                         ]
+                }
+               ]
+       },
+       {
+       name: "Gyro",
+       graphs: [
+                {
+                minInterval: -100, maxInterval: 100, unit: "Deg/s",
+                dataset: [
+                          {
+                          name: "Gyro X", mean: false, color: $(":root").css("--colorA"), datasetNumb: 3
+                          },
+                          {
+                          name: "Gyro Y", mean: false, color: $(":root").css("--colorB"), datasetNumb: 4
+                          },
+                          {
+                          name: "Gyro Z", mean: false, color: $(":root").css("--colorD"), datasetNumb: 5
+                          }
+                         ]
+                }
+               ]
+       },
+       {
+       name: "Velocity",
+       graphs: [
+                {
+                min:0, minInterval: 0, maxInterval: 130, unit: "Km/h",
+                dataset: [
+                          {
+                          name: "Velocity", mean: false, color: $(":root").css("--colorA"), datasetNumb: 6
+                          }
+                         ]
+                }
+               ]
+       },
+       {
+       name: "Temp H20",
+       graphs: [
+                {
+                name: "Temp H2O Engine",
+                min:30, max:100, minInterval: 30, maxInterval: 120, unit: "C",
+                dataset: [
+                          {
+                          name: "Temp H2O Engine", mean: true, color: $(":root").css("--colorA"), datasetNumb: 7
+                          }
+                         ]
+                },
+                {
+                name: "Temp H2O In/Out",
+                min:30, max:100, minInterval: 30, maxInterval: 120, unit: "C",
+                dataset: [
+                          {
+                          name: "Temp H2O In", mean: true, color: $(":root").css("--colorA"), datasetNumb: 8
+                          },
+                          {
+                          name: "Temp H2O Out", mean: true, color: $(":root").css("--colorB"), datasetNumb: 9
+                          }
+                         ]
+                }
+               ]
+       }
+       
+   ]
+   
+   //************* ALTRI SETTAGGI
+   var options = [5,20,50,100]; //opzioni disponibili per la selezione del numero di dati (n.b. deve comprendere quelli sopra specificati)
+   var defaultOption = 50; //opzione di default se non specificata
+    
+   //*********************************************************************************************************************
+   var currentPage = -1;
+   var currentGraphs = [];
+   var lapTime = "..";
+    
+   //init variabili
+   //creo una websocket connessa al mio server sulla porta su cui ascolta    
+   var ws = new WebSocket(myHost);
+    
+   //Creo strutture dati sui vari dataset ordinati
+   var data = []; //array di dati dei grafici
+   var countData = new Array(); //array per il conteggio dei dati ricevuti sui canali
+   for (i = 0; i < Object.keys(mapping).length; i++) {
+        var tempData = [];
+        data.push(tempData);
+        countData.push(0);
+   }
+   var mean = new Array(); //array per le medie dei canali
+   for (i = 0; i < Object.keys(mapping).length; i++) {
+        for (a = 0; a < page.length; a++){
+            for (b = 0; b < page[a].graphs.length; b++){
+                for (c = 0; c < page[a].graphs[b].dataset.length; c++){
+                    if(page[a].graphs[b].dataset[c].datasetNumb == i){
+                        if(page[a].graphs[b].dataset[c].mean){
+                            mean.push([{x: new Date(), y: 0},{x: new Date(), y: 0}]);
+                        }
+                        else mean.push(null);
+                    }
+                }
+            }
+        }
+   }
+  console.log(mean);
+   var minBound = []; //array di limiti inferiori
+   for (i = 0; i < Object.keys(mapping).length; i++) {
+        for (a = 0; a < page.length; a++){
+            for (b = 0; b < page[a].graphs.length; b++){
+                for (c = 0; c < page[a].graphs[b].dataset.length; c++){
+                    if(page[a].graphs[b].dataset[c].datasetNumb == i){
+                        if(page[a].graphs[b].min){
+                            minBound.push([{x: new Date(), y: page[a].graphs[b].min},{x: new Date(), y: page[a].graphs[b].min}]);
+                        }
+                        else minBound.push(null);
+                    }
+                }
+            }
+        }
+   }
+   var maxBound = []; //array di limiti inferiori
+   for (i = 0; i < Object.keys(mapping).length; i++) {
+        for (a = 0; a < page.length; a++){
+            for (b = 0; b < page[a].graphs.length; b++){
+                for (c = 0; c < page[a].graphs[b].dataset.length; c++){
+                    if(page[a].graphs[b].dataset[c].datasetNumb == i){
+                        if(page[a].graphs[b].max){
+                            maxBound.push([{x: new Date(), y: page[a].graphs[b].max},{x: new Date(), y: page[a].graphs[b].max}]);
+                        }
+                        else maxBound.push(null);
+                    }
+                }
+            }
+        }
+   }
+   //opzionalità di alcune opzioni
+   for (a = 0; a < page.length; a++){
+        for (b = 0; b < page[a].graphs.length; b++){
+            if(!page[a].graphs[b].numbData) page[a].graphs[b].numbData = defaultOption;
+            if(!page[a].graphs[b].minInterval) page[a].graphs[b].minInterval = -1;
+            if(!page[a].graphs[b].maxInterval) page[a].graphs[b].maxInterval = 1;
+        }
+   }
+   //creo mapping DATASETNUMB-GRAPHINPAGE e DATASETNUMB-PAGE per essere più veloce nel controllo errore
+   var mappingDG = []; var mappingDP = [];
+   for (i = 0; i < Object.keys(mapping).length; i++) {
+       for (a = 0; a < page.length; a++){
+            for (b = 0; b < page[a].graphs.length; b++){
+                for (c = 0; c < page[a].graphs[b].dataset.length; c++){
+                    if(page[a].graphs[b].dataset[c].datasetNumb == i){
+                        mappingDG.push(b);
+                        mappingDP.push(a);
+                    }
+                }
+            }
+        }
+   }
+</script>
+    
+</head>
+<body>
+    <!-- PAGINA INIZIALE -->
+    <div class="content">
+    <div class="gridHeader">
+        <div class="leftHeader">
+            <img src="logo.jpg" alt="My_Logo">
+            <font id = "Title" class="titleA">DYNAMIS</font><br>
+            <font class="titleB">Remote Telemetry</font>
+        </div>
+        <div class="rightHeader">
+        <img src="car.png" class="carImage">
+        </div>
+    </div>
+    
+    <hr align=”left” size=”1″ width=”300″ >
+    
+    <div class="topnav" id="myTopnav"></div>
+    
+    <center>
+        <p id="charts"></p>
+    </center>
+        
+    </div>
+    <!-- --------------- -->
+    
+    <script>
+        //FUNCTIONS
+         
+        //funzione per creare un grafico, serve l'indicatore e il puntatore di riferimento
+        function createChart(indicator, ctx){
+           //dataset principale
+           var myDatasets = [];
+           for(i = 0; i<page[currentPage].graphs[indicator].dataset.length; i++){
+               myDatasets.push({
+                            type: 'scatter',
+                            label: page[currentPage].graphs[indicator].dataset[i].name,
+                            data: data[page[currentPage].graphs[indicator].dataset[i].datasetNumb],
+                            borderColor: page[currentPage].graphs[indicator].dataset[i].color,
+                            borderWidth: 2,
+                            pointRadius: 2,
+                            backgroundColor: 'transparent',
+                        });
+           }
+           for(i = 0; i<page[currentPage].graphs[indicator].dataset.length; i++){
+               //dataset media
+               if(page[currentPage].graphs[indicator].dataset[i].mean){
+                   myDatasets.push({
+                       type: 'scatter',
+                       label: page[currentPage].graphs[indicator].dataset[i].name + ' mean',
+                       data: mean[page[currentPage].graphs[indicator].dataset[i].datasetNumb],
+                       borderColor: page[currentPage].graphs[indicator].dataset[i].color,
+                       borderWidth: 0.5,
+                       pointRadius: 0,
+                       backgroundColor: 'transparent',
+                       borderDash: [10, 5],
+                   });
+               }
+           }
+           //dataset limiti inferiori
+           if(page[currentPage].graphs[indicator].min){
+               myDatasets.push({
+                   type: 'scatter',
+                   label: 'Min',
+                   data: minBound[page[currentPage].graphs[indicator].dataset[0].datasetNumb],
+                   borderColor: $(":root").css("--colorSpecial"),
+                   borderWidth: 1,
+                   pointRadius: 0,
+                   backgroundColor: 'transparent',
+                   borderDash: [5, 5],
+               });
+           }
+           //dataset limiti superiori
+           if(page[currentPage].graphs[indicator].max){
+               myDatasets.push({
+                   type: 'scatter',
+                   label: 'Max',
+                   data: maxBound[page[currentPage].graphs[indicator].dataset[0].datasetNumb],
+                   borderColor: $(":root").css("--colorSpecial"),
+                   borderWidth: 1,
+                   pointRadius: 0,
+                   backgroundColor: 'transparent',
+                   borderDash: [5, 5],
+               });
+           }
+           var graphName = page[currentPage].name;
+           if(page[currentPage].graphs[indicator].name) graphName = page[currentPage].graphs[indicator].name;
+           var graphUnit = "";
+           if(page[currentPage].graphs[indicator].unit) graphUnit = '(' + page[currentPage].graphs[indicator].unit + ')';
+           //caratteristiche principali grafico
+           var myChart = {
+                type: 'scatter',
+                data: { datasets: myDatasets },
+                options: {
+                    title: {
+                        display: true,
+                        text: graphName + " " + graphUnit,
+                        fontSize: 16
+                    },
+                    scales: {
+                        xAxes: [{
+                            type: 'time',
+                            time: {
+                                displayFormats: {
+                                    quarter: 'h:mm:ss.SSS a'
+                                }
+                            },
+                            distribution: 'linear',
+                            position: 'bottom',
+                            bounds: 'ticks',
+                            ticks: {
+                                beginAtZero: false,
+                                autoSkip: true,
+                                stepSize: 1,
+                                source: 'data'
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                suggestedMin: page[currentPage].graphs[indicator].minInterval,
+                                suggestedMax: page[currentPage].graphs[indicator].maxInterval,
+                            }
+                        }]
+                    },
+                    responsive:false,
+                    cubicInterpolationMode: 'monotone',
+                    animation: {
+                        duration: 0, 
+                    },
+                    hover: {
+                        animationDuration: 0,
+                    },
+                    responsiveAnimationDuration: 0,
+                }
+            };
+            return new Chart(ctx, myChart);
+       }
+        
+       // -- N.B. Grafici e numbData sono numerati da 0 al numero di grafici nella pagina,in ordine
+       //creo opzione num dati nel grafico
+       function addOption(number){
+           var ch = '<p>'
+           ch += '<font>#Data </font>';
+           ch += '<select id="#Data'+number.toString()+'" onchange="updateNumData('+number.toString()+')"></select>';
+           ch += '</p>'
+           return ch;
+       }
+    
+       //iniziallizzo opzione num dati nel grafico
+       function initOption(myPage, graphNumber){
+           var selectBox = document.getElementById('#Data'+graphNumber.toString());
+           for(var i = 0, l = options.length; i < l; i++){
+               selectBox.options.add( new Option(options[i]) );
+           }
+           var opts = selectBox.options;
+           for (var opt, j = 0; opt = opts[j]; j++) {
+               if (opt.value == page[myPage].graphs[graphNumber].numbData) {
+                   selectBox.selectedIndex = j;
+                   break;
+                }
+           }
+       }
+       
+       //costruisco e passo alla tabella di indicatori
+       function changeToAllIndicator(){
+           var ch = '<div id="lapGrid" class="grid-container-lap"></div><br>';
+           ch += '<div id="grid" class="grid-container"></div>';
+           document.getElementById("charts").innerHTML = ch;
+           var ch = '<div class="grid-item">Lap time</div><div id="lapTime" class="grid-item">'+lapTime+'</div>';
+           document.getElementById("lapGrid").innerHTML = ch;
+           var ch = '<div class="grid-itemB"></div>';
+           ch += '<div class="grid-item">'+'TS'+'</div>';
+           ch += '<div class="grid-item">'+'DATA'+'</div>';
+           ch += '<div class="grid-item">'+'MEAN'+'</div>';
+           for (i = 0; i < Object.keys(mapping).length; i++) {
+                for (a = 0; a < page.length; a++){
+                    for (b = 0; b < page[a].graphs.length; b++){
+                        for (c = 0; c < page[a].graphs[b].dataset.length; c++){
+                            if(page[a].graphs[b].dataset[c].datasetNumb == i){
+                                var graphUnit = "";
+                                if(page[a].graphs[b].unit) graphUnit = '(' + page[a].graphs[b].unit + ')';
+                                ch += '<div class="grid-item" id="T'+ i.toString() +'">'+page[a].graphs[b].dataset[c].name+' '+graphUnit+'</div>';
+                                ch += '<div class="grid-item" id="TT'+ i.toString() +'">'+'..'+'</div>';
+                                ch += '<div class="grid-item" id="TD'+ i.toString() +'">'+'..'+'</div>';
+                                ch += '<div class="grid-item" id="TM'+ i.toString() +'">'+'&#10008;'+'</div>';
+                            }
+                        }
+                    }
+                }
+           }
+           document.getElementById("grid").innerHTML = ch;
+           
+           for (i = 0; i < page.length; i++) {
+               document.getElementById("B"+i.toString()).classList.remove('active');
+           }
+           document.getElementById("BAll").classList.add('active')
+           currentPage = -1;
+           
+           for (i = 0; i < Object.keys(mapping).length; i++) {
+                for (a = 0; a < page.length; a++){
+                    for (b = 0; b < page[a].graphs.length; b++){
+                        for (c = 0; c < page[a].graphs[b].dataset.length; c++){
+                            if(page[a].graphs[b].dataset[c].datasetNumb == i){
+                                if(data[i].length>0){
+                                   document.getElementById("TT"+i.toString()).textContent = data[i][data[i].length-1].x.format('h:mm:ss.SSS a');
+                                   document.getElementById("TD"+i.toString()).textContent = data[i][data[i].length-1].y;
+                                   var minore = false; var maggiore = false;
+                                   if(page[a].graphs[b].min){ if(data[i][data[i].length-1].y<page[a].graphs[b].min){ minore = true } }
+                                   if(page[a].graphs[b].max){ if(data[i][data[i].length-1].y>page[a].graphs[b].max){ maggiore = true } }
+                                   if(minore || maggiore) $('#T'+i.toString()).attr('class', 'grid-itemErr');
+                                   else $('#T'+i.toString()).attr('class', 'grid-item');
+                               }
+                            }
+                        }
+                    }
+                }
+           }
+       }
+        
+       //costruisco e passo alla scheda corrente 
+       function changeIndicator(newPage){
+           currentPage = newPage;
+           ch = '';
+           for (var i = 0; i < page[newPage].graphs.length; i++){
+               ch += '<canvas id="'+ i.toString() +'" width="500" height="500" class="canvasOk"></canvas>';
+               ch += addOption(i);
+           }
+           document.getElementById("charts").innerHTML = ch;
+           for (var i = 0; i < page[newPage].graphs.length; i++){
+               initOption(newPage, i);
+           }
+           for (var i = 0; i < page[newPage].graphs.length; i++){
+               var tempCtx = document.getElementById(i.toString()).getContext('2d');
+               currentGraphs[i] = createChart(i, tempCtx);
+           }
+           for (i = 0; i < page.length; i++) {
+               document.getElementById("B"+i.toString()).classList.remove('active');
+           }
+           document.getElementById("BAll").classList.remove('active');
+           document.getElementById("B"+newPage.toString()).classList.add('active');
+           
+           for (var i = 1; i < page[newPage].graphs.length; i++){
+               var minore = false; var maggiore = false;
+               for (var j = 0; j < page[newPage].graphs[i].dataset.length; j++){
+                    var tempDatasetNumb = page[newPage].graphs[i].dataset[j].datasetNumb;
+                    if(data[tempDatasetNumb].length>0){
+                       if(page[newPage].graphs[i].min){ if(data[tempDatasetNumb][data[tempDatasetNumb].length-1].y<page[newPage].graphs[i].min){ minore = true } }
+                       if(page[newPage].graphs[i].max){ if(data[tempDatasetNumb][data[tempDatasetNumb].length-1].y>page[newPage].graphs[i].max){ maggiore = true } }
+                    }
+               }
+               if(minore || maggiore) $('#'+i.toString()).attr('class', 'canvasError');
+               else $('#'+i.toString()).attr('class', 'canvasOk');
+           }
+       }
+       
+       //aggiorno tendina opzioni
+       function updateNumData(number){
+           page[currentPage].graphs[number].numbData = document.getElementById("#Data"+number.toString()).options[document.getElementById("#Data"+number.toString()).selectedIndex].value;
+       }
+        
+       //arrotonda numeri decimali
+       function arrotondaNumero(numero,nDecimali){
+          return Math.round(numero*Math.pow(10,nDecimali))/Math.pow(10,nDecimali);
+       }
+    </script>
+    
+    <script>
+        //CREAZIONE SCHERMATA INIZIALE
+        //Creo Bar
+        ch = '<a id="BAll" href="#home" class="active" onclick="changeToAllIndicator()">All</a>';
+        for (i = 0; i < page.length; i++) {
+            ch += '<a id="B'+ i.toString() +'" href="#home" onclick="changeIndicator('+i.toString()+')">'+page[i].name+'</a>';
+        }
+        document.getElementById("myTopnav").innerHTML = ch;
+        //Prima finestra da visualizzare
+        changeToAllIndicator();  
+    </script>
+    
+    <script>
+       //FUNZIONI AGGIORNAMENTO WS
+       //cosa faccio quando ricevo un messaggio
+       ws.onmessage = function (evt) { 
+           
+           //CONTROLLARE CHI MANDA I DATI E CHE MANDI JSON (autenticazione della ground) https://www.npmjs.com/package/json-validation
+           /*
+           Formato richiesto:
+           {"ch":"7","ts":"45","val":"345"}
+           */
+           
+           //Parser json
+           try { var json = JSON.parse(evt.data) } catch (e) { return; }
+           if(json.hasOwnProperty('ch') && json.hasOwnProperty('ts') && json.hasOwnProperty('val')){
+               if(json.ch.toString() in mapping){ //LT richiede ch=-1
+                   //Aggiornamento scheda
+                   var g = parseInt(mapping[json.ch]); //numero dataset mappato dal canale
+                   var v = parseFloat(json.val.replace(',', '.')); //valore interessato
+
+                   //calcolo media
+                   var newMean = 0;
+                   if(mean[g] != null){ 
+                       newMean = arrotondaNumero((((mean[g][0].y)*countData[g])+v)/(countData[g]+1),3);
+                       countData[g]++;
+                   }
+
+                   //aggiungi in coda dato
+                   //FORMATO: 2013-2-08 09:30:26.123 AM 
+                   var myDate = new Date(); //---json.ts.toString() 
+                   var timestamp = myDate; //---moment(myDate.getFullYear().toString()+'-'+(myDate.getMonth()+1).toString()+'-'+myDate.getDate().toString()+' '+json.ts.toString());
+                   
+                   data[g].push({ x: timestamp, y:v }); 
+                   if(minBound[g] != null){ minBound[g][1].x = timestamp; }
+                   if(maxBound[g] != null){ maxBound[g][1].x = timestamp; }
+                   if(mean[g] != null){ mean[g][1].x = timestamp; mean[g][1].y = newMean;}
+
+                   //rimuovi primi
+                   while(data[g].length>page[mappingDP[g]].graphs[mappingDG[g]].numbData){ data[g].shift(); }
+                   if(minBound[g] != null){ minBound[g][0].x = data[g][0].x; }
+                   if(maxBound[g] != null){ maxBound[g][0].x = data[g][0].x; }
+                   if(mean[g] != null){ mean[g][0].x = data[g][0].x; mean[g][0].y = newMean;}
+
+                   if(currentPage==-1){
+                       //aggiornamento tabella
+                       var minore = false; var maggiore = false;
+                       if(minBound[g] != null){ if(v<minBound[g][0].y){ minore = true } }
+                       if(maxBound[g] != null){ if(v>maxBound[g][0].y){ maggiore = true } }
+                       document.getElementById("TD"+g.toString()).textContent = json.val;
+                       document.getElementById("TT"+g.toString()).textContent = timestamp.format('h:mm:ss.SSS a');
+                       if(mean[g] != null) document.getElementById("TM"+g.toString()).textContent = newMean;
+                       if(minore || maggiore) $('#T'+g.toString()).attr('class', 'grid-itemErr');
+                       else $('#T'+g.toString()).attr('class', 'grid-item');
+                   }
+                   else {
+                       //aggiornamento grafico
+                       if(mappingDP[g]==currentPage){
+                           var minore = false; var maggiore = false;
+                           for (var j = 0; j < page[mappingDP[g]].graphs[mappingDG[g]].dataset.length; j++){
+                                var tempDatasetNumb = page[currentPage].graphs[mappingDG[g]].dataset[j].datasetNumb;
+                                if(data[tempDatasetNumb].length>0){
+                                   if(page[currentPage].graphs[mappingDG[g]].min){ if(data[tempDatasetNumb][data[tempDatasetNumb].length-1].y<page[currentPage].graphs[mappingDG[g]].min){ minore = true } }
+                                   if(page[currentPage].graphs[mappingDG[g]].max){ if(data[tempDatasetNumb][data[tempDatasetNumb].length-1].y>page[currentPage].graphs[mappingDG[g]].max){ maggiore = true } }
+                                }
+                           }
+                           if(minore || maggiore) $('#'+mappingDG[g].toString()).attr('class', 'canvasError');
+                           else $('#'+mappingDG[g].toString()).attr('class', 'canvasOk');
+                           currentGraphs[mappingDG[g]].update();
+                       }
+                   }
+               }
+               else if (json.ch.toString()==ltChannel){
+                  //Aggiornamento lapTime
+                  lapTime = json.val.toString()
+                  if(currentPage==-1) $('#lapTime').text(lapTime);
+               }
+           } 
+       }
+    </script>
+
+</body>  
+</html>
