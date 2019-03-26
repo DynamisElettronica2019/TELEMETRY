@@ -69,7 +69,7 @@
         "carBaudRate": 115200,
         "carCommPort": "COM12",
         "lapBaudRate": 115200,
-        "lapCommPort": "COM11",
+        "lapCommPort": "COM4",
         "pktStart": "[",
         "pktEnd": "]"
     },

@@ -92,7 +92,16 @@ public class ServerAdapterView extends View{
 
 	@Override
 	public void UpdateLap(LapTimer lapTimer) {
-		//create json and send to server
+		if(lapTimer.getLastTime()!=null){
+			try {
+				wsc.sendMessage(createJson(lapTimer));
+			} catch (IOException e) {}
+		}
+	}
+	
+	private String createJson(LapTimer lapTimer){
+		return "{\"ch\":\"-1\",\"ts\":\"\",\"val\":\""+lapTimer.getLastTime().getMinutes()+"."+
+				lapTimer.getLastTime().getSeconds()+"."+lapTimer.getLastTime().getmSeconds()+"\"}";
 	}
 
 	@Override

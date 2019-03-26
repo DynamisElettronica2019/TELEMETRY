@@ -17,24 +17,23 @@ import javax.websocket.WebSocketContainer;
 @ClientEndpoint
 public class WebSocketClient {
 
-    protected   WebSocketContainer container;
-    protected   Session userSession = null;
+    protected WebSocketContainer container;
+    protected Session userSession = null;
 
     public WebSocketClient() {
         container = ContainerProvider.getWebSocketContainer();
     }
 
     public void connect(String sServer) {
-          try {
-              userSession = container.connectToServer(this, new URI(sServer));
-
-            } catch (DeploymentException | URISyntaxException | IOException e) {
-                e.printStackTrace();
-            }
+      try {
+          userSession = container.connectToServer(this, new URI(sServer));
+        } catch (DeploymentException | URISyntaxException | IOException e) {}
     }
 
     public void sendMessage(String sMsg) throws IOException {
-        userSession.getBasicRemote().sendText(sMsg);
+    	if(userSession.isOpen()){
+    		userSession.getBasicRemote().sendText(sMsg);
+    	}
     }
 
     @OnOpen
@@ -43,8 +42,8 @@ public class WebSocketClient {
     }
 
     @OnClose
-    public void onClose(Session session, CloseReason closeReason) {
-    	//Server closed
+    public void onClose(Session session, CloseReason closeReason) throws IOException {
+        userSession.close();
     }
 
     @OnMessage
