@@ -157,9 +157,9 @@ public class TopBarController extends Controller {
 		labelList[9] = label9;
 		labelList[10] = label10;
 		for(int i=0;i<chNames.size();i++) {
-			String[] NaTh = ConfReader.haveThreshold(chNames.get(i));
-			if (NaTh.length>1) {
-				stateMap.put(NaTh[0], circleList[element-1]);
+			String[] NaTh = ConfReader.haveThresholdAndServer(chNames.get(i));
+			if (NaTh.length>2) {
+				stateMap.put(NaTh[1], circleList[element-1]);
 				labelList[element].setText(chNames.get(i));
 				element++;
 			}

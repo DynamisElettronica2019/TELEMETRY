@@ -14,7 +14,6 @@ import back_end.LapTimer;
 import back_end.State;
 import back_end.Threshold;
 import configuration.ConfReader;
-import front_end.gui_row.ChannelList;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -50,8 +49,8 @@ public class RawScreenController extends Controller {
 		channelValueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
 		channelList = ConfReader.getNames("channels");
 		for (int i = 0; i < channelList.size(); i++) {
-			channelMap.put(channelList.get(i), i);
-			channelTable.getItems().add(new TableList(channelList.get(i), 0));
+			channelMap.put(ConfReader.haveThresholdAndServer(channelList.get(i))[1], i);
+			channelTable.getItems().add(new TableList(ConfReader.haveThresholdAndServer(channelList.get(i))[1], 0));
 		}	
 		
 		//Initialize debug

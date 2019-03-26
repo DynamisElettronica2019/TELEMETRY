@@ -35,6 +35,7 @@ public class ConfReader {
 	 * Read and return names of the data of type type
 	 * type -> "channels","states","debug"
 	 * On reading error log and return an empty ArrayList
+	 * N.B. for channels use also haveThresholdAndServer
 	 */
 	public static ArrayList<String> getNames(String type){
 		try {
@@ -49,22 +50,34 @@ public class ConfReader {
 	}
 	
 	/*
-	 * Define if a name have a channel name have a threshold. 
-	 * If yes return {name,threshold}, else return {name}.
+	 * Define if a channel name have a threshold. 
+	 * If yes return {serverNumb,name,threshold}, else return {serverNumb,name}
+	 * where serverNumb is 0 if not specified
 	 */
-	public static String[] haveThreshold(String name){
+	public static String[] haveThresholdAndServer(String name){
+		String serverNumb = "0";
+		if(name.split("\\)").length == 2) {
+			String num = name.split("\\)")[0];
+			name = name.split("\\)")[1];
+			if(num.toCharArray()[0]=='('){
+				try {
+					Integer numInt = Integer.parseInt(num.substring(1,num.length()-1));
+					if(numInt>0) serverNumb = numInt.toString();
+				} catch (NumberFormatException | NullPointerException nfe) {}
+			}
+		}
 		if(name.split("\\[").length == 2) {
 			String th = name.split("\\[")[1];
 			if(th.toCharArray()[th.toCharArray().length-1]==']')
 				if(th.toCharArray()[0]=='<'||th.toCharArray()[0]=='>')
 					try {
 				        Double.parseDouble(th.substring(1,th.length()-1));
-				        return new String[]{name.split("\\[")[0],th.substring(0,th.length()-1)}; 
+				        return new String[]{serverNumb,name.split("\\[")[0],th.substring(0,th.length()-1)}; 
 				    } catch (NumberFormatException | NullPointerException nfe) {
 				        return new String[]{name.split("\\[")[0]};
 				    }
 		}
-		return new String[]{name};	
+		return new String[]{serverNumb,name};	
 	}
 	
 	/*
@@ -342,12 +355,27 @@ public class ConfReader {
 	 * On reading error return 8080
 	 */
 	public static long getServerPort(){
-		JSONObject obj;
 		try {
-			obj = readJSONObject();
-			return (long)obj.get("serverPort");
+			JSONObject obj = readJSONObject();
+			JSONObject server = (JSONObject)obj.get("server");
+			return (long)server.get("serverPort");
 		} catch (Exception e) {
 			System.err.println("Config file reading error. Return 8080 for server port");
+			return 8080;
+		}
+	}
+	
+	/*
+	 * Read and return server downsample frequency in ms
+	 * On reading error return 1000ms
+	 */
+	public static long getServerFreq(){
+		try {
+			JSONObject obj = readJSONObject();
+			JSONObject server = (JSONObject)obj.get("server");
+			return (long)server.get("freq");
+		} catch (Exception e) {
+			System.err.println("Config file reading error. Return 1000ms for server downsample frequency");
 			return 8080;
 		}
 	}

@@ -31,8 +31,8 @@ public class ModeLauncher {
 		//Ground mode
 		else{
 			if(!mode.equals("GROUND")) System.err.println("Launch mode "+mode+" not found. Launch in GROUND mode");
-			myViews.add(new GuiGroundView());
 			myViews.add(new ServerAdapterView());
+			myViews.add(new GuiGroundView());
 		}
 		return myViews;
 	}

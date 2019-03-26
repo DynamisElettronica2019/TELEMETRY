@@ -49,7 +49,7 @@ public class WebSocketClient {
 
     @OnMessage
     public void onMessage(Session session, String msg) {
-        //Do nothing
+        //Ricevo il numero di utenti connessi
     }
 
     public void Disconnect() throws IOException {

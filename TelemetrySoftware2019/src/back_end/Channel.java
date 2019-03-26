@@ -9,13 +9,15 @@ public class Channel extends DataElem {
 
 	private ArrayList<Double> serie;
 	private Data data;
+	private int serverNumb;
 	
 	/*
 	 * Call superclass constructor and initialize serie
 	 */
-	public Channel(String name, Data data, ArrayList<View> myViews) {
+	public Channel(String name, String serverNumber, Data data, ArrayList<View> myViews) {
 		super(name, myViews);
 		serie = new ArrayList<>();
+		this.serverNumb = Integer.parseInt(serverNumber); //=0 if not to send
 		this.data=data;
 		for(View v: myViews) this.addObserver(v.getChObs());
 	}
@@ -61,6 +63,10 @@ public class Channel extends DataElem {
 	 */
 	public LocalDateTime getLastTs(){
 		return data.getLastTs();
+	}
+	
+	public int getServerNumb() {
+		return serverNumb;
 	}
 	
 	/*
