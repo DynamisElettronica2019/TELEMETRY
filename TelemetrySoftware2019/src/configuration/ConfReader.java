@@ -61,7 +61,7 @@ public class ConfReader {
 			name = name.split("\\)")[1];
 			if(num.toCharArray()[0]=='('){
 				try {
-					Integer numInt = Integer.parseInt(num.substring(1,num.length()-1));
+					Integer numInt = Integer.parseInt(num.substring(1,num.length()));
 					if(numInt>0) serverNumb = numInt.toString();
 				} catch (NumberFormatException | NullPointerException nfe) {}
 			}

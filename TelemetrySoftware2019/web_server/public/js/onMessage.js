@@ -25,9 +25,7 @@ ws.onmessage = function (evt) {
            //aggiungi in coda dato
            //FORMATO: 2013-2-08 09:30:26.123 AM 
            var myDate = new Date();
-           //var timestamp = moment(myDate.getFullYear().toString()+'-'+(myDate.getMonth()+1).toString()+'-'+myDate.getDate().toString()+' '+json.ts.toString());
-           // TODO: switch timestamp definition row when ts will be correctly sent from Ground Station 
-           var timestamp = moment(myDate.getFullYear().toString()+'-'+(myDate.getMonth()+1).toString()+'-'+myDate.getDate().toString()+' '+'09:30:26.123 AM');
+           var timestamp = moment(myDate.getFullYear().toString()+'-'+(myDate.getMonth()+1).toString()+'-'+myDate.getDate().toString()+' '+json.ts.toString());
 
            data[g].push({ x: timestamp, y:v }); 
            if(minBound[g] != null){ minBound[g][1].x = timestamp; }

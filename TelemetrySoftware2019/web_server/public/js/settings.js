@@ -3,9 +3,9 @@ myHost = "ws://127.0.0.1:8080";
 
 //************* SETTARE MAPPING CHANNEL-DATASETNUMB (n.b. non ripetere valori tra CHANNEL, settare DATASETNUMB da 0 a N, settare defaultMapping a 0)
 var mapping = { 
-"1": "0", "2": "1", "3": "3", "4": "5", "6": "2", "7": "4", "10": "6", "11": "7", "12": "8", "13": "9"
+"6": "0", "7": "1"
 };
-var defaultMapping = 80; //0 -> disabilitato (conta quello sopra specificato), >0 -> numero di canali
+var defaultMapping = 0; //0 -> disabilitato (conta quello sopra specificato), >0 -> numero di canali
 
 //************* SETTARE CHANNEL DEL LAP TIMER
 var ltChannel = -1;
@@ -37,67 +37,10 @@ var page = [
             minInterval: 0, maxInterval: 100, unit: "C",
             dataset: [
                       {
-                      name: "T H20 SX IN", mean: false, color: $(":root").css("--colorA"), datasetNumb: 5
+                      name: "T H20 SX IN", mean: false, color: $(":root").css("--colorA"), datasetNumb: 0
                       },
                       {
-                      name: "T H20 SX OUT", mean: false, color: $(":root").css("--colorB"), datasetNumb: 6
-                      },
-                      {
-                      name: "T H20 DX IN", mean: false, color: $(":root").css("--colorD"), datasetNumb: 7
-                      },
-                      {
-                      name: "T H20 DX OUT", mean: false, color: $(":root").css("--colorE"), datasetNumb: 8
-                      }
-                     ]
-            },
-            {
-            name: "Temperature Engine",
-            minInterval: 0, maxInterval: 100, unit: "C",
-            dataset: [
-                      {
-                      name: "T H20 ENGINE", mean: false, color: $(":root").css("--colorA"), datasetNumb: 11
-                      }
-                     ]
-            },
-            {
-            name: "Temperature Oil",
-            minInterval: 0, maxInterval: 100, unit: "C",
-            dataset: [
-                      {
-                      name: "T OIL IN", mean: false, color: $(":root").css("--colorA"), datasetNumb: 9
-                      },
-                      {
-                      name: "T OIL OUT", mean: false, color: $(":root").css("--colorB"), datasetNumb: 10
-                      }
-                     ]
-            }
-           ]
-   },
-   {
-   name: "Pressure",
-   graphs: [
-            {
-            minInterval: 0, maxInterval: 10000, unit: "mBar",
-            dataset: [
-                      {
-                      name: "FUEL PRESSURE", mean: false, color: $(":root").css("--colorA"), datasetNumb: 24
-                      },
-                      {
-                      name: "OIL PRESSURE", mean: false, color: $(":root").css("--colorB"), datasetNumb: 25
-                      }
-                     ]
-            }
-           ]
-   },
-   {
-   name: "Dynamic",
-   graphs: [
-            {
-            name: "Rpm",
-            minInterval: 0, maxInterval: 15000, unit: "rpm",
-            dataset: [
-                      {
-                      name: "RPM", mean: false, color: $(":root").css("--colorA"), datasetNumb: 14
+                      name: "T H20 SX OUT", mean: false, color: $(":root").css("--colorB"), datasetNumb: 1
                       }
                      ]
             }

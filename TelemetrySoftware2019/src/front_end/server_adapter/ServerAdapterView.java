@@ -2,6 +2,7 @@ package front_end.server_adapter;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 
 import back_end.Channel;
 import back_end.Command;
@@ -16,6 +17,8 @@ import front_end.View;
 public class ServerAdapterView extends View{
 	
 	private WebSocketClient wsc;
+	private Downsample downsample;
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("k:m:s.SSS a");
 	
 	public ServerAdapterView() {
 		//Start server
@@ -25,7 +28,13 @@ public class ServerAdapterView extends View{
 		
 		//Web socket connect
 		wsc = new WebSocketClient();
-		wsc.Connect("ws://127.0.0.1:"+ConfReader.getServerPort()+"/");
+		wsc.connect("ws://127.0.0.1:"+ConfReader.getServerPort()+"/");
+		
+		//Run downsample on thread
+		downsample = new Downsample();
+		Thread thread = new Thread(downsample);
+		thread.start();
+		
 	}
 	
 	/*
@@ -40,8 +49,21 @@ public class ServerAdapterView extends View{
 
 	@Override
 	public void UpdateChannel(Channel channel) {
-		// TODO Auto-generated method stub
-		
+		if(channel.getServerNumb()>0){
+			if(!channel.isEmpty()){
+				if(downsample.isToSend(channel.getServerNumb())){
+					try {
+						wsc.sendMessage(createJson(channel));
+					} catch (IOException e) {}
+					downsample.setSended(channel.getServerNumb());
+				}
+			}
+		}	
+	}
+
+	private String createJson(Channel channel) {
+		return "{\"ch\":\""+channel.getServerNumb()+"\",\"ts\":\""+channel.getLastTs().format(formatter)+
+				"\",\"val\":\""+channel.getLastElems()+"\"}";
 	}
 
 	@Override
@@ -70,8 +92,7 @@ public class ServerAdapterView extends View{
 
 	@Override
 	public void UpdateLap(LapTimer lapTimer) {
-		// TODO Auto-generated method stub
-		
+		//create json and send to server
 	}
 
 	@Override

@@ -24,7 +24,7 @@ public class WebSocketClient {
         container = ContainerProvider.getWebSocketContainer();
     }
 
-    public void Connect(String sServer) {
+    public void connect(String sServer) {
           try {
               userSession = container.connectToServer(this, new URI(sServer));
 
@@ -33,7 +33,7 @@ public class WebSocketClient {
             }
     }
 
-    public void SendMessage(String sMsg) throws IOException {
+    public void sendMessage(String sMsg) throws IOException {
         userSession.getBasicRemote().sendText(sMsg);
     }
 
@@ -52,7 +52,7 @@ public class WebSocketClient {
         //Ricevo il numero di utenti connessi
     }
 
-    public void Disconnect() throws IOException {
+    public void disconnect() throws IOException {
         userSession.close();
     }
 }
