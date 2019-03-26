@@ -7,7 +7,7 @@ var path = require('path');
 var fs = require('fs');
 
 //porta d'ascolto
-var port = 8080;
+var port = 8081;
 
 //sender (dove mando i dati relativi al numero di connessioni attive)
 var sender = "127.0.0.1";

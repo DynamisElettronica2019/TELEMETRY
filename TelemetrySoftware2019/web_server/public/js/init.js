@@ -2,7 +2,7 @@
 if (defaultMapping != 0){
     mapping = {};
     for(i = 1; i<=defaultMapping; i++){
-        mapping[i.toString()]=i.toString();
+        mapping[i.toString()]=(i-1).toString();
     }
 }
 

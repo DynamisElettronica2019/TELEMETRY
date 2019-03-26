@@ -74,7 +74,7 @@
         "pktEnd": "]"
     },
     "server": {
-    	"serverPort": 8080,
+    	"serverPort": 8081,
     	"freq": 1000,
     }
 }

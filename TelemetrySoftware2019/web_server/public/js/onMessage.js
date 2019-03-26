@@ -26,6 +26,8 @@ ws.onmessage = function (evt) {
            //FORMATO: 2013-2-08 09:30:26.123 AM 
            var myDate = new Date();
            var timestamp = moment(myDate.getFullYear().toString()+'-'+(myDate.getMonth()+1).toString()+'-'+myDate.getDate().toString()+' '+json.ts.toString());
+           // TODO: switch timestamp definition row when ts will be correctly sent from Ground Station 
+           //var timestamp2 = moment(myDate.getFullYear().toString()+'-'+(myDate.getMonth()+1).toString()+'-'+myDate.getDate().toString()+' '+'09:30:12.123 PM');
 
            data[g].push({ x: timestamp, y:v }); 
            if(minBound[g] != null){ minBound[g][1].x = timestamp; }
@@ -43,8 +45,8 @@ ws.onmessage = function (evt) {
                var minore = false; var maggiore = false;
                if(minBound[g] != null){ if(v<minBound[g][0].y){ minore = true } }
                if(maxBound[g] != null){ if(v>maxBound[g][0].y){ maggiore = true } }
-               document.getElementById("TD"+g.toString()).innerHTML = '<h2>'+json.val+'</h2>';
-               document.getElementById("TT"+g.toString()).innerHTML = '<h2>'+timestamp._i.substring(9,21)+'</h2>';
+               document.getElementById("TD"+g.toString()).innerHTML = '<h2>'+v+'</h2>';
+               document.getElementById("TT"+g.toString()).innerHTML = '<h2>'+timestamp._i.substring(10,26)+'</h2>';
                if(mean[g] != null) document.getElementById("TM"+g.toString()).innerHTML = '<h2>'+newMean+'</h2>';
                if(minore || maggiore) $('#T'+g.toString()).attr('class', 'grid-itemErr');
                else $('#T'+g.toString()).attr('class', 'grid-item');

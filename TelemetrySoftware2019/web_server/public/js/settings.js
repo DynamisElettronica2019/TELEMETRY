@@ -1,9 +1,9 @@
 //************* SETTARE INDIRIZZO E PORTA DEL SERVER
-myHost = "ws://127.0.0.1:8080";
+myHost = "ws://127.0.0.1:8081";
 
 //************* SETTARE MAPPING CHANNEL-DATASETNUMB (n.b. non ripetere valori tra CHANNEL, settare DATASETNUMB da 0 a N, settare defaultMapping a 0)
 var mapping = { 
-"6": "0", "7": "1"
+"5": "0", "6": "1", "7": "2", "8": "3", "11": "4", "9": "5", "10": "6", "24": "7", "25": "8"
 };
 var defaultMapping = 0; //0 -> disabilitato (conta quello sopra specificato), >0 -> numero di canali
 
@@ -41,6 +41,49 @@ var page = [
                       },
                       {
                       name: "T H20 SX OUT", mean: false, color: $(":root").css("--colorB"), datasetNumb: 1
+                      },
+                      {
+                      name: "T H20 DX IN", mean: false, color: $(":root").css("--colorD"), datasetNumb: 2
+                      },
+                      {
+                      name: "T H20 DX OUT", mean: false, color: $(":root").css("--colorE"), datasetNumb: 3
+                      }
+                     ]
+            },
+            {
+            name: "Temperature Engine",
+            minInterval: 0, maxInterval: 100, unit: "C",
+            dataset: [
+                      {
+                      name: "T H20 ENGINE", mean: false, color: $(":root").css("--colorA"), datasetNumb: 4
+                      }
+                     ]
+            },
+            {
+            name: "Temperature Oil",
+            minInterval: 0, maxInterval: 100, unit: "C",
+            dataset: [
+                      {
+                      name: "T OIL IN", mean: false, color: $(":root").css("--colorA"), datasetNumb: 5
+                      },
+                      {
+                      name: "T OIL OUT", mean: false, color: $(":root").css("--colorB"), datasetNumb: 6
+                      }
+                     ]
+            }
+           ]
+   },
+   {
+   name: "Pressure",
+   graphs: [
+            {
+            minInterval: 0, maxInterval: 10000, unit: "mBar",
+            dataset: [
+                      {
+                      name: "FUEL PRESS", mean: false, color: $(":root").css("--colorA"), datasetNumb: 7
+                      },
+                      {
+                      name: "OIL PRESS", mean: false, color: $(":root").css("--colorB"), datasetNumb: 8
                       }
                      ]
             }

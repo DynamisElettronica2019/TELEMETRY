@@ -173,7 +173,7 @@ function changeToAllIndicator(){
                 for (c = 0; c < page[a].graphs[b].dataset.length; c++){
                     if(page[a].graphs[b].dataset[c].datasetNumb == i){
                         if(data[i].length>0){
-                            document.getElementById("TT"+i.toString()).innerHTML = "<h2>"+data[i][data[i].length-1].x._i.substring(9,21)+"</h2>";
+                            document.getElementById("TT"+i.toString()).innerHTML = "<h2>"+data[i][data[i].length-1].x._i.substring(11,23)+"</h2>";
                            document.getElementById("TD"+i.toString()).innerHTML = "<h2>"+data[i][data[i].length-1].y+"</h2>";
                            var minore = false; var maggiore = false;
                            if(page[a].graphs[b].min){ if(data[i][data[i].length-1].y<page[a].graphs[b].min){ minore = true } }

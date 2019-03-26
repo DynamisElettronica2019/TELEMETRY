@@ -18,7 +18,7 @@ public class ServerAdapterView extends View{
 	
 	private WebSocketClient wsc;
 	private Downsample downsample;
-	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("k:m:s.SSS a");
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss.SSS a");
 	
 	public ServerAdapterView() {
 		//Start server
