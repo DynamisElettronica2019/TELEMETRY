@@ -22,7 +22,6 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Label;
-import javafx.scene.shape.Circle;
 import javafx.scene.chart.XYChart.Data;
 
 public class EngineScreenController extends Controller {

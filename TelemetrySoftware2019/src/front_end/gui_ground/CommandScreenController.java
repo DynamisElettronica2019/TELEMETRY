@@ -15,13 +15,11 @@ import back_end.LapTimer;
 import back_end.State;
 import back_end.Threshold;
 import configuration.ConfReader;
-import front_end.View;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ToolBar;
 
 public class CommandScreenController extends Controller {
