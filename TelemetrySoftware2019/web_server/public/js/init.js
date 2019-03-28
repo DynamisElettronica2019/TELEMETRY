@@ -10,6 +10,9 @@ if (defaultMapping != 0){
 var currentPage = -1; //riferimento alla schermata iniziale
 var currentGraphs = [];
 var lapTime = "..";
+var lapType = "..";
+var lapMode = "..";
+var lapNumb = "..";
 
 //creo una websocket connessa al mio server sulla porta su cui ascolta    
 var ws = new WebSocket(myHost);
