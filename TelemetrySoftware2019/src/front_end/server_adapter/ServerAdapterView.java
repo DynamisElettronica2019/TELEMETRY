@@ -101,7 +101,9 @@ public class ServerAdapterView extends View{
 	
 	private String createJson(LapTimer lapTimer){
 		return "{\"ch\":\"-1\",\"ts\":\"\",\"val\":\""+lapTimer.getLastTime().getMinutes()+"."+
-				lapTimer.getLastTime().getSeconds()+"."+lapTimer.getLastTime().getmSeconds()+"\"}";
+				lapTimer.getLastTime().getSeconds()+"."+lapTimer.getLastTime().getmSeconds()+";"+
+				lapTimer.getLastTime().getLapNumber()+";"+lapTimer.getLastTime().getMode()+";"+
+				lapTimer.getLastTime().getType()+"\"}";
 	}
 
 	@Override

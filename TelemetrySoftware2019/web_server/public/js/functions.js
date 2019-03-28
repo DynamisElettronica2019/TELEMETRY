@@ -134,10 +134,14 @@ function initOption(myPage, graphNumber){
 
 //costruisco e passo alla tabella di indicatori
 function changeToAllIndicator(){
-   var ch = '<div id="lapGrid" class="grid-container-lap"></div><br>';
+   var ch = '<div id="lapGrid" class="grid-container"></div><br>';
    ch += '<div id="grid" class="grid-container"></div>';
    document.getElementById("charts").innerHTML = ch;
-   var ch = '<div class="grid-item"><h2>Lap time</h2></div><div id="lapTime" class="grid-item"><h2>'+lapTime+'</h2></div>';
+   var ch = '<div class="grid-item"><h2>Lap time</h2><div id="lapTime" class="grid-item"><h2>'+lapTime+'</h2></div></div>';
+   ch += '<div class="grid-item"><h2>Number</h2><div id="lapNumb" class="grid-item"><h2>'+lapNumb+'</h2></div></div>';
+   ch += '<div class="grid-item"><h2>Mode</h2><div id="lapMode" class="grid-item"><h2>'+lapMode+'</h2></div></div>';
+   ch += '<div class="grid-item"><h2>Type</h2><div id="lapType" class="grid-item"><h2>'+lapType+'</h2></div></div>';
+   ch += '</div>';
    document.getElementById("lapGrid").innerHTML = ch;
    var ch = '<div class="grid-itemB"></div>';
    ch += '<div class="grid-item"><h2>'+'TS'+'</h2></div>';
