@@ -11,8 +11,8 @@ public class ThresholdChannel extends Channel {
 	/*
 	 * Channel with a threshold object (th is of the type <500.0)
 	 */
-	public ThresholdChannel(String name, Data data, ArrayList<View> myViews, String th) {
-		super(name, data, myViews);
+	public ThresholdChannel(String name, String serverNumber, Data data, ArrayList<View> myViews, String th) {
+		super(name, serverNumber, data, myViews);
 		if(th.charAt(0)=='<') threshold = new MinThreshold(Double.parseDouble(th.substring(1)), myViews, this);
 		else threshold = new MaxThreshold(Double.parseDouble(th.substring(1)), myViews, this);
 	}

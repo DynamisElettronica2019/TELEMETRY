@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+     
+<script src="graph.js"></script>
+<script src="jQuery.js"></script>
+<link href="myStyle.css" rel="stylesheet">
+
+<script>
+    //***********************************LT righe: 71, 247, 350, 397
+    
+   //SETTINGS
+   //************* SETTARE INDIRIZZO E PORTA DEL SERVER
+   myHost = "ws://127.0.0.1:8080"; 
+   //myHost = "ws://"+location.host;
+   //myHost = "ws://192.168.56.1:8080";
+ 
+   //************* SETTARE MAPPING CHANNEL-GRAFICO (n.b. non ripetere i canali)
+   var mapping = { 
+    "2": "0",
+    "0": "1",
+    "1": "2"
+   };
+   
+   /************** SETTARE I VARI CANALI SECONDO LO SCHEMA D'ESEMPIO
+   (n.b. gli indici di graph si riferiscono ai grafici sopra specificati)
+   {
+       name: "Velocity", //Obbligatorio (nome canale)
+       numbData: 20, //Obbligatorio (num dati inizialmente visualizzati)
+       max: 90, //Opzionale (soglia errore massima)
+       min: 5, //Opzionale (soglia errore minima)
+       minInterval: 0, //Obbligatorio (asse verticale grafico)
+       maxInterval: 150 //Obbligatorio (asse orizzontale grafico)
+       mean: true //Obbligatorio (specificare se rappresentare la media o meno (true/false))
+       unit: Km/h //Obbligatorio (unità di misura)
+   };
+   */
+   var graph = new Array();
+   graph[0] = {
+       name: "Velocity", 
+       numbData: 20, 
+       max: 0.8, 
+       minInterval: 0, 
+       maxInterval: 2,
+       mean: true,
+       unit: "Km/h"
+   };
+   graph[1] = {
+       name: "Pressure",
+       numbData: 50,
+       min: 0.5,
+       minInterval: 0,
+       maxInterval: 1,
+       mean: true,
+       unit: "Bar"
+   };
+   graph[2] = {
+       name: "Oil",
+       numbData: 50,
+       max: 1.3,
+       min: 0.1,
+       minInterval: -0.5,
+       maxInterval: 3,
+       mean: false,
+       unit: "Level"
+   };
+   
+   //************* ALTRI SETTAGGI
+   var options = [5,20,50,100]; //opzioni disponibili per la selezione del numero di dati (n.b. deve comprendere quelli sopra specificati)
+   var currentGraph = -1; //prima pagina da visualizzare (n.b. -1 è la scheda speciale ALL)
+   //***********************************LT
+   var lapTime = "..";
+   //***********************************LT
+</script>
+<script>
+    
+   //creo una websocket connessa al mio server sulla porta su cui ascolta    
+   var ws = new WebSocket(myHost);
+    
+   //Creo strutture dati
+   var chart; //current chart
+   var data = []; //array di dati dei grafici
+   var countData = new Array(); //array per il conteggio dei dati ricevuti sui canali
+   for (i = 0; i < Object.keys(mapping).length; i++) {
+        var tempData = [];
+        data.push(tempData);
+        countData.push(0);
+   }
+   var mean = new Array(); //array per le medie dei canali
+   for (i = 0; i < Object.keys(mapping).length; i++) {
+        if(graph[i].mean){
+        mean.push([{x: 0, y: 0},{x: 0, y: 0}]);
+        }
+        else mean.push([]);
+   }
+   var minBound = []; //array di limiti inferiori
+   for (i = 0; i < Object.keys(mapping).length; i++) {
+        if(graph[i].min){
+        minBound.push([{x: 0, y: graph[i].min},{x: 0, y: graph[i].min}]);
+        }
+        else minBound.push([]);
+   }
+   var maxBound = []; //array di limiti superiori
+   for (i = 0; i < Object.keys(mapping).length; i++) {
+        if(graph[i].max){
+        maxBound.push([{x: 0, y: graph[i].max},{x: 0, y: graph[i].max}]);
+        }
+        else maxBound.push([]);
+   }
+</script>
+    
+</head>
+<body>
+    <!-- PAGINA INIZIALE -->
+    <div class="content">
+    <div class="gridHeader">
+        <div class="leftHeader">
+            <img src="logo.jpg" alt="My_Logo">
+            <font id = "Title" class="titleA">DYNAMIS</font><br>
+            <font class="titleB">Remote Telemetry</font>
+        </div>
+        <div>
+            <img src="car.png" class="carImage">
+        </div>
+    </div>
+    
+    <hr align=”left” size=”1″ width=”300″ >
+    
+    <div class="topnav" id="myTopnav"></div>
+    
+    <center>
+    <p id="charts"></p>
+    <p id="p#Data"></p>
+    </center>
+    </div>
+    <!-- --------------- -->
+    
+    <script>
+        //FUNCTIONS
+        //funzione per creare un grafico, serve l'indicatore e il puntatore di riferimento
+        function createChart(indicator, ctx){
+           //dataset principale
+           var myDatasets = [{
+                        type: 'scatter',
+                        label: graph[indicator].unit,
+                        data: data[indicator],
+                        borderColor: $(":root").css("--colorA"),
+                        borderWidth: 2,
+                        pointRadius: 2,
+                        backgroundColor: 'transparent',
+                    }];
+           //dataset limiti inferiori
+           if(graph[indicator].min){
+               myDatasets.push({
+                   type: 'line',
+                   label: 'Min',
+                   data: minBound[indicator],
+                   borderColor: $(":root").css("--colorSpecial"),
+                   borderWidth: 1,
+                   pointRadius: 0,
+                   backgroundColor: 'transparent',
+                   borderDash: [5, 5],
+               });
+           }
+           //dataset limiti superiori
+           if(graph[indicator].max){
+               myDatasets.push({
+                   type: 'line',
+                   label: 'Max',
+                   data: maxBound[indicator],
+                   borderColor: $(":root").css("--colorSpecial"),
+                   borderWidth: 1,
+                   pointRadius: 0,
+                   backgroundColor: 'transparent',
+                   borderDash: [5, 5],
+               });
+           }
+           //dataset media
+           if(graph[indicator].mean){
+               myDatasets.push({
+                   type: 'line',
+                   label: 'Mean',
+                   data: mean[indicator],
+                   borderColor: $(":root").css("--colorSpecial"),
+                   borderWidth: 1,
+                   pointRadius: 0,
+                   backgroundColor: 'transparent',
+                   borderDash: [10, 10],
+               });
+           }
+           //caratteristiche principali grafico
+           var myChart = {
+                type: 'scatter',
+                data: { datasets: myDatasets },
+                options: {
+                    scales: {
+                        xAxes: [{
+                            type: 'linear',
+                            position: 'bottom',
+                            ticks: {
+                                autoSkip: true,
+                                maxTicksLimit: 15,
+                                stepSize: 1,
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                suggestedMin: graph[indicator].minInterval,
+                                suggestedMax: graph[indicator].maxInterval,
+                            }
+                        }]
+                    },
+                    responsive:false,
+                    cubicInterpolationMode: 'monotone',
+                    animation: {
+                        duration: 0, 
+                    },
+                    hover: {
+                        animationDuration: 0,
+                    },
+                    responsiveAnimationDuration: 0,
+                }
+            };
+            return new Chart(ctx, myChart);
+       }
+        
+       //Creo opzione num dati nel grafico
+       function createOption(){
+           var ch = '<font>#Data </font>';
+           ch += '<select id="#Data" onchange="updateNumData()"></select>';
+           document.getElementById("p#Data").innerHTML = ch;
+           var selectBox = document.getElementById('#Data');
+           for(var i = 0, l = options.length; i < l; i++){
+               selectBox.options.add( new Option(options[i]) );
+           }
+           var opts = selectBox.options;
+           for (var opt, j = 0; opt = opts[j]; j++) {
+               if (opt.value == graph[currentGraph].numbData) {
+                   selectBox.selectedIndex = j;
+                   break;
+                }
+            }
+       }
+       
+       //Costruisco e passo alla tabella di indicatori
+       function changeToAllIndicator(){
+           //***********************************LT
+           var ch = '<div id="lapGrid" class="grid-container-lap"></div><br>';
+           ch += '<div id="grid" class="grid-container"></div>';
+           document.getElementById("charts").innerHTML = ch;
+           var ch = '<div class="grid-item">Lap time</div><div id="lapTime" class="grid-item">'+lapTime+'</div>';
+           document.getElementById("lapGrid").innerHTML = ch;
+           //***********************************LT
+           var ch = '<div class="grid-itemB"></div>';
+           ch += '<div class="grid-item">'+'TS'+'</div>';
+           ch += '<div class="grid-item">'+'DATA'+'</div>';
+           ch += '<div class="grid-item">'+'MEAN'+'</div>';
+           ch += '<div class="grid-item" id="'+ "T0" +'">'+graph[0].name+' ('+graph[0].unit+')'+'</div>';
+           ch += '<div class="grid-item" id="'+ "TT0" +'">'+'..'+'</div>';
+           ch += '<div class="grid-item" id="'+ "TD0" +'">'+'..'+'</div>';
+           ch += '<div class="grid-item" id="'+ "TM0" +'">'+'/'+'</div>';
+           for (var i = 1; i < Object.keys(mapping).length; i++) {
+               ch += '<div class="grid-item" id="T'+ i.toString() +'">'+graph[i].name+' ('+graph[i].unit+')'+'</div>';
+               ch += '<div class="grid-item" id="TT'+ i.toString() +'">'+'..'+'</div>';
+               ch += '<div class="grid-item" id="TD'+ i.toString() +'">'+'..'+'</div>';
+               ch += '<div class="grid-item" id="TM'+ i.toString() +'">'+'/'+'</div>';
+           }
+           document.getElementById("grid").innerHTML = ch;
+           
+           for (i = 0; i < Object.keys(mapping).length; i++) {
+               document.getElementById("B"+i.toString()).classList.remove('active');
+           }
+           document.getElementById("BAll").classList.add('active');
+           document.getElementById("p#Data").innerHTML = "";
+           currentGraph = -1;
+           
+           for (var i = 0; i < Object.keys(mapping).length; i++) {
+               if(data[i].length>0){
+                   document.getElementById("TT"+i.toString()).textContent = data[i][data[i].length-1].x;
+                   document.getElementById("TD"+i.toString()).textContent = data[i][data[i].length-1].y;
+                   var minore = false; var maggiore = false;
+                   if(graph[i].min){ if(data[i][data[i].length-1].y<graph[i].min){ minore = true } }
+                   if(graph[i].max){ if(data[i][data[i].length-1].y>graph[i].max){ maggiore = true } }
+                   if(minore || maggiore) $('#T'+i.toString()).attr('class', 'grid-itemErr');
+                   else $('#T'+i.toString()).attr('class', 'grid-item');
+               }
+           }
+       }
+        
+       //Costruisco e passo al grafico corrente
+       function changeIndicator(newIndicator){
+           ch = '<canvas id="'+ newIndicator.toString() +'" width="400" height="400" class="canvasOk"></canvas>';
+           document.getElementById("charts").innerHTML = ch;
+           var tempCtx = document.getElementById(newIndicator.toString()).getContext('2d');
+           chart = createChart(newIndicator, tempCtx);
+           
+           for (i = 0; i < Object.keys(mapping).length; i++) {
+               document.getElementById("B"+i.toString()).classList.remove('active');
+           }
+           document.getElementById("BAll").classList.remove('active');
+           document.getElementById("B"+newIndicator.toString()).classList.add('active');
+           
+           currentGraph = newIndicator;
+           
+           if(data[newIndicator].length>0){
+                   var minore = false; var maggiore = false;
+                   if(graph[newIndicator].min){ if(data[newIndicator][data[newIndicator].length-1].y<graph[newIndicator].min){ minore = true } }
+                   if(graph[newIndicator].max){ if(data[newIndicator][data[newIndicator].length-1].y>graph[newIndicator].max){ maggiore = true } }
+                   if(minore || maggiore) $('#'+newIndicator.toString()).attr('class', 'canvasError');
+                   else $('#'+newIndicator.toString()).attr('class', 'canvasOk');
+           }
+           
+           createOption();
+       }
+       
+       //Aggiorno tendina opzioni
+       function updateNumData(){
+           graph[currentGraph].numbData = document.getElementById("#Data").options[document.getElementById("#Data").selectedIndex].value;
+       }
+        
+       //Arrotonda numeri decimali
+       function arrotondaNumero(numero,nDecimali){
+          return Math.round(numero*Math.pow(10,nDecimali))/Math.pow(10,nDecimali);
+       }
+    </script>
+    
+    <script>
+        //CREAZIONE SCHERMATA INIZIALE
+        //Creo Bar
+        ch = '<a id="BAll" href="#home" class="active" onclick="changeToAllIndicator()">All</a>';
+        for (i = 0; i < Object.keys(mapping).length; i++) {
+            ch += '<a id="B'+ i.toString() +'" href="#home" onclick="changeIndicator('+i.toString()+')">'+graph[i].name+'</a>';
+        }
+        document.getElementById("myTopnav").innerHTML = ch;
+        changeToAllIndicator();  
+    </script>
+    
+    <script>
+       //FUNZIONI AGGIORNAMENTO WS
+       //cosa faccio quando ricevo un messaggio
+       ws.onmessage = function (evt) { 
+           
+           //CONTROLLARE CHI MANDA I DATI E CHE MANDI JSON (autenticazione della ground) https://www.npmjs.com/package/json-validation
+           /*
+           Formato richiesto:
+           {"ch":"7","ts":"45","val":"345"}
+           */
+           
+           //Parser json
+           var json = JSON.parse(evt.data);
+           
+           //***********************************LT
+           if(json.ch!=-1){
+               //Aggiornamento scheda
+           //***********************************LT  
+               var g = parseInt(mapping[json.ch]); //numero grafico mappato dal canale
+               var v = parseFloat(json.val.replace(',', '.')); //valore interessato
+
+               //calcolo media
+               var newMean = 0;
+               if(graph[g].mean){ 
+                   newMean = arrotondaNumero(((mean[g][0].y*countData[g])+v)/(countData[g]+1),3);
+                   countData[g]++;
+               }
+
+               //aggiungi in coda dato
+               data[g].push({ x: parseInt(json.ts), y:v }); 
+               if(graph[g].min){ minBound[g][1].x = parseInt(json.ts); }
+               if(graph[g].max){ maxBound[g][1].x = parseInt(json.ts); }
+               if(graph[g].mean){ mean[g][1].x = parseInt(json.ts); mean[g][1].y = newMean;}
+
+               //controllo errore
+               var minore = false; var maggiore = false;
+               if(graph[g].min){ if(v<graph[g].min){ minore = true } }
+               if(graph[g].max){ if(v>graph[g].max){ maggiore = true } }
+
+               //rimuovi primi
+               while(data[g].length>graph[g].numbData){
+                    data[g].shift();
+               }
+               if(graph[g].min){ minBound[g][0].x = data[g][0].x; };
+               if(graph[g].max){ maxBound[g][0].x = data[g][0].x; };
+               if(graph[g].mean){ mean[g][0].x = data[g][0].x; mean[g][0].y = newMean;}
+
+               if(currentGraph==-1){
+                   //aggiornamento tabella
+                   document.getElementById("TD"+mapping[json.ch]).textContent = json.val;
+                   document.getElementById("TT"+mapping[json.ch]).textContent = parseInt(json.ts);
+                   if(graph[g].mean) document.getElementById("TM"+mapping[json.ch]).textContent = newMean;
+                   if(minore || maggiore) $('#T'+g.toString()).attr('class', 'grid-itemErr');
+                   else $('#T'+g.toString()).attr('class', 'grid-item');
+               }
+               else {
+                   //aggiornamento grafico
+                   if(minore || maggiore) $('#'+g.toString()).attr('class', 'canvasError');
+                   else $('#'+g.toString()).attr('class', 'canvasOk');
+                   chart.update();
+               }
+            //***********************************LT
+            }
+            else{
+               //Aggiornamento lapTime
+               lapTime = json.val.toString()
+               if(currentGraph==-1){
+                   $('#lapTime').text(lapTime);
+               }
+            }
+            //***********************************LT
+       }
+    </script>
+
+</body>  
+</html>

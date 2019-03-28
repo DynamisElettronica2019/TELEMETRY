@@ -3,8 +3,8 @@
 	"mode": "GROUND",
 	"data":	{
 		"channels":	{
-				"_names": "use name[<double] || name[>double] for threshold indicator",
-				"names": ["Recognizer[>0]","time","vWheelFR[>50]","vWheelFL","vWheelRR","vWheelRL","tWaterL_In","tWaterL_Out","tWaterR_In","tWaterR_Out","tOil_In","tOil_Out","tWaterEngine","Vbattery","nGear","nRPM","XTPS","XPedal","vCar","XSlipTarget",
+				"_names": "use name[<double] || name[>double] for threshold indicator // use (int)name for send to server with a specific number",
+				"names": ["(7)Recognizer[>0]","(6)time","vWheelFR[>50]","vWheelFL","vWheelRR","vWheelRL","tWaterL_In","tWaterL_Out","tWaterR_In","tWaterR_Out","tOil_In","tOil_Out","tWaterEngine","Vbattery","nGear","nRPM","XTPS","XPedal","vCar","XSlipTarget",
                           "XSlip","bFuel","bFan","bDutyWaterPump","bLaunch","pFuel","pOil","rLambda","FlagSMOT","bDiagIgn_1","bDiagIgn_2","tExhaust_1","tExhaust_2","xWheel_FR","fLoad_FR","pBrakeFront","xWheel_FL","fLoad_FL","pBrakeRear","aSteering",
                           "xWheel_RL","fLoad_RL","xWheel_RR","fLoad_RR","APPS_1","APPS_2","tTyreFL_Out","tTyreFL_Mid","tTyreFL_In","tTyreFR_Out","tTyreFR_Mid","tTyreFR_In","tTyreRL_Out","tTyreRL_Mid","tTyreRL_In","tTyreRR_Out","tTyreRR_Mid","tTyreRR_In","Ax_DCU","Ay_DCU",
                           "Az_DCU","GyroX_DCU","GyroY_DCU","GyroZ_DCU","aHeading_DCU","GCU_CLUTCH","GCU_ACC_FB","GCU_AUTOX_FB","GCU_TRACTION_FB","GCU_DRS_FB","GCU_ANTISTALL_FB","GCU_TEMP","FANS_CURRENT","H2O_PUMP_CURRENT","FUEL_PUMP_CURRENT","GEARMOTOR_CURRENT","CLUTCH_CURRENT","DRS_CURRENT","DCU_TEMP","DCU_CURRENT",
@@ -21,6 +21,10 @@
 				"names": ["A","B","C","D","E","F","G","H","I","L","M","N","O","P","Q","R","S","T","U"],
 				"packetLen": 96,
 				"recogniser": "D"
+				}
+		"commandButton": {
+				"names": ["Start telemetry", "Stop telemetry", "Start acquisition", "Stop acquisition"],
+				"command": ["START_TELEMETRY", "STOP_TELEMETRY", "START_ACQUISITION", "STOP_ACQUISITION"]
 				}
 		},
 	"error": {
@@ -63,10 +67,14 @@
 	},
     "receiver": {
         "carBaudRate": 115200,
-        "carCommPort": "COM3",
+        "carCommPort": "COM12",
         "lapBaudRate": 115200,
-        "lapCommPort": "COM12",
+        "lapCommPort": "COM4",
         "pktStart": "[",
         "pktEnd": "]"
+    },
+    "server": {
+    	"serverPort": 8081,
+    	"freq": 1000,
     }
 }

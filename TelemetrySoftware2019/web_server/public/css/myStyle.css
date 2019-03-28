@@ -1,0 +1,125 @@
+:root {
+  /*Colori base tema*/
+  --colorA:#cc0000;
+  --colorB:#4F4F4F;
+  --colorC:#fcf9f5;
+  --colorD:#FFBF18;
+  --colorE:#4286f4;
+  /*Altri colori*/
+  --colorError:#FF8080;
+  --colorSpecial:#400000;
+  /*Dimension*/
+  --contentDim:1000px
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.content {
+    margin: auto;
+}
+
+/*Grafici*/
+.canvasOk {
+    background-color: transparent;
+}
+.canvasError {
+    background-color: var(--colorError);
+}
+#charts {
+    margin-left:2%;
+    margin-right:2%;
+}
+
+/*Barra di navigazione*/
+.topnav {
+    background-color: var(--colorB);
+    overflow: hidden;
+}
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 22px;
+}
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+.topnav a.active {
+    background-color: var(--colorA);
+    color: white;
+}
+
+/*Titoli*/
+.gridHeader {
+    width: 100%;
+    float: left;
+    padding: 12px;
+}
+.leftHeader {
+    width: 300px;
+    float: left;
+}
+.left {
+    float: left;
+}
+.carImage {
+    height: 100px;
+}
+.titleA {
+    color: var(--colorA);
+    font-family: optima;
+    font-size: 50px;
+}
+.titleB {
+    color: var(--colorB);
+    font-family: garamond;
+    font-size: 25px;
+}
+
+/*Grid*/
+.grid-container-lap {
+  display: grid;
+  background-color: var(--colorA);
+  padding: 2px;
+  width: 50%;
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 500px;
+}
+.grid-container {
+  display: grid;
+  background-color: var(--colorA);
+  padding: 2px;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 1000px;
+}
+.grid-item {
+  background-color: var(--colorC);
+  border: 1px solid var(--colorB);
+  padding: 2px;
+  text-align: center;
+  font-family: garamond;
+}
+.grid-itemErr {
+  background-color: var(--colorError);
+  border: 1px solid var(--colorB);
+  padding: 2px;
+  text-align: center;
+  font-family: garamond;
+  color: white;
+}
+.grid-itemB {
+  background-color: var(--colorB);
+  border: 1px solid var(--colorB);
+  padding: 2px;
+}
+h2 {
+    margin: 0px;
+    font-weight:normal;
+    font-size: 25px;
+    vertical-align: middle;
+}
