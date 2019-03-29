@@ -26,7 +26,6 @@ public class CommandScreenController extends Controller {
 	private Map<String, String> driverMessageMap = new HashMap<>();
 	private Map<Button, String> buttonMap = new HashMap<>();
 	private Map<String, Button> buttonMapReverse = new HashMap<>();
-	private CommandSender commandSender;
 	ObservableList<String> driverMessages;
 	ArrayList<String> nameButtonList;
 	ArrayList<String> commandButtonList;
@@ -61,10 +60,7 @@ public class CommandScreenController extends Controller {
 		
 		for(Button but : commandButtons) {
 			but.setOnAction((event) -> {
-				if(commandSender == null) {
-					commandSender = view.getCommandSender();
-				}
-				commandSender.sendCommand(buttonMap.get(but), "");
+				view.getCommandSender().sendCommand(buttonMap.get(but), "");
 				but.setDisable(true);
 			});
 		}
@@ -122,9 +118,6 @@ public class CommandScreenController extends Controller {
 
 	@FXML
 	private void SendToDriverAction() {
-		if(commandSender == null) {
-			commandSender = view.getCommandSender();
-		}	
-		commandSender.sendCommand(driverMessageMap.get(PilotMessageList.getValue()), "");
+		view.getCommandSender().sendCommand(driverMessageMap.get(PilotMessageList.getValue()), "");
 	}
 }
