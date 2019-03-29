@@ -237,6 +237,24 @@ public class ConfReader {
 	}
 	
 	/*
+	 * Read and return command names
+	 * On reading error log and return an empty ArrayList
+	 */
+	public static ArrayList<String> getCommandNames(){
+		try {
+			JSONObject obj = readJSONObject();
+			JSONObject ty = (JSONObject)obj.get("command");
+			JSONArray list = (JSONArray)ty.get("list");
+			ArrayList<String> myList = new ArrayList<String>();
+			for(int i=0;i<list.size();i++) myList.add(((String)((JSONObject)list.get(i)).get("name")));
+			return myList;
+		} catch (Exception e) {
+			System.err.println("Config file reading error. Return empty ArrayList for command boards");
+			return new ArrayList<>();
+		}
+	}
+	
+	/*
 	 * Read and return command params boolean (allowed vs not allowed)
 	 * On reading error log and return an empty ArrayList
 	 */
@@ -331,22 +349,6 @@ public class ConfReader {
 		} catch (Exception e) {
 			System.err.println("Config file reading error. Return GROUND for launch mode");
 			return "GROUND";
-		}
-	}
-	
-	/*
-	 * Read and return button names
-	 * On reading error log and return an empty ArrayList
-	 */
-	public static ArrayList<String> getCommandButtons(String type){
-		try {
-			JSONObject obj = readJSONObject();
-			JSONObject data = (JSONObject)obj.get("data");
-			JSONObject ty = (JSONObject)data.get(type);
-			return JSONToArray((JSONArray)ty.get("command"));
-		} catch (Exception e) {
-			System.err.println("Config file reading error. Return empty ArrayList for "+type+" names");
-			return new ArrayList<>();
 		}
 	}
 	

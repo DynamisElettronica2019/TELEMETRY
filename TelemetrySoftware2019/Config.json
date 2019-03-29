@@ -22,10 +22,6 @@
 				"packetLen": 96,
 				"recogniser": "D"
 				}
-		"commandButton": {
-				"names": ["Start telemetry", "Stop telemetry", "Start acquisition", "Stop acquisition"],
-				"command": ["START_TELEMETRY", "STOP_TELEMETRY", "START_ACQUISITION", "STOP_ACQUISITION"]
-				}
 		},
 	"error": {
 		"recogniser": "E",
@@ -45,13 +41,13 @@
 		"timer": 5000,
 		"list": [
 				{
-				"name": "START_TELEMETRY",
+				"name": "Start telemetry",
 				"code": "M",
 				"board": "D",
 				"params": 0
 				},
 				{
-				"name": "STOP_TELEMETRY",
+				"name": "Stop telemetry",
 				"code": "N",
 				"board": "D",
 				"params": 0

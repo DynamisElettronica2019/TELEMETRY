@@ -28,7 +28,6 @@ public class CommandScreenController extends Controller {
 	private Map<String, Button> buttonMapReverse = new HashMap<>();
 	ObservableList<String> driverMessages;
 	ArrayList<String> nameButtonList;
-	ArrayList<String> commandButtonList;
 	ArrayList<Button> commandButtons;
 	@FXML
 	private ToolBar buttonBar;
@@ -46,15 +45,13 @@ public class CommandScreenController extends Controller {
 		
 		//Set all the buttons from config file
 		nameButtonList = new ArrayList<String>();
-		nameButtonList = ConfReader.getNames("commandButton");
-		commandButtonList = new ArrayList<String>();
-		commandButtonList = ConfReader.getCommandButtons("commandButton");
+		nameButtonList = ConfReader.getCommandNames();
 		commandButtons = new ArrayList<Button>();
 		
 		for(int i=0; i < nameButtonList.size(); i++) {
 			commandButtons.add(new Button(nameButtonList.get(i)));
-			buttonMap.put(commandButtons.get(i), commandButtonList.get(i));
-			buttonMapReverse.put(commandButtonList.get(i), commandButtons.get(i));
+			buttonMap.put(commandButtons.get(i), nameButtonList.get(i));
+			buttonMapReverse.put(nameButtonList.get(i), commandButtons.get(i));
 			buttonBar.getItems().add(commandButtons.get(i));
 		}
 		
