@@ -71,11 +71,17 @@ ws.onmessage = function (evt) {
        else if (json.ch.toString()==ltChannel){
           //Aggiornamento lapTime
           lapTime = json.val.toString().split(';');
-          if(currentPage==-1) {
-              document.getElementById('lapTime').innerHTML = '<h2>'+lapTime[0]+'</h2>';
-              document.getElementById('lapNumb').innerHTML = '<h2>'+lapTime[1]+'</h2>';
-              document.getElementById('lapMode').innerHTML = '<h2>'+lapTime[2]+'</h2>';
-              document.getElementById('lapType').innerHTML = '<h2>'+lapTime[3]+'</h2>';
+          if(lapTime.length==4) {
+              lapTime = lapTime[0];
+              lapType = lapTime[1];
+              lapMode = lapTime[2];
+              lapNumb = lapTime[3];
+              if(currentPage==-1) {
+                  document.getElementById('lapTime').innerHTML = '<h2>'+lapTime[0]+'</h2>';
+                  document.getElementById('lapNumb').innerHTML = '<h2>'+lapTime[1]+'</h2>';
+                  document.getElementById('lapMode').innerHTML = '<h2>'+lapTime[2]+'</h2>';
+                  document.getElementById('lapType').innerHTML = '<h2>'+lapTime[3]+'</h2>';
+              }
           }
        }
    } 

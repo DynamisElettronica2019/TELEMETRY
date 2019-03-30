@@ -1,5 +1,6 @@
 - il server manda alla ground stringhe rappresentanti il numero di utenti attualmente connessi
 - formato json richiesto: {"ch":"7","ts":"45","val":"345"}
 - formato ts richiesto: 09:30:26.123 AM
+- se ricevo sul canale del lap timer ts viene ignorato e il formato richiesto di val è: time;number;mode;type
 - configurare client (public/js/settings.js) e server (server.js)
 - la cartella node_modules deve stare nella stessa cartella del server per un corretto funzionamento
