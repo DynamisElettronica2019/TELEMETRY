@@ -35,7 +35,7 @@ public class EngineScreenController extends Controller {
 	private ObservableList<XYChart.Series<String,Double>> waterTempChartData, oiltempChartData, exhaustTempChartData, pressChartData;
 	ObservableList<Integer> elementNumberList;
 	@FXML
-	private ComboBox<Integer> exhaustTempValues, pressValues, oilTempValues, waterTempValues;
+	private ComboBox<Integer> numberValues;
 	@FXML
 	private LineChart<String, Double> oilTempChart, waterTempChart, exhaustTempChart, pressChart;
 	@FXML
@@ -46,10 +46,7 @@ public class EngineScreenController extends Controller {
 		super.initialize(location, resources);
 		setChart();
 		elementNumberList = FXCollections.observableArrayList(10, 50, 100, 500, 1000);
-		exhaustTempValues.setItems(elementNumberList);
-		pressValues.setItems(elementNumberList);
-		oilTempValues.setItems(elementNumberList);
-		waterTempValues.setItems(elementNumberList);
+		numberValues.setItems(elementNumberList);
 	}
 
 	@Override
@@ -74,7 +71,7 @@ public class EngineScreenController extends Controller {
 			    		
 			    	}
 			    	else {
-			    		if(chartChannelMap.get(channel.getName()).getData().size() > 20) {
+			    		if(chartChannelMap.get(channel.getName()).getData().size() > numberValues.getValue()) {
 				    		chartChannelMap.get(channel.getName()).getData().remove(0);
 				    	}
 			    		chartChannelMap.get(channel.getName()).getData().add(getLastChartElem(channel));
