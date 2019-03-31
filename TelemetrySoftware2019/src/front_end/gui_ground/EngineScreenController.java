@@ -47,6 +47,7 @@ public class EngineScreenController extends Controller {
 		setChart();
 		elementNumberList = FXCollections.observableArrayList(10, 50, 100, 500, 1000);
 		numberValues.setItems(elementNumberList);
+		numberValues.getSelectionModel().select(1);
 	}
 
 	@Override
