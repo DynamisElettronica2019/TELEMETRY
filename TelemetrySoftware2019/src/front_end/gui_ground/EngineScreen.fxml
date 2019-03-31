@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.text.*?>
@@ -52,6 +53,8 @@
                               <Label fx:id="exhaust2TempLabel" text="No Value" />
                            </children>
                         </HBox>
+                        <Label text="N. Values:" />
+                        <ComboBox fx:id="exhaustTempValues" prefWidth="150.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -86,6 +89,8 @@
                            </children>
                         </HBox>
                         <HBox />
+                        <Label text="N. Values:" />
+                        <ComboBox fx:id="pressValues" prefWidth="150.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -129,6 +134,8 @@
                               <Label fx:id="oilTempOutLabel" text="No Value" />
                            </children>
                         </HBox>
+                        <Label text="N. Values:" />
+                        <ComboBox fx:id="oilTempValues" prefWidth="150.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -172,6 +179,8 @@
                               <Label fx:id="waterTempOutLLabel" text="No Value" />
                            </children>
                         </HBox>
+                        <Label text="N. Values:" />
+                        <ComboBox fx:id="waterTempValues" prefWidth="150.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

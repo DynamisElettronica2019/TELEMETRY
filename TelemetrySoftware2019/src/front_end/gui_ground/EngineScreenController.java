@@ -21,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Series;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.chart.XYChart.Data;
 
@@ -32,6 +33,9 @@ public class EngineScreenController extends Controller {
 	private Series<String, Double> exhaust1Temp, exhaust2Temp;
 	private Series<String, Double> oilPress;
 	private ObservableList<XYChart.Series<String,Double>> waterTempChartData, oiltempChartData, exhaustTempChartData, pressChartData;
+	ObservableList<Integer> elementNumberList;
+	@FXML
+	private ComboBox<Integer> exhaustTempValues, pressValues, oilTempValues, waterTempValues;
 	@FXML
 	private LineChart<String, Double> oilTempChart, waterTempChart, exhaustTempChart, pressChart;
 	@FXML
@@ -41,6 +45,11 @@ public class EngineScreenController extends Controller {
 	public void initialize(URL location, ResourceBundle resources) {
 		super.initialize(location, resources);
 		setChart();
+		elementNumberList = FXCollections.observableArrayList(10, 50, 100, 500, 1000);
+		exhaustTempValues.setItems(elementNumberList);
+		pressValues.setItems(elementNumberList);
+		oilTempValues.setItems(elementNumberList);
+		waterTempValues.setItems(elementNumberList);
 	}
 
 	@Override
