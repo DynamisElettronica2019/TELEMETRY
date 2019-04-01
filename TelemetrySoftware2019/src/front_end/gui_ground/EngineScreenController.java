@@ -15,6 +15,8 @@ import back_end.LapTimer;
 import back_end.State;
 import back_end.Threshold;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -48,6 +50,33 @@ public class EngineScreenController extends Controller {
 		elementNumberList = FXCollections.observableArrayList(10, 50, 100, 500, 1000);
 		numberValues.setItems(elementNumberList);
 		numberValues.getSelectionModel().select(1);
+		
+		numberValues.valueProperty().addListener(new ChangeListener<Integer>() {
+			@Override
+			public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {		
+				while (newValue < oilTempIn.getData().size()) {
+					oilTempIn.getData().remove(0);
+				}
+				while (newValue < oilTempOut.getData().size()) {
+					oilTempOut.getData().remove(0);
+				}
+				while (newValue < waterTempLIN.getData().size()) {
+					waterTempLIN.getData().remove(0);
+				}
+				while (newValue < waterTempLOut.getData().size()) {
+					waterTempLOut.getData().remove(0);
+				}
+				while (newValue < exhaust1Temp.getData().size()) {
+					exhaust1Temp.getData().remove(0);
+				}
+				while (newValue < exhaust2Temp.getData().size()) {
+					exhaust2Temp.getData().remove(0);
+				}
+				while (newValue < oilPress.getData().size()) {
+					oilPress.getData().remove(0);
+				}
+			}
+		 });      	  
 	}
 
 	@Override
