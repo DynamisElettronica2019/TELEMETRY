@@ -210,10 +210,9 @@ public class EngineScreenController extends Controller {
 	
 	private ObservableList<Data<String, Double>> getLastnChartElem(Channel channel) {
 		ObservableList<Data<String, Double>> newDataList = FXCollections.observableArrayList();
-		LocalDateTime ts = channel.getLastTs();
 		ArrayList<Double> channelDataList = channel.getLastElems(numberValues.getValue());
 		for (int i=0; i<channelDataList.size(); i++) {
-			newDataList.add(new Data<String, Double>(ts.getHour()+":"+ts.getMinute()+":"+ts.getSecond()+":"+ts.getNano()/1000000, channelDataList.get(i)));
+			newDataList.add(new Data<String, Double>(Integer.toString(i), channelDataList.get(i)));
 		}
 		return newDataList;
 	}
