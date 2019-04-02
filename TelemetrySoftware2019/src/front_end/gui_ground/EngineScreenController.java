@@ -59,15 +59,26 @@ public class EngineScreenController extends Controller {
 		numberValues.setItems(elementNumberList);
 		numberValues.getSelectionModel().select(1);
 		
+		/*
+		 * Time formatting
+		 */
 		timePattern = "HH:mm:ss.SSS";
 		timeColonFormatter = DateTimeFormatter.ofPattern(timePattern);
 		
+		/*
+		 * Load the channel names and map them to the update list
+		 */
 		channelList = ConfReader.getNames("channels");
 		for (int i=0; i<channelList.size(); i++) {
 			toLoadList.add(false);
 			loadArrayMap.put(channelList.get(i), i);
 		}
 		
+		/*
+		 * Listener on the number of values to display
+		 * Removes the unnecessary data if the newValue is lower than before
+		 * Set to update the channel load list
+		 */
 		numberValues.valueProperty().addListener(new ChangeListener<Integer>() {
 			@Override
 			public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {		
@@ -159,6 +170,11 @@ public class EngineScreenController extends Controller {
 		
 	}
 	
+	/*
+	 *  Chart initzialization
+	 *  Create new series and map channel names to them
+	 *  link charts to series
+	 */
 	private void setChart() {
 		waterTempChartData = FXCollections.observableArrayList();
 		oiltempChartData = FXCollections.observableArrayList();
@@ -211,11 +227,19 @@ public class EngineScreenController extends Controller {
 		chartChannelMap.put("pOil", oilPress);
 	}
 	
+	/*
+	 *  Create a new data element ready for getting added to the chart
+	 *  Timestamp on the x axis, value on the y
+	 */
 	private Data<String, Double> getLastChartElem(Channel channel) {
 		LocalDateTime ts = channel.getLastTs();
 		return new Data<String, Double>(ts.format(timeColonFormatter), channel.getLastElems());
 	}
 	
+	/*
+	 *  Create a new list of data for replacing the old list when value of numbers to display is changed
+	 *  Timestamp is on the x axis and value on the y
+	 */
 	private ObservableList<Data<String, Double>> getLastnChartElem(Channel channel) {
 		ObservableList<Data<String, Double>> newDataList = FXCollections.observableArrayList();
 		ArrayList<Double> channelDataList = channel.getLastElems(numberValues.getValue());
