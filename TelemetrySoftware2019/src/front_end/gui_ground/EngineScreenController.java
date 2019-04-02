@@ -15,6 +15,7 @@ import back_end.Error;
 import back_end.LapTimer;
 import back_end.State;
 import back_end.Threshold;
+import configuration.ConfReader;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -37,7 +38,8 @@ public class EngineScreenController extends Controller {
 	private Series<String, Double> oilPress;
 	private ObservableList<XYChart.Series<String,Double>> waterTempChartData, oiltempChartData, exhaustTempChartData, pressChartData;
 	private ObservableList<Integer> elementNumberList;
-	private Boolean[] toLoadArray = {false, false, false, false, false, false, false};
+	private ArrayList<Boolean> toLoadList = new ArrayList<Boolean>();
+	private ArrayList<String> channelList;
 	private Map<String, Integer> loadArrayMap = new HashMap<>();
 	@FXML
 	private ComboBox<Integer> numberValues;
@@ -54,13 +56,11 @@ public class EngineScreenController extends Controller {
 		numberValues.setItems(elementNumberList);
 		numberValues.getSelectionModel().select(1);
 		
-		loadArrayMap.put("tOil_In", 0);
-		loadArrayMap.put("tOil_Out", 1);
-		loadArrayMap.put("tWaterL_In", 2);
-		loadArrayMap.put("tWaterL_Out", 3);
-		loadArrayMap.put("tExhaust_1", 4);
-		loadArrayMap.put("tExhaust_2", 5);
-		loadArrayMap.put("pOil", 6);
+		channelList = ConfReader.getNames("channels");
+		for (int i=0; i<channelList.size(); i++) {
+			toLoadList.add(false);
+			loadArrayMap.put(channelList.get(i), i);
+		}
 		
 		numberValues.valueProperty().addListener(new ChangeListener<Integer>() {
 			@Override
@@ -86,8 +86,8 @@ public class EngineScreenController extends Controller {
 				while (newValue < oilPress.getData().size()) {
 					oilPress.getData().remove(0);
 				}
-				for (int i=0; i<7; i++) {
-					toLoadArray[i] = true;
+				for (int i=0; i<toLoadList.size(); i++) {
+					toLoadList.set(i, true);
 				}
 			}
 		 });      	  
@@ -112,15 +112,17 @@ public class EngineScreenController extends Controller {
 			    @Override
 			    public void run() {
 			    	if(chartChannelMap.get(channel.getName()) != null) {
-			    		if (toLoadArray[loadArrayMap.get(channel.getName())]) {
+			    		if (toLoadList.get(loadArrayMap.get(channel.getName()))) {
 			    			chartChannelMap.get(channel.getName()).setData(getLastnChartElem(channel));	    			
-			    			toLoadArray[loadArrayMap.get(channel.getName())] = false;
+			    			toLoadList.set(loadArrayMap.get(channel.getName()), false);
+			    		}
+			    		else {
+			    			chartChannelMap.get(channel.getName()).getData().add(getLastChartElem(channel));
+						    chartLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));	
 			    		}
 			    		if(chartChannelMap.get(channel.getName()).getData().size() > numberValues.getValue()) {
 					    	chartChannelMap.get(channel.getName()).getData().remove(0);
 					    }
-				    	chartChannelMap.get(channel.getName()).getData().add(getLastChartElem(channel));
-					    chartLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));	
 			    	}	    	
 			    }
 			});
