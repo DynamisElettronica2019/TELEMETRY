@@ -2,6 +2,8 @@ package front_end.gui_ground;
 
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -14,6 +16,7 @@ import back_end.Error;
 import back_end.LapTimer;
 import back_end.State;
 import back_end.Threshold;
+import configuration.ConfReader;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -35,7 +38,12 @@ public class EngineScreenController extends Controller {
 	private Series<String, Double> exhaust1Temp, exhaust2Temp;
 	private Series<String, Double> oilPress;
 	private ObservableList<XYChart.Series<String,Double>> waterTempChartData, oiltempChartData, exhaustTempChartData, pressChartData;
-	ObservableList<Integer> elementNumberList;
+	private ObservableList<Integer> elementNumberList;
+	private ArrayList<Boolean> toLoadList = new ArrayList<Boolean>();
+	private ArrayList<String> channelList;
+	private Map<String, Integer> loadArrayMap = new HashMap<>();
+	private String timePattern;
+	private DateTimeFormatter timeColonFormatter;
 	@FXML
 	private ComboBox<Integer> numberValues;
 	@FXML
@@ -50,6 +58,15 @@ public class EngineScreenController extends Controller {
 		elementNumberList = FXCollections.observableArrayList(10, 50, 100, 500, 1000);
 		numberValues.setItems(elementNumberList);
 		numberValues.getSelectionModel().select(1);
+		
+		timePattern = "HH:mm:ss.SSS";
+		timeColonFormatter = DateTimeFormatter.ofPattern(timePattern);
+		
+		channelList = ConfReader.getNames("channels");
+		for (int i=0; i<channelList.size(); i++) {
+			toLoadList.add(false);
+			loadArrayMap.put(channelList.get(i), i);
+		}
 		
 		numberValues.valueProperty().addListener(new ChangeListener<Integer>() {
 			@Override
@@ -75,6 +92,9 @@ public class EngineScreenController extends Controller {
 				while (newValue < oilPress.getData().size()) {
 					oilPress.getData().remove(0);
 				}
+				for (int i=0; i<toLoadList.size(); i++) {
+					toLoadList.set(i, true);
+				}
 			}
 		 });      	  
 	}
@@ -97,15 +117,18 @@ public class EngineScreenController extends Controller {
 			Platform.runLater(new Runnable() {
 			    @Override
 			    public void run() {
-			    	if(chartChannelMap.get(channel.getName()) == null) {
-			    		
-			    	}
-			    	else {
+			    	if(chartChannelMap.get(channel.getName()) != null) {
+			    		if (toLoadList.get(loadArrayMap.get(channel.getName()))) {
+			    			chartChannelMap.get(channel.getName()).setData(getLastnChartElem(channel));	    			
+			    			toLoadList.set(loadArrayMap.get(channel.getName()), false);
+			    		}
+			    		else {
+			    			chartChannelMap.get(channel.getName()).getData().add(getLastChartElem(channel));
+						    chartLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));	
+			    		}
 			    		if(chartChannelMap.get(channel.getName()).getData().size() > numberValues.getValue()) {
-				    		chartChannelMap.get(channel.getName()).getData().remove(0);
-				    	}
-			    		chartChannelMap.get(channel.getName()).getData().add(getLastChartElem(channel));
-				    	chartLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));
+					    	chartChannelMap.get(channel.getName()).getData().remove(0);
+					    }
 			    	}	    	
 			    }
 			});
@@ -190,6 +213,16 @@ public class EngineScreenController extends Controller {
 	
 	private Data<String, Double> getLastChartElem(Channel channel) {
 		LocalDateTime ts = channel.getLastTs();
-		return new Data<String, Double>(ts.getHour()+":"+ts.getMinute()+":"+ts.getSecond()+":"+ts.getNano()/1000000, channel.getLastElems());
+		return new Data<String, Double>(ts.format(timeColonFormatter), channel.getLastElems());
+	}
+	
+	private ObservableList<Data<String, Double>> getLastnChartElem(Channel channel) {
+		ObservableList<Data<String, Double>> newDataList = FXCollections.observableArrayList();
+		ArrayList<Double> channelDataList = channel.getLastElems(numberValues.getValue());
+		ArrayList<LocalDateTime> tsList = channel.getLastTs(numberValues.getValue());
+		for (int i=0; i<channelDataList.size(); i++) {
+			newDataList.add(new Data<String, Double>(tsList.get(i).format(timeColonFormatter), channelDataList.get(i)));
+		}
+		return newDataList;
 	}
 }
