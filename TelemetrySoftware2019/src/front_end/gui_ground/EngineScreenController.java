@@ -103,8 +103,10 @@ public class EngineScreenController extends Controller {
 				while (newValue < oilPress.getData().size()) {
 					oilPress.getData().remove(0);
 				}
-				for (int i=0; i<toLoadList.size(); i++) {
-					toLoadList.set(i, true);
+				if(newValue > oldValue) {
+					for (int i=0; i<toLoadList.size(); i++) {
+						toLoadList.set(i, true);
+					}
 				}
 			}
 		 });      	  
