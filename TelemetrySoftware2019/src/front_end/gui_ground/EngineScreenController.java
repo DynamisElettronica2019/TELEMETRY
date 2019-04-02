@@ -2,6 +2,7 @@ package front_end.gui_ground;
 
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,6 +42,8 @@ public class EngineScreenController extends Controller {
 	private ArrayList<Boolean> toLoadList = new ArrayList<Boolean>();
 	private ArrayList<String> channelList;
 	private Map<String, Integer> loadArrayMap = new HashMap<>();
+	private String timePattern;
+	private DateTimeFormatter timeColonFormatter;
 	@FXML
 	private ComboBox<Integer> numberValues;
 	@FXML
@@ -55,6 +58,9 @@ public class EngineScreenController extends Controller {
 		elementNumberList = FXCollections.observableArrayList(10, 50, 100, 500, 1000);
 		numberValues.setItems(elementNumberList);
 		numberValues.getSelectionModel().select(1);
+		
+		timePattern = "HH:mm:ss.SSS";
+		timeColonFormatter = DateTimeFormatter.ofPattern(timePattern);
 		
 		channelList = ConfReader.getNames("channels");
 		for (int i=0; i<channelList.size(); i++) {
@@ -207,14 +213,15 @@ public class EngineScreenController extends Controller {
 	
 	private Data<String, Double> getLastChartElem(Channel channel) {
 		LocalDateTime ts = channel.getLastTs();
-		return new Data<String, Double>(ts.getHour()+":"+ts.getMinute()+":"+ts.getSecond()+":"+ts.getNano()/1000000, channel.getLastElems());
+		return new Data<String, Double>(ts.format(timeColonFormatter), channel.getLastElems());
 	}
 	
 	private ObservableList<Data<String, Double>> getLastnChartElem(Channel channel) {
 		ObservableList<Data<String, Double>> newDataList = FXCollections.observableArrayList();
 		ArrayList<Double> channelDataList = channel.getLastElems(numberValues.getValue());
+		ArrayList<LocalDateTime> tsList = channel.getLastTs(numberValues.getValue());
 		for (int i=0; i<channelDataList.size(); i++) {
-			newDataList.add(new Data<String, Double>(Integer.toString(i), channelDataList.get(i)));
+			newDataList.add(new Data<String, Double>(tsList.get(i).format(timeColonFormatter), channelDataList.get(i)));
 		}
 		return newDataList;
 	}
