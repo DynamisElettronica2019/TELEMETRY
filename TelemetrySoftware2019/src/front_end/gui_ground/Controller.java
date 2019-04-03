@@ -14,15 +14,15 @@ import javafx.fxml.Initializable;
 
 public abstract class Controller implements Initializable {
 	
-	protected GuiGroundView view;
+	protected GuiView view;
 	
 	@Override
     public void initialize(URL location, ResourceBundle resources) {
     }
 	
 	//Setting the view for accessing his controller managing functions
-	public void SetView(GuiGroundView view) {
-		this.view = view;
+	public void SetView(GuiView guiView) {
+		this.view = guiView;
 	}
 	
 	/*

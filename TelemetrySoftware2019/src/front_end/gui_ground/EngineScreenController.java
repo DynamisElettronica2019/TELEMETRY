@@ -10,7 +10,6 @@ import java.util.ResourceBundle;
 
 import back_end.Channel;
 import back_end.Command;
-//import back_end.Data;
 import back_end.Debug;
 import back_end.Error;
 import back_end.LapTimer;
@@ -70,7 +69,7 @@ public class EngineScreenController extends Controller {
 		 */
 		channelList = ConfReader.getNames("channels");
 		for (int i=0; i<channelList.size(); i++) {
-			toLoadList.add(false);
+			toLoadList.add(true);
 			loadArrayMap.put(channelList.get(i), i);
 		}
 		
@@ -81,33 +80,11 @@ public class EngineScreenController extends Controller {
 		 */
 		numberValues.valueProperty().addListener(new ChangeListener<Integer>() {
 			@Override
-			public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {		
-				while (newValue < oilTempIn.getData().size()) {
-					oilTempIn.getData().remove(0);
+			public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {	
+				for (int i=0; i<toLoadList.size(); i++) {
+					toLoadList.set(i, true);
 				}
-				while (newValue < oilTempOut.getData().size()) {
-					oilTempOut.getData().remove(0);
-				}
-				while (newValue < waterTempLIN.getData().size()) {
-					waterTempLIN.getData().remove(0);
-				}
-				while (newValue < waterTempLOut.getData().size()) {
-					waterTempLOut.getData().remove(0);
-				}
-				while (newValue < exhaust1Temp.getData().size()) {
-					exhaust1Temp.getData().remove(0);
-				}
-				while (newValue < exhaust2Temp.getData().size()) {
-					exhaust2Temp.getData().remove(0);
-				}
-				while (newValue < oilPress.getData().size()) {
-					oilPress.getData().remove(0);
-				}
-				if(newValue > oldValue) {
-					for (int i=0; i<toLoadList.size(); i++) {
-						toLoadList.set(i, true);
-					}
-				}
+				view.getViewLoader().load();
 			}
 		 });      	  
 	}
