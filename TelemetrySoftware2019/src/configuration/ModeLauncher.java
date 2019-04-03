@@ -9,6 +9,7 @@ import back_end.Receiver;
 import front_end.View;
 import front_end.cli.CommandLineView;
 import front_end.gui_ground.GuiGroundView;
+import front_end.gui_ground.GuiView;
 import front_end.gui_row.GUIRowView;
 import front_end.server_adapter.ServerAdapterView;
 
@@ -26,6 +27,9 @@ public class ModeLauncher {
 			try {
 				myViews.add(new GUIRowView());
 			} catch (IOException e) { e.printStackTrace(); }
+		}
+		else if(mode.equals("LAPTOP")){
+			myViews.add(new GuiView());
 		}
 		//ADD HERE NEW MODE
 		//Ground mode
@@ -46,6 +50,9 @@ public class ModeLauncher {
 		}
 		//Gui_Row mode
 		else if(mode.equals("GUI_ROW")){
+			startCarReceiver(myViews, data, parser);
+		}
+		else if(mode.equals("LAPTOP")){
 			startCarReceiver(myViews, data, parser);
 		}
 		//ADD HERE NEW MODE

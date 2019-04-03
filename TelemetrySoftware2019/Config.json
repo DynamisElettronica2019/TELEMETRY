@@ -1,5 +1,5 @@
 {	
-	"_mode": "Accepted: GROUND,GUI_ROW,CLI",
+	"_mode": "Accepted: GROUND,LAPTOP,GUI_ROW,CLI",
 	"mode": "GROUND",
 	"data":	{
 		"channels":	{
@@ -63,7 +63,7 @@
 	},
     "receiver": {
         "carBaudRate": 115200,
-        "carCommPort": "COM3",
+        "carCommPort": "COM12",
         "lapBaudRate": 115200,
         "lapCommPort": "COM4",
         "pktStart": "[",
@@ -71,6 +71,6 @@
     },
     "server": {
     	"serverPort": 8081,
-    	"freq": 1000,
+    	"freq": 1000
     }
 }
