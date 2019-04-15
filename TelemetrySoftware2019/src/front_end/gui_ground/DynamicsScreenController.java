@@ -1,7 +1,6 @@
 package front_end.gui_ground;
 
 import java.net.URL;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 import back_end.Channel;
@@ -11,17 +10,13 @@ import back_end.Error;
 import back_end.LapTimer;
 import back_end.State;
 import back_end.Threshold;
-import configuration.ConfReader;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 
 public class DynamicsScreenController extends Controller {
 	
 	@FXML
-	private LineChart<String, Double> graph1, graph2, graph3;
+	private LineChart<String, Double> graph1, graph2, graph3, graph4;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
