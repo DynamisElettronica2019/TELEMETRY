@@ -12,9 +12,12 @@ import back_end.State;
 import back_end.Threshold;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
+import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
 
 public class DynamicsScreenController extends Controller {
-	
+	private Boolean isPaused = false;
+	private ToggleButton pauseButton;
 	@FXML
 	private LineChart<String, Double> graph1, graph2, graph3, graph4;
 
@@ -45,7 +48,9 @@ public class DynamicsScreenController extends Controller {
 	public void editChannel(Channel channel) {
 		if(!channel.isEmpty()){
 			// TODO Auto-generated method stub
-			
+			if (!pauseButton.isSelected()) {
+				
+			}
 		}
 	}
 
@@ -73,4 +78,7 @@ public class DynamicsScreenController extends Controller {
 		
 	}
 
+	@FXML
+	private void PressButtonClick() {
+	}
 }
