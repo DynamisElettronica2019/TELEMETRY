@@ -206,6 +206,12 @@ public class DynamicsScreenController extends Controller {
 
 	@FXML
 	private void PressButtonClick() {
+		if (pauseButton.isSelected()) {
+			for (int i=0; i<toLoadList.size(); i++) {
+				toLoadList.set(i, true);
+			}
+			view.getViewLoader().load();
+		}
 	}
 	
 	/*
