@@ -151,17 +151,19 @@ public class DynamicsScreenController extends Controller {
 			}
 		 });
 		
-		slider.valueProperty().addListener((obs, oldValue, newValue) -> {
-			for (int i=0; i<toLoadList.size(); i++) {
-				toLoadList.set(i, true);
-			}
-			view.getViewLoader().load();
-        });
 		
 		slider.setVisible(false);
 		slider.setMin(0);
 		slider.setMax(100);
 		slider.setValue(100);
+		
+		slider.valueProperty().addListener((obs, oldValue, newValue) -> {
+			offset = size - (int) slider.getValue();
+			for (int i=0; i<toLoadList.size(); i++) {
+				toLoadList.set(i, true);
+			}
+			view.getViewLoader().load();
+        });
 		offset = 0;
 		dragDone = false;
 	}
@@ -207,7 +209,8 @@ public class DynamicsScreenController extends Controller {
 						});
 					}
 					else {
-						offset = channel.getSize();
+						size = channel.getSize();
+						slider.setMax(size);
 					}
 				}
 			}
@@ -241,6 +244,7 @@ public class DynamicsScreenController extends Controller {
 	@FXML
 	private void PressButtonClick() {
 		if (pauseButton.isSelected()) {
+			
 			for (int i=0; i<toLoadList.size(); i++) {
 				toLoadList.set(i, true);
 			}
@@ -248,6 +252,11 @@ public class DynamicsScreenController extends Controller {
 			slider.setVisible(true);
 		}
 		else {
+			for (int i=0; i<toLoadList.size(); i++) {
+				toLoadList.set(i, true);
+			}
+			view.getViewLoader().load();
+			offset = 0;
 			slider.setVisible(false);
 		}
 	}
@@ -267,26 +276,14 @@ public class DynamicsScreenController extends Controller {
 	 *  Create a new list of data for replacing the old list when value of numbers to display is changed
 	 *  Timestamp is on the x axis and value on the y
 	 */
-	private ObservableList<Data<String, Double>> getLastnChartElem(Channel channel) {
-		ObservableList<Data<String, Double>> newDataList = FXCollections.observableArrayList();
-		ArrayList<Double> channelDataList = channel.getLastElems(numberValues.getValue());
-		ArrayList<LocalDateTime> tsList = channel.getLastTs(numberValues.getValue());
-		for (int i=0; i<channelDataList.size(); i++) {
-			newDataList.add(new Data<String, Double>(tsList.get(i).format(timeColonFormatter), channelDataList.get(i)));
-		}
-		return newDataList;
-	}
-	
-	/*
-	 *  Create a new list of data for replacing the old list when value of numbers to display is changed
-	 *  Timestamp is on the x axis and value on the y
-	 */
 	private ObservableList<Data<String, Double>> getLastnChartElemOffset(Channel channel, Integer offset) {
 		ObservableList<Data<String, Double>> newDataList = FXCollections.observableArrayList();
 		ArrayList<Double> channelDataList = channel.getLastElemsOffset(numberValues.getValue(), offset);
 		ArrayList<LocalDateTime> tsList = channel.getLastTsOffset(numberValues.getValue(), offset);
 		for (int i=0; i<channelDataList.size(); i++) {
-			newDataList.add(new Data<String, Double>(tsList.get(i).format(timeColonFormatter), channelDataList.get(i)));
+			Data<String, Double> data = new Data<String, Double>(tsList.get(i).format(timeColonFormatter), channelDataList.get(i));
+			data.setNode(new HoveredThresholdNode(tsList.get(i).format(timeColonFormatter), channelDataList.get(i)));
+			newDataList.add(data);
 		}
 		return newDataList;
 	}
