@@ -21,7 +21,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
@@ -30,6 +32,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 
 public class DynamicsScreenController extends Controller {
 	private Boolean isPaused = false;
@@ -51,6 +56,8 @@ public class DynamicsScreenController extends Controller {
 	private Label rpmLabel, speedLabel, swLabel, gearLabel;
 	@FXML
 	private ToggleButton pauseButton;
+	@FXML
+	private Label rpp;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -220,7 +227,9 @@ public class DynamicsScreenController extends Controller {
 	 */
 	private Data<String, Double> getLastChartElem(Channel channel) {
 		LocalDateTime ts = channel.getLastTs();
-		return new Data<String, Double>(ts.format(timeColonFormatter), channel.getLastElems());
+		Data<String, Double> data = new Data<String, Double>(ts.format(timeColonFormatter), channel.getLastElems());
+		data.setNode(new HoveredThresholdNode(channel.getLastElems()));
+		return data;
 	}
 	
 	/*
@@ -235,5 +244,36 @@ public class DynamicsScreenController extends Controller {
 			newDataList.add(new Data<String, Double>(tsList.get(i).format(timeColonFormatter), channelDataList.get(i)));
 		}
 		return newDataList;
+	}
+	
+	/*
+	 *  a node which displays a value on hover, but is otherwise empty 
+	 */
+	class HoveredThresholdNode extends StackPane {
+	    HoveredThresholdNode(double value) {
+	      final Label label = createDataThresholdLabel(value);
+
+	      setOnMouseEntered(new EventHandler<MouseEvent>() {
+	        @Override public void handle(MouseEvent mouseEvent) {
+	          getChildren().setAll(label);
+	          setCursor(Cursor.NONE);
+	          toFront();
+	        }
+	      });
+	      setOnMouseExited(new EventHandler<MouseEvent>() {
+	        @Override public void handle(MouseEvent mouseEvent) {
+	          getChildren().clear();
+	          setCursor(Cursor.CROSSHAIR);
+	        }
+	      });
+	    }
+	    
+	    private Label createDataThresholdLabel(double value) {
+	        final Label label = new Label(value + "");
+	        label.getStyleClass().addAll("default-color0", "chart-line-symbol", "chart-series-line");
+	        label.setStyle("-fx-font-size: 20; -fx-font-weight: bold;");
+	        label.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
+	        return label;
+	    }
 	}
 }

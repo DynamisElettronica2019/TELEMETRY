@@ -21,7 +21,7 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <LineChart fx:id="rpmChart" animated="false">
+      <LineChart fx:id="rpmChart" animated="false" legendSide="RIGHT" legendVisible="false">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -29,7 +29,7 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <LineChart fx:id="speedChart" animated="false" GridPane.rowIndex="1">
+      <LineChart fx:id="speedChart" animated="false" legendSide="RIGHT" legendVisible="false" GridPane.rowIndex="1">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -37,7 +37,7 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <LineChart fx:id="swChart" animated="false" GridPane.rowIndex="2">
+      <LineChart fx:id="swChart" animated="false" legendSide="RIGHT" legendVisible="false" GridPane.rowIndex="2">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -45,7 +45,7 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <LineChart fx:id="gearChart" animated="false" GridPane.rowIndex="3">
+      <LineChart fx:id="gearChart" animated="false" legendSide="RIGHT" legendVisible="false" GridPane.rowIndex="3">
          <xAxis>
             <CategoryAxis side="BOTTOM" />
          </xAxis>
