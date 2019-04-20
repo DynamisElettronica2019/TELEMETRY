@@ -266,7 +266,7 @@ public class DynamicsScreenController extends Controller {
 	            	  ((HoveredThresholdNode) gear.getData().get(i).getNode()).getLabel().toFront();
 	            	  ((HoveredThresholdNode) speed.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) speed.getData().get(i).getNode()).getLabel());
 	            	  ((HoveredThresholdNode) speed.getData().get(i).getNode()).getLabel().toFront();
-	            	  index = i;
+	            	  index = i;  
 	              }
 	          }
 	          setCursor(Cursor.NONE);
