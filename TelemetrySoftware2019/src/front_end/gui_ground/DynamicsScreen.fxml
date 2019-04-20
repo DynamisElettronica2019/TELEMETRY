@@ -140,7 +140,7 @@
                   <NumberAxis side="LEFT" />
                </yAxis>
             </LineChart>
-            <Slider>
+            <Slider fx:id="slider">
                <VBox.margin>
                   <Insets bottom="10.0" left="5.0" right="5.0" />
                </VBox.margin>

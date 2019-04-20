@@ -84,4 +84,26 @@ public class Channel extends DataElem {
 		serie.clear();
 	}
 	
+	public Integer getSize(){
+		if(serie.size()>0)
+			return serie.size();
+		else
+			return null;
+	}
+	
+	/*
+	 * Get n (or less) last serie elements with offset
+	 */
+	public ArrayList<Double> getLastElemsOffset(int n, int offset){
+		ArrayList<Double> temp = new ArrayList<>();
+		for(int i=Math.max(serie.size()-n-offset,0);i<serie.size()-offset;i++) temp.add(serie.get(i));
+		return temp;
+	}
+	
+	/*
+	 * Get n last serie timestamps with offset
+	 */
+	public ArrayList<LocalDateTime> getLastTsOffset(int n, int offset){
+		return data.getLastTsOffset(n, offset);
+	}
 }

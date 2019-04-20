@@ -31,6 +31,7 @@ import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
@@ -48,6 +49,8 @@ public class DynamicsScreenController extends Controller {
 	private Map<String, Integer> loadArrayMap = new HashMap<>();
 	private Map<String, Series<String, Double>> chartChannelMap = new HashMap<>();
 	private Map<String, Label> chartLabelMap = new HashMap<>();
+	private Integer size, offset;
+	private Boolean dragDone;
 	@FXML
 	private LineChart<String, Double> rpmChart, speedChart, swChart, gearChart;
 	@FXML
@@ -57,7 +60,7 @@ public class DynamicsScreenController extends Controller {
 	@FXML
 	private ToggleButton pauseButton;
 	@FXML
-	private Label rpp;
+	private Slider slider;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -146,7 +149,21 @@ public class DynamicsScreenController extends Controller {
 				}
 				view.getViewLoader().load();
 			}
-		 });  
+		 });
+		
+		slider.valueProperty().addListener((obs, oldValue, newValue) -> {
+			for (int i=0; i<toLoadList.size(); i++) {
+				toLoadList.set(i, true);
+			}
+			view.getViewLoader().load();
+        });
+		
+		slider.setVisible(false);
+		slider.setMin(0);
+		slider.setMax(100);
+		slider.setValue(100);
+		offset = 0;
+		dragDone = false;
 	}
 	
 	@Override
@@ -164,25 +181,35 @@ public class DynamicsScreenController extends Controller {
 	@Override
 	public void editChannel(Channel channel) {
 		if(!channel.isEmpty()){
-			if (!pauseButton.isSelected()) {
+			if(chartChannelMap.get(channel.getName()) != null) {
+				if (toLoadList.get(loadArrayMap.get(channel.getName()))) {
 					Platform.runLater(new Runnable() {
 					    @Override
 					    public void run() {
-					    	if(chartChannelMap.get(channel.getName()) != null) {
-					    		if (toLoadList.get(loadArrayMap.get(channel.getName()))) {
-					    			chartChannelMap.get(channel.getName()).setData(getLastnChartElem(channel));	    			
-					    			toLoadList.set(loadArrayMap.get(channel.getName()), false);
-					    		}
-					    		else {
-					    			chartChannelMap.get(channel.getName()).getData().add(getLastChartElem(channel));
-								    chartLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));	
-					    		}
-					    		if(chartChannelMap.get(channel.getName()).getData().size() > numberValues.getValue()) {
-							    	chartChannelMap.get(channel.getName()).getData().remove(0);
-							    }
-					    	}	    	
+			    			chartChannelMap.get(channel.getName()).setData(getLastnChartElemOffset(channel, offset));	    			
+			    			toLoadList.set(loadArrayMap.get(channel.getName()), false);	    	
 					    }
 					});
+	    		}
+				else {
+					if (!pauseButton.isSelected()) {
+						Platform.runLater(new Runnable() {
+						    @Override
+						    public void run() {
+						    	if(chartChannelMap.get(channel.getName()) != null) {
+						    		chartChannelMap.get(channel.getName()).getData().add(getLastChartElem(channel));
+									chartLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));	
+						    		if(chartChannelMap.get(channel.getName()).getData().size() > numberValues.getValue()) {
+								    	chartChannelMap.get(channel.getName()).getData().remove(0);
+								    }
+						    	}	    	
+						    }
+						});
+					}
+					else {
+						offset = channel.getSize();
+					}
+				}
 			}
 		}
 	}
@@ -218,6 +245,10 @@ public class DynamicsScreenController extends Controller {
 				toLoadList.set(i, true);
 			}
 			view.getViewLoader().load();
+			slider.setVisible(true);
+		}
+		else {
+			slider.setVisible(false);
 		}
 	}
 	
@@ -240,6 +271,20 @@ public class DynamicsScreenController extends Controller {
 		ObservableList<Data<String, Double>> newDataList = FXCollections.observableArrayList();
 		ArrayList<Double> channelDataList = channel.getLastElems(numberValues.getValue());
 		ArrayList<LocalDateTime> tsList = channel.getLastTs(numberValues.getValue());
+		for (int i=0; i<channelDataList.size(); i++) {
+			newDataList.add(new Data<String, Double>(tsList.get(i).format(timeColonFormatter), channelDataList.get(i)));
+		}
+		return newDataList;
+	}
+	
+	/*
+	 *  Create a new list of data for replacing the old list when value of numbers to display is changed
+	 *  Timestamp is on the x axis and value on the y
+	 */
+	private ObservableList<Data<String, Double>> getLastnChartElemOffset(Channel channel, Integer offset) {
+		ObservableList<Data<String, Double>> newDataList = FXCollections.observableArrayList();
+		ArrayList<Double> channelDataList = channel.getLastElemsOffset(numberValues.getValue(), offset);
+		ArrayList<LocalDateTime> tsList = channel.getLastTsOffset(numberValues.getValue(), offset);
 		for (int i=0; i<channelDataList.size(); i++) {
 			newDataList.add(new Data<String, Double>(tsList.get(i).format(timeColonFormatter), channelDataList.get(i)));
 		}
