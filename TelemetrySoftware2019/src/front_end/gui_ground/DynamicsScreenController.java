@@ -228,7 +228,7 @@ public class DynamicsScreenController extends Controller {
 	private Data<String, Double> getLastChartElem(Channel channel) {
 		LocalDateTime ts = channel.getLastTs();
 		Data<String, Double> data = new Data<String, Double>(ts.format(timeColonFormatter), channel.getLastElems());
-		data.setNode(new HoveredThresholdNode(channel.getLastElems()));
+		data.setNode(new HoveredThresholdNode(ts.format(timeColonFormatter), channel.getLastElems()));
 		return data;
 	}
 	
@@ -250,19 +250,34 @@ public class DynamicsScreenController extends Controller {
 	 *  a node which displays a value on hover, but is otherwise empty 
 	 */
 	class HoveredThresholdNode extends StackPane {
-	    HoveredThresholdNode(double value) {
-	      final Label label = createDataThresholdLabel(value);
-
+		private Label label;
+		private Integer index;
+	    HoveredThresholdNode(String ts, double value) {
+	      label = createDataThresholdLabel(value);
 	      setOnMouseEntered(new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent mouseEvent) {
-	          getChildren().setAll(label);
+	        	for(int i=0;i<rpm.getData().size();i++){
+	              if(ts.equals(rpm.getData().get(i).getXValue())){
+	            	  ((HoveredThresholdNode) rpm.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) rpm.getData().get(i).getNode()).getLabel());
+	            	  ((HoveredThresholdNode) rpm.getData().get(i).getNode()).getLabel().toFront();
+	            	  ((HoveredThresholdNode) sw.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) sw.getData().get(i).getNode()).getLabel());
+	            	  ((HoveredThresholdNode) sw.getData().get(i).getNode()).getLabel().toFront();
+	            	  ((HoveredThresholdNode) gear.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) gear.getData().get(i).getNode()).getLabel());
+	            	  ((HoveredThresholdNode) gear.getData().get(i).getNode()).getLabel().toFront();
+	            	  ((HoveredThresholdNode) speed.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) speed.getData().get(i).getNode()).getLabel());
+	            	  ((HoveredThresholdNode) speed.getData().get(i).getNode()).getLabel().toFront();
+	            	  index = i;
+	              }
+	          }
 	          setCursor(Cursor.NONE);
-	          toFront();
 	        }
 	      });
 	      setOnMouseExited(new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent mouseEvent) {
-	          getChildren().clear();
+	          ((HoveredThresholdNode) rpm.getData().get(index).getNode()).getChildren().clear();
+	          ((HoveredThresholdNode) sw.getData().get(index).getNode()).getChildren().clear();
+	          ((HoveredThresholdNode) gear.getData().get(index).getNode()).getChildren().clear();
+	          ((HoveredThresholdNode) speed.getData().get(index).getNode()).getChildren().clear();
 	          setCursor(Cursor.CROSSHAIR);
 	        }
 	      });
@@ -274,6 +289,10 @@ public class DynamicsScreenController extends Controller {
 	        label.setStyle("-fx-font-size: 20; -fx-font-weight: bold;");
 	        label.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
 	        return label;
+	    }
+	    
+	    public Label getLabel() {
+	    	return label;
 	    }
 	}
 }
