@@ -105,6 +105,15 @@ public class Data {
 	}
 	
 	/*
+	 * Return last timestamp
+	 */
+	public ArrayList<LocalDateTime> getLastTsOffset(int n, int offset){
+		ArrayList<LocalDateTime> temp = new ArrayList<>();
+		for(int i=Math.max(timestamps.size()-n-offset,0);i<timestamps.size()-offset;i++) temp.add(timestamps.get(i));
+		return temp;
+	}
+	
+	/*
 	 * Return last n (or less) elements of channel ch
 	 */
 	public ArrayList<Double> getLastElemsChannel(int ch,int n){
