@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<GridPane gridLinesVisible="true" prefHeight="1200.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.gui_ground.EngineScreenController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="200.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <HBox>
+         <children>
+            <HBox layoutX="19.6" layoutY="18.6" prefHeight="305.0" prefWidth="540.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="29.0" AnchorPane.topAnchor="9.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <LineChart fx:id="exhaustTempChart" animated="false" HBox.hgrow="ALWAYS">
+                     <xAxis>
+                        <CategoryAxis fx:id="XAxis11" side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                        <NumberAxis fx:id="YAxis11" side="LEFT" />
+                     </yAxis>
+                  </LineChart>
+                  <VBox minWidth="180.0" prefWidth="180.0" spacing="5.0">
+                     <children>
+                        <HBox>
+                           <children>
+                              <Label text="Exhaust 1 Temp:">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label fx:id="exhaust1TempLabel" text="No Value" />
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <Label text="Exhaust 2 Temp:">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label fx:id="exhaust2TempLabel" text="No Value" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <HBox GridPane.columnIndex="1">
+         <children>
+            <HBox prefHeight="420.0" prefWidth="540.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <LineChart fx:id="pressChart" animated="false" HBox.hgrow="ALWAYS">
+                     <xAxis>
+                        <CategoryAxis fx:id="XAxis2" side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                        <NumberAxis fx:id="YAxis2" side="LEFT" />
+                     </yAxis>
+                  </LineChart>
+                  <VBox minWidth="180.0" prefWidth="180.0" spacing="5.0">
+                     <children>
+                        <HBox>
+                           <children>
+                              <Label text="Oil Pression:">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label fx:id="oilPressLabel" text="No Value" />
+                           </children>
+                        </HBox>
+                        <HBox />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <HBox GridPane.rowIndex="1">
+         <children>
+            <HBox prefHeight="420.0" prefWidth="540.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <LineChart fx:id="oilTempChart" animated="false" HBox.hgrow="ALWAYS">
+                    <xAxis>
+                      <CategoryAxis fx:id="XAxis" side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis fx:id="YAxis" side="LEFT" />
+                    </yAxis>
+                  </LineChart>
+                  <VBox minWidth="180.0" prefWidth="180.0" spacing="5.0">
+                     <children>
+                        <HBox>
+                           <children>
+                              <Label text="Oil Temp in:">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label fx:id="oilTempInLabel" text="No Value" />
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <Label text="Oil Temp out:">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label fx:id="oilTempOutLabel" text="No Value" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <HBox GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <children>
+            <HBox prefHeight="420.0" prefWidth="540.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <LineChart fx:id="waterTempChart" animated="false" HBox.hgrow="ALWAYS">
+                     <xAxis>
+                        <CategoryAxis fx:id="XAxis1" side="BOTTOM" />
+                     </xAxis>
+                     <yAxis>
+                        <NumberAxis fx:id="YAxis1" side="LEFT" />
+                     </yAxis>
+                  </LineChart>
+                  <VBox minWidth="180.0" prefWidth="180.0" spacing="5.0">
+                     <children>
+                        <HBox>
+                           <children>
+                              <Label text="Water Temp in Left:">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label fx:id="waterTempInLLabel" text="No Value" />
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <Label text="Water Temp in Right:">
+                                 <HBox.margin>
+                                    <Insets right="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label fx:id="waterTempOutLLabel" text="No Value" />
+                           </children>
+                        </HBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <VBox GridPane.columnIndex="2">
+         <children>
+            <Label text="N. Values:" />
+            <ComboBox fx:id="numberValues" prefWidth="150.0" />
+         </children>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+         <GridPane.margin>
+            <Insets top="5.0" />
+         </GridPane.margin>
+      </VBox>
+   </children>
+</GridPane>
