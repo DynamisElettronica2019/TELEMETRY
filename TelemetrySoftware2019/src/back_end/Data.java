@@ -116,8 +116,10 @@ public class Data {
 	public void update(ParsedData data) throws InvalidUpdateException {
 		ArrayList<Double> dbList = data.convert();
 		String[] valArray = new String[channels.length+1];
-		timestamps.add(LocalDateTime.now());
-		valArray[0] = LocalDateTime.now().toString();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyyHH:mm:ss.SSS");
+		LocalDateTime dateTime = LocalDateTime.now();
+		timestamps.add(dateTime);
+		valArray[0] = dateTime.format(formatter);
 		for(int i=0;i<channels.length;i++) {
 			valArray[i+1] = Double.toString(dbList.get(i));
 			channels[i].addElem(dbList.get(i));
