@@ -52,6 +52,14 @@ public class GuiView extends View {
         stageSX.setY(bounds.getMinY()+SCREEN_OFFSET_Y);
         stageSX.setMaximized(true);
         
+        stageSX.setOnCloseRequest( event -> {
+        	try {
+				commandSender.CloseFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+        } );
+        
         //Initialize stage SX
         vboxSX = new VBox(5);
         AnchorPaneSX = new AnchorPane();

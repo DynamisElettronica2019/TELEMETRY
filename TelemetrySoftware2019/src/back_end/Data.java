@@ -328,9 +328,11 @@ public class Data {
 	 *  Csv saving
 	 */
 	public void CloseFile() throws IOException {
-		csvPrinter.flush();
-		writer.flush();
-		writer.close();
-		isStreamOpen = false;
+		if (isStreamOpen) {
+			csvPrinter.flush();
+			writer.flush();
+			writer.close();
+			isStreamOpen = false;
+		}
 	}
 }
