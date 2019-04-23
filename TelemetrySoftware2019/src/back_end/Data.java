@@ -1,5 +1,6 @@
 package back_end;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
 import configuration.ConfReader;
@@ -29,6 +31,8 @@ public class Data {
 	private LapTimer lapTimer;
 	private Reader reader;
 	private CSVParser csvParser;
+	private CSVPrinter csvPrinter;
+	private BufferedWriter writer;
 	
 	/*
 	 * Create channels,states,debug,dcuCommands,dcuErrors,lapTimer through ConfReader and initialize timeStamps
@@ -70,7 +74,9 @@ public class Data {
 		ViewLoader vl = new ViewLoader(this);
 		for(View v : myViews) v.setViewLoader(vl);
 		
-		
+		/*
+		 *  Csv loading
+		 */
 		String[] strArray = new String[chNames.size()+1];
 		strArray[0] = "ts";
 		for (int i=0; i<chNames.size(); i++) {
@@ -94,6 +100,14 @@ public class Data {
 			}
 		}
 		
+		/*
+		 *  Csv writing
+		 */
+		writer = Files.newBufferedWriter(Paths.get("FileToWrite.csv"));
+		csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
+				.withDelimiter(';')
+                .withHeader(strArray));
+		csvPrinter.flush();
 	}
 	
 	/*
@@ -101,8 +115,18 @@ public class Data {
 	 */
 	public void update(ParsedData data) throws InvalidUpdateException {
 		ArrayList<Double> dbList = data.convert();
+		String[] valArray = new String[channels.length+1];
 		timestamps.add(LocalDateTime.now());
-		for(int i=0;i<channels.length;i++) channels[i].addElem(dbList.get(i));
+		valArray[0] = LocalDateTime.now().toString();
+		for(int i=0;i<channels.length;i++) {
+			valArray[i+1] = Double.toString(dbList.get(i));
+			channels[i].addElem(dbList.get(i));
+		}
+		try {
+			csvPrinter.printRecord(valArray);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/*
