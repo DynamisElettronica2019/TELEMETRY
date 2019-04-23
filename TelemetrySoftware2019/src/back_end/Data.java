@@ -70,16 +70,18 @@ public class Data {
 		ViewLoader vl = new ViewLoader(this);
 		for(View v : myViews) v.setViewLoader(vl);
 		
+		
+		String[] strArray = new String[chNames.size()+1];
+		strArray[0] = "ts";
+		for (int i=0; i<chNames.size(); i++) {
+			strArray[i+1] = ConfReader.haveThresholdAndServer(chNames.get(i))[1];
+		}
 		if(Files.exists(Paths.get("FileToRead.csv"))) {
 			reader = Files.newBufferedReader(Paths.get("FileToRead.csv"));
 			csvParser = new CSVParser(reader, CSVFormat.DEFAULT
 					.withSkipHeaderRecord()
 					.withDelimiter(';') 
-					.withHeader("ts","Recognizer","time","vWheelFR","vWheelFL","vWheelRR","vWheelRL","tWaterL_In","tWaterL_Out","tWaterR_In","tWaterR_Out","tOil_In","tOil_Out","tWaterEngine","Vbattery","nGear","nRPM","XTPS","XPedal","vCar","XSlipTarget",
-	                          "XSlip","bFuel","bFan","bDutyWaterPump","bLaunch","pFuel","pOil","rLambda","FlagSMOT","bDiagIgn_1","bDiagIgn_2","tExhaust_1","tExhaust_2","xWheel_FR","fLoad_FR","pBrakeFront","xWheel_FL","fLoad_FL","pBrakeRear","aSteering",
-	                          "xWheel_RL","fLoad_RL","xWheel_RR","fLoad_RR","APPS_1","APPS_2","tTyreFL_Out","tTyreFL_Mid","tTyreFL_In","tTyreFR_Out","tTyreFR_Mid","tTyreFR_In","tTyreRL_Out","tTyreRL_Mid","tTyreRL_In","tTyreRR_Out","tTyreRR_Mid","tTyreRR_In","Ax_DCU","Ay_DCU",
-	                          "Az_DCU","GyroX_DCU","GyroY_DCU","GyroZ_DCU","aHeading_DCU","GCU_CLUTCH","GCU_ACC_FB","GCU_AUTOX_FB","GCU_TRACTION_FB","GCU_DRS_FB","GCU_ANTISTALL_FB","GCU_TEMP","FANS_CURRENT","H2O_PUMP_CURRENT","FUEL_PUMP_CURRENT","GEARMOTOR_CURRENT","CLUTCH_CURRENT","DRS_CURRENT","DCU_TEMP","DCU_CURRENT",
-	                          "DAU_FR_TEMP","DAU_FR_CURRENT","DAU_FL_TEMP","DAU_FL_CURRENT","DAU_REAR_TEMP","DAU_REAR_CURRENT","SW_TEMP","rTC_Cut","EMPTY")
+					.withHeader(strArray)
 	                .withIgnoreHeaderCase()
 	                .withTrim());
 			for (CSVRecord csvRecord : csvParser) {
