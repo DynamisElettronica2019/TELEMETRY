@@ -38,7 +38,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 public class DynamicsScreenController extends Controller {
-	private Boolean isPaused = false;
 	private Series<String, Double> rpm, speed, sw, gear;
 	private ObservableList<XYChart.Series<String,Double>> rpmChartData, speedChartData, swChartData, gearChartData;
 	private ObservableList<Integer> elementNumberList;
@@ -50,7 +49,6 @@ public class DynamicsScreenController extends Controller {
 	private Map<String, Series<String, Double>> chartChannelMap = new HashMap<>();
 	private Map<String, Label> chartLabelMap = new HashMap<>();
 	private Integer size, offset;
-	private Boolean dragDone;
 	@FXML
 	private LineChart<String, Double> rpmChart, speedChart, swChart, gearChart;
 	@FXML
@@ -165,7 +163,6 @@ public class DynamicsScreenController extends Controller {
 			view.getViewLoader().load();
         });
 		offset = 0;
-		dragDone = false;
 	}
 	
 	@Override
@@ -183,6 +180,8 @@ public class DynamicsScreenController extends Controller {
 	@Override
 	public void editChannel(Channel channel) {
 		if(!channel.isEmpty()){
+			size = channel.getSize();
+			slider.setMax(size);
 			if(chartChannelMap.get(channel.getName()) != null) {
 				if (toLoadList.get(loadArrayMap.get(channel.getName()))) {
 					Platform.runLater(new Runnable() {
@@ -207,10 +206,6 @@ public class DynamicsScreenController extends Controller {
 						    	}	    	
 						    }
 						});
-					}
-					else {
-						size = channel.getSize();
-						slider.setMax(size);
 					}
 				}
 			}
