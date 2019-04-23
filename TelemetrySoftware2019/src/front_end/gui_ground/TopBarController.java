@@ -1,7 +1,9 @@
 package front_end.gui_ground;
 
 import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -206,9 +208,18 @@ public class TopBarController extends Controller {
 	private void debugClick() throws IOException {
 		view.SetScreen("DebugScreen.fxml", side);
 	}
+	@FXML
+	public void LoadCsvClick() throws IOException {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Select file to load");
+		File fileToLoad = fileChooser.showOpenDialog(view.GetStage());
+		view.getCommandSender().LoadFile(fileToLoad.getAbsolutePath());
+	}
 	
 	//Set if the top bar is on the left or right side of the screen
 	public void SetSide(char side) {
 		this.side = side;
 	}
+	
+	
 }

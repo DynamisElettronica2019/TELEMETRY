@@ -156,4 +156,11 @@ public class GuiView extends View {
 			//Reload content after change screen
 			viewLoader.load();
 		}
+		
+		/*
+		 *  Function for getting stage from controller
+		 */
+		public Stage GetStage() {
+			return stageSX;
+		}
 }

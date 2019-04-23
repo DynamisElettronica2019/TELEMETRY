@@ -22,6 +22,7 @@
             <Button fx:id="commandsPage" mnemonicParsing="false" onAction="#commandClick" text="Commands" />
             <Button fx:id="rawPage" mnemonicParsing="false" onAction="#rawClick" text="Raw Data" />
             <Button fx:id="debugPage" mnemonicParsing="false" onAction="#debugClick" text="Debug" />
+            <Button fx:id="loadCsvButton" mnemonicParsing="false" onAction="#LoadCsvClick" text="Load CSV" />
          </children>
          <padding>
             <Insets bottom="5.0" top="5.0" />

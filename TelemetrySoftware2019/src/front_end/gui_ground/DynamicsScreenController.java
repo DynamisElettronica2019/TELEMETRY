@@ -275,7 +275,7 @@ public class DynamicsScreenController extends Controller {
 		ObservableList<Data<String, Double>> newDataList = FXCollections.observableArrayList();
 		ArrayList<Double> channelDataList = channel.getLastElemsOffset(numberValues.getValue(), offset);
 		ArrayList<LocalDateTime> tsList = channel.getLastTsOffset(numberValues.getValue(), offset);
-		for (int i=0; i<channelDataList.size(); i++) {
+		for (int i=0; i<channelDataList.size()-1; i++) {
 			Data<String, Double> data = new Data<String, Double>(tsList.get(i).format(timeColonFormatter), channelDataList.get(i));
 			data.setNode(new HoveredThresholdNode(tsList.get(i).format(timeColonFormatter), channelDataList.get(i)));
 			newDataList.add(data);

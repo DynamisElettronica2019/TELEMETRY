@@ -75,35 +75,15 @@ public class Data {
 		ViewLoader vl = new ViewLoader(this);
 		for(View v : myViews) v.setViewLoader(vl);
 		
+		
 		/*
-		 *  Csv loading
+		 * Csv write
 		 */
 		String[] strArray = new String[chNames.size()+1];
 		strArray[0] = "ts";
 		for (int i=0; i<chNames.size(); i++) {
 			strArray[i+1] = ConfReader.haveThresholdAndServer(chNames.get(i))[1];
 		}
-		if(Files.exists(Paths.get("FileToRead.csv"))) {
-			reader = Files.newBufferedReader(Paths.get("FileToRead.csv"));
-			csvParser = new CSVParser(reader, CSVFormat.DEFAULT
-					.withSkipHeaderRecord()
-					.withDelimiter(';') 
-					.withHeader(strArray)
-	                .withIgnoreHeaderCase()
-	                .withTrim());
-			for (CSVRecord csvRecord : csvParser) {
-				for (int i=0; i<channels.length; i++) {
-					channels[i].addElem(Double.parseDouble(csvRecord.get(channels[i].getName())));
-				}
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyyHH:mm:ss.SSS");
-				LocalDateTime dateTime = LocalDateTime.parse(csvRecord.get("ts"), formatter);
-				timestamps.add(dateTime);
-			}
-		}
-		
-		/*
-		 *  Csv writing
-		 */
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyyHHmmss");
 		LocalDateTime dateTime = LocalDateTime.now();
 		writer = Files.newBufferedWriter(Paths.get(dateTime.format(formatter) + ".csv"), 
@@ -307,4 +287,30 @@ public class Data {
 		return lapTimer;
 	}
 	
+	/*
+	 *  Csv loading
+	 */
+	public void LoadFile(String pathStr) throws IOException {
+		ArrayList<String> chNames = ConfReader.getNames("channels");
+		String[] strArray = new String[chNames.size()+1];
+		strArray[0] = "ts";
+		for (int i=0; i<chNames.size(); i++) {
+			strArray[i+1] = ConfReader.haveThresholdAndServer(chNames.get(i))[1];
+		}
+		reader = Files.newBufferedReader(Paths.get(pathStr));
+		csvParser = new CSVParser(reader, CSVFormat.DEFAULT
+				.withSkipHeaderRecord()
+				.withDelimiter(';') 
+				.withHeader(strArray)
+	            .withIgnoreHeaderCase()
+	            .withTrim());
+		for (CSVRecord csvRecord : csvParser) {
+			for (int i=0; i<channels.length; i++) {
+				channels[i].addElem(Double.parseDouble(csvRecord.get(channels[i].getName())));
+			}
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyyHH:mm:ss.SSS");
+			LocalDateTime dateTime = LocalDateTime.parse(csvRecord.get("ts"), formatter);
+			timestamps.add(dateTime);
+		}
+	}
 }
