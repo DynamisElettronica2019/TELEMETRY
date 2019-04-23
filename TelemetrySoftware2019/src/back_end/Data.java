@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.text.ParsePosition;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -103,7 +104,10 @@ public class Data {
 		/*
 		 *  Csv writing
 		 */
-		writer = Files.newBufferedWriter(Paths.get("FileToWrite.csv"));
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyyHHmmss");
+		LocalDateTime dateTime = LocalDateTime.now();
+		writer = Files.newBufferedWriter(Paths.get(dateTime.format(formatter) + ".csv"), 
+                StandardOpenOption.CREATE);
 		csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
 				.withDelimiter(';')
                 .withHeader(strArray));
