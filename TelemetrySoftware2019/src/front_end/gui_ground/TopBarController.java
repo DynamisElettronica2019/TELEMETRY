@@ -30,6 +30,7 @@ public class TopBarController extends Controller {
 	private final int STATES = 6;
 	private final String MAP_CHANNEL = "GCU_AUTOX_FB";
 	private final String TRACTION_CHANNEL = "GCU_TRACTION_FB";
+	private final String ACQUISITION_ON_STATE = "Acquisition ON";
 	private Map<String, Circle> stateMap = new HashMap<>();
 	private ArrayList<String> stateList;
 	private Circle[] circleList;
@@ -93,6 +94,11 @@ public class TopBarController extends Controller {
 		}
 		if(state.getValue() == false) {
 			stateMap.get(state.getName()).setFill(Color.RED);
+		}
+		if((state.getName().equals(ACQUISITION_ON_STATE))&&(state.getValue())) {
+			if(!saveCsvButton.isSelected()) {
+				saveCsvButton.fire();
+			}	
 		}
 	}
 

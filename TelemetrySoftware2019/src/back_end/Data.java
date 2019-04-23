@@ -305,21 +305,23 @@ public class Data {
 	 *  Csv saving
 	 */
 	public void SaveFile() throws IOException {
-		ArrayList<String> chNames = ConfReader.getNames("channels");
-		String[] strArray = new String[chNames.size()+1];
-		strArray[0] = "ts";
-		for (int i=0; i<chNames.size(); i++) {
-			strArray[i+1] = ConfReader.haveThresholdAndServer(chNames.get(i))[1];
+		if (!isStreamOpen) {
+			ArrayList<String> chNames = ConfReader.getNames("channels");
+			String[] strArray = new String[chNames.size()+1];
+			strArray[0] = "ts";
+			for (int i=0; i<chNames.size(); i++) {
+				strArray[i+1] = ConfReader.haveThresholdAndServer(chNames.get(i))[1];
+			}
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyyHHmmss");
+			LocalDateTime dateTime = LocalDateTime.now();
+			writer = Files.newBufferedWriter(Paths.get(dateTime.format(formatter) + ".csv"), 
+	                StandardOpenOption.CREATE);
+			csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
+					.withDelimiter(';')
+	                .withHeader(strArray));
+			csvPrinter.flush();
+			isStreamOpen = true;
 		}
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyyHHmmss");
-		LocalDateTime dateTime = LocalDateTime.now();
-		writer = Files.newBufferedWriter(Paths.get(dateTime.format(formatter) + ".csv"), 
-                StandardOpenOption.CREATE);
-		csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
-				.withDelimiter(';')
-                .withHeader(strArray));
-		csvPrinter.flush();
-		isStreamOpen = true;
 	}
 	
 	/*
