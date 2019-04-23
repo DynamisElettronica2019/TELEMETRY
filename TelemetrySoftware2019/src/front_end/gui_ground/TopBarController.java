@@ -23,6 +23,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.paint.Color;
 
 public class TopBarController extends Controller {
@@ -44,7 +45,9 @@ public class TopBarController extends Controller {
 	@FXML
 	private Label map, traction, lastLap;
 	@FXML
-	private Button button;
+	private Button loadCsvButton;
+	@FXML
+	private ToggleButton saveCsvButton;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -214,6 +217,16 @@ public class TopBarController extends Controller {
 		fileChooser.setTitle("Select file to load");
 		File fileToLoad = fileChooser.showOpenDialog(view.GetStage());
 		view.getCommandSender().LoadFile(fileToLoad.getAbsolutePath());
+		view.getViewLoader().load();
+	}
+	@FXML
+	public void SaveCsvClick() throws IOException {
+		if(saveCsvButton.isSelected()) {
+			view.getCommandSender().SaveFile();
+		}
+		else {
+			view.getCommandSender().CloseFile();
+		}
 	}
 	
 	//Set if the top bar is on the left or right side of the screen
