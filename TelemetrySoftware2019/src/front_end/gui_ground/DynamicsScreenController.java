@@ -149,7 +149,9 @@ public class DynamicsScreenController extends Controller {
 			}
 		 });
 		
-		
+		/*
+		 * Slider init
+		 */
 		slider.setVisible(false);
 		slider.setMin(0);
 		slider.setMax(100);
@@ -236,6 +238,9 @@ public class DynamicsScreenController extends Controller {
 		
 	}
 
+	/*
+	 * Manage click of the pause button
+	 */
 	@FXML
 	private void PressButtonClick() {
 		if (pauseButton.isSelected()) {
@@ -275,7 +280,7 @@ public class DynamicsScreenController extends Controller {
 		ObservableList<Data<String, Double>> newDataList = FXCollections.observableArrayList();
 		ArrayList<Double> channelDataList = channel.getLastElemsOffset(numberValues.getValue(), offset);
 		ArrayList<LocalDateTime> tsList = channel.getLastTsOffset(numberValues.getValue(), offset);
-		for (int i=0; i<channelDataList.size()-1; i++) {
+		for (int i=0; i<channelDataList.size(); i++) {
 			Data<String, Double> data = new Data<String, Double>(tsList.get(i).format(timeColonFormatter), channelDataList.get(i));
 			data.setNode(new HoveredThresholdNode(tsList.get(i).format(timeColonFormatter), channelDataList.get(i)));
 			newDataList.add(data);
@@ -284,7 +289,7 @@ public class DynamicsScreenController extends Controller {
 	}
 	
 	/*
-	 *  a node which displays a value on hover, but is otherwise empty 
+	 *  Displays a value on hover, set as node on creation
 	 */
 	class HoveredThresholdNode extends StackPane {
 		private Label label;
