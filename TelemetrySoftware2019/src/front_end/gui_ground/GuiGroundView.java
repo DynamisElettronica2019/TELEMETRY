@@ -45,8 +45,22 @@ public class GuiGroundView extends GuiView {
         stageDX.setX(bounds.getMinX()+SCREEN_OFFSET_X);
         stageDX.setY(bounds.getMinY()+SCREEN_OFFSET_Y);
         stageDX.setMaximized(true);
-        stageDX.setOnCloseRequest( event -> {stageSX.close();} );
-        stageSX.setOnCloseRequest( event -> {stageDX.close();} );
+        stageDX.setOnCloseRequest( event -> {
+        	stageSX.close();
+        	try {
+				commandSender.CloseFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+        } );
+        stageSX.setOnCloseRequest( event -> {
+        	stageDX.close();
+        	try {
+				commandSender.CloseFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+        } );
         
         //Initialize stage DX
         vboxDX = new VBox(5);

@@ -1,8 +1,20 @@
 package back_end;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.text.ParsePosition;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVPrinter;
+import org.apache.commons.csv.CSVRecord;
 
 import configuration.ConfReader;
 import exceptions.InvalidCodeException;
@@ -18,6 +30,11 @@ public class Data {
 	private Command[] dcuCommands;
 	private Error[] dcuErrors;
 	private LapTimer lapTimer;
+	private Reader reader;
+	private CSVParser csvParser;
+	private CSVPrinter csvPrinter;
+	private BufferedWriter writer;
+	private Boolean isStreamOpen;
 	
 	/*
 	 * Create channels,states,debug,dcuCommands,dcuErrors,lapTimer through ConfReader and initialize timeStamps
@@ -58,6 +75,8 @@ public class Data {
 		
 		ViewLoader vl = new ViewLoader(this);
 		for(View v : myViews) v.setViewLoader(vl);
+		
+		isStreamOpen = false;
 	}
 	
 	/*
@@ -65,8 +84,22 @@ public class Data {
 	 */
 	public void update(ParsedData data) throws InvalidUpdateException {
 		ArrayList<Double> dbList = data.convert();
-		timestamps.add(LocalDateTime.now());
-		for(int i=0;i<channels.length;i++) channels[i].addElem(dbList.get(i));
+		String[] valArray = new String[channels.length+1];
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyyHH:mm:ss.SSS");
+		LocalDateTime dateTime = LocalDateTime.now();
+		timestamps.add(dateTime);
+		valArray[0] = dateTime.format(formatter);
+		for(int i=0;i<channels.length;i++) {
+			valArray[i+1] = Double.toString(dbList.get(i));
+			channels[i].addElem(dbList.get(i));
+		}
+		if (isStreamOpen) {
+			try {
+				csvPrinter.printRecord(valArray);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	/*
@@ -241,4 +274,65 @@ public class Data {
 		return lapTimer;
 	}
 	
+	/*
+	 *  Csv loading
+	 */
+	public void LoadFile(String pathStr) throws IOException {
+		ArrayList<String> chNames = ConfReader.getNames("channels");
+		String[] strArray = new String[chNames.size()+1];
+		strArray[0] = "ts";
+		for (int i=0; i<chNames.size(); i++) {
+			strArray[i+1] = ConfReader.haveThresholdAndServer(chNames.get(i))[1];
+		}
+		reader = Files.newBufferedReader(Paths.get(pathStr));
+		csvParser = new CSVParser(reader, CSVFormat.DEFAULT
+				.withSkipHeaderRecord()
+				.withDelimiter(';') 
+				.withHeader(strArray)
+	            .withIgnoreHeaderCase()
+	            .withTrim());
+		for (CSVRecord csvRecord : csvParser) {
+			for (int i=0; i<channels.length; i++) {
+				channels[i].addElem(Double.parseDouble(csvRecord.get(channels[i].getName())));
+			}
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyyHH:mm:ss.SSS");
+			LocalDateTime dateTime = LocalDateTime.parse(csvRecord.get("ts"), formatter);
+			timestamps.add(dateTime);
+		}
+	}
+	
+	/*
+	 *  Csv saving
+	 */
+	public void SaveFile() throws IOException {
+		if (!isStreamOpen) {
+			ArrayList<String> chNames = ConfReader.getNames("channels");
+			String[] strArray = new String[chNames.size()+1];
+			strArray[0] = "ts";
+			for (int i=0; i<chNames.size(); i++) {
+				strArray[i+1] = ConfReader.haveThresholdAndServer(chNames.get(i))[1];
+			}
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyyHHmmss");
+			LocalDateTime dateTime = LocalDateTime.now();
+			writer = Files.newBufferedWriter(Paths.get(dateTime.format(formatter) + ".csv"), 
+	                StandardOpenOption.CREATE);
+			csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
+					.withDelimiter(';')
+	                .withHeader(strArray));
+			csvPrinter.flush();
+			isStreamOpen = true;
+		}
+	}
+	
+	/*
+	 *  Csv saving
+	 */
+	public void CloseFile() throws IOException {
+		if (isStreamOpen) {
+			csvPrinter.flush();
+			writer.flush();
+			writer.close();
+			isStreamOpen = false;
+		}
+	}
 }

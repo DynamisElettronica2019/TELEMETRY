@@ -10,6 +10,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import back_end.Channel;
+
 public class ConfReader {
 	
 	private final static String filePath = "Config.json";
@@ -381,5 +383,4 @@ public class ConfReader {
 			return 8080;
 		}
 	}
-	
 }

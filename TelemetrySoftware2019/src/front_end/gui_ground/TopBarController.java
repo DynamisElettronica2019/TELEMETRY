@@ -1,7 +1,9 @@
 package front_end.gui_ground;
 
 import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,12 +23,14 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.paint.Color;
 
 public class TopBarController extends Controller {
 	private final int STATES = 6;
 	private final String MAP_CHANNEL = "GCU_AUTOX_FB";
 	private final String TRACTION_CHANNEL = "GCU_TRACTION_FB";
+	private final String ACQUISITION_ON_STATE = "Acquisition ON";
 	private Map<String, Circle> stateMap = new HashMap<>();
 	private ArrayList<String> stateList;
 	private Circle[] circleList;
@@ -42,7 +46,9 @@ public class TopBarController extends Controller {
 	@FXML
 	private Label map, traction, lastLap;
 	@FXML
-	private Button button;
+	private Button loadCsvButton;
+	@FXML
+	private ToggleButton saveCsvButton;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -88,6 +94,11 @@ public class TopBarController extends Controller {
 		}
 		if(state.getValue() == false) {
 			stateMap.get(state.getName()).setFill(Color.RED);
+		}
+		if((state.getName().equals(ACQUISITION_ON_STATE))&&(state.getValue())) {
+			if(!saveCsvButton.isSelected()) {
+				saveCsvButton.fire();
+			}	
 		}
 	}
 
@@ -206,9 +217,28 @@ public class TopBarController extends Controller {
 	private void debugClick() throws IOException {
 		view.SetScreen("DebugScreen.fxml", side);
 	}
+	@FXML
+	public void LoadCsvClick() throws IOException {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Select file to load");
+		File fileToLoad = fileChooser.showOpenDialog(view.GetStage());
+		view.getCommandSender().LoadFile(fileToLoad.getAbsolutePath());
+		view.getViewLoader().load();
+	}
+	@FXML
+	public void SaveCsvClick() throws IOException {
+		if(saveCsvButton.isSelected()) {
+			view.getCommandSender().SaveFile();
+		}
+		else {
+			view.getCommandSender().CloseFile();
+		}
+	}
 	
 	//Set if the top bar is on the left or right side of the screen
 	public void SetSide(char side) {
 		this.side = side;
 	}
+	
+	
 }

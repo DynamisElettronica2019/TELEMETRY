@@ -1,5 +1,7 @@
 package back_end;
 
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 import exceptions.InvalidCodeException;
@@ -33,6 +35,27 @@ public class CommandSender {
 		} catch (InvalidCodeException e) {
 			e.log();
 		}
+	}
+	
+	/*
+	 *  Call function in data to load file
+	 */
+	public void LoadFile(String pathStr) throws IOException {
+		data.LoadFile(pathStr);
+	}
+	
+	/*
+	 *  Call function in data to load file
+	 */
+	public void SaveFile() throws IOException {
+		data.SaveFile();
+	}
+	
+	/*
+	 *  Call function in data to load file
+	 */
+	public void CloseFile() throws IOException {
+		data.CloseFile();
 	}
 
 }
