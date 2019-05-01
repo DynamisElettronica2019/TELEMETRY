@@ -79,13 +79,20 @@ public class LaptimerScreenController extends Controller {
 	public void editLap(LapTimer lapTimer) {
 		if((lapTimer != null) && (lapTimer.getLastTime() != null)) {
 			if (lapTimer.getLastTime().getType() == LapType.LAP) {
-				String timePattern = "mm:ss.SSS";
-				DateTimeFormatter timeColonFormatter = DateTimeFormatter.ofPattern(timePattern); 
 				if (lapTimer.getLastIntTime() != null) {
-					lapTable.getItems().add(new LapTableList(0, lapTimer.getLastTime().getTs().format(timeColonFormatter), lapTimer.getLastIntTime().getTs().format(timeColonFormatter)));
+					System.out.println(lapTimer.getLastTime().getMinutes() + lapTimer.getLastTime().getSeconds());
+					lapTable.getItems().add(new LapTableList(
+							lapTimer.getLastTime().getLapNumber(), 
+							Integer.toString(lapTimer.getLastTime().getMinutes())+":"+Integer.toString(lapTimer.getLastTime().getSeconds())+":"+Integer.toString(lapTimer.getLastTime().getmSeconds()), 
+							Integer.toString(lapTimer.getLastIntTime().getMinutes())+":"+Integer.toString(lapTimer.getLastIntTime().getSeconds())+":"+Integer.toString(lapTimer.getLastTime().getmSeconds())
+							));
 				}
 				else {
-					lapTable.getItems().add(new LapTableList(0, lapTimer.getLastTime().getTs().format(timeColonFormatter), "No intermediate"));
+					lapTable.getItems().add(new LapTableList(
+							lapTimer.getLastTime().getLapNumber(), 
+							Integer.toString(lapTimer.getLastTime().getMinutes())+":"+Integer.toString(lapTimer.getLastTime().getSeconds())+":"+Integer.toString(lapTimer.getLastTime().getmSeconds()),
+							"No intermediate"
+							));
 				}
 			}
 		}
