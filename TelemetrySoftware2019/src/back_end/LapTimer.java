@@ -35,6 +35,15 @@ public class LapTimer extends Observable {
 	}
 	
 	/*
+	 * Get last time in lapTimes
+	 * Return null if no times is available
+	 */
+	public LapTime getLastIntTime() {
+		if((lapTimes.size()>0) && (lapTimes.get(lapTimes.size()-2).getType() == LapType.INT)) return lapTimes.get(lapTimes.size()-2);
+		else return null;
+	}
+	
+	/*
 	 * Reset lapTimer
 	 */
 	public void reset(){

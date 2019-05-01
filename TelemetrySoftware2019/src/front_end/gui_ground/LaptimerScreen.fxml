@@ -6,13 +6,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="front_end.gui_ground.LaptimerScreenController">
-   <children>
-      <Label text="Laptimer">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Label>
-   </children>
-</AnchorPane>
+<TableView fx:id="lapTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.gui_ground.LaptimerScreenController">
+  <columns>
+    <TableColumn fx:id="lapColumn" prefWidth="75.0" text="Lap" />
+    <TableColumn fx:id="lapTimeColumn" prefWidth="150.0" text="Lap Time" />
+      <TableColumn fx:id="intTimeColumn" prefWidth="150.0" text="Lap Intermediate" />
+  </columns>
+</TableView>

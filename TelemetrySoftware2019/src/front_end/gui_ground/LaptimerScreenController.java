@@ -1,15 +1,47 @@
 package front_end.gui_ground;
 
+import java.net.URL;
+import java.time.format.DateTimeFormatter;
+import java.util.ResourceBundle;
+
 import back_end.Channel;
 import back_end.Command;
 import back_end.Debug;
 import back_end.Error;
+import back_end.LapTime;
 import back_end.LapTimer;
+import back_end.LapType;
 import back_end.State;
 import back_end.Threshold;
+import configuration.ConfReader;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class LaptimerScreenController extends Controller {
+	private ObservableList<LapTableList> lapObsList = FXCollections.observableArrayList();
+	@FXML
+	private TableView<LapTableList> lapTable;
+	@FXML
+	private TableColumn<LapTableList, Integer> lapColumn;
+	@FXML
+	private TableColumn<LapTableList, String> lapTimeColumn, intTimeColumn;
 
+	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		super.initialize(location, resources);
+		
+		//Table init
+		lapTable.setItems(lapObsList);
+		lapColumn.setCellValueFactory(new PropertyValueFactory<>("lapNumber"));
+		lapTimeColumn.setCellValueFactory(new PropertyValueFactory<>("lapTime"));
+		intTimeColumn.setCellValueFactory(new PropertyValueFactory<>("intTime"));
+	}
+	
 	@Override
 	public void editDebug(Debug debug) {
 		// TODO Auto-generated method stub
@@ -40,16 +72,28 @@ public class LaptimerScreenController extends Controller {
 
 	}
 
+	/*
+	 * When you receive new lap add it to the table, check for int
+	 */
 	@Override
 	public void editLap(LapTimer lapTimer) {
-		// TODO Auto-generated method stub
-
+		if((lapTimer != null) && (lapTimer.getLastTime() != null)) {
+			if (lapTimer.getLastTime().getType() == LapType.LAP) {
+				String timePattern = "mm:ss.SSS";
+				DateTimeFormatter timeColonFormatter = DateTimeFormatter.ofPattern(timePattern); 
+				if (lapTimer.getLastIntTime() != null) {
+					lapTable.getItems().add(new LapTableList(0, lapTimer.getLastTime().getTs().format(timeColonFormatter), lapTimer.getLastIntTime().getTs().format(timeColonFormatter)));
+				}
+				else {
+					lapTable.getItems().add(new LapTableList(0, lapTimer.getLastTime().getTs().format(timeColonFormatter), "No intermediate"));
+				}
+			}
+		}
 	}
 
 	@Override
 	public void editTS(Threshold thresholdState) {
 		// TODO Auto-generated method stub
-
 	}
 
 }
