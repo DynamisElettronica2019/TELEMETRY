@@ -40,7 +40,7 @@ public class TopBarController extends Controller {
 	@FXML
 	private Circle circle1, circle2, circle3, circle4, circle5, circle6, circle7, circle8, circle9, circle10, circle11;
 	@FXML
-	private Button commandsPage, debugPage, dynamicsPage, enginePage, rawPage;
+	private Button commandsPage, debugPage, dynamicsPage, enginePage, rawPage, laptimerPage;
 	@FXML
 	private Label label1, label2, label3, label4, label5, label6, label7, label8, label9, label10, label11;
 	@FXML
@@ -218,6 +218,10 @@ public class TopBarController extends Controller {
 		view.SetScreen("DebugScreen.fxml", side);
 	}
 	@FXML
+	public void laptimerClick() throws IOException {
+		view.SetScreen("LaptimerScreen.fxml", side);
+	}
+	@FXML
 	public void LoadCsvClick() throws IOException {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Select file to load");
@@ -234,6 +238,7 @@ public class TopBarController extends Controller {
 			view.getCommandSender().CloseFile();
 		}
 	}
+	
 	
 	//Set if the top bar is on the left or right side of the screen
 	public void SetSide(char side) {
