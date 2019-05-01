@@ -80,7 +80,6 @@ public class LaptimerScreenController extends Controller {
 		if((lapTimer != null) && (lapTimer.getLastTime() != null)) {
 			if (lapTimer.getLastTime().getType() == LapType.LAP) {
 				if (lapTimer.getLastIntTime() != null) {
-					System.out.println(lapTimer.getLastTime().getMinutes() + lapTimer.getLastTime().getSeconds());
 					lapTable.getItems().add(new LapTableList(
 							lapTimer.getLastTime().getLapNumber(), 
 							Integer.toString(lapTimer.getLastTime().getMinutes())+":"+Integer.toString(lapTimer.getLastTime().getSeconds())+":"+Integer.toString(lapTimer.getLastTime().getmSeconds()), 
