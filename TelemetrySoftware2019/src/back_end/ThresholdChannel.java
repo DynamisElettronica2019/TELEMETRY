@@ -21,8 +21,8 @@ public class ThresholdChannel extends Channel {
 	 * Add element to channel and update threshold value
 	 */
 	@Override
-	public void addElem(Double elem) {
-		super.addElem(elem);
+	public void addElem(Double elem, boolean loadMode) {
+		super.addElem(elem, loadMode);
 		threshold.update(elem);
 	}
 	

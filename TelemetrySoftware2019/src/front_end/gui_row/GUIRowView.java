@@ -78,7 +78,7 @@ public class GUIRowView extends View {
 	}
 
 	@Override
-	public void UpdateChannel(Channel channel) {
+	public void UpdateChannel(Channel channel, boolean loadMode) {
 		DXControl.EditChannel(channel);
 	}
 

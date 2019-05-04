@@ -49,7 +49,7 @@ public abstract class View {
 	/*
 	 * Implement for update of last element of a channel
 	 */
-	public abstract void UpdateChannel(Channel channel);
+	public abstract void UpdateChannel(Channel channel, boolean loadMode);
 	
 	public CommandObserver getCoObs() {
 		return coObs;

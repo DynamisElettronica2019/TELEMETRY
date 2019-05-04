@@ -25,7 +25,7 @@ public class DataElem extends Observable{
 	 */
 	public void load() {
 		setChanged();
-		notifyObservers();
+		notifyObservers(true);
 	}
 
 }

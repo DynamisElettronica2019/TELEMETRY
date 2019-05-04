@@ -72,8 +72,8 @@ public class GuiGroundView extends GuiView {
 	
 	//Update functions call controller relative functions, always defined in controller
 	@Override
-	public void UpdateChannel(Channel channel) {
-		super.UpdateChannel(channel);
+	public void UpdateChannel(Channel channel, boolean loadMode) {
+		super.UpdateChannel(channel, loadMode);
 		DXTopBarController.editChannel(channel);
 		DXMainController.editChannel(channel);
 	}

@@ -48,8 +48,9 @@ public class ServerAdapterView extends View{
 	}
 
 	@Override
-	public void UpdateChannel(Channel channel) {
-		if(channel.getServerNumb()>0){
+	public void UpdateChannel(Channel channel, boolean loadMode) {
+		System.out.println(loadMode);
+		if(channel.getServerNumb()>0 && !loadMode){
 			if(!channel.isEmpty()){
 				if(downsample.isToSend(channel.getServerNumb())){
 					try {

@@ -70,7 +70,7 @@ public class GuiView extends View {
 
 	//Update functions call SX controller relative functions, always defined in controller
 		@Override
-		public void UpdateChannel(Channel channel) {
+		public void UpdateChannel(Channel channel, boolean loadMode) {
 			SXTopBarController.editChannel(channel);
 			SXMainController.editChannel(channel);
 		}

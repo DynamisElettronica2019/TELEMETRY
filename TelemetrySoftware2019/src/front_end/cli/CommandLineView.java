@@ -29,7 +29,7 @@ public class CommandLineView extends View {
 	}
 
 	@Override
-	public void UpdateChannel(Channel channel) {
+	public void UpdateChannel(Channel channel, boolean loadMode) {
 		if(channel.getLastTs(1).size()>0)
 		System.out.println("[Channel] "+channel.getName()+" @"+channel.getLastTs(1).get(0).toString()
 							+" -> "+channel.getLastElems(1).get(0).toString());

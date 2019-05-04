@@ -91,7 +91,7 @@ public class Data {
 		valArray[0] = dateTime.format(formatter);
 		for(int i=0;i<channels.length;i++) {
 			valArray[i+1] = Double.toString(dbList.get(i));
-			channels[i].addElem(dbList.get(i));
+			channels[i].addElem(dbList.get(i),false);
 		}
 		if (isStreamOpen) {
 			try {
@@ -296,7 +296,7 @@ public class Data {
 			LocalDateTime dateTime = LocalDateTime.parse(csvRecord.get("ts"), formatter);
 			timestamps.add(dateTime);
 			for (int i=0; i<channels.length; i++) {
-				channels[i].addElem(Double.parseDouble(csvRecord.get(channels[i].getName())));
+				channels[i].addElem(Double.parseDouble(csvRecord.get(channels[i].getName())),true);
 			}
 		}
 	}

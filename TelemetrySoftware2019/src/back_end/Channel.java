@@ -25,11 +25,11 @@ public class Channel extends DataElem {
 	/*
 	 * Add an element to serie
 	 */
-	public void addElem(Double elem) {
+	public void addElem(Double elem, boolean loadMode) {
 		serie.add(elem);
 		
 		setChanged();
-		notifyObservers();
+		notifyObservers(loadMode);
 	}
 	
 	/*

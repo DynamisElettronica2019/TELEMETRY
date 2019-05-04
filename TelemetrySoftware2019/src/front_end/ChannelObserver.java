@@ -11,7 +11,7 @@ public class ChannelObserver extends MyObserver{
 
 	@Override
 	public void update(Observable o, Object arg) {
-		myView.UpdateChannel((Channel)o);
+		myView.UpdateChannel((Channel)o, (Boolean)arg);
 	}
 
 }

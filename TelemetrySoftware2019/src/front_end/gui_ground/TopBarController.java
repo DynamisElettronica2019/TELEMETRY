@@ -228,7 +228,7 @@ public class TopBarController extends Controller {
 		File fileToLoad = fileChooser.showOpenDialog(view.GetStage());
 		if(fileToLoad!=null){
 			view.getCommandSender().LoadFile(fileToLoad.getAbsolutePath());
-			view.getViewLoader().load();
+			//view.getViewLoader().load();
 		}
 	}
 	@FXML
