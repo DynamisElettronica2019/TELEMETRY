@@ -226,8 +226,10 @@ public class TopBarController extends Controller {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Select file to load");
 		File fileToLoad = fileChooser.showOpenDialog(view.GetStage());
-		view.getCommandSender().LoadFile(fileToLoad.getAbsolutePath());
-		view.getViewLoader().load();
+		if(fileToLoad!=null){
+			view.getCommandSender().LoadFile(fileToLoad.getAbsolutePath());
+			view.getViewLoader().load();
+		}
 	}
 	@FXML
 	public void SaveCsvClick() throws IOException {
