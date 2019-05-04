@@ -278,6 +278,7 @@ public class Data {
 	 *  Csv loading
 	 */
 	public void LoadFile(String pathStr) throws IOException {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyyHH:mm:ss.SSS");
 		ArrayList<String> chNames = ConfReader.getNames("channels");
 		String[] strArray = new String[chNames.size()+1];
 		strArray[0] = "ts";
@@ -292,12 +293,11 @@ public class Data {
 	            .withIgnoreHeaderCase()
 	            .withTrim());
 		for (CSVRecord csvRecord : csvParser) {
+			LocalDateTime dateTime = LocalDateTime.parse(csvRecord.get("ts"), formatter);
+			timestamps.add(dateTime);
 			for (int i=0; i<channels.length; i++) {
 				channels[i].addElem(Double.parseDouble(csvRecord.get(channels[i].getName())));
 			}
-			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyyHH:mm:ss.SSS");
-			LocalDateTime dateTime = LocalDateTime.parse(csvRecord.get("ts"), formatter);
-			timestamps.add(dateTime);
 		}
 	}
 	

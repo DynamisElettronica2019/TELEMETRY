@@ -45,14 +45,14 @@ public class CommandSender {
 	}
 	
 	/*
-	 *  Call function in data to load file
+	 *  Call function in data to save file
 	 */
 	public void SaveFile() throws IOException {
 		data.SaveFile();
 	}
 	
 	/*
-	 *  Call function in data to load file
+	 *  Call function in data to close file
 	 */
 	public void CloseFile() throws IOException {
 		data.CloseFile();
