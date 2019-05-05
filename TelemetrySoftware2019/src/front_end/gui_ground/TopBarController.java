@@ -224,7 +224,9 @@ public class TopBarController extends Controller {
 	@FXML
 	public void LoadCsvClick() throws IOException {
 		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
 		fileChooser.setTitle("Select file to load");
+		fileChooser.getExtensionFilters().add(extFilter);
 		File fileToLoad = fileChooser.showOpenDialog(view.GetStage());
 		if(fileToLoad!=null){
 			view.getCommandSender().LoadFile(fileToLoad.getAbsolutePath());
