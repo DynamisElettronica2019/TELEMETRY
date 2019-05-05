@@ -35,6 +35,7 @@ public class Data {
 	private CSVPrinter csvPrinter;
 	private BufferedWriter writer;
 	private Boolean isStreamOpen;
+	private final String folderName = "acquisition";
 	
 	/*
 	 * Create channels,states,debug,dcuCommands,dcuErrors,lapTimer through ConfReader and initialize timeStamps
@@ -314,7 +315,7 @@ public class Data {
 			}
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyyHHmmss");
 			LocalDateTime dateTime = LocalDateTime.now();
-			writer = Files.newBufferedWriter(Paths.get(dateTime.format(formatter) + ".csv"), 
+			writer = Files.newBufferedWriter(Paths.get(folderName + "/" + dateTime.format(formatter) + ".csv"), 
 	                StandardOpenOption.CREATE);
 			csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT
 					.withDelimiter(';')
