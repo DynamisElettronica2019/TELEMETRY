@@ -20,10 +20,13 @@ import back_end.Error;
 import back_end.LapTimer;
 import configuration.ConfReader;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 public class TopBarController extends Controller {
@@ -46,7 +49,7 @@ public class TopBarController extends Controller {
 	@FXML
 	private Label map, traction, lastLap;
 	@FXML
-	private Button loadCsvButton;
+	private Button loadCsvButton, resetButton;
 	@FXML
 	private ToggleButton saveCsvButton;
 	
@@ -85,6 +88,21 @@ public class TopBarController extends Controller {
 			stateMap.put(stateList.get(i), circleList[i]);
 			labelList[i].setText(stateList.get(i));
 		}
+		
+		/*
+		 * Set reset all button for double click
+		 */
+		resetButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		    @Override
+		    public void handle(MouseEvent mouseEvent) {
+		        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+		            if(mouseEvent.getClickCount() == 2){
+		                view.getCommandSender().ResetAll();
+		                view.getViewLoader().load();
+		            }
+		        }
+		    }
+		});
 	}
 
 	@Override

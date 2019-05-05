@@ -64,5 +64,12 @@ public class CommandSender {
 	public void ResetChannels() {
 		data.ResetChannels();
 	}
+	
+	/*
+	 *  Reset all data
+	 */
+	public void ResetAll() {
+		data.reset();
+	}
 
 }

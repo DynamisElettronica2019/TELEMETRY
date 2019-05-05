@@ -25,6 +25,7 @@
             <Button fx:id="laptimerPage" mnemonicParsing="false" onAction="#laptimerClick" text="Laptimer" />
             <Button fx:id="loadCsvButton" mnemonicParsing="false" onAction="#LoadCsvClick" text="Load CSV" />
             <ToggleButton fx:id="saveCsvButton" mnemonicParsing="false" onAction="#SaveCsvClick" text="Save CSV" />
+            <Button fx:id="resetButton" mnemonicParsing="false" text="Reset" />
          </children>
          <padding>
             <Insets bottom="5.0" top="5.0" />
