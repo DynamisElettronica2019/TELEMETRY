@@ -229,6 +229,7 @@ public class TopBarController extends Controller {
 		fileChooser.getExtensionFilters().add(extFilter);
 		File fileToLoad = fileChooser.showOpenDialog(view.GetStage());
 		if(fileToLoad!=null){
+			view.getCommandSender().ResetChannels();
 			view.getCommandSender().LoadFile(fileToLoad.getAbsolutePath());
 			//view.getViewLoader().load();
 		}

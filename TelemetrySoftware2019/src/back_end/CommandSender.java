@@ -57,5 +57,12 @@ public class CommandSender {
 	public void CloseFile() throws IOException {
 		data.CloseFile();
 	}
+	
+	/*
+	 *  Reset channel data
+	 */
+	public void ResetChannels() {
+		data.ResetChannels();
+	}
 
 }

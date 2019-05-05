@@ -182,6 +182,14 @@ public class Data {
 	}
 	
 	/*
+	 * Reset channel data
+	 */
+	public void ResetChannels(){
+		timestamps.clear();
+		for(Channel c : channels) c.reset();
+	}
+	
+	/*
 	 * Verify if exist a Command with name 'name' and that accept 'params', return the corresponding code or throws an Exception.
 	 * No control about parameters syntax is performed
 	 */
