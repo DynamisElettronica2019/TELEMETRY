@@ -61,6 +61,21 @@ public class TopBarController extends Controller {
 		super.initialize(location, resources);
 		initState();
 		initTS();
+		
+		/*
+		 * Set reset all button for double click
+		 */
+		resetButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		    @Override
+		    public void handle(MouseEvent mouseEvent) {
+		        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
+		            if(mouseEvent.getClickCount() == 2){
+		                view.getCommandSender().ResetAll();
+		                view.getViewLoader().load();
+		            }
+		        }
+		    }
+		});
 	}
 
 	@Override
@@ -91,21 +106,6 @@ public class TopBarController extends Controller {
 			stateMap.put(stateList.get(i), circleList[i]);
 			labelList[i].setText(stateList.get(i));
 		}
-		
-		/*
-		 * Set reset all button for double click
-		 */
-		resetButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-		    @Override
-		    public void handle(MouseEvent mouseEvent) {
-		        if(mouseEvent.getButton().equals(MouseButton.PRIMARY)){
-		            if(mouseEvent.getClickCount() == 2){
-		                view.getCommandSender().ResetAll();
-		                view.getViewLoader().load();
-		            }
-		        }
-		    }
-		});
 	}
 
 	@Override
@@ -140,6 +140,24 @@ public class TopBarController extends Controller {
 				    @Override
 				    public void run() {
 				    	traction.setText(channel.getLastElems(1).get(0).toString());
+				    }
+				});
+			}
+		}
+		else {
+			if (channel.getName().equals(MAP_CHANNEL)) {
+				Platform.runLater(new Runnable() {
+				    @Override
+				    public void run() {
+				    	map.setText("/");
+				    }
+				});
+			}
+			else if (channel.getName().equals(TRACTION_CHANNEL)) {
+				Platform.runLater(new Runnable() {
+				    @Override
+				    public void run() {
+				    	traction.setText("/");
 				    }
 				});
 			}
