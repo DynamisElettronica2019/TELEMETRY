@@ -27,6 +27,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 public class TopBarController extends Controller {
@@ -52,6 +53,8 @@ public class TopBarController extends Controller {
 	private Button loadCsvButton, resetButton;
 	@FXML
 	private ToggleButton saveCsvButton;
+	@FXML
+	private HBox buttonBox;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -270,8 +273,8 @@ public class TopBarController extends Controller {
 	public void SetSide(char side) {
 		this.side = side;
 		if (side == 'd') {
-			loadCsvButton.setVisible(false);
-			saveCsvButton.setVisible(false);
+			buttonBox.getChildren().remove(loadCsvButton);
+			buttonBox.getChildren().remove(saveCsvButton);
 		}
 	}
 	

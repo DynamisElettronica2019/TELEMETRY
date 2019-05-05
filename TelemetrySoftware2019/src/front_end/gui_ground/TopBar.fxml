@@ -11,7 +11,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.gui_ground.TopBarController">
    <children>
-      <HBox spacing="10.0">
+      <HBox fx:id="buttonBox" spacing="10.0">
          <children>
             <Button fx:id="enginePage" mnemonicParsing="false" onAction="#engClick" text="Engine">
                <HBox.margin>
