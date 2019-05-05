@@ -244,9 +244,16 @@ public class TopBarController extends Controller {
 	}
 	
 	
-	//Set if the top bar is on the left or right side of the screen
+	/*
+	 * Set if the top bar is on the left or right side of the screen
+	 * Make load/save button visible only on right side
+	 */
 	public void SetSide(char side) {
 		this.side = side;
+		if (side == 'd') {
+			loadCsvButton.setVisible(false);
+			saveCsvButton.setVisible(false);
+		}
 	}
 	
 	
