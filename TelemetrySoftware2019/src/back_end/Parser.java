@@ -52,7 +52,7 @@ public class Parser {
 	 */
 	public void parseString(String stringToParse) throws InvalidReadingException, InvalidUpdateException {
 		if (stringToParse.charAt(0) == recogniserData && stringToParse.charAt(1) == ';') {
-			if (stringToParse.length() != lenData+lenDebug) { //IN THIS CASE DATA AND DEBUG ARE CONCATENATED IN THE DATA STRING
+			if (stringToParse.length() != lenData) { 
 				throw new InvalidReadingException("Message lenght Error ("+recogniserData+")");
 			} else {
 				data.update(new ParsedData(stringToParse.substring(2),debugNumber));
@@ -63,14 +63,12 @@ public class Parser {
 			} else {
 				data.update(new ParsedState(stringToParse.substring(2)));
 			}
-		/*
 		} else if (stringToParse.charAt(0) == recogniserDebug && stringToParse.charAt(1) == ';') {
 			if (stringToParse.length() != lenDebug) {
 				throw new InvalidReadingException("Message lenght Error ("+recogniserDebug+")");
 			} else {
 				data.update(new ParsedDebug(stringToParse.substring(2)));
 			}
-		*/
 		} else if (stringToParse.charAt(0) == recogniserDcuErr) {
 			if (stringToParse.length() != 2) {
 				throw new InvalidReadingException("Message lenght Error ("+recogniserDcuErr+")");
