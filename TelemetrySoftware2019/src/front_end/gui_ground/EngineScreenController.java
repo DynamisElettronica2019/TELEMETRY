@@ -158,6 +158,13 @@ public class EngineScreenController extends Controller {
 			    }
 			});
 		}
+		else {
+			if(channel != null) {
+				if(chartChannelMap.get(channel.getName()) != null) {
+					chartChannelMap.get(channel.getName()).getData().clear();
+				}
+			}
+		}
 	}
 
 	@Override
