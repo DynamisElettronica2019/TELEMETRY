@@ -163,6 +163,9 @@ public class EngineScreenController extends Controller {
 				if(chartChannelMap.get(channel.getName()) != null) {
 					chartChannelMap.get(channel.getName()).getData().clear();
 				}
+				if(chartLabelMap.get(channel.getName()) != null) {
+					chartLabelMap.get(channel.getName()).setText("No value");
+				}
 			}
 		}
 	}
