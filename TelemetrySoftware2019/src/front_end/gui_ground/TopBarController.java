@@ -270,7 +270,7 @@ public class TopBarController extends Controller {
 		if(fileToLoad!=null){
 			view.getCommandSender().ResetChannels();
 			view.getCommandSender().LoadFile(fileToLoad.getAbsolutePath());
-			//view.getViewLoader().load();
+			view.getViewLoader().load();
 		}
 	}
 	@FXML

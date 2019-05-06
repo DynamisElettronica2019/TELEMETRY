@@ -1,5 +1,7 @@
 package back_end;
 
+import java.util.ArrayList;
+
 import configuration.ConfReader;
 import exceptions.InvalidCodeException;
 import exceptions.InvalidReadingException;
@@ -21,6 +23,7 @@ public class Parser {
 	private char recogniserLapIntType;
 	private char recogniserLapLapType;
 	private int lenLap;
+	private int debugNumber;
 
 	/*
 	 * Set class attributes through ConfReader
@@ -40,6 +43,7 @@ public class Parser {
 		recogniserLapIntType = ConfReader.getLapTimerRecogniser("intType");
 		recogniserLapLapType = ConfReader.getLapTimerRecogniser("lapType");
 		lenLap = (int)ConfReader.getPacketLen("lap");
+		debugNumber = ConfReader.getNames("debug").size();
 	}
 
 	/*
@@ -48,10 +52,10 @@ public class Parser {
 	 */
 	public void parseString(String stringToParse) throws InvalidReadingException, InvalidUpdateException {
 		if (stringToParse.charAt(0) == recogniserData && stringToParse.charAt(1) == ';') {
-			if (stringToParse.length() != lenData) {
+			if (stringToParse.length() != lenData+lenDebug) { //IN THIS CASE DATA AND DEBUG ARE CONCATENATED IN THE DATA STRING
 				throw new InvalidReadingException("Message lenght Error ("+recogniserData+")");
 			} else {
-				data.update(new ParsedData(stringToParse.substring(2)));
+				data.update(new ParsedData(stringToParse.substring(2),debugNumber));
 			}
 		} else if (stringToParse.charAt(0) == recogniserState && stringToParse.charAt(1) == ';') {
 			if (stringToParse.length() != lenState) {
@@ -59,12 +63,14 @@ public class Parser {
 			} else {
 				data.update(new ParsedState(stringToParse.substring(2)));
 			}
+		/*
 		} else if (stringToParse.charAt(0) == recogniserDebug && stringToParse.charAt(1) == ';') {
 			if (stringToParse.length() != lenDebug) {
 				throw new InvalidReadingException("Message lenght Error ("+recogniserDebug+")");
 			} else {
 				data.update(new ParsedDebug(stringToParse.substring(2)));
 			}
+		*/
 		} else if (stringToParse.charAt(0) == recogniserDcuErr) {
 			if (stringToParse.length() != 2) {
 				throw new InvalidReadingException("Message lenght Error ("+recogniserDcuErr+")");

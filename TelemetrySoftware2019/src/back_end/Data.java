@@ -94,6 +94,9 @@ public class Data {
 			valArray[i+1] = Double.toString(dbList.get(i));
 			channels[i].addElem(dbList.get(i),false);
 		}
+		for(int j=0;j<debug.length;j++){
+			debug[j].setValue(dbList.get(channels.length+j));
+		}
 		if (isStreamOpen) {
 			try {
 				csvPrinter.printRecord(valArray);
