@@ -23,6 +23,9 @@ import front_end.View;
 
 public class Data {
 	
+	private final String folderName = "acquisition";
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyyHH:mm:ss.SSS");
+	
 	private ArrayList<LocalDateTime> timestamps; //Common ts for all channels
 	private Channel[] channels;
 	private State[] states;
@@ -35,7 +38,6 @@ public class Data {
 	private CSVPrinter csvPrinter;
 	private BufferedWriter writer;
 	private Boolean isStreamOpen;
-	private final String folderName = "acquisition";
 	
 	/*
 	 * Create channels,states,debug,dcuCommands,dcuErrors,lapTimer through ConfReader and initialize timeStamps
@@ -81,29 +83,30 @@ public class Data {
 	}
 	
 	/*
-	 * Check validity and update channels and timestamps adding the new elements
+	 * Check validity and update channels and timestamps (and debug) adding the new elements
 	 */
 	public void update(ParsedData data) throws InvalidUpdateException {
 		ArrayList<Double> dbList = data.convert();
-		String[] valArray = new String[channels.length+1];
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyyHH:mm:ss.SSS");
-		LocalDateTime dateTime = LocalDateTime.now();
-		timestamps.add(dateTime);
-		valArray[0] = dateTime.format(formatter);
-		for(int i=0;i<channels.length;i++) {
-			valArray[i+1] = Double.toString(dbList.get(i));
-			channels[i].addElem(dbList.get(i),false);
-		}
-		for(int j=0;j<debug.length;j++){
-			debug[j].setValue(dbList.get(channels.length+j));
-		}
-		if (isStreamOpen) {
-			try {
-				csvPrinter.printRecord(valArray);
-			} catch (IOException e) {
-				e.printStackTrace();
+		if(dbList.size()==channels.length+debug.length){
+			String[] valArray = new String[channels.length+1];
+			timestamps.add(LocalDateTime.now());
+			valArray[0] = LocalDateTime.now().format(formatter);
+			for(int i=0;i<channels.length;i++) {
+				valArray[i+1] = Double.toString(dbList.get(i));
+				channels[i].addElem(dbList.get(i),false);
+			}
+			for(int j=0;j<debug.length;j++){
+				debug[j].setValue(dbList.get(channels.length+j));
+			}
+			if (isStreamOpen) {
+				try {
+					csvPrinter.printRecord(valArray);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
+		else throw new InvalidUpdateException("Channel string error: received "+dbList.size()+" data of "+(channels.length+debug.length));
 	}
 	
 	/*
@@ -111,7 +114,10 @@ public class Data {
 	 */
 	public void update(ParsedState data) throws InvalidUpdateException {
 		ArrayList<Boolean> blList = data.convert();
-		for(int i=0;i<states.length;i++) states[i].setValue(blList.get(i));
+		if(blList.size()==states.length){
+			for(int i=0;i<states.length;i++) states[i].setValue(blList.get(i));
+		}
+		else throw new InvalidUpdateException("State string error: received "+blList.size()+" states of "+(states.length));
 	}
 	
 	/*
@@ -119,7 +125,10 @@ public class Data {
 	 */
 	public void update(ParsedDebug data) throws InvalidUpdateException {
 		ArrayList<Double> dbList = data.convert();
-		for(int i=0;i<debug.length;i++) debug[i].setValue(dbList.get(i));
+		if(dbList.size()==debug.length){
+			for(int i=0;i<debug.length;i++) debug[i].setValue(dbList.get(i));
+		}
+		else throw new InvalidUpdateException("Debug string error: received "+dbList.size()+" debug of "+(debug.length));
 	}
 	
 	/*
