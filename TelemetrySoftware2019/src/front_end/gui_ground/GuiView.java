@@ -1,7 +1,8 @@
 package front_end.gui_ground;
 
+import java.io.File;
 import java.io.IOException;
-
+import java.net.MalformedURLException;
 import back_end.Channel;
 import back_end.Command;
 import back_end.CommandSender;
@@ -64,8 +65,16 @@ public class GuiView extends View {
         vboxSX = new VBox(5);
         AnchorPaneSX = new AnchorPane();
         sceneSX = new Scene(AnchorPaneSX);
+        sceneSX.getStylesheets().add(getStylesheetString());
         stageSX.setScene(sceneSX);
         stageSX.show();
+	}
+	
+	//Create string for css loading
+	protected String getStylesheetString () {
+        try {
+			return new File("style/style.css").toURI().toURL().toString();
+		} catch (MalformedURLException e) { return ""; }
 	}
 
 	//Update functions call SX controller relative functions, always defined in controller

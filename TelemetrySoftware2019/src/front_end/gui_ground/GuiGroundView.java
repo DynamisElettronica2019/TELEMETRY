@@ -66,6 +66,7 @@ public class GuiGroundView extends GuiView {
         vboxDX = new VBox(5);
         AnchorPaneDX = new AnchorPane();
         sceneDX = new Scene(AnchorPaneDX);
+        sceneDX.getStylesheets().add(getStylesheetString());
         stageDX.setScene(sceneDX);
         stageDX.show();
 	}
