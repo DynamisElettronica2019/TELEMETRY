@@ -24,6 +24,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class LaptimerScreenController extends Controller {
 	private ObservableList<LapTableList> lapObsList = FXCollections.observableArrayList();
+	private boolean toLoad;
 	@FXML
 	private TableView<LapTableList> lapTable;
 	@FXML
@@ -43,25 +44,8 @@ public class LaptimerScreenController extends Controller {
 		intTimeColumn.setCellValueFactory(new PropertyValueFactory<>("intTime"));
 		
 		//Loading previous laps
-		ArrayList<LapTime> laps = view.getCommandSender().LoadLaps();
-		for(int i=0; i<laps.size(); i++) {
-			if(laps.get(i).getType() == LapType.LAP) {
-				if(laps.get(i-1).getType() == LapType.INT) {
-					lapTable.getItems().add(new LapTableList(
-						laps.get(i).getLapNumber(),
-						Integer.toString(laps.get(i).getMinutes())+":"+Integer.toString(laps.get(i).getSeconds())+":"+Integer.toString(laps.get(i).getmSeconds()), 
-						Integer.toString(laps.get(i-1).getMinutes())+":"+Integer.toString(laps.get(i-1).getSeconds())+":"+Integer.toString(laps.get(i-1).getmSeconds())
-					));
-				}
-				else {
-					lapTable.getItems().add(new LapTableList(
-						laps.get(i).getLapNumber(),
-						Integer.toString(laps.get(i).getMinutes())+":"+Integer.toString(laps.get(i).getSeconds())+":"+Integer.toString(laps.get(i).getmSeconds()), 
-						"No intermediate"
-					));
-				}
-			}
-		}
+		toLoad = true;
+		
 	}
 	
 	@Override
@@ -99,22 +83,57 @@ public class LaptimerScreenController extends Controller {
 	 */
 	@Override
 	public void editLap(LapTimer lapTimer) {
-		if((lapTimer != null) && (lapTimer.getLastTime() != null)) {
-			if (lapTimer.getLastTime().getType() == LapType.LAP) {
-				if (lapTimer.getLastIntTime() != null) {
-					lapTable.getItems().add(new LapTableList(
-							lapTimer.getLastTime().getLapNumber(), 
-							Integer.toString(lapTimer.getLastTime().getMinutes())+":"+Integer.toString(lapTimer.getLastTime().getSeconds())+":"+Integer.toString(lapTimer.getLastTime().getmSeconds()), 
-							Integer.toString(lapTimer.getLastIntTime().getMinutes())+":"+Integer.toString(lapTimer.getLastIntTime().getSeconds())+":"+Integer.toString(lapTimer.getLastTime().getmSeconds())
-							));
+		if(lapTimer != null) {
+			if(!toLoad) {
+				if((lapTimer != null) && (lapTimer.getLastTime() != null)) {
+					if (lapTimer.getLastTime().getType() == LapType.LAP) {
+						if (lapTimer.getLastIntTime() != null) {
+							lapTable.getItems().add(new LapTableList(
+									lapTimer.getLastTime().getLapNumber(), 
+									Integer.toString(lapTimer.getLastTime().getMinutes())+":"+Integer.toString(lapTimer.getLastTime().getSeconds())+":"+Integer.toString(lapTimer.getLastTime().getmSeconds()), 
+									Integer.toString(lapTimer.getLastIntTime().getMinutes())+":"+Integer.toString(lapTimer.getLastIntTime().getSeconds())+":"+Integer.toString(lapTimer.getLastTime().getmSeconds())
+									));
+						}
+						else {
+							lapTable.getItems().add(new LapTableList(
+									lapTimer.getLastTime().getLapNumber(), 
+									Integer.toString(lapTimer.getLastTime().getMinutes())+":"+Integer.toString(lapTimer.getLastTime().getSeconds())+":"+Integer.toString(lapTimer.getLastTime().getmSeconds()),
+									"No intermediate"
+									));
+						}
+					}
 				}
-				else {
-					lapTable.getItems().add(new LapTableList(
-							lapTimer.getLastTime().getLapNumber(), 
-							Integer.toString(lapTimer.getLastTime().getMinutes())+":"+Integer.toString(lapTimer.getLastTime().getSeconds())+":"+Integer.toString(lapTimer.getLastTime().getmSeconds()),
+			}
+			else {
+				ArrayList<LapTime> laps = view.getCommandSender().LoadLaps();
+				if(laps.size()>0) {
+					if(laps.get(0).getType() == LapType.LAP) {
+						lapTable.getItems().add(new LapTableList(
+							laps.get(0).getLapNumber(),
+							Integer.toString(laps.get(0).getMinutes())+":"+Integer.toString(laps.get(0).getSeconds())+":"+Integer.toString(laps.get(0).getmSeconds()), 
 							"No intermediate"
-							));
+						));
+					}
 				}
+				for(int i=1; i<laps.size(); i++) {
+					if(laps.get(i).getType() == LapType.LAP) {
+						if(laps.get(i-1).getType() == LapType.INT) {
+							lapTable.getItems().add(new LapTableList(
+								laps.get(i).getLapNumber(),
+								Integer.toString(laps.get(i).getMinutes())+":"+Integer.toString(laps.get(i).getSeconds())+":"+Integer.toString(laps.get(i).getmSeconds()), 
+								Integer.toString(laps.get(i-1).getMinutes())+":"+Integer.toString(laps.get(i-1).getSeconds())+":"+Integer.toString(laps.get(i-1).getmSeconds())
+							));
+						}
+						else {
+							lapTable.getItems().add(new LapTableList(
+								laps.get(i).getLapNumber(),
+								Integer.toString(laps.get(i).getMinutes())+":"+Integer.toString(laps.get(i).getSeconds())+":"+Integer.toString(laps.get(i).getmSeconds()), 
+								"No intermediate"
+							));
+						}
+					}
+				}
+				toLoad = false;
 			}
 		}
 	}
