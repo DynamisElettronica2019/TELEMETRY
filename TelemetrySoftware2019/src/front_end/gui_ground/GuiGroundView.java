@@ -162,4 +162,10 @@ public class GuiGroundView extends GuiView {
 		
 		super.SetScreen(fxml, side);
 	}
+	
+	@Override
+	public void SetPause() {
+		super.SetPause();
+		DXMainController.setPause();
+	}
 }
