@@ -350,7 +350,6 @@ public class DynamicsScreenController extends Controller {
 
 	@Override
 	public void setPause() {
-		// TODO Auto-generated method stub
-		
+		pauseButton.fire();
 	}
 }

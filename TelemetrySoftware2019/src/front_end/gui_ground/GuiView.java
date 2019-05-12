@@ -185,6 +185,6 @@ public class GuiView extends View {
 		 * Set pause on loading to the sx stage
 		 */
 		public void SetPause() {
-			
+			SXMainController.setPause();
 		}
 }

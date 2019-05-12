@@ -357,10 +357,12 @@ public class EngineScreenController extends Controller {
 			slider.setVisible(false);
 		}
 	}
-
+	
+	/*
+	 * Fire pause button on request
+	 */
 	@Override
 	public void setPause() {
-		// TODO Auto-generated method stub
-		
+		pauseButton.fire();
 	}
 }
