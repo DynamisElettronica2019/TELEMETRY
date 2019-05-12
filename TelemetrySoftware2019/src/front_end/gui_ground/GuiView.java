@@ -180,4 +180,11 @@ public class GuiView extends View {
 		public Stage GetStage() {
 			return stageSX;
 		}
+		
+		/*
+		 * Set pause on loading to the sx stage
+		 */
+		public void SetPause() {
+			
+		}
 }

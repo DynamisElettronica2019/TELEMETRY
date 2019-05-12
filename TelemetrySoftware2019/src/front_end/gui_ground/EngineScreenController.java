@@ -357,4 +357,10 @@ public class EngineScreenController extends Controller {
 			slider.setVisible(false);
 		}
 	}
+
+	@Override
+	public void setPause() {
+		// TODO Auto-generated method stub
+		
+	}
 }

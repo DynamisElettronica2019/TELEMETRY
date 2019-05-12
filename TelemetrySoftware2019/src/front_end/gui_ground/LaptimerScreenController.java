@@ -102,4 +102,10 @@ public class LaptimerScreenController extends Controller {
 		// TODO Auto-generated method stub
 	}
 
+	@Override
+	public void setPause() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

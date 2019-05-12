@@ -347,4 +347,10 @@ public class DynamicsScreenController extends Controller {
 	    	return label;
 	    }
 	}
+
+	@Override
+	public void setPause() {
+		// TODO Auto-generated method stub
+		
+	}
 }

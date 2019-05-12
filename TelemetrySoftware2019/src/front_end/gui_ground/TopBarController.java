@@ -306,6 +306,12 @@ public class TopBarController extends Controller {
 			errorBar.setVisible(false);
 		}
 	}
+
+	@Override
+	public void setPause() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }
