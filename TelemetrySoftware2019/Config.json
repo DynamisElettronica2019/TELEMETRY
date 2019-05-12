@@ -1,6 +1,6 @@
 {	
 	"_mode": "Accepted: GROUND,LAPTOP,GUI_ROW,CLI",
-	"mode": "LAPTOP",
+	"mode": "GROUND",
 	"data":	{
 		"channels":	{
 				"_names": "use name[<double] || name[>double] for threshold indicator // use (int)name for send to server with a specific number",
@@ -13,7 +13,7 @@
 				},
 		"states": {
 				"names": ["USB Present","USB Ready","Acquisition ON","Telemetry ON","SD Present","SD Ready"],
-				"packetLen": 15,
+				"packetLen": 13,
 				"recogniser": "S" 
 				},
 		"debug": {
@@ -62,9 +62,9 @@
 	},
     "receiver": {
         "carBaudRate": 115200,
-        "carCommPort": "COM12",
+        "carCommPort": "COM3",
         "lapBaudRate": 115200,
-        "lapCommPort": "COM4",
+        "lapCommPort": "COM5",
         "pktStart": "[",
         "pktEnd": "]"
     },
