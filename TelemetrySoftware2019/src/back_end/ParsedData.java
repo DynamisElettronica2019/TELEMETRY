@@ -9,9 +9,9 @@ public class ParsedData extends Parsed {
 	/*
 	 * Create parsedInfo and set strings to parsed and computed informations
 	 */
-	public ParsedData(String strToParse) {
-		super(strToParse);
-		compute(strToParse);
+	public ParsedData(String strToParse, int debugNumber) {
+		super(strToParse); 
+		compute(parsedInfo, debugNumber);
 	}
 	
 	/*
@@ -19,8 +19,8 @@ public class ParsedData extends Parsed {
 	 * This part is not configurable by configuration file.
 	 * Computed channels must be in configuration file channels names
 	 */
-	private void compute(String strToParse) {
-		//TODO
+	private void compute(String[] strToParse, int debugNumber) {
+		//TODO //N.B. se qualche canale viene calcolato, deve essere inserito in parsedInfo prima dei debugNumber dati di debug
 	}
 	
 	/*

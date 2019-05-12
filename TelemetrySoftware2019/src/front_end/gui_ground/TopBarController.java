@@ -6,6 +6,7 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +25,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -41,6 +44,8 @@ public class TopBarController extends Controller {
 	private Label[] labelList;
 	private char side;
 	
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss.SS");
+	
 	@FXML
 	private Circle circle1, circle2, circle3, circle4, circle5, circle6, circle7, circle8, circle9, circle10, circle11;
 	@FXML
@@ -55,6 +60,8 @@ public class TopBarController extends Controller {
 	private ToggleButton saveCsvButton;
 	@FXML
 	private HBox buttonBox;
+	@FXML
+	private TextField errorBar;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -171,8 +178,7 @@ public class TopBarController extends Controller {
 
 	@Override
 	public void editError(Error error) {
-		// TODO Auto-generated method stub
-		
+		errorBar.setText(error.getLastOcc().format(formatter)+" "+error.getName());
 	}
 
 	//Set last lap time on label, second top bar
@@ -261,6 +267,10 @@ public class TopBarController extends Controller {
 		view.SetScreen("LaptimerScreen.fxml", side);
 	}
 	@FXML
+	public void errorBarClick() {
+		errorBar.setText("");
+	}
+	@FXML
 	public void LoadCsvClick() throws IOException {
 		FileChooser fileChooser = new FileChooser();
 		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv");
@@ -270,7 +280,7 @@ public class TopBarController extends Controller {
 		if(fileToLoad!=null){
 			view.getCommandSender().ResetChannels();
 			view.getCommandSender().LoadFile(fileToLoad.getAbsolutePath());
-			//view.getViewLoader().load();
+			view.getViewLoader().load();
 		}
 	}
 	@FXML
@@ -286,14 +296,21 @@ public class TopBarController extends Controller {
 	
 	/*
 	 * Set if the top bar is on the left or right side of the screen
-	 * Make load/save button visible only on right side
+	 * Make load/save button, errorBar visible only on right side
 	 */
 	public void SetSide(char side) {
 		this.side = side;
 		if (side == 'd') {
 			buttonBox.getChildren().remove(loadCsvButton);
 			buttonBox.getChildren().remove(saveCsvButton);
+			errorBar.setVisible(false);
 		}
+	}
+
+	@Override
+	public void setPause() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

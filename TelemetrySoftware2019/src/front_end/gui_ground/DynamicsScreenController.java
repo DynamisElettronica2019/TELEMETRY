@@ -212,6 +212,16 @@ public class DynamicsScreenController extends Controller {
 				}
 			}
 		}
+		else {
+			if(channel != null) {
+				if(chartChannelMap.get(channel.getName()) != null) {
+					chartChannelMap.get(channel.getName()).getData().clear();
+				}
+			}
+			if(chartLabelMap.get(channel.getName()) != null) {
+				chartLabelMap.get(channel.getName()).setText("No value");
+			}
+		}
 	}
 
 	@Override
@@ -336,5 +346,11 @@ public class DynamicsScreenController extends Controller {
 	    public Label getLabel() {
 	    	return label;
 	    }
+	}
+
+	@Override
+	public void setPause() {
+		// TODO Auto-generated method stub
+		
 	}
 }

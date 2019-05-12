@@ -128,4 +128,10 @@ public class RawScreenController extends Controller {
 		
 	}
 
+	@Override
+	public void setPause() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -143,6 +143,11 @@
                   </Label>
                </children>
             </VBox>
+            <TextField fx:id="errorBar" editable="false" onMouseClicked="#errorBarClick" prefHeight="31.0" prefWidth="266.0" styleClass="text-error">
+               <HBox.margin>
+                  <Insets left="15.0" top="15.0" />
+               </HBox.margin>
+            </TextField>
          </children>
          <VBox.margin>
             <Insets bottom="5.0" top="5.0" />

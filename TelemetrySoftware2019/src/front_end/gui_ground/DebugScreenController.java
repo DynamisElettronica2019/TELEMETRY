@@ -54,4 +54,10 @@ public class DebugScreenController extends Controller {
 		
 	}
 
+	@Override
+	public void setPause() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

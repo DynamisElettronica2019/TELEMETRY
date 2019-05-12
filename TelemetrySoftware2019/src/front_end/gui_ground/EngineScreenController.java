@@ -158,6 +158,16 @@ public class EngineScreenController extends Controller {
 			    }
 			});
 		}
+		else {
+			if(channel != null) {
+				if(chartChannelMap.get(channel.getName()) != null) {
+					chartChannelMap.get(channel.getName()).getData().clear();
+				}
+				if(chartLabelMap.get(channel.getName()) != null) {
+					chartLabelMap.get(channel.getName()).setText("No value");
+				}
+			}
+		}
 	}
 
 	@Override
@@ -346,5 +356,11 @@ public class EngineScreenController extends Controller {
 			offset = 0;
 			slider.setVisible(false);
 		}
+	}
+
+	@Override
+	public void setPause() {
+		// TODO Auto-generated method stub
+		
 	}
 }

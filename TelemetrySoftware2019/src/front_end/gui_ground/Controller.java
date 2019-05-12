@@ -35,4 +35,5 @@ public abstract class Controller implements Initializable {
 	public abstract void editError(Error error);
 	public abstract void editLap(LapTimer lapTimer);
 	public abstract void editTS(Threshold thresholdState);
+	public abstract void setPause();
 }

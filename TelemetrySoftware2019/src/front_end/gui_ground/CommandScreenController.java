@@ -117,4 +117,10 @@ public class CommandScreenController extends Controller {
 	private void SendToDriverAction() {
 		view.getCommandSender().sendCommand(driverMessageMap.get(PilotMessageList.getValue()), "");
 	}
+
+	@Override
+	public void setPause() {
+		// TODO Auto-generated method stub
+		
+	}
 }
