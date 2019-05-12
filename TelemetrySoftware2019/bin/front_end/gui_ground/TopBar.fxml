@@ -23,6 +23,7 @@
             <Button fx:id="rawPage" mnemonicParsing="false" onAction="#rawClick" text="Raw Data" />
             <Button fx:id="debugPage" mnemonicParsing="false" onAction="#debugClick" text="Debug" />
             <Button fx:id="laptimerPage" mnemonicParsing="false" onAction="#laptimerClick" text="Laptimer" />
+            <Button fx:id="errorPage" mnemonicParsing="false" onAction="#errorClick" text="Errors" />
             <Region HBox.hgrow="ALWAYS" />
             <Button fx:id="loadCsvButton" mnemonicParsing="false" onAction="#LoadCsvClick" text="Load CSV" />
             <ToggleButton fx:id="saveCsvButton" mnemonicParsing="false" onAction="#SaveCsvClick" text="Save CSV" />
