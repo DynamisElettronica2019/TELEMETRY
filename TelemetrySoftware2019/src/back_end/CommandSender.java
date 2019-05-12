@@ -71,5 +71,12 @@ public class CommandSender {
 	public void ResetAll() {
 		data.reset();
 	}
+	
+	/*
+	 * Return an array list of laps
+	 */
+	public ArrayList<LapTime> LoadLaps() {
+		return data.getLapTimer().getLapTimes();
+	}
 
 }

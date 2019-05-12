@@ -2,6 +2,7 @@ package front_end.gui_ground;
 
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import back_end.Channel;
@@ -40,6 +41,27 @@ public class LaptimerScreenController extends Controller {
 		lapColumn.setCellValueFactory(new PropertyValueFactory<>("lapNumber"));
 		lapTimeColumn.setCellValueFactory(new PropertyValueFactory<>("lapTime"));
 		intTimeColumn.setCellValueFactory(new PropertyValueFactory<>("intTime"));
+		
+		//Loading previous laps
+		ArrayList<LapTime> laps = view.getCommandSender().LoadLaps();
+		for(int i=0; i<laps.size(); i++) {
+			if(laps.get(i).getType() == LapType.LAP) {
+				if(laps.get(i-1).getType() == LapType.INT) {
+					lapTable.getItems().add(new LapTableList(
+						laps.get(i).getLapNumber(),
+						Integer.toString(laps.get(i).getMinutes())+":"+Integer.toString(laps.get(i).getSeconds())+":"+Integer.toString(laps.get(i).getmSeconds()), 
+						Integer.toString(laps.get(i-1).getMinutes())+":"+Integer.toString(laps.get(i-1).getSeconds())+":"+Integer.toString(laps.get(i-1).getmSeconds())
+					));
+				}
+				else {
+					lapTable.getItems().add(new LapTableList(
+						laps.get(i).getLapNumber(),
+						Integer.toString(laps.get(i).getMinutes())+":"+Integer.toString(laps.get(i).getSeconds())+":"+Integer.toString(laps.get(i).getmSeconds()), 
+						"No intermediate"
+					));
+				}
+			}
+		}
 	}
 	
 	@Override
