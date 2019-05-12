@@ -350,6 +350,6 @@ public class DynamicsScreenController extends Controller {
 
 	@Override
 	public void setPause() {
-		pauseButton.fire();
+		pauseButton.setSelected(true);
 	}
 }

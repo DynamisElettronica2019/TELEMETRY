@@ -363,6 +363,6 @@ public class EngineScreenController extends Controller {
 	 */
 	@Override
 	public void setPause() {
-		pauseButton.fire();
+		pauseButton.setSelected(true);
 	}
 }

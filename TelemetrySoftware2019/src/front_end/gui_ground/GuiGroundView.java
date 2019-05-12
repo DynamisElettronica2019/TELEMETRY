@@ -163,6 +163,9 @@ public class GuiGroundView extends GuiView {
 		super.SetScreen(fxml, side);
 	}
 	
+	/*
+	 * Pause both sx and dx stage if you are in ground mode
+	 */
 	@Override
 	public void SetPause() {
 		super.SetPause();
