@@ -56,10 +56,20 @@ public class Receiver {
 	 * Send string 'toSend' through comPort adding pktStart and pktEnd. Sending disable in L mode
 	 */
 	public void send(String toSend) {
-		if(mode == 'C'){
-			toSend = pktStart+toSend+pktEnd;
-			comPort.writeBytes(toSend.getBytes(), toSend.getBytes().length);
-		}
+		final String send = pktStart+toSend+pktEnd;
+		Thread t = new Thread(() -> {
+			if(mode == 'C'){
+				try {
+					comPort.setRTS();
+					TimeUnit.MICROSECONDS.sleep(10);
+					comPort.writeBytes(send.getBytes(), send.getBytes().length);
+					comPort.clearRTS();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		t.start();
 	}
 
 	/*
