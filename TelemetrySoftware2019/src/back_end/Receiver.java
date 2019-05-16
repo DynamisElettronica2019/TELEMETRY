@@ -59,14 +59,15 @@ public class Receiver {
 		final String send = pktStart+toSend+pktEnd;
 		Thread t = new Thread(() -> {
 			if(mode == 'C'){
+				comPort.clearRTS();
 				try {
-					comPort.setRTS();
-					TimeUnit.MICROSECONDS.sleep(10);
-					comPort.writeBytes(send.getBytes(), send.getBytes().length);
-					comPort.clearRTS();
+					TimeUnit.MICROSECONDS.sleep(40);
 				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				comPort.writeBytes(send.getBytes(), send.getBytes().length);
+				comPort.setRTS();
 			}
 		});
 		t.start();
