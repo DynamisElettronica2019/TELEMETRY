@@ -44,7 +44,7 @@ public class ErrorScreenController extends Controller {
 		lastOccColumn.setCellValueFactory(new PropertyValueFactory<>("nOcc"));
 		errorList = ConfReader.getErrorNames("error");
 		for (int i = 0; i < errorList.size(); i++) {
-			errorMap.put(ConfReader.haveThresholdAndServer(errorList.get(i))[1], i);
+			errorMap.put(errorList.get(i), i);
 			errorTable.getItems().add(new ErrorTableList(errorList.get(i), "No Occurrence", 0));
 		}	
 	}
@@ -78,6 +78,7 @@ public class ErrorScreenController extends Controller {
 		if(errorMap.get(error.getName()) != null) {
 			errorObsList.set(errorMap.get(error.getName()), new ErrorTableList(error.getName(), error.getLastOcc().format(formatter), error.getNumbOcc()));	
 			errorTable.refresh();
+			System.out.println("WE");
 		}
 	}
 

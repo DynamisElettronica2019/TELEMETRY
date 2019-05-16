@@ -1,7 +1,5 @@
 package front_end.gui_ground;
 
-import java.time.LocalDateTime;
-
 public class ErrorTableList {
 	private String name;
 	private String lastOcc;
