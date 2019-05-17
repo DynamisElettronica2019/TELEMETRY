@@ -9,7 +9,7 @@
                           "xWheel_RL","fLoad_RL","xWheel_RR","fLoad_RR","APPS_1","APPS_2","tTyreFL_Out","tTyreFL_Mid","tTyreFL_In","tTyreFR_Out","tTyreFR_Mid","tTyreFR_In","tTyreRL_Out","tTyreRL_Mid","tTyreRL_In","tTyreRR_Out","tTyreRR_Mid","tTyreRR_In","Ax_DCU","Ay_DCU",
                           "Az_DCU","GyroX_DCU","GyroY_DCU","GyroZ_DCU","aHeading_DCU","GCU_CLUTCH","GCU_ACC_FB","GCU_AUTOX_FB","GCU_TRACTION_FB","GCU_DRS_FB","prova"],
 				"packetLen": 512,
-				"recogniser": "C"
+				"recogniser": "1"
 				},
 		"states": {
 				"names": ["USB Present","USB Ready","Acquisition ON","Telemetry ON","SD Present","SD Ready"],
@@ -65,8 +65,8 @@
         "carCommPort": "COM3",
         "lapBaudRate": 115200,
         "lapCommPort": "COM5",
-        "pktStart": "[",
-        "pktEnd": "]"
+        "pktStart": "W",
+        "pktEnd": "g"
     },
     "server": {
     	"serverPort": 8081,

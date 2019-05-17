@@ -148,11 +148,7 @@ public class Receiver {
 		strIndex = 0;
 		openBracketIndex = -1;
 		closeBracketIndex = -1;
-		try {
-			parser.parseString(strToSend);
-		} catch (InvalidReadingException | InvalidUpdateException e) {
-			e.log();
-		}
+		parser.decodeString(strToSend);
 	}
 
 }

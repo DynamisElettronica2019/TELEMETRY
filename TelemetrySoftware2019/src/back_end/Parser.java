@@ -1,6 +1,8 @@
 package back_end;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import configuration.ConfReader;
 import exceptions.InvalidCodeException;
@@ -24,6 +26,7 @@ public class Parser {
 	private char recogniserLapLapType;
 	private int lenLap;
 	private int debugNumber;
+	private Map<Character, Character> decodeMap = new HashMap<>();
 
 	/*
 	 * Set class attributes through ConfReader
@@ -44,6 +47,24 @@ public class Parser {
 		recogniserLapLapType = ConfReader.getLapTimerRecogniser("lapType");
 		lenLap = (int)ConfReader.getPacketLen("lap");
 		debugNumber = ConfReader.getNames("debug").size();
+		
+		/*
+		 * Hashmap init
+		 */
+		decodeMap.put((char)0x10, '1');
+		decodeMap.put((char)0x20, '2');
+		decodeMap.put((char)0x30, '3');
+		decodeMap.put((char)0x40, '4');
+		decodeMap.put((char)0xC0, '5');
+		decodeMap.put((char)0xD0, '6');
+		decodeMap.put((char)0xF0, '7');
+		decodeMap.put((char)0x80, '8');
+		decodeMap.put((char)0x90, '9');
+		decodeMap.put((char)0xA0, ';');
+		decodeMap.put((char)0xB0, '.');
+		decodeMap.put((char)0x50, '[');
+		decodeMap.put((char)0x60, ']');
+		decodeMap.put((char)0x70, 'b');
 	}
 
 	/*
@@ -125,4 +146,20 @@ public class Parser {
 		}
 	}
 	
+	/*
+	 * Decode string received from hex to normal characters
+	 */
+	public void decodeString(String string) {
+		StringBuilder decodedStr = new StringBuilder();
+		for(int i=0; i<string.length(); i++) {
+			decodedStr.append(decodeMap.get((char) (((byte)string.charAt(i))&((byte)0xF0))));
+			decodedStr.append(decodeMap.get((char) (((byte)string.charAt(i))&((byte)0x0F))));
+		}
+		System.out.println(decodedStr.toString());
+		try {
+			parseString(decodedStr.toString());
+		} catch (InvalidReadingException | InvalidUpdateException e) {
+			e.log();
+		}
+	}
 }
