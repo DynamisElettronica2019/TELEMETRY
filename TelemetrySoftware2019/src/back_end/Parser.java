@@ -153,18 +153,18 @@ public class Parser {
 	public void decodeString(byte[] strToDecode) {
 		StringBuilder decodedStr = new StringBuilder();
 		for(byte b : strToDecode) {
-		    byte high = (byte) ((b & 0xf0) >> 4);
-		    byte low = (byte) (b & 0xf);
+		    byte high = (byte) ((b & 0xf0) >> 4); // Store high part of byte
+		    byte low = (byte) (b & 0xf); // Store low part of byte
 		    if(decodeMap.get(high)!=null) {
-		    	decodedStr.append(decodeMap.get(high));
+		    	decodedStr.append(decodeMap.get(high)); // Add high part to string
 		    }
 		    
 		    if(decodeMap.get(low)!=null) {
-		    	decodedStr.append(decodeMap.get(low));
+		    	decodedStr.append(decodeMap.get(low)); // Add low part to string
 		    }   
 		}
 		try {
-			parseString(decodedStr.toString());
+			parseString(decodedStr.toString()); // Call the string parsing function
 		} catch (InvalidReadingException | InvalidUpdateException e) {
 			e.log();
 		}

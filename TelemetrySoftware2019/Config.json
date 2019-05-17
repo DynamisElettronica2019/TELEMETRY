@@ -14,7 +14,7 @@
 		"states": {
 				"names": ["USB Present","USB Ready","Acquisition ON","Telemetry ON","SD Present","SD Ready"],
 				"packetLen": 13,
-				"recogniser": "S" 
+				"recogniser": "2" 
 				},
 		"debug": {
 				"names": ["A","B","C","D","E","F","G","H","I","L","M","N","O","P","Q","R","S","T","U"],
