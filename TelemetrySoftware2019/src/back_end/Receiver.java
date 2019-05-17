@@ -1,6 +1,7 @@
 package back_end;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import com.fazecast.jSerialComm.*;
@@ -17,16 +18,16 @@ public class Receiver {
 	private Parser parser;
 	private Data data;
 	private CommandSender commandSender;
-	private char[] strRead; // Vengono salvati i dati letti
+	private byte[] strRead; // Vengono salvati i dati letti
 	private int strIndex; // Primo elemento libero dell'array
 	private int openBracketIndex; // Indice parentesi aperta, -1 se non trovata
 	private int closeBracketIndex; // Indice parentesi chiusa, -1 se non trovata
-	private String strToSend; // Stringa pronta da inviare a parsed
+	private byte[] strToSend; // Stringa pronta da inviare a parsed
 	private SerialPort comPort;
 	private int baudRate;
 	private String portName;
-	private char pktStart;
-	private char pktEnd;
+	private byte pktStart;
+	private byte pktEnd;
 	private char mode;
 
 	/*
@@ -36,7 +37,7 @@ public class Receiver {
 		this.mode = mode;
 		this.data = data;
 		this.parser = parser;
-		strRead = new char[2056];
+		strRead = new byte[2056];
 		strIndex = 0;
 		openBracketIndex = -1;
 		if(mode == 'C'){
@@ -48,8 +49,8 @@ public class Receiver {
 			baudRate = (int)ConfReader.getLapRecBaud();
 			portName = ConfReader.getLapRecPort();
 		}
-		pktStart = ConfReader.getPktStart();
-		pktEnd = ConfReader.getPktEnd();
+		pktStart = (byte) 0x57;
+		pktEnd = (byte) 0x67;
 	}
 	
 	/*
@@ -83,7 +84,7 @@ public class Receiver {
 			try {
 				byte[] newData = event.getReceivedData();
 				for (int i = 0; i < newData.length; ++i) {
-					strRead[strIndex] = (char) (newData[i]); // Salva i caratteri letti nell'array
+					strRead[strIndex] = newData[i]; // Salva i byte letti nell'array
 					if (strRead[strIndex] == pktStart) { // Salva l'indice della parentesi aperta
 						openBracketIndex = strIndex;
 					} else if (openBracketIndex != -1) { // Cerco una parentesi chiusa solo se ne ho trovata una aperta
@@ -144,7 +145,7 @@ public class Receiver {
 	 * parentesi comprese Resetta gli indici delle parentesi
 	 */
 	private void createString() {
-		strToSend = new String(strRead, (openBracketIndex + 1), (closeBracketIndex - openBracketIndex - 1));
+		strToSend = Arrays.copyOfRange(strRead, (openBracketIndex + 1), (closeBracketIndex));
 		strIndex = 0;
 		openBracketIndex = -1;
 		closeBracketIndex = -1;

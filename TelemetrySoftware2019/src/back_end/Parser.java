@@ -26,7 +26,8 @@ public class Parser {
 	private char recogniserLapLapType;
 	private int lenLap;
 	private int debugNumber;
-	private Map<Character, Character> decodeMap = new HashMap<>();
+	private Map<Byte, Character> decodeMap = new HashMap<>();
+	private Map<Byte, Character> decodeMap2 = new HashMap<>();
 
 	/*
 	 * Set class attributes through ConfReader
@@ -51,20 +52,20 @@ public class Parser {
 		/*
 		 * Hashmap init
 		 */
-		decodeMap.put((char)0x10, '1');
-		decodeMap.put((char)0x20, '2');
-		decodeMap.put((char)0x30, '3');
-		decodeMap.put((char)0x40, '4');
-		decodeMap.put((char)0xC0, '5');
-		decodeMap.put((char)0xD0, '6');
-		decodeMap.put((char)0xF0, '7');
-		decodeMap.put((char)0x80, '8');
-		decodeMap.put((char)0x90, '9');
-		decodeMap.put((char)0xA0, ';');
-		decodeMap.put((char)0xB0, '.');
-		decodeMap.put((char)0x50, '[');
-		decodeMap.put((char)0x60, ']');
-		decodeMap.put((char)0x70, 'b');
+		decodeMap.put((byte) 0x0, '0');
+		decodeMap.put((byte) 0x1, '1');
+		decodeMap.put((byte) 0x2, '2');
+		decodeMap.put((byte) 0x3, '3');
+		decodeMap.put((byte) 0x4, '4');
+		decodeMap.put((byte) 0xc, '5');
+		decodeMap.put((byte) 0xd, '6');
+		decodeMap.put((byte) 0xf, '7');
+		decodeMap.put((byte) 0x8, '8');
+		decodeMap.put((byte) 0x9, '9');
+		decodeMap.put((byte) 0xa, ';');
+		decodeMap.put((byte) 0xb, '.');
+		decodeMap.put((byte) 0x5, '[');
+		decodeMap.put((byte) 0x6, ']');
 	}
 
 	/*
@@ -149,13 +150,19 @@ public class Parser {
 	/*
 	 * Decode string received from hex to normal characters
 	 */
-	public void decodeString(String string) {
+	public void decodeString(byte[] strToDecode) {
 		StringBuilder decodedStr = new StringBuilder();
-		for(int i=0; i<string.length(); i++) {
-			decodedStr.append(decodeMap.get((char) (((byte)string.charAt(i))&((byte)0xF0))));
-			decodedStr.append(decodeMap.get((char) (((byte)string.charAt(i))&((byte)0x0F))));
+		for(byte b : strToDecode) {
+		    byte high = (byte) ((b & 0xf0) >> 4);
+		    byte low = (byte) (b & 0xf);
+		    if(decodeMap.get(high)!=null) {
+		    	decodedStr.append(decodeMap.get(high));
+		    }
+		    
+		    if(decodeMap.get(low)!=null) {
+		    	decodedStr.append(decodeMap.get(low));
+		    }   
 		}
-		System.out.println(decodedStr.toString());
 		try {
 			parseString(decodedStr.toString());
 		} catch (InvalidReadingException | InvalidUpdateException e) {
