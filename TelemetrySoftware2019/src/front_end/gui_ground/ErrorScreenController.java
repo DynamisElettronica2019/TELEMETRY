@@ -31,7 +31,9 @@ public class ErrorScreenController extends Controller {
 	@FXML
 	private TableView<ErrorTableList> errorTable;
 	@FXML
-	private TableColumn<ErrorTableList, String> nameColumn, lastOccColumn, nOccColumn;
+	private TableColumn<ErrorTableList, String> nameColumn, lastOccColumn;
+	@FXML
+	private TableColumn<ErrorTableList, Integer> nOccColumn;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -39,13 +41,14 @@ public class ErrorScreenController extends Controller {
 		
 		//Initialize errors
 		errorTable.setItems(errorObsList);
-		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-		lastOccColumn.setCellValueFactory(new PropertyValueFactory<>("lastOcc"));
-		lastOccColumn.setCellValueFactory(new PropertyValueFactory<>("nOcc"));
+		nameColumn.setCellValueFactory(new PropertyValueFactory<ErrorTableList,String>("name"));
+		lastOccColumn.setCellValueFactory(new PropertyValueFactory<ErrorTableList,String>("lastOcc"));
+		nOccColumn.setCellValueFactory(new PropertyValueFactory<ErrorTableList,Integer>("nOcc"));
 		errorList = ConfReader.getErrorNames("error");
 		for (int i = 0; i < errorList.size(); i++) {
 			errorMap.put(errorList.get(i), i);
 			errorTable.getItems().add(new ErrorTableList(errorList.get(i), "No Occurrence", 0));
+			System.out.println(errorTable.getItems().get(i).getLastOcc());
 		}	
 	}
 
@@ -78,7 +81,6 @@ public class ErrorScreenController extends Controller {
 		if(errorMap.get(error.getName()) != null) {
 			errorObsList.set(errorMap.get(error.getName()), new ErrorTableList(error.getName(), error.getLastOcc().format(formatter), error.getNumbOcc()));	
 			errorTable.refresh();
-			System.out.println("WE");
 		}
 	}
 
