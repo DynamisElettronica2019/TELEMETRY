@@ -79,7 +79,12 @@ public class ErrorScreenController extends Controller {
 	public void editError(Error error) {
 		if(errorMap.get(error.getName()) != null) {
 			if(toLoadList.get(errorMap.get(error.getName()))) {
-				errorTable.getItems().add(new ErrorTableList(error.getName(), error.getLastOcc().format(formatter), error.getNumbOcc()));
+				if(error.getLastOcc() == null) {
+					errorTable.getItems().add(new ErrorTableList(error.getName(), "No occurence", error.getNumbOcc()));
+				}
+				else {
+					errorTable.getItems().add(new ErrorTableList(error.getName(), error.getLastOcc().format(formatter), error.getNumbOcc()));
+				}
 				toLoadList.set(errorMap.get(error.getName()), false);
 			}
 			else {

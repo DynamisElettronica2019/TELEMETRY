@@ -178,7 +178,11 @@ public class TopBarController extends Controller {
 
 	@Override
 	public void editError(Error error) {
-		errorBar.setText(error.getLastOcc().format(formatter)+" "+error.getName());
+		if(error!=null) {
+			if((errorBar!=null) && (error.getLastOcc() != null)) {
+				errorBar.setText(error.getLastOcc().format(formatter)+" "+error.getName());
+			}
+		}
 	}
 
 	//Set last lap time on label, second top bar
