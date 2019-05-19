@@ -295,6 +295,10 @@ public class Data {
 		return lapTimer;
 	}
 	
+	public Error[] getDcuErrors() {
+		return dcuErrors;
+	}
+	
 	/*
 	 *  Csv loading
 	 */

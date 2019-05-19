@@ -49,7 +49,7 @@ public class TopBarController extends Controller {
 	@FXML
 	private Circle circle1, circle2, circle3, circle4, circle5, circle6, circle7, circle8, circle9, circle10, circle11;
 	@FXML
-	private Button commandsPage, debugPage, dynamicsPage, enginePage, rawPage, laptimerPage;
+	private Button commandsPage, debugPage, dynamicsPage, enginePage, rawPage, laptimerPage, errorPage;
 	@FXML
 	private Label label1, label2, label3, label4, label5, label6, label7, label8, label9, label10, label11;
 	@FXML
@@ -178,7 +178,11 @@ public class TopBarController extends Controller {
 
 	@Override
 	public void editError(Error error) {
-		errorBar.setText(error.getLastOcc().format(formatter)+" "+error.getName());
+		if(error!=null) {
+			if((errorBar!=null) && (error.getLastOcc() != null)) {
+				errorBar.setText(error.getLastOcc().format(formatter)+" "+error.getName());
+			}
+		}
 	}
 
 	//Set last lap time on label, second top bar
@@ -265,6 +269,10 @@ public class TopBarController extends Controller {
 	@FXML
 	public void laptimerClick() throws IOException {
 		view.SetScreen("LaptimerScreen.fxml", side);
+	}
+	@FXML
+	public void errorClick() throws IOException {
+		view.SetScreen("ErrorScreen.fxml", side);
 	}
 	@FXML
 	public void errorBarClick() {
