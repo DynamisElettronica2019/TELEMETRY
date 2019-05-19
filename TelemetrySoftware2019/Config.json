@@ -23,7 +23,7 @@
 				}
 		},
 	"error": {
-		"recogniser": "E",
+		"recogniser": "4",
 		"list": [
 				{
 				"name": "OPEN_FILE_ERROR",
@@ -36,7 +36,7 @@
 			]
 		},
 	"command": {
-		"recogniser": "A",
+		"recogniser": "3",
 		"timer": 5000,
 		"list": [
 				{
@@ -62,11 +62,11 @@
 	},
     "receiver": {
         "carBaudRate": 115200,
-        "carCommPort": "COM3",
+        "carCommPort": "COM5",
         "lapBaudRate": 115200,
-        "lapCommPort": "COM5",
-        "pktStart": "W",
-        "pktEnd": "g"
+        "lapCommPort": "COM3",
+        "pktStart": "[",
+        "pktEnd": "]"
     },
     "server": {
     	"serverPort": 8081,

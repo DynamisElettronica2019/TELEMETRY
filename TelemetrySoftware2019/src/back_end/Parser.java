@@ -1,6 +1,7 @@
 package back_end;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -151,10 +152,11 @@ public class Parser {
 	 * Decode string received from hex to normal characters
 	 */
 	public void decodeString(byte[] strToDecode) {
-		if (strToDecode[0] == ((byte) 0x3F)) { // Set command message identifier here
-			strToDecode[0] = (byte) '3'; // Set command message identifier also here
+		if (strToDecode[0] == ((byte) '3') || strToDecode[0] == ((byte) '4')) { // Set command message identifier here
 			try {
-				parseString(String.valueOf(strToDecode)); // Call the string parsing function
+				byte[] noBracketStr;
+				noBracketStr = Arrays.copyOfRange(strToDecode, 0, 2); // Remove brackets
+				parseString(new String(noBracketStr)); // Call the string parsing function
 			} catch (InvalidReadingException | InvalidUpdateException e) {
 				e.log(); 
 			} 

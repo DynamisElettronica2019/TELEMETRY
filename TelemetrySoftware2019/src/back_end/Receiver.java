@@ -28,6 +28,8 @@ public class Receiver {
 	private String portName;
 	private byte pktStart;
 	private byte pktEnd;
+	private char pktStartSend;
+	private char pktEndSend;
 	private char mode;
 
 	/*
@@ -51,6 +53,9 @@ public class Receiver {
 		}
 		pktStart = (byte) 0x57;
 		pktEnd = (byte) 0x67;
+		
+		pktStartSend = ConfReader.getPktStart();
+		pktEndSend = ConfReader.getPktEnd();
 	}
 	
 	/*
@@ -58,7 +63,7 @@ public class Receiver {
 	 */
 	public void send(String toSend) {
 		if(mode == 'C'){
-			toSend = pktStart+toSend+pktEnd;
+			toSend = pktStartSend+toSend+pktEndSend;
 			comPort.writeBytes(toSend.getBytes(), toSend.getBytes().length);
 		}
 	}
