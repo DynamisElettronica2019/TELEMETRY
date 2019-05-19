@@ -58,4 +58,12 @@ public class Error extends Observable{
 	public LocalDateTime getLastOcc() {
 		return lastOcc;
 	}
+	
+	/*
+	 * Notify view
+	 */
+	public void load() {
+		setChanged();
+		notifyObservers();
+	}
 }

@@ -8,7 +8,7 @@ public class ErrorTableList {
 	public ErrorTableList(String name, String lastOcc, int nOcc) {
 		this.setName(name);
 		this.setLastOcc(lastOcc);
-		this.setnOcc(nOcc);
+		this.setNOcc(nOcc);
 	}
 	
 	public String getName() {
@@ -23,10 +23,10 @@ public class ErrorTableList {
 	public void setLastOcc(String lastOcc) {
 		this.lastOcc = lastOcc;
 	}
-	public int getnOcc() {
+	public int getNOcc() {
 		return nOcc;
 	}
-	public void setnOcc(int nOcc) {
+	public void setNOcc(int nOcc) {
 		this.nOcc = nOcc;
 	}
 	

@@ -16,6 +16,7 @@ public class ViewLoader {
 		for(State s : data.getStates()) s.load();
 		for(Debug d : data.getDebug()) d.load();
 		for(Command c : data.getDcuCommands()) c.load();
+		for(Error e : data.getDcuErrors()) e.load();
 		data.getLapTimer().load();
 	}
 

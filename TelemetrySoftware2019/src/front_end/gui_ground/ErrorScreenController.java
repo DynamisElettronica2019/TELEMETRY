@@ -25,13 +25,16 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ErrorScreenController extends Controller {
 	private ArrayList<String> errorList;
+	private ArrayList<Boolean> toLoadList = new ArrayList<Boolean>();
 	private ObservableList<ErrorTableList> errorObsList = FXCollections.observableArrayList();
 	private Map<String, Integer> errorMap = new HashMap<>();
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 	@FXML
 	private TableView<ErrorTableList> errorTable;
 	@FXML
-	private TableColumn<ErrorTableList, String> nameColumn, lastOccColumn, nOccColumn;
+	private TableColumn<ErrorTableList, String> nameColumn, lastOccColumn;
+	@FXML
+	private TableColumn<ErrorTableList, Integer> nOccColumn;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -39,14 +42,14 @@ public class ErrorScreenController extends Controller {
 		
 		//Initialize errors
 		errorTable.setItems(errorObsList);
-		nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-		lastOccColumn.setCellValueFactory(new PropertyValueFactory<>("lastOcc"));
-		lastOccColumn.setCellValueFactory(new PropertyValueFactory<>("nOcc"));
+		nameColumn.setCellValueFactory(new PropertyValueFactory<ErrorTableList,String>("name"));
+		lastOccColumn.setCellValueFactory(new PropertyValueFactory<ErrorTableList,String>("lastOcc"));
+		nOccColumn.setCellValueFactory(new PropertyValueFactory<ErrorTableList,Integer>("nOcc"));
 		errorList = ConfReader.getErrorNames("error");
 		for (int i = 0; i < errorList.size(); i++) {
 			errorMap.put(errorList.get(i), i);
-			errorTable.getItems().add(new ErrorTableList(errorList.get(i), "No Occurrence", 0));
-		}	
+			toLoadList.add(true);
+		}
 	}
 
 	@Override
@@ -64,7 +67,6 @@ public class ErrorScreenController extends Controller {
 	@Override
 	public void editChannel(Channel channel) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
@@ -76,9 +78,19 @@ public class ErrorScreenController extends Controller {
 	@Override
 	public void editError(Error error) {
 		if(errorMap.get(error.getName()) != null) {
-			errorObsList.set(errorMap.get(error.getName()), new ErrorTableList(error.getName(), error.getLastOcc().format(formatter), error.getNumbOcc()));	
-			errorTable.refresh();
-			System.out.println("WE");
+			if(toLoadList.get(errorMap.get(error.getName()))) {
+				if(error.getLastOcc() == null) {
+					errorTable.getItems().add(new ErrorTableList(error.getName(), "No occurence", error.getNumbOcc()));
+				}
+				else {
+					errorTable.getItems().add(new ErrorTableList(error.getName(), error.getLastOcc().format(formatter), error.getNumbOcc()));
+				}
+				toLoadList.set(errorMap.get(error.getName()), false);
+			}
+			else {
+				errorObsList.set(errorMap.get(error.getName()), new ErrorTableList(error.getName(), error.getLastOcc().format(formatter), error.getNumbOcc()));	
+				errorTable.refresh();
+			}	
 		}
 	}
 
