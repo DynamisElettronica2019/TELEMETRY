@@ -1,6 +1,9 @@
 package back_end;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import configuration.ConfReader;
 import exceptions.InvalidCodeException;
@@ -24,6 +27,8 @@ public class Parser {
 	private char recogniserLapLapType;
 	private int lenLap;
 	private int debugNumber;
+	private Map<Byte, Character> decodeMap = new HashMap<>();
+	private Map<Byte, Character> decodeMap2 = new HashMap<>();
 
 	/*
 	 * Set class attributes through ConfReader
@@ -44,6 +49,24 @@ public class Parser {
 		recogniserLapLapType = ConfReader.getLapTimerRecogniser("lapType");
 		lenLap = (int)ConfReader.getPacketLen("lap");
 		debugNumber = ConfReader.getNames("debug").size();
+		
+		/*
+		 * Hashmap init
+		 */
+		decodeMap.put((byte) 0x0, '0');
+		decodeMap.put((byte) 0x1, '1');
+		decodeMap.put((byte) 0x2, '2');
+		decodeMap.put((byte) 0x3, '3');
+		decodeMap.put((byte) 0x4, '4');
+		decodeMap.put((byte) 0xc, '5');
+		decodeMap.put((byte) 0xd, '6');
+		decodeMap.put((byte) 0xf, '7');
+		decodeMap.put((byte) 0x8, '8');
+		decodeMap.put((byte) 0x9, '9');
+		decodeMap.put((byte) 0xa, ';');
+		decodeMap.put((byte) 0xb, '.');
+		decodeMap.put((byte) 0x5, '[');
+		decodeMap.put((byte) 0x6, ']');
 	}
 
 	/*
@@ -125,4 +148,35 @@ public class Parser {
 		}
 	}
 	
+	/*
+	 * Decode string received from hex to normal characters
+	 */
+	public void decodeString(byte[] strToDecode) {
+		if (strToDecode[0] == ((byte) '3') || strToDecode[0] == ((byte) '4')) { // Set command message identifier here
+			try {
+				byte[] noBracketStr;
+				noBracketStr = Arrays.copyOfRange(strToDecode, 0, 2); // Remove brackets
+				parseString(new String(noBracketStr)); // Call the string parsing function
+			} catch (InvalidReadingException | InvalidUpdateException e) {
+				e.log(); 
+			} 
+		}
+		else { // If message type is not command
+			StringBuilder decodedStr = new StringBuilder();
+			for(byte b : strToDecode) {
+			    if(decodeMap.get((byte) ((b & 0xf0) >> 4))!=null) {
+			    	decodedStr.append(decodeMap.get((byte) ((b & 0xf0) >> 4))); // Add high part to string
+			    }
+			    
+			    if(decodeMap.get((byte) (b & 0xf))!=null) {
+			    	decodedStr.append(decodeMap.get((byte) (b & 0xf))); // Add low part to string
+			    }   
+			}
+			try {
+				parseString(decodedStr.toString()); // Call the string parsing function
+			} catch (InvalidReadingException | InvalidUpdateException e) {
+				e.log();
+			}
+		}
+	}
 }
