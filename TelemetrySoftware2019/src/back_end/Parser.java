@@ -151,20 +151,30 @@ public class Parser {
 	 * Decode string received from hex to normal characters
 	 */
 	public void decodeString(byte[] strToDecode) {
-		StringBuilder decodedStr = new StringBuilder();
-		for(byte b : strToDecode) {
-		    if(decodeMap.get((byte) ((b & 0xf0) >> 4))!=null) {
-		    	decodedStr.append(decodeMap.get((byte) ((b & 0xf0) >> 4))); // Add high part to string
-		    }
-		    
-		    if(decodeMap.get((byte) (b & 0xf))!=null) {
-		    	decodedStr.append(decodeMap.get((byte) (b & 0xf))); // Add low part to string
-		    }   
+		if (strToDecode[0] == ((byte) 0x3F)) { // Set command message identifier here
+			strToDecode[0] = (byte) '3'; // Set command message identifier also here
+			try {
+				parseString(String.valueOf(strToDecode)); // Call the string parsing function
+			} catch (InvalidReadingException | InvalidUpdateException e) {
+				e.log(); 
+			} 
 		}
-		try {
-			parseString(decodedStr.toString()); // Call the string parsing function
-		} catch (InvalidReadingException | InvalidUpdateException e) {
-			e.log();
+		else { // If message type is not command
+			StringBuilder decodedStr = new StringBuilder();
+			for(byte b : strToDecode) {
+			    if(decodeMap.get((byte) ((b & 0xf0) >> 4))!=null) {
+			    	decodedStr.append(decodeMap.get((byte) ((b & 0xf0) >> 4))); // Add high part to string
+			    }
+			    
+			    if(decodeMap.get((byte) (b & 0xf))!=null) {
+			    	decodedStr.append(decodeMap.get((byte) (b & 0xf))); // Add low part to string
+			    }   
+			}
+			try {
+				parseString(decodedStr.toString()); // Call the string parsing function
+			} catch (InvalidReadingException | InvalidUpdateException e) {
+				e.log();
+			}
 		}
 	}
 }
