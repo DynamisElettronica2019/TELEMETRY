@@ -8,5 +8,6 @@
 	<classpathentry kind="lib" path="lib/javax.websocket-api-1.0-rc4.jar"/>
 	<classpathentry kind="lib" path="lib/tyrus-standalone-client-1.9.jar"/>
 	<classpathentry kind="lib" path="lib/commons-csv-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/Medusa-8.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
