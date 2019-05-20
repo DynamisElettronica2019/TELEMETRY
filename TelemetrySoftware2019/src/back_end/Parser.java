@@ -152,7 +152,7 @@ public class Parser {
 	 * Decode string received from hex to normal characters
 	 */
 	public void decodeString(byte[] strToDecode) {
-		if (strToDecode[0] == ((byte) '3') || strToDecode[0] == ((byte) '4')) { // Set command message identifier here
+		if (strToDecode[0] == ((byte) recogniserAckComm) || strToDecode[0] == ((byte) recogniserDcuErr)) { // Set command message identifier here
 			try {
 				byte[] noBracketStr;
 				noBracketStr = Arrays.copyOfRange(strToDecode, 0, 2); // Remove brackets
