@@ -62,9 +62,9 @@
 	},
     "receiver": {
         "carBaudRate": 115200,
-        "carCommPort": "COM5",
+        "carCommPort": "COM4",
         "lapBaudRate": 115200,
-        "lapCommPort": "COM3",
+        "lapCommPort": "COM12",
         "pktStart": "[",
         "pktEnd": "]"
     },
