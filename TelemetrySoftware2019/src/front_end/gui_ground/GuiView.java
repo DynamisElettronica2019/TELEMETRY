@@ -62,7 +62,7 @@ public class GuiView extends View {
         } );
         
         //Initialize stage SX
-        vboxSX = new VBox(5);
+        vboxSX = new VBox(0);
         AnchorPaneSX = new AnchorPane();
         sceneSX = new Scene(AnchorPaneSX);
         sceneSX.getStylesheets().add(getStylesheetString());

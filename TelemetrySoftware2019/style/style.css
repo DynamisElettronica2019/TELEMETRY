@@ -21,6 +21,10 @@
 	-fx-background-color: #7f8c8d;
 }
 
+.white-background {
+	-fx-background-color: white;
+}
+
 .effect-shadow {
 	-fx-effect: dropshadow;
 }
