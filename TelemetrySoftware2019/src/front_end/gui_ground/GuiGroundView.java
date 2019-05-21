@@ -136,6 +136,7 @@ public class GuiGroundView extends GuiView {
 	    AnchorPane.setBottomAnchor(vboxDX, 0.0);
 	    AnchorPane.setLeftAnchor(vboxDX, 0.0);
 	    AnchorPane.setRightAnchor(vboxDX, 0.0);
+	    DXTopBarPane.prefWidth(200);
 	    vboxDX.getChildren().add(DXTopBarPane);
 	    vboxDX.getChildren().add(DXMainPane);
 	    AnchorPaneDX.getChildren().add(vboxDX);
