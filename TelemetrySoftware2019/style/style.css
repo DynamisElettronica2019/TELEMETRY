@@ -33,3 +33,33 @@
 	-fx-font-family: Quicksand;
 	-fx-font-weight: bold;
 }
+
+.combo-box-sidebar {
+	-fx-background-color: #7f8c8d;
+	-fx-background-radius: 0px;	
+	-fx-font-family: Quicksand;
+	-fx-prompt-text-fill: white;
+	-fx-font-weight: bold;
+}
+
+.combo-box-sidebar .arrow {
+	-fx-background-color: white;
+}
+
+.combo-box-sidebar .list-view .list-cell {
+	-fx-background-color: #7f8c8d;
+	-fx-font-family: Quicksand;
+	-fx-text-fill: white;
+}
+
+.combo-box-sidebar .list-cell {
+	-fx-text-fill: white;
+	-fx-font-size: 14pt ;
+}
+
+#nValuesLabel {
+	-fx-text-fill: white;
+	-fx-font-size: 14pt ;
+	-fx-font-family: Quicksand;
+	-fx-font-weight: bold;
+}

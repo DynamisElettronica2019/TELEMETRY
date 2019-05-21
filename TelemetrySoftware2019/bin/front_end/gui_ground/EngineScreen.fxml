@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
@@ -22,6 +23,7 @@
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" percentHeight="2.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <HBox minWidth="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
@@ -189,9 +191,20 @@
                   </HBox>
                   <VBox spacing="10.0" styleClass="blue-menu-background" stylesheets="@../../../style/style.css">
                      <children>
-                        <ToggleButton fx:id="pauseButton" mnemonicParsing="false" onAction="#PressButtonClick" text="Pause" />
-                        <Label text="N. Values:" />
-                        <ComboBox fx:id="numberValues" prefWidth="150.0" />
+                        <HBox styleClass="grey-button-box-background" stylesheets="@../../../style/style.css">
+                           <children>
+                              <ToggleButton fx:id="pauseButton" mnemonicParsing="false" onAction="#PressButtonClick" style="-fx-font-size: 18;" styleClass="transparent-button-background" stylesheets="@../../../style/style.css" text="Pause" HBox.hgrow="ALWAYS" />
+                           </children>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </HBox>
+                        <Label id="nValuesLabel" stylesheets="@../../../style/style.css" text="Number of Values:" />
+                        <ComboBox fx:id="numberValues" prefWidth="200.0" styleClass="combo-box-sidebar" stylesheets="@../../../style/style.css">
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </ComboBox>
                      </children>
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -200,17 +213,14 @@
                         <Insets />
                      </GridPane.margin>
                   </VBox>
-                  <Pane prefHeight="200.0" prefWidth="200.0" styleClass="blue-menu-background" stylesheets="@../../../style/style.css" GridPane.rowIndex="1" />
+                  <Pane prefHeight="200.0" prefWidth="200.0" styleClass="blue-menu-background" stylesheets="@../../../style/style.css" GridPane.rowIndex="1" GridPane.rowSpan="2" />
+                  <Slider fx:id="slider" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </Slider>
                </children>
             </GridPane>
-            <Slider fx:id="slider">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </Slider>
          </children>
       </VBox>
    </children>
