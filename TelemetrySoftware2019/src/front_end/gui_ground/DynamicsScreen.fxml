@@ -78,12 +78,12 @@
          <children>
             <HBox>
                <children>
-                  <Label text="RPM:">
+                  <Label styleClass="chart-labels-bold" stylesheets="@../../../style/style.css" text="RPM:">
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="rpmLabel" text="No Value" />
+                  <Label fx:id="rpmLabel" styleClass="chart-labels" stylesheets="@../../../style/style.css" text="No Value" />
                </children>
             </HBox>
          </children>
@@ -95,12 +95,12 @@
          <children>
             <HBox>
                <children>
-                  <Label text="Speed:">
+                  <Label styleClass="chart-labels-bold" stylesheets="@../../../style/style.css" text="Speed:">
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="speedLabel" text="No Value" />
+                  <Label fx:id="speedLabel" styleClass="chart-labels" stylesheets="@../../../style/style.css" text="No Value" />
                </children>
             </HBox>
          </children>
@@ -112,12 +112,12 @@
          <children>
             <HBox>
                <children>
-                  <Label text="SW Angle:">
+                  <Label styleClass="chart-labels-bold" stylesheets="@../../../style/style.css" text="SW Angle:">
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="swLabel" text="No Value" />
+                  <Label fx:id="swLabel" styleClass="chart-labels" stylesheets="@../../../style/style.css" text="No Value" />
                </children>
             </HBox>
          </children>
@@ -129,12 +129,12 @@
          <children>
             <HBox>
                <children>
-                  <Label text="Gear:">
+                  <Label styleClass="chart-labels-bold" stylesheets="@../../../style/style.css" text="Gear:">
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="gearLabel" text="No Value" />
+                  <Label fx:id="gearLabel" styleClass="chart-labels" stylesheets="@../../../style/style.css" text="No Value" />
                </children>
             </HBox>
          </children>

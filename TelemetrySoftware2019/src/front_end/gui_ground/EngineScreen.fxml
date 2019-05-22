@@ -40,22 +40,22 @@
                            <children>
                               <HBox>
                                  <children>
-                                    <Label text="Exhaust 1 Temp:">
+                                    <Label styleClass="chart-labels-bold" text="Exhaust 1 Temp:">
                                        <HBox.margin>
                                           <Insets right="5.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Label fx:id="exhaust1TempLabel" text="No Value" />
+                                    <Label fx:id="exhaust1TempLabel" styleClass="chart-labels" text="No Value" />
                                  </children>
                               </HBox>
                               <HBox>
                                  <children>
-                                    <Label text="Exhaust 2 Temp:">
+                                    <Label styleClass="chart-labels-bold" text="Exhaust 2 Temp:">
                                        <HBox.margin>
                                           <Insets right="5.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Label fx:id="exhaust2TempLabel" text="No Value" />
+                                    <Label fx:id="exhaust2TempLabel" styleClass="chart-labels" text="No Value" />
                                  </children>
                               </HBox>
                            </children>
@@ -83,12 +83,12 @@
                            <children>
                               <HBox>
                                  <children>
-                                    <Label text="Oil Pression:">
+                                    <Label styleClass="chart-labels-bold" text="Oil Pression:">
                                        <HBox.margin>
                                           <Insets right="5.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Label fx:id="oilPressLabel" text="No Value" />
+                                    <Label fx:id="oilPressLabel" styleClass="chart-labels" text="No Value" />
                                  </children>
                               </HBox>
                               <HBox />
@@ -117,22 +117,22 @@
                            <children>
                               <HBox>
                                  <children>
-                                    <Label text="Oil Temp in:">
+                                    <Label styleClass="chart-labels-bold" text="Oil Temp in:">
                                        <HBox.margin>
                                           <Insets right="5.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Label fx:id="oilTempInLabel" text="No Value" />
+                                    <Label fx:id="oilTempInLabel" styleClass="chart-labels" text="No Value" />
                                  </children>
                               </HBox>
                               <HBox>
                                  <children>
-                                    <Label text="Oil Temp out:">
+                                    <Label styleClass="chart-labels-bold" text="Oil Temp out:">
                                        <HBox.margin>
                                           <Insets right="5.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Label fx:id="oilTempOutLabel" text="No Value" />
+                                    <Label fx:id="oilTempOutLabel" styleClass="chart-labels" text="No Value" />
                                  </children>
                               </HBox>
                            </children>
@@ -160,22 +160,22 @@
                            <children>
                               <HBox>
                                  <children>
-                                    <Label text="Water Temp in Left:">
+                                    <Label styleClass="chart-labels-bold" text="Water Temp in Left:">
                                        <HBox.margin>
                                           <Insets right="5.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Label fx:id="waterTempInLLabel" text="No Value" />
+                                    <Label fx:id="waterTempInLLabel" styleClass="chart-labels" text="No Value" />
                                  </children>
                               </HBox>
                               <HBox>
                                  <children>
-                                    <Label text="Water Temp in Right:">
+                                    <Label styleClass="chart-labels-bold" text="Water Temp in Right:">
                                        <HBox.margin>
                                           <Insets right="5.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <Label fx:id="waterTempOutLLabel" text="No Value" />
+                                    <Label fx:id="waterTempOutLLabel" styleClass="chart-labels" text="No Value" />
                                  </children>
                               </HBox>
                            </children>
