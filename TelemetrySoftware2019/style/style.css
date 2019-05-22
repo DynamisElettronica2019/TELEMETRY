@@ -72,3 +72,18 @@
 #stateLabelPane {
 	-fx-background-color: #222f3e;
 }
+
+.check-box-grey {
+	-fx-font-size: 14pt;
+	-fx-font-family: Quicksand;
+	-fx-text-fill: white;
+	-fx-font-weight: bold;
+}
+
+.check-box-grey .box {
+	-fx-background-color: white;
+	-fx-border-color:black;
+	-fx-border-radius:3px; 
+}
+
+

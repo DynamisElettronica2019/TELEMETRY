@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -35,6 +36,35 @@
             <TableColumn fx:id="stateValueColumn" prefWidth="75.0" text="Value" />
          </columns>
       </TableView>
-      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="blue-menu-background" stylesheets="@../../../style/style.css" />
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="blue-menu-background" stylesheets="@../../../style/style.css">
+         <children>
+            <HBox styleClass="grey-button-box-background">
+               <children>
+                  <CheckBox fx:id="channelsCheckbox" mnemonicParsing="false" selected="true" styleClass="check-box-grey" stylesheets="@../../../style/style.css" text="Channels" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <HBox styleClass="grey-button-box-background">
+               <children>
+                  <CheckBox fx:id="debugCheckbox" mnemonicParsing="false" selected="true" styleClass="check-box-grey" stylesheets="@../../../style/style.css" text="Debug" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <HBox styleClass="grey-button-box-background">
+               <children>
+                  <CheckBox fx:id="statesCheckbox" mnemonicParsing="false" selected="true" styleClass="check-box-grey" stylesheets="@../../../style/style.css" text="States" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding></VBox>
    </children>
 </GridPane>
