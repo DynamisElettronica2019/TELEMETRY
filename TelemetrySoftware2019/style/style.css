@@ -19,7 +19,7 @@
 
 .grey-button-box-background {
 	-fx-background-color: #7f8c8d;
-	-fx-background-radius: 5px;
+	-fx-background-radius: 3px;
 }
 
 .white-background {
@@ -37,7 +37,7 @@
 
 .combo-box-sidebar {
 	-fx-background-color: #7f8c8d;
-	-fx-background-radius: 5px;
+	-fx-background-radius: 3px;
 	-fx-font-family: Quicksand;
 	-fx-prompt-text-fill: white;
 	-fx-font-weight: bold;
@@ -63,4 +63,12 @@
 	-fx-font-size: 14pt ;
 	-fx-font-family: Quicksand;
 	-fx-font-weight: bold;
+}
+
+#menuBar {
+	-fx-background-color: #2e86de
+}
+
+#stateLabelPane {
+	-fx-background-color: #222f3e
 }

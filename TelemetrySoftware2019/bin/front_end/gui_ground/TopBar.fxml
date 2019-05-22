@@ -15,10 +15,13 @@
    <children>
       <StackPane id="stackPaneLogo" minWidth="200.0" stylesheets="@../../../style/style.css">
          <children>
-            <ImageView fitHeight="150.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
+            <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
                <image>
-                  <Image url="file:/C:/Users/marco/eclipse-workspace/TELEMETRY/TelemetrySoftware2019/src/front_end/gui_ground/cropped-Dynamis_PRC_LOGO.png" />
-               </image></ImageView>
+                  <Image url="/front_end/gui_ground/cropped-Dynamis_PRC_LOGO.png" />
+               </image>
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin></ImageView>
          </children>
          <HBox.margin>
             <Insets />
@@ -29,7 +32,7 @@
       </StackPane>
       <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="1080.0" spacing="5.0" styleClass="blue-menu-background" stylesheets="@../../../style/style.css" HBox.hgrow="ALWAYS">
          <children>
-            <HBox fx:id="buttonBox" spacing="20.0">
+            <HBox id="menuBar" fx:id="buttonBox" spacing="20.0" stylesheets="@../../../style/style.css">
                <children>
                   <VBox styleClass="grey-button-box-background" stylesheets="@../../../style/style.css">
                      <children>
@@ -122,11 +125,14 @@
                   </VBox>
                </children>
                <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                </padding>
                <VBox.margin>
                   <Insets />
                </VBox.margin>
+               <effect>
+                  <DropShadow />
+               </effect>
             </HBox>
             <HBox minHeight="70.0" spacing="10.0">
                <children>
@@ -243,42 +249,53 @@
                         <Label fx:id="label11" styleClass="bold-quicksand-text" stylesheets="@../../../style/style.css" text="Battery Voltage" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER" />
                      </children>
                   </StackPane>
-                  <VBox prefWidth="50.0">
+                  <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                  <HBox id="stateLabelPane" spacing="5.0" stylesheets="@../../../style/style.css">
                      <children>
-                        <Label styleClass="bold-quicksand-text" stylesheets="@../../../style/style.css" text="Mappa" textFill="WHITE" />
-                        <Label fx:id="map" text="/" textFill="WHITE">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <VBox prefWidth="50.0">
-                     <children>
-                        <Label styleClass="bold-quicksand-text" stylesheets="@../../../style/style.css" text="Traction" textFill="WHITE" />
-                        <Label fx:id="traction" text="/" textFill="WHITE">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                           <VBox.margin>
+                        <VBox layoutX="60.328125" prefWidth="50.0">
+                           <children>
+                              <Label styleClass="bold-quicksand-text" stylesheets="@../../../style/style.css" text="Traction" textFill="WHITE" />
+                              <Label fx:id="traction" text="/" textFill="WHITE">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets right="5.0" />
+                                 </VBox.margin>
+                              </Label>
+                           </children>
+                           <HBox.margin>
                               <Insets right="5.0" />
-                           </VBox.margin>
-                        </Label>
+                           </HBox.margin>
+                        </VBox>
+                        <VBox layoutX="0.328125" prefWidth="50.0">
+                           <children>
+                              <Label styleClass="bold-quicksand-text" stylesheets="@../../../style/style.css" text="Mappa" textFill="WHITE" />
+                              <Label fx:id="map" text="/" textFill="WHITE">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox layoutX="125.328125" prefWidth="90.0">
+                           <children>
+                              <Label styleClass="bold-quicksand-text" stylesheets="@../../../style/style.css" text="Last lap" textFill="WHITE" />
+                              <Label fx:id="lastLap" text="0:00:00" textFill="WHITE">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
                      </children>
-                     <HBox.margin>
-                        <Insets right="5.0" />
-                     </HBox.margin>
-                  </VBox>
-                  <VBox prefWidth="90.0">
-                     <children>
-                        <Label styleClass="bold-quicksand-text" stylesheets="@../../../style/style.css" text="Last lap" textFill="WHITE" />
-                        <Label fx:id="lastLap" text="0:00:00" textFill="WHITE">
-                           <font>
-                              <Font size="24.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
+                     <padding>
+                        <Insets left="10.0" right="10.0" top="5.0" />
+                     </padding>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </HBox>
                   <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
                   <TextField fx:id="errorBar" editable="false" onMouseClicked="#errorBarClick" prefHeight="31.0" prefWidth="266.0" styleClass="text-error">
                      <HBox.margin>
@@ -294,9 +311,6 @@
                </padding>
             </HBox>
          </children>
-         <padding>
-            <Insets top="5.0" />
-         </padding>
       </VBox>
    </children>
 </HBox>
