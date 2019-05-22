@@ -38,6 +38,7 @@
       </TableView>
       <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="blue-menu-background" stylesheets="@../../../style/style.css">
          <children>
+            <Label id="nValuesLabel" text="Data to display:" />
             <HBox styleClass="grey-button-box-background">
                <children>
                   <CheckBox fx:id="channelsCheckbox" mnemonicParsing="false" selected="true" styleClass="check-box-grey" stylesheets="@../../../style/style.css" text="Channels" />
