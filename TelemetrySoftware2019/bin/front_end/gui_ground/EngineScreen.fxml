@@ -187,7 +187,7 @@
                   </HBox>
                </children>
             </HBox>
-            <VBox spacing="10.0" styleClass="blue-menu-background" stylesheets="@../../../style/style.css">
+            <VBox spacing="10.0" styleClass="blue-menu-background" stylesheets="@../../../style/style.css" GridPane.rowSpan="3">
                <children>
                   <HBox styleClass="grey-button-box-background" stylesheets="@../../../style/style.css">
                      <children>
@@ -211,7 +211,6 @@
                   <Insets />
                </GridPane.margin>
             </VBox>
-            <Pane prefHeight="200.0" prefWidth="200.0" styleClass="blue-menu-background" stylesheets="@../../../style/style.css" GridPane.rowIndex="1" GridPane.rowSpan="2" />
             <Slider fx:id="slider" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
