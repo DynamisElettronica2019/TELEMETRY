@@ -17,6 +17,14 @@
 	-fx-font-weight: bold;
 }
 
+.transparent-button-background:hover {
+	-fx-background-color: #EA2027;
+}
+
+.transparent-button-background:selected {
+	-fx-background-color: #EA2027;
+}
+
 .grey-button-box-background {
 	-fx-background-color: #7f8c8d;
 	-fx-background-radius: 4px;

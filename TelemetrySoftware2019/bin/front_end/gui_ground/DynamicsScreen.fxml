@@ -51,7 +51,7 @@
             <Label id="nValuesLabel" stylesheets="@../../../style/style.css" text="Pause auto-refresh:" />
             <HBox styleClass="grey-button-box-background" stylesheets="@../../../style/style.css">
                <children>
-                  <ToggleButton fx:id="pauseButton" mnemonicParsing="false" onAction="#PressButtonClick" style="-fx-font-size: 18;" styleClass="transparent-button-background" stylesheets="@../../../style/style.css" text="Pause">
+                  <ToggleButton fx:id="pauseButton" mnemonicParsing="false" onAction="#PressButtonClick" prefWidth="200.0" style="-fx-font-size: 18;" styleClass="transparent-button-background" stylesheets="@../../../style/style.css" text="Pause">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
