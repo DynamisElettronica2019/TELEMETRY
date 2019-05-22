@@ -118,10 +118,10 @@ public class TopBarController extends Controller {
 	@Override
 	public void editState(State state) {
 		if(state.getValue() == true) {
-			stateMap.get(state.getName()).setFill(Color.GREEN);
+			stateMap.get(state.getName()).setFill(Color.web("#009432"));
 		}
 		if(state.getValue() == false) {
-			stateMap.get(state.getName()).setFill(Color.RED);
+			stateMap.get(state.getName()).setFill(Color.web("#EA2027"));
 		}
 		if((state.getName().equals(ACQUISITION_ON_STATE))&&(state.getValue())) {
 			if(!saveCsvButton.isSelected()) {

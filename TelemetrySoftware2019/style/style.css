@@ -61,6 +61,10 @@
 	-fx-text-fill: white;
 }
 
+.combo-box-sidebar .list-view .list-cell:hover {
+	-fx-background-color: #EA2027;
+}
+
 .combo-box-sidebar .list-cell {
 	-fx-text-fill: white;
 	-fx-font-size: 14pt ;

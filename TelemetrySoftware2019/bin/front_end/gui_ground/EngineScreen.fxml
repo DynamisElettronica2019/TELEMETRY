@@ -36,7 +36,7 @@
                               <NumberAxis fx:id="YAxis11" side="LEFT" />
                            </yAxis>
                         </LineChart>
-                        <VBox minWidth="180.0" prefWidth="180.0" spacing="5.0">
+                        <VBox minWidth="200.0" prefWidth="200.0" spacing="5.0">
                            <children>
                               <HBox>
                                  <children>
@@ -79,7 +79,7 @@
                               <NumberAxis fx:id="YAxis2" side="LEFT" />
                            </yAxis>
                         </LineChart>
-                        <VBox minWidth="180.0" prefWidth="180.0" spacing="5.0">
+                        <VBox minWidth="200.0" prefWidth="200.0" spacing="5.0">
                            <children>
                               <HBox>
                                  <children>
@@ -113,7 +113,7 @@
                             <NumberAxis fx:id="YAxis" side="LEFT" />
                           </yAxis>
                         </LineChart>
-                        <VBox minWidth="180.0" prefWidth="180.0" spacing="5.0">
+                        <VBox minWidth="200.0" prefWidth="200.0" spacing="5.0">
                            <children>
                               <HBox>
                                  <children>
@@ -156,7 +156,7 @@
                               <NumberAxis fx:id="YAxis1" side="LEFT" />
                            </yAxis>
                         </LineChart>
-                        <VBox minWidth="180.0" prefWidth="180.0" spacing="5.0">
+                        <VBox minWidth="200.0" prefWidth="200.0" spacing="5.0">
                            <children>
                               <HBox>
                                  <children>
