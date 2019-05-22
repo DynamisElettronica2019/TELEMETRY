@@ -15,9 +15,12 @@ import back_end.State;
 import back_end.Threshold;
 import configuration.ConfReader;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -38,6 +41,8 @@ public class RawScreenController extends Controller {
 	private TableColumn<TableList, String> channelNameColumn, debugNameColumn, stateNameColumn;
 	@FXML
 	private TableColumn<TableList, Double> channelValueColumn, debugValueColumn, stateValueColumn;
+	@FXML
+	private CheckBox channelsCheckbox, debugCheckbox, statesCheckbox;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -71,7 +76,44 @@ public class RawScreenController extends Controller {
 		for (int i = 0; i < stateList.size(); i++) {
 			stateMap.put(stateList.get(i), i);
 			stateTable.getItems().add(new TableList(stateList.get(i), false));
-		}	
+		}
+		
+		//Checkbox listeners
+		channelsCheckbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+		    @Override
+		    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+		    	if(channelsCheckbox.isSelected()) {
+		    		channelTable.setVisible(true);
+		    	}
+		    	else {
+		    		channelTable.setVisible(false);
+		    	}
+		    }
+		});
+
+		debugCheckbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+		    @Override
+		    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+		    	if(debugCheckbox.isSelected()) {
+		    		debugTable.setVisible(true);
+		    	}
+		    	else {
+		    		debugTable.setVisible(false);
+		    	}
+		    }
+		});
+		
+		statesCheckbox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+		    @Override
+		    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+		    	if(statesCheckbox.isSelected()) {
+		    		stateTable.setVisible(true);
+		    	}
+		    	else {
+		    		stateTable.setVisible(false);
+		    	}
+		    }
+		});
 	}
 	
 	@Override

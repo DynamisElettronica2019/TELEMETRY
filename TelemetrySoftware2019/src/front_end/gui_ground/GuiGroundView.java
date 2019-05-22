@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
@@ -38,6 +39,7 @@ public class GuiGroundView extends GuiView {
         
         //Set stage DX
         stageDX = new Stage();
+        stageDX.getIcons().add(new Image("front_end/gui_ground/Dynamis.png"));
         stageDX.setTitle("Telemetry2019_DX");
         Screen secondScreen = Screen.getScreens().get(0);
         if(Screen.getScreens().size()>1) secondScreen = Screen.getScreens().get(1);
@@ -63,7 +65,7 @@ public class GuiGroundView extends GuiView {
         } );
         
         //Initialize stage DX
-        vboxDX = new VBox(5);
+        vboxDX = new VBox(0);
         AnchorPaneDX = new AnchorPane();
         sceneDX = new Scene(AnchorPaneDX);
         sceneDX.getStylesheets().add(getStylesheetString());
@@ -136,6 +138,7 @@ public class GuiGroundView extends GuiView {
 	    AnchorPane.setBottomAnchor(vboxDX, 0.0);
 	    AnchorPane.setLeftAnchor(vboxDX, 0.0);
 	    AnchorPane.setRightAnchor(vboxDX, 0.0);
+	    DXTopBarPane.prefWidth(200);
 	    vboxDX.getChildren().add(DXTopBarPane);
 	    vboxDX.getChildren().add(DXMainPane);
 	    AnchorPaneDX.getChildren().add(vboxDX);

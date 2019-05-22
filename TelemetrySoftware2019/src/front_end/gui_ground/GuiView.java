@@ -17,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
@@ -47,6 +48,7 @@ public class GuiView extends View {
 		//Set stage SX
 		stageSX = new Stage();
 		stageSX.setTitle("Telemetry2019_SX");
+		stageSX.getIcons().add(new Image("front_end/gui_ground/Dynamis.png"));
 		Screen mainScreen = Screen.getScreens().get(0); 
         Rectangle2D bounds = mainScreen.getVisualBounds();
         stageSX.setX(bounds.getMinX()+SCREEN_OFFSET_X);
@@ -62,7 +64,7 @@ public class GuiView extends View {
         } );
         
         //Initialize stage SX
-        vboxSX = new VBox(5);
+        vboxSX = new VBox(0);
         AnchorPaneSX = new AnchorPane();
         sceneSX = new Scene(AnchorPaneSX);
         sceneSX.getStylesheets().add(getStylesheetString());

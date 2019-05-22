@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <GridPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.gui_ground.RawScreenController">
    <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -17,23 +18,54 @@
       <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <TableView fx:id="channelTable">
+      <TableView fx:id="channelTable" GridPane.columnIndex="1">
         <columns>
           <TableColumn fx:id="channelNameColumn" prefWidth="150.0" text="Channel" />
           <TableColumn fx:id="channelValueColumn" prefWidth="75.0" text="Value" />
         </columns>
       </TableView>
-      <TableView fx:id="debugTable" GridPane.columnIndex="1">
+      <TableView fx:id="debugTable" GridPane.columnIndex="2">
          <columns>
             <TableColumn fx:id="debugNameColumn" prefWidth="150.0" text="Debug" />
             <TableColumn fx:id="debugValueColumn" prefWidth="75.0" text="Value" />
          </columns>
       </TableView>
-      <TableView fx:id="stateTable" GridPane.columnIndex="2">
+      <TableView fx:id="stateTable" GridPane.columnIndex="3">
          <columns>
             <TableColumn fx:id="stateNameColumn" prefWidth="150.0" text="State" />
             <TableColumn fx:id="stateValueColumn" prefWidth="75.0" text="Value" />
          </columns>
       </TableView>
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="blue-menu-background" stylesheets="@../../../style/style.css">
+         <children>
+            <Label id="nValuesLabel" text="Data to display:" />
+            <HBox styleClass="grey-button-box-background">
+               <children>
+                  <CheckBox fx:id="channelsCheckbox" mnemonicParsing="false" selected="true" styleClass="check-box-grey" stylesheets="@../../../style/style.css" text="Channels" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <HBox styleClass="grey-button-box-background">
+               <children>
+                  <CheckBox fx:id="debugCheckbox" mnemonicParsing="false" selected="true" styleClass="check-box-grey" stylesheets="@../../../style/style.css" text="Debug" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+            <HBox styleClass="grey-button-box-background">
+               <children>
+                  <CheckBox fx:id="statesCheckbox" mnemonicParsing="false" selected="true" styleClass="check-box-grey" stylesheets="@../../../style/style.css" text="States" />
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding></VBox>
    </children>
 </GridPane>

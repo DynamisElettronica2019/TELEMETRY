@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.text.*?>
@@ -8,11 +9,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<GridPane gridLinesVisible="true" prefHeight="1200.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.gui_ground.DynamicsScreenController">
+<GridPane prefHeight="1200.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.gui_ground.DynamicsScreenController">
   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" percentWidth="70.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" percentWidth="10.0" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints minHeight="10.0" percentHeight="23.0" vgrow="SOMETIMES" />
@@ -21,7 +22,7 @@
       <RowConstraints minHeight="10.0" percentHeight="31.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <LineChart fx:id="rpmChart" animated="false" legendSide="RIGHT" legendVisible="false">
+      <LineChart fx:id="rpmChart" animated="false" legendSide="RIGHT" legendVisible="false" GridPane.columnIndex="1">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -29,7 +30,7 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <LineChart fx:id="speedChart" animated="false" legendSide="RIGHT" legendVisible="false" GridPane.rowIndex="1">
+      <LineChart fx:id="speedChart" animated="false" legendSide="RIGHT" legendVisible="false" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -37,7 +38,7 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <LineChart fx:id="swChart" animated="false" legendSide="RIGHT" legendVisible="false" GridPane.rowIndex="2">
+      <LineChart fx:id="swChart" animated="false" legendSide="RIGHT" legendVisible="false" GridPane.columnIndex="1" GridPane.rowIndex="2">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -45,24 +46,35 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="2">
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="blue-menu-background" stylesheets="@../../../style/style.css" GridPane.rowSpan="4">
          <children>
-            <ToggleButton fx:id="pauseButton" mnemonicParsing="false" onAction="#PressButtonClick" text="Pause">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </ToggleButton>
-            <Label text="N. Values:" />
-            <ComboBox fx:id="numberValues" prefWidth="150.0" />
+            <Label id="nValuesLabel" stylesheets="@../../../style/style.css" text="Pause auto-refresh:" />
+            <HBox styleClass="grey-button-box-background" stylesheets="@../../../style/style.css">
+               <children>
+                  <ToggleButton fx:id="pauseButton" mnemonicParsing="false" onAction="#PressButtonClick" style="-fx-font-size: 18;" styleClass="transparent-button-background" stylesheets="@../../../style/style.css" text="Pause">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </ToggleButton>
+               </children>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </HBox>
+            <Label id="nValuesLabel" stylesheets="@../../../style/style.css" text="Number of Values:" />
+            <ComboBox fx:id="numberValues" prefWidth="200.0" styleClass="combo-box-sidebar" stylesheets="@../../../style/style.css">
+               <effect>
+                  <DropShadow />
+               </effect></ComboBox>
          </children>
          <GridPane.margin>
-            <Insets top="5.0" />
+            <Insets />
          </GridPane.margin>
          <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </VBox>
-      <VBox minWidth="180.0" prefWidth="180.0" spacing="5.0" GridPane.columnIndex="1">
+      <VBox minWidth="180.0" prefWidth="180.0" spacing="5.0" GridPane.columnIndex="2">
          <children>
             <HBox>
                <children>
@@ -79,7 +91,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </VBox>
-      <VBox minWidth="180.0" prefWidth="180.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <VBox minWidth="180.0" prefWidth="180.0" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
          <children>
             <HBox>
                <children>
@@ -96,7 +108,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </VBox>
-      <VBox minWidth="180.0" prefWidth="180.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <VBox minWidth="180.0" prefWidth="180.0" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <children>
             <HBox>
                <children>
@@ -113,7 +125,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </VBox>
-      <VBox minWidth="180.0" prefWidth="180.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <VBox minWidth="180.0" prefWidth="180.0" spacing="5.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
          <children>
             <HBox>
                <children>
@@ -130,7 +142,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </VBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="3">
+      <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <children>
             <LineChart fx:id="gearChart" animated="false" legendSide="RIGHT" legendVisible="false">
                <xAxis>
