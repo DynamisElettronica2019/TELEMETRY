@@ -13,6 +13,7 @@ import back_end.State;
 import back_end.Threshold;
 import back_end.ViewLoader;
 import front_end.View;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
@@ -61,6 +62,8 @@ public class GuiView extends View {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+        	Platform.exit();
+			System.exit(0);
         } );
         
         //Initialize stage SX
