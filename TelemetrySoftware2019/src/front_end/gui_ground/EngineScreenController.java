@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.CheckComboBox;
+
 import back_end.Channel;
 import back_end.Command;
 import back_end.Debug;
@@ -53,6 +55,8 @@ public class EngineScreenController extends Controller {
 	private Integer size, offset;
 	@FXML
 	private ComboBox<Integer> numberValues;
+	@FXML
+	private CheckComboBox<String> topLeftSelList, topRightSelList, bottomLeftSelList, bottomRightSelList;
 	@FXML
 	private LineChart<String, Double> oilTempChart, waterTempChart, exhaustTempChart, pressChart;
 	@FXML

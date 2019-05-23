@@ -71,6 +71,33 @@
 	-fx-font-size: 14pt ;
 }
 
+#check-combo .combo-box {
+   	-fx-background-color: #7f8c8d;
+	-fx-background-radius: 4px;
+	-fx-font-family: Quicksand;
+	-fx-prompt-text-fill: white;
+	-fx-font-weight: bold;
+}
+
+#check-combo .combo-box .arrow {
+	-fx-background-color: white;
+}
+
+#check-combo .list-view .list-cell {
+	-fx-background-color: #7f8c8d;
+	-fx-font-family: Quicksand;
+	-fx-text-fill: white;
+}
+
+#check-combo .list-view .list-cell:hover {
+	-fx-background-color: #EA2027;
+}
+
+#check-combo .list-cell {
+	-fx-text-fill: white;
+	-fx-font-size: 14pt ;
+}
+
 #nValuesLabel {
 	-fx-text-fill: white;
 	-fx-font-size: 14pt ;
