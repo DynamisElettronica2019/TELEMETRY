@@ -191,7 +191,7 @@ public class EngineScreenController extends Controller {
 		    	bottomLeftLabels.clear();
 		    	bottomLeftLabelBox.getChildren().clear();
 		    	bottomLeftLabelMap.clear();
-		        for(int i=0; i< topLeftSelList.getCheckModel().getCheckedItems().size(); i++) {
+		        for(int i=0; i< bottomLeftSelList.getCheckModel().getCheckedItems().size(); i++) {
 		        	bottomLeftSeries.add(new Series<>());
 		        	bottomLeftSeries.get(i).setName(bottomLeftSelList.getCheckModel().getCheckedItems().get(i));
 		        	bottomLeftChartData.add(bottomLeftSeries.get(i));
