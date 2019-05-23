@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -46,6 +47,9 @@
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
+               <effect>
+                  <DropShadow />
+               </effect>
             </HBox>
             <HBox styleClass="grey-button-box-background">
                <children>
@@ -54,6 +58,9 @@
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
+               <effect>
+                  <DropShadow />
+               </effect>
             </HBox>
             <HBox styleClass="grey-button-box-background">
                <children>
@@ -62,6 +69,9 @@
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
+               <effect>
+                  <DropShadow />
+               </effect>
             </HBox>
          </children>
          <padding>
