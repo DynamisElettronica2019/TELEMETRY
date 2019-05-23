@@ -167,7 +167,7 @@ public class EngineScreenController extends Controller {
 		        	HBox labelBox = new HBox();
 		        	labelBox.getChildren().add(new Label(topRightSelList.getCheckModel().getCheckedItems().get(i) + ": "));
 		        	topRightLabels.add(new Label("No Value"));
-		        	topLeftLabelMap.put(topRightSelList.getCheckModel().getCheckedItems().get(i), topRightLabels.get(i));
+		        	topRightLabelMap.put(topRightSelList.getCheckModel().getCheckedItems().get(i), topRightLabels.get(i));
 		        	labelBox.getChildren().add(topRightLabels.get(i));
 		        	topRightLabelBox.getChildren().add(labelBox);
 		        }
@@ -310,7 +310,7 @@ public class EngineScreenController extends Controller {
 			    			if (!pauseButton.isSelected()) {
 			    				if(topLeftChannelMap.get(channel.getName()) != null) {
 			    					topLeftChannelMap.get(channel.getName()).getData().add(getLastChartElem(channel));
-			    					//chartLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));
+			    					topLeftLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));
 			    					if(topLeftChannelMap.get(channel.getName()).getData().size() > numberValues.getValue()) {
 			    						topLeftChannelMap.get(channel.getName()).getData().remove(0);
 			    					}
@@ -327,7 +327,7 @@ public class EngineScreenController extends Controller {
 			    			if (!pauseButton.isSelected()) {
 			    				if(topRightChannelMap.get(channel.getName()) != null) {
 			    					topRightChannelMap.get(channel.getName()).getData().add(getLastChartElem(channel));
-			    					//chartLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));
+			    					topRightLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));
 			    					if(topRightChannelMap.get(channel.getName()).getData().size() > numberValues.getValue()) {
 			    						topRightChannelMap.get(channel.getName()).getData().remove(0);
 			    					}
@@ -344,7 +344,7 @@ public class EngineScreenController extends Controller {
 			    			if (!pauseButton.isSelected()) {
 			    				if(bottomLeftChannelMap.get(channel.getName()) != null) {
 			    					bottomLeftChannelMap.get(channel.getName()).getData().add(getLastChartElem(channel));
-			    					//chartLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));
+			    					bottomLeftLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));
 			    					if(bottomLeftChannelMap.get(channel.getName()).getData().size() > numberValues.getValue()) {
 			    						bottomLeftChannelMap.get(channel.getName()).getData().remove(0);
 			    					}
@@ -361,7 +361,7 @@ public class EngineScreenController extends Controller {
 			    			if (!pauseButton.isSelected()) {
 			    				if(bottomRightChannelMap.get(channel.getName()) != null) {
 			    					bottomRightChannelMap.get(channel.getName()).getData().add(getLastChartElem(channel));
-			    					//chartLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));
+			    					bottomRightLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));
 			    					if(bottomRightChannelMap.get(channel.getName()).getData().size() > numberValues.getValue()) {
 			    						bottomRightChannelMap.get(channel.getName()).getData().remove(0);
 			    					}
@@ -387,7 +387,7 @@ public class EngineScreenController extends Controller {
 					bottomRightChannelMap.get(channel.getName()).getData().clear();
 				}
 				if(topLeftLabelMap.get(channel.getName()) != null) {
-					//chartLabelMap.get(channel.getName()).setText("No value");
+					topLeftLabelMap.get(channel.getName()).setText("No value");
 				}
 			}
 		}
