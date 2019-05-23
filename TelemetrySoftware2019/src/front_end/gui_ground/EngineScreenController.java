@@ -36,11 +36,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.chart.XYChart.Data;
 
 public class EngineScreenController extends Controller {
-	private Map<String, Label> chartLabelMap = new HashMap<>();
+	private Map<String, Label> topLeftLabelMap = new HashMap<>();
+	private Map<String, Label> topRightLabelMap = new HashMap<>();
+	private Map<String, Label> bottomLeftLabelMap = new HashMap<>();
+	private Map<String, Label> bottomRightLabelMap = new HashMap<>();
 	private Map<String, Series<String, Double>> topLeftChannelMap = new HashMap<>();
 	private Map<String, Series<String, Double>> topRightChannelMap = new HashMap<>();
 	private Map<String, Series<String, Double>> bottomLeftChannelMap = new HashMap<>();
@@ -57,6 +62,10 @@ public class EngineScreenController extends Controller {
 	private ArrayList<Series<String, Double>> topRightSeries = new ArrayList<Series<String, Double>>();
 	private ArrayList<Series<String, Double>> bottomLeftSeries = new ArrayList<Series<String, Double>>();
 	private ArrayList<Series<String, Double>> bottomRightSeries = new ArrayList<Series<String, Double>>();
+	private ArrayList<Label> topLeftLabels = new ArrayList<Label>();
+	private ArrayList<Label> topRightLabels = new ArrayList<Label>();
+	private ArrayList<Label> bottomLeftLabels = new ArrayList<Label>();
+	private ArrayList<Label> bottomRightLabels = new ArrayList<Label>();
 	@FXML
 	private ComboBox<Integer> numberValues;
 	@FXML
@@ -69,6 +78,8 @@ public class EngineScreenController extends Controller {
 	private ToggleButton pauseButton;
 	@FXML
 	private Slider slider;
+	@FXML
+	private VBox topLeftLabelBox, topRightLabelBox, bottomLeftLabelBox, bottomRightLabelBox;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -102,14 +113,33 @@ public class EngineScreenController extends Controller {
 		 */
 		topLeftSelList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
 		    public void onChanged(ListChangeListener.Change<? extends String> c) {
+		    	/*
+		    	 * Cleanup older series
+		    	 */
 		    	topLeftSeries.clear();
 		    	topLeftChartData.clear();
 		    	topLeftChannelMap.clear();
+		    	topLeftLabels.clear();
+		    	topLeftLabelBox.getChildren().clear();
+		    	topLeftLabelMap.clear();
+		    	/*
+		    	 * Add new series
+		    	 */
 		        for(int i=0; i< topLeftSelList.getCheckModel().getCheckedItems().size(); i++) {
 		        	topLeftSeries.add(new Series<>());
 		        	topLeftSeries.get(i).setName(topLeftSelList.getCheckModel().getCheckedItems().get(i));
 		        	topLeftChartData.add(topLeftSeries.get(i));
 		        	topLeftChannelMap.put(topLeftSelList.getCheckModel().getCheckedItems().get(i), topLeftSeries.get(i));
+		        	
+		        	/*
+		        	 * Cleanup labels and add new to map
+		        	 */
+		        	HBox labelBox = new HBox();
+		        	labelBox.getChildren().add(new Label(topLeftSelList.getCheckModel().getCheckedItems().get(i) + ": "));
+		        	topLeftLabels.add(new Label("No Value"));
+		        	topLeftLabelMap.put(topLeftSelList.getCheckModel().getCheckedItems().get(i), topLeftLabels.get(i));
+		        	labelBox.getChildren().add(topLeftLabels.get(i));
+		        	topLeftLabelBox.getChildren().add(labelBox);
 		        }
 		        for (int i=0; i<toLoadList.size(); i++) {
 					toLoadList.set(i, true);
@@ -122,11 +152,24 @@ public class EngineScreenController extends Controller {
 		    	topRightSeries.clear();
 		    	topRightChartData.clear();
 		    	topRightChannelMap.clear();
+		    	topRightLabels.clear();
+		    	topRightLabelBox.getChildren().clear();
+		    	topRightLabelMap.clear();
 		        for(int i=0; i< topRightSelList.getCheckModel().getCheckedItems().size(); i++) {
 		        	topRightSeries.add(new Series<>());
 		        	topRightSeries.get(i).setName(topRightSelList.getCheckModel().getCheckedItems().get(i));
 		        	topRightChartData.add(topRightSeries.get(i));
-		        	topRightChannelMap.put(topRightSelList.getCheckModel().getCheckedItems().get(i), topRightSeries.get(i));	
+		        	topRightChannelMap.put(topRightSelList.getCheckModel().getCheckedItems().get(i), topRightSeries.get(i));
+		        	
+		        	/*
+		        	 * Cleanup labels and add new to map
+		        	 */
+		        	HBox labelBox = new HBox();
+		        	labelBox.getChildren().add(new Label(topRightSelList.getCheckModel().getCheckedItems().get(i) + ": "));
+		        	topRightLabels.add(new Label("No Value"));
+		        	topLeftLabelMap.put(topRightSelList.getCheckModel().getCheckedItems().get(i), topRightLabels.get(i));
+		        	labelBox.getChildren().add(topRightLabels.get(i));
+		        	topRightLabelBox.getChildren().add(labelBox);
 		        }
 		        for (int i=0; i<toLoadList.size(); i++) {
 					toLoadList.set(i, true);
@@ -139,11 +182,24 @@ public class EngineScreenController extends Controller {
 		    	bottomLeftSeries.clear();
 		    	bottomLeftChartData.clear();
 		    	bottomLeftChannelMap.clear();
+		    	bottomLeftLabels.clear();
+		    	bottomLeftLabelBox.getChildren().clear();
+		    	bottomLeftLabelMap.clear();
 		        for(int i=0; i< topLeftSelList.getCheckModel().getCheckedItems().size(); i++) {
 		        	bottomLeftSeries.add(new Series<>());
 		        	bottomLeftSeries.get(i).setName(bottomLeftSelList.getCheckModel().getCheckedItems().get(i));
 		        	bottomLeftChartData.add(bottomLeftSeries.get(i));
-		        	bottomLeftChannelMap.put(bottomLeftSelList.getCheckModel().getCheckedItems().get(i), bottomLeftSeries.get(i));	
+		        	bottomLeftChannelMap.put(bottomLeftSelList.getCheckModel().getCheckedItems().get(i), bottomLeftSeries.get(i));
+		        	
+		        	/*
+		        	 * Cleanup labels and add new to map
+		        	 */
+		        	HBox labelBox = new HBox();
+		        	labelBox.getChildren().add(new Label(bottomLeftSelList.getCheckModel().getCheckedItems().get(i) + ": "));
+		        	bottomLeftLabels.add(new Label("No Value"));
+		        	bottomLeftLabelMap.put(bottomLeftSelList.getCheckModel().getCheckedItems().get(i), bottomLeftLabels.get(i));
+		        	labelBox.getChildren().add(bottomLeftLabels.get(i));
+		        	bottomLeftLabelBox.getChildren().add(labelBox);
 		        }
 		        for (int i=0; i<toLoadList.size(); i++) {
 					toLoadList.set(i, true);
@@ -156,11 +212,24 @@ public class EngineScreenController extends Controller {
 		    	bottomRightSeries.clear();
 		    	bottomRightChartData.clear();
 		    	bottomRightChannelMap.clear();
+		    	bottomRightLabels.clear();
+		    	bottomRightLabelBox.getChildren().clear();
+		    	bottomRightLabelMap.clear();
 		        for(int i=0; i< bottomRightSelList.getCheckModel().getCheckedItems().size(); i++) {
 		        	bottomRightSeries.add(new Series<>());
 		        	bottomRightSeries.get(i).setName(bottomRightSelList.getCheckModel().getCheckedItems().get(i));
 		        	bottomRightChartData.add(bottomRightSeries.get(i));
-		        	bottomRightChannelMap.put(bottomRightSelList.getCheckModel().getCheckedItems().get(i), bottomRightSeries.get(i));	
+		        	bottomRightChannelMap.put(bottomRightSelList.getCheckModel().getCheckedItems().get(i), bottomRightSeries.get(i));
+		        	
+		        	/*
+		        	 * Cleanup labels and add new to map
+		        	 */
+		        	HBox labelBox = new HBox();
+		        	labelBox.getChildren().add(new Label(bottomRightSelList.getCheckModel().getCheckedItems().get(i) + ": "));
+		        	bottomRightLabels.add(new Label("No Value"));
+		        	bottomRightLabelMap.put(bottomRightSelList.getCheckModel().getCheckedItems().get(i), bottomRightLabels.get(i));
+		        	labelBox.getChildren().add(bottomRightLabels.get(i));
+		        	bottomRightLabelBox.getChildren().add(labelBox);
 		        }
 		        for (int i=0; i<toLoadList.size(); i++) {
 					toLoadList.set(i, true);
@@ -317,7 +386,7 @@ public class EngineScreenController extends Controller {
 				else if(bottomRightChannelMap.get(channel.getName()) != null) {
 					bottomRightChannelMap.get(channel.getName()).getData().clear();
 				}
-				if(chartLabelMap.get(channel.getName()) != null) {
+				if(topLeftLabelMap.get(channel.getName()) != null) {
 					//chartLabelMap.get(channel.getName()).setText("No value");
 				}
 			}
@@ -363,14 +432,6 @@ public class EngineScreenController extends Controller {
 		bottomLeftChart.setData(bottomLeftChartData);
 		topLeftChart.setData(topLeftChartData);
 		topRightChart.setData(topRightChartData);
-		
-		chartLabelMap.put("tOil_In", oilTempInLabel);
-		chartLabelMap.put("tOil_Out", oilTempOutLabel);
-		chartLabelMap.put("tWaterL_In", waterTempInLLabel);
-		chartLabelMap.put("tWaterL_Out", waterTempOutLLabel);
-		chartLabelMap.put("tExhaust_1", exhaust1TempLabel);
-		chartLabelMap.put("tExhaust_2", exhaust2TempLabel);
-		chartLabelMap.put("pOil", oilPressLabel);
 	}
 	
 	/*
