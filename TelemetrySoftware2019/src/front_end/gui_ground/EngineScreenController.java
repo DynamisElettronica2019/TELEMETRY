@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.CheckComboBox;
+
 import back_end.Channel;
 import back_end.Command;
 import back_end.Debug;
@@ -21,6 +23,7 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -33,17 +36,21 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.chart.XYChart.Data;
 
 public class EngineScreenController extends Controller {
-	private Map<String, Label> chartLabelMap = new HashMap<>();
-	private Map<String, Series<String, Double>> chartChannelMap = new HashMap<>();
-	private Series<String, Double> oilTempIn, oilTempOut;
-	private Series<String, Double> waterTempLIN, waterTempLOut;
-	private Series<String, Double> exhaust1Temp, exhaust2Temp;
-	private Series<String, Double> oilPress;
-	private ObservableList<XYChart.Series<String,Double>> waterTempChartData, oiltempChartData, exhaustTempChartData, pressChartData;
+	private Map<String, Label> topLeftLabelMap = new HashMap<>();
+	private Map<String, Label> topRightLabelMap = new HashMap<>();
+	private Map<String, Label> bottomLeftLabelMap = new HashMap<>();
+	private Map<String, Label> bottomRightLabelMap = new HashMap<>();
+	private Map<String, Series<String, Double>> topLeftChannelMap = new HashMap<>();
+	private Map<String, Series<String, Double>> topRightChannelMap = new HashMap<>();
+	private Map<String, Series<String, Double>> bottomLeftChannelMap = new HashMap<>();
+	private Map<String, Series<String, Double>> bottomRightChannelMap = new HashMap<>();
+	private ObservableList<XYChart.Series<String,Double>> bottomRightChartData, bottomLeftChartData, topLeftChartData, topRightChartData;
 	private ObservableList<Integer> elementNumberList;
 	private ArrayList<Boolean> toLoadList = new ArrayList<Boolean>();
 	private ArrayList<String> channelList;
@@ -51,16 +58,28 @@ public class EngineScreenController extends Controller {
 	private String timePattern;
 	private DateTimeFormatter timeColonFormatter;
 	private Integer size, offset;
+	private ArrayList<Series<String, Double>> topLeftSeries = new ArrayList<Series<String, Double>>();
+	private ArrayList<Series<String, Double>> topRightSeries = new ArrayList<Series<String, Double>>();
+	private ArrayList<Series<String, Double>> bottomLeftSeries = new ArrayList<Series<String, Double>>();
+	private ArrayList<Series<String, Double>> bottomRightSeries = new ArrayList<Series<String, Double>>();
+	private ArrayList<Label> topLeftLabels = new ArrayList<Label>();
+	private ArrayList<Label> topRightLabels = new ArrayList<Label>();
+	private ArrayList<Label> bottomLeftLabels = new ArrayList<Label>();
+	private ArrayList<Label> bottomRightLabels = new ArrayList<Label>();
 	@FXML
 	private ComboBox<Integer> numberValues;
 	@FXML
-	private LineChart<String, Double> oilTempChart, waterTempChart, exhaustTempChart, pressChart;
+	private CheckComboBox<String> topLeftSelList, topRightSelList, bottomLeftSelList, bottomRightSelList;
+	@FXML
+	private LineChart<String, Double> bottomLeftChart, bottomRightChart, topLeftChart, topRightChart;
 	@FXML
 	private Label oilTempInLabel, oilTempOutLabel, waterTempInLLabel, waterTempOutLLabel, exhaust1TempLabel, exhaust2TempLabel, oilPressLabel;
 	@FXML
 	private ToggleButton pauseButton;
 	@FXML
 	private Slider slider;
+	@FXML
+	private VBox topLeftLabelBox, topRightLabelBox, bottomLeftLabelBox, bottomRightLabelBox;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -83,7 +102,163 @@ public class EngineScreenController extends Controller {
 		for (int i=0; i<channelList.size(); i++) {
 			toLoadList.add(true);
 			loadArrayMap.put(channelList.get(i), i);
+			topLeftSelList.getItems().add(channelList.get(i));
+			topRightSelList.getItems().add(channelList.get(i));
+			bottomLeftSelList.getItems().add(channelList.get(i));
+			bottomRightSelList.getItems().add(channelList.get(i));
 		}
+		
+		/*
+		 * Add listeners for CheckComboBoxes
+		 */
+		topLeftSelList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
+		    public void onChanged(ListChangeListener.Change<? extends String> c) {
+		    	/*
+		    	 * Cleanup older series
+		    	 */
+		    	topLeftSeries.clear();
+		    	topLeftChartData.clear();
+		    	topLeftChannelMap.clear();
+		    	topLeftLabels.clear();
+		    	topLeftLabelBox.getChildren().clear();
+		    	topLeftLabelMap.clear();
+		    	/*
+		    	 * Add new series
+		    	 */
+		        for(int i=0; i< topLeftSelList.getCheckModel().getCheckedItems().size(); i++) {
+		        	topLeftSeries.add(new Series<>());
+		        	topLeftSeries.get(i).setName(topLeftSelList.getCheckModel().getCheckedItems().get(i));
+		        	topLeftChartData.add(topLeftSeries.get(i));
+		        	topLeftChannelMap.put(topLeftSelList.getCheckModel().getCheckedItems().get(i), topLeftSeries.get(i));
+		        	
+		        	/*
+		        	 * Cleanup labels and add new to map
+		        	 */
+		        	HBox labelBox = new HBox();
+		        	Label name = new Label(topLeftSelList.getCheckModel().getCheckedItems().get(i) + ": ");
+		        	name.getStyleClass().add("chart-labels-bold");
+		        	labelBox.getChildren().add(name);
+		        	topLeftLabels.add(new Label("No Value"));
+		        	topLeftLabels.get(i).getStyleClass().add("chart-labels");
+		        	topLeftLabelMap.put(topLeftSelList.getCheckModel().getCheckedItems().get(i), topLeftLabels.get(i));
+		        	labelBox.getChildren().add(topLeftLabels.get(i));
+		        	topLeftLabelBox.getChildren().add(labelBox);
+		        }
+		        for (int i=0; i<toLoadList.size(); i++) {
+					toLoadList.set(i, true);
+				}
+		    }
+		});
+		
+		topRightSelList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
+		    public void onChanged(ListChangeListener.Change<? extends String> c) {
+		    	topRightSeries.clear();
+		    	topRightChartData.clear();
+		    	topRightChannelMap.clear();
+		    	topRightLabels.clear();
+		    	topRightLabelBox.getChildren().clear();
+		    	topRightLabelMap.clear();
+		        for(int i=0; i< topRightSelList.getCheckModel().getCheckedItems().size(); i++) {
+		        	topRightSeries.add(new Series<>());
+		        	topRightSeries.get(i).setName(topRightSelList.getCheckModel().getCheckedItems().get(i));
+		        	topRightChartData.add(topRightSeries.get(i));
+		        	topRightChannelMap.put(topRightSelList.getCheckModel().getCheckedItems().get(i), topRightSeries.get(i));
+		        	
+		        	/*
+		        	 * Cleanup labels and add new to map
+		        	 */
+		        	HBox labelBox = new HBox();
+		        	Label name = new Label(topRightSelList.getCheckModel().getCheckedItems().get(i) + ": ");
+		        	name.getStyleClass().add("chart-labels-bold");
+		        	labelBox.getChildren().add(name);
+		        	topRightLabels.add(new Label("No Value"));
+		        	topRightLabels.get(i).getStyleClass().add("chart-labels");
+		        	topRightLabelMap.put(topRightSelList.getCheckModel().getCheckedItems().get(i), topRightLabels.get(i));
+		        	labelBox.getChildren().add(topRightLabels.get(i));
+		        	topRightLabelBox.getChildren().add(labelBox);
+		        }
+		        for (int i=0; i<toLoadList.size(); i++) {
+					toLoadList.set(i, true);
+				}
+		    }
+		});
+		
+		bottomLeftSelList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
+		    public void onChanged(ListChangeListener.Change<? extends String> c) {
+		    	bottomLeftSeries.clear();
+		    	bottomLeftChartData.clear();
+		    	bottomLeftChannelMap.clear();
+		    	bottomLeftLabels.clear();
+		    	bottomLeftLabelBox.getChildren().clear();
+		    	bottomLeftLabelMap.clear();
+		        for(int i=0; i< bottomLeftSelList.getCheckModel().getCheckedItems().size(); i++) {
+		        	bottomLeftSeries.add(new Series<>());
+		        	bottomLeftSeries.get(i).setName(bottomLeftSelList.getCheckModel().getCheckedItems().get(i));
+		        	bottomLeftChartData.add(bottomLeftSeries.get(i));
+		        	bottomLeftChannelMap.put(bottomLeftSelList.getCheckModel().getCheckedItems().get(i), bottomLeftSeries.get(i));
+		        	
+		        	/*
+		        	 * Cleanup labels and add new to map
+		        	 */
+		        	HBox labelBox = new HBox();
+		        	Label name = new Label(bottomLeftSelList.getCheckModel().getCheckedItems().get(i) + ": ");
+		        	name.getStyleClass().add("chart-labels-bold");
+		        	labelBox.getChildren().add(name);
+		        	bottomLeftLabels.add(new Label("No Value"));
+		        	bottomLeftLabels.get(i).getStyleClass().add("chart-labels");
+		        	bottomLeftLabelMap.put(bottomLeftSelList.getCheckModel().getCheckedItems().get(i), bottomLeftLabels.get(i));
+		        	labelBox.getChildren().add(bottomLeftLabels.get(i));
+		        	bottomLeftLabelBox.getChildren().add(labelBox);
+		        }
+		        for (int i=0; i<toLoadList.size(); i++) {
+					toLoadList.set(i, true);
+				}
+		    }
+		});
+		
+		bottomRightSelList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
+		    public void onChanged(ListChangeListener.Change<? extends String> c) {
+		    	bottomRightSeries.clear();
+		    	bottomRightChartData.clear();
+		    	bottomRightChannelMap.clear();
+		    	bottomRightLabels.clear();
+		    	bottomRightLabelBox.getChildren().clear();
+		    	bottomRightLabelMap.clear();
+		        for(int i=0; i< bottomRightSelList.getCheckModel().getCheckedItems().size(); i++) {
+		        	bottomRightSeries.add(new Series<>());
+		        	bottomRightSeries.get(i).setName(bottomRightSelList.getCheckModel().getCheckedItems().get(i));
+		        	bottomRightChartData.add(bottomRightSeries.get(i));
+		        	bottomRightChannelMap.put(bottomRightSelList.getCheckModel().getCheckedItems().get(i), bottomRightSeries.get(i));
+		        	
+		        	/*
+		        	 * Cleanup labels and add new to map
+		        	 */
+		        	HBox labelBox = new HBox();
+		        	Label name = new Label(bottomRightSelList.getCheckModel().getCheckedItems().get(i) + ": ");
+		        	name.getStyleClass().add("chart-labels-bold");
+		        	labelBox.getChildren().add(name);
+		        	bottomRightLabels.add(new Label("No Value"));
+		        	bottomRightLabels.get(i).getStyleClass().add("chart-labels");
+		        	bottomRightLabelMap.put(bottomRightSelList.getCheckModel().getCheckedItems().get(i), bottomRightLabels.get(i));
+		        	labelBox.getChildren().add(bottomRightLabels.get(i));
+		        	bottomRightLabelBox.getChildren().add(labelBox);
+		        }
+		        for (int i=0; i<toLoadList.size(); i++) {
+					toLoadList.set(i, true);
+				}
+		    }
+		});
+		
+		/*
+		 * Initialize channels
+		 */
+		topLeftSelList.getCheckModel().check("tExhaust_1");
+		topLeftSelList.getCheckModel().check("tExhaust_2");
+		topRightSelList.getCheckModel().check("pOil");
+		bottomLeftSelList.getCheckModel().check("tOil_In");
+		bottomLeftSelList.getCheckModel().check("tOil_Out");
+		bottomRightSelList.getCheckModel().check("tWaterL_In");
+		bottomRightSelList.getCheckModel().check("tWaterL_Out");
 		
 		/*
 		 * Listener on the number of values to display
@@ -138,33 +313,93 @@ public class EngineScreenController extends Controller {
 			Platform.runLater(new Runnable() {
 			    @Override
 			    public void run() {
-			    	if(chartChannelMap.get(channel.getName()) != null) {
+			    	if(topLeftChannelMap.get(channel.getName()) != null) {
 			    		if (toLoadList.get(loadArrayMap.get(channel.getName()))) {
-			    			chartChannelMap.get(channel.getName()).setData(getLastnChartElemOffset(channel, offset));		    			
+			    			topLeftChannelMap.get(channel.getName()).setData(getLastnChartElemOffset(channel, offset));		    			
 			    			toLoadList.set(loadArrayMap.get(channel.getName()), false);
 			    		}
 			    		else {
 			    			if (!pauseButton.isSelected()) {
-			    				if(chartChannelMap.get(channel.getName()) != null) {
-			    					chartChannelMap.get(channel.getName()).getData().add(getLastChartElem(channel));
-			    					chartLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));
-			    					if(chartChannelMap.get(channel.getName()).getData().size() > numberValues.getValue()) {
-			    						chartChannelMap.get(channel.getName()).getData().remove(0);
+			    				if(topLeftChannelMap.get(channel.getName()) != null) {
+			    					topLeftChannelMap.get(channel.getName()).getData().add(getLastChartElem(channel));
+			    					topLeftLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));
+			    					if(topLeftChannelMap.get(channel.getName()).getData().size() > numberValues.getValue()) {
+			    						topLeftChannelMap.get(channel.getName()).getData().remove(0);
 			    					}
 			    				}
 			    			}
 			    		}
-			    	}	    	
+			    	}
+			    	else if(topRightChannelMap.get(channel.getName()) != null) {
+			    		if (toLoadList.get(loadArrayMap.get(channel.getName()))) {
+			    			topRightChannelMap.get(channel.getName()).setData(getLastnChartElemOffset(channel, offset));		    			
+			    			toLoadList.set(loadArrayMap.get(channel.getName()), false);
+			    		}
+			    		else {
+			    			if (!pauseButton.isSelected()) {
+			    				if(topRightChannelMap.get(channel.getName()) != null) {
+			    					topRightChannelMap.get(channel.getName()).getData().add(getLastChartElem(channel));
+			    					topRightLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));
+			    					if(topRightChannelMap.get(channel.getName()).getData().size() > numberValues.getValue()) {
+			    						topRightChannelMap.get(channel.getName()).getData().remove(0);
+			    					}
+			    				}
+			    			}
+			    		}
+			    	}
+			    	else if(bottomLeftChannelMap.get(channel.getName()) != null) {
+			    		if (toLoadList.get(loadArrayMap.get(channel.getName()))) {
+			    			bottomLeftChannelMap.get(channel.getName()).setData(getLastnChartElemOffset(channel, offset));		    			
+			    			toLoadList.set(loadArrayMap.get(channel.getName()), false);
+			    		}
+			    		else {
+			    			if (!pauseButton.isSelected()) {
+			    				if(bottomLeftChannelMap.get(channel.getName()) != null) {
+			    					bottomLeftChannelMap.get(channel.getName()).getData().add(getLastChartElem(channel));
+			    					bottomLeftLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));
+			    					if(bottomLeftChannelMap.get(channel.getName()).getData().size() > numberValues.getValue()) {
+			    						bottomLeftChannelMap.get(channel.getName()).getData().remove(0);
+			    					}
+			    				}
+			    			}
+			    		}
+			    	}
+			    	else if(bottomRightChannelMap.get(channel.getName()) != null) {
+			    		if (toLoadList.get(loadArrayMap.get(channel.getName()))) {
+			    			bottomRightChannelMap.get(channel.getName()).setData(getLastnChartElemOffset(channel, offset));		    			
+			    			toLoadList.set(loadArrayMap.get(channel.getName()), false);
+			    		}
+			    		else {
+			    			if (!pauseButton.isSelected()) {
+			    				if(bottomRightChannelMap.get(channel.getName()) != null) {
+			    					bottomRightChannelMap.get(channel.getName()).getData().add(getLastChartElem(channel));
+			    					bottomRightLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));
+			    					if(bottomRightChannelMap.get(channel.getName()).getData().size() > numberValues.getValue()) {
+			    						bottomRightChannelMap.get(channel.getName()).getData().remove(0);
+			    					}
+			    				}
+			    			}
+			    		}
+			    	}
 			    }
 			});
 		}
 		else {
 			if(channel != null) {
-				if(chartChannelMap.get(channel.getName()) != null) {
-					chartChannelMap.get(channel.getName()).getData().clear();
+				if(topLeftChannelMap.get(channel.getName()) != null) {
+					topLeftChannelMap.get(channel.getName()).getData().clear();
 				}
-				if(chartLabelMap.get(channel.getName()) != null) {
-					chartLabelMap.get(channel.getName()).setText("No value");
+				else if(topRightChannelMap.get(channel.getName()) != null) {
+					topRightChannelMap.get(channel.getName()).getData().clear();
+				}
+				else if(bottomLeftChannelMap.get(channel.getName()) != null) {
+					bottomLeftChannelMap.get(channel.getName()).getData().clear();
+				}
+				else if(bottomRightChannelMap.get(channel.getName()) != null) {
+					bottomRightChannelMap.get(channel.getName()).getData().clear();
+				}
+				if(topLeftLabelMap.get(channel.getName()) != null) {
+					topLeftLabelMap.get(channel.getName()).setText("No value");
 				}
 			}
 		}
@@ -200,55 +435,15 @@ public class EngineScreenController extends Controller {
 	 *  link charts to series
 	 */
 	private void setChart() {
-		waterTempChartData = FXCollections.observableArrayList();
-		oiltempChartData = FXCollections.observableArrayList();
-		exhaustTempChartData = FXCollections.observableArrayList();
-		pressChartData = FXCollections.observableArrayList();
+		bottomRightChartData = FXCollections.observableArrayList();
+		bottomLeftChartData = FXCollections.observableArrayList();
+		topLeftChartData = FXCollections.observableArrayList();
+		topRightChartData = FXCollections.observableArrayList();
 		
-		oilTempIn = new Series<>();
-		oilTempOut = new Series<>();
-		waterTempLIN = new Series<>();
-		waterTempLOut = new Series<>();
-		exhaust1Temp = new Series<>();
-		exhaust2Temp = new Series<>();
-		oilPress = new Series<>();
-		
-		oilTempIn.setName("Oil Temp In");
-		oilTempOut.setName("Oil Temp Out");
-		waterTempLIN.setName("Water temp left In");
-		waterTempLOut.setName("Water temp left Out");
-		exhaust1Temp.setName("Exhaust 1 Temp");
-		exhaust2Temp.setName("Exhaust 2 Temp");
-		oilPress.setName("Oil Pression");
-		
-		waterTempChartData.add(waterTempLIN);
-		waterTempChartData.add(waterTempLOut);
-		oiltempChartData.add(oilTempIn);
-		oiltempChartData.add(oilTempOut);
-		exhaustTempChartData.add(exhaust1Temp);
-		exhaustTempChartData.add(exhaust2Temp);
-		pressChartData.add(oilPress);
-		
-		waterTempChart.setData(waterTempChartData);
-		oilTempChart.setData(oiltempChartData);
-		exhaustTempChart.setData(exhaustTempChartData);
-		pressChart.setData(pressChartData);
-		
-		chartLabelMap.put("tOil_In", oilTempInLabel);
-		chartLabelMap.put("tOil_Out", oilTempOutLabel);
-		chartLabelMap.put("tWaterL_In", waterTempInLLabel);
-		chartLabelMap.put("tWaterL_Out", waterTempOutLLabel);
-		chartLabelMap.put("tExhaust_1", exhaust1TempLabel);
-		chartLabelMap.put("tExhaust_2", exhaust2TempLabel);
-		chartLabelMap.put("pOil", oilPressLabel);
-		
-		chartChannelMap.put("tOil_In", oilTempIn);
-		chartChannelMap.put("tOil_Out", oilTempOut);
-		chartChannelMap.put("tWaterL_In", waterTempLIN);
-		chartChannelMap.put("tWaterL_Out", waterTempLOut);
-		chartChannelMap.put("tExhaust_1", exhaust1Temp);
-		chartChannelMap.put("tExhaust_2", exhaust2Temp);
-		chartChannelMap.put("pOil", oilPress);
+		bottomRightChart.setData(bottomRightChartData);
+		bottomLeftChart.setData(bottomLeftChartData);
+		topLeftChart.setData(topLeftChartData);
+		topRightChart.setData(topRightChartData);
 	}
 	
 	/*
@@ -286,38 +481,49 @@ public class EngineScreenController extends Controller {
 	      label = createDataThresholdLabel(value);
 	      setOnMouseEntered(new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent mouseEvent) {
-	        	for(int i=0;i<oilTempOut.getData().size();i++){
-	              if(ts.equals(oilTempOut.getData().get(i).getXValue())){
-	            	  ((HoveredThresholdNode) oilTempIn.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) oilTempIn.getData().get(i).getNode()).getLabel());
-	            	  ((HoveredThresholdNode) oilTempIn.getData().get(i).getNode()).getLabel().toFront();
-	            	  ((HoveredThresholdNode) oilTempOut.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) oilTempOut.getData().get(i).getNode()).getLabel());
-	            	  ((HoveredThresholdNode) oilTempOut.getData().get(i).getNode()).getLabel().toFront();
-	            	  ((HoveredThresholdNode) waterTempLIN.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) waterTempLIN.getData().get(i).getNode()).getLabel());
-	            	  ((HoveredThresholdNode) waterTempLIN.getData().get(i).getNode()).getLabel().toFront();
-	            	  ((HoveredThresholdNode) waterTempLOut.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) waterTempLOut.getData().get(i).getNode()).getLabel());
-	            	  ((HoveredThresholdNode) waterTempLOut.getData().get(i).getNode()).getLabel().toFront();
-	            	  ((HoveredThresholdNode) exhaust1Temp.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) exhaust1Temp.getData().get(i).getNode()).getLabel());
-	            	  ((HoveredThresholdNode) exhaust1Temp.getData().get(i).getNode()).getLabel().toFront();
-	            	  ((HoveredThresholdNode) exhaust2Temp.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) exhaust2Temp.getData().get(i).getNode()).getLabel());
-	            	  ((HoveredThresholdNode) exhaust2Temp.getData().get(i).getNode()).getLabel().toFront();
-	            	  ((HoveredThresholdNode) oilPress.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) oilPress.getData().get(i).getNode()).getLabel());
-	            	  ((HoveredThresholdNode) oilPress.getData().get(i).getNode()).getLabel().toFront();
-	            	  index = i;  
-	              }
-	          }
-	          setCursor(Cursor.NONE);
+	        	if (pauseButton.isSelected()) {
+		        		for(int i=0;i<topLeftSeries.get(0).getData().size();i++){
+			              if(ts.equals(topLeftSeries.get(0).getData().get(i).getXValue())){
+			            	  for(Series<String, Double> serie: topLeftSeries) {
+			            		  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel());
+				            	  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel().toFront();
+			            	  }
+			            	  for(Series<String, Double> serie: topRightSeries) {
+			            		  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel());
+				            	  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel().toFront();
+			            	  }
+			            	  for(Series<String, Double> serie: bottomLeftSeries) {
+			            		  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel());
+				            	  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel().toFront();
+			            	  }
+			            	  for(Series<String, Double> serie: bottomRightSeries) {
+			            		  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel());
+				            	  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel().toFront();
+			            	  }
+			            	  index = i;  
+			              }
+		        		}
+		        	setCursor(Cursor.NONE);
+	        	}
 	        }
 	      });
 	      setOnMouseExited(new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent mouseEvent) {
-	          ((HoveredThresholdNode) oilTempIn.getData().get(index).getNode()).getChildren().clear();
-	          ((HoveredThresholdNode) oilTempOut.getData().get(index).getNode()).getChildren().clear();
-	          ((HoveredThresholdNode) waterTempLIN.getData().get(index).getNode()).getChildren().clear();
-	          ((HoveredThresholdNode) waterTempLOut.getData().get(index).getNode()).getChildren().clear();
-	          ((HoveredThresholdNode) exhaust1Temp.getData().get(index).getNode()).getChildren().clear();
-	          ((HoveredThresholdNode) exhaust2Temp.getData().get(index).getNode()).getChildren().clear();
-	          ((HoveredThresholdNode) oilPress.getData().get(index).getNode()).getChildren().clear();
-	          setCursor(Cursor.CROSSHAIR);
+	        	if(pauseButton.isSelected()) {
+	            	  for(Series<String, Double> serie: topLeftSeries) {
+	                		((HoveredThresholdNode) serie.getData().get(index).getNode()).getChildren().clear();
+	              	  }
+	              	  for(Series<String, Double> serie: topRightSeries) {
+	              		  ((HoveredThresholdNode) serie.getData().get(index).getNode()).getChildren().clear();
+	              	  }
+	              	  for(Series<String, Double> serie: bottomLeftSeries) {
+	              		  ((HoveredThresholdNode) serie.getData().get(index).getNode()).getChildren().clear();
+	              	  }
+	              	  for(Series<String, Double> serie: bottomRightSeries) {
+	              		  ((HoveredThresholdNode) serie.getData().get(index).getNode()).getChildren().clear();
+	              	  }
+	      	          setCursor(Cursor.CROSSHAIR);
+	        	}
 	        }
 	      });
 	    }
