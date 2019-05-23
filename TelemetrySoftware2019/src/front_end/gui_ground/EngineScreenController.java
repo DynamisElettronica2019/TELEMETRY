@@ -135,8 +135,11 @@ public class EngineScreenController extends Controller {
 		        	 * Cleanup labels and add new to map
 		        	 */
 		        	HBox labelBox = new HBox();
-		        	labelBox.getChildren().add(new Label(topLeftSelList.getCheckModel().getCheckedItems().get(i) + ": "));
+		        	Label name = new Label(topLeftSelList.getCheckModel().getCheckedItems().get(i) + ": ");
+		        	name.getStyleClass().add("chart-labels-bold");
+		        	labelBox.getChildren().add(name);
 		        	topLeftLabels.add(new Label("No Value"));
+		        	topLeftLabels.get(i).getStyleClass().add("chart-labels");
 		        	topLeftLabelMap.put(topLeftSelList.getCheckModel().getCheckedItems().get(i), topLeftLabels.get(i));
 		        	labelBox.getChildren().add(topLeftLabels.get(i));
 		        	topLeftLabelBox.getChildren().add(labelBox);
@@ -165,8 +168,11 @@ public class EngineScreenController extends Controller {
 		        	 * Cleanup labels and add new to map
 		        	 */
 		        	HBox labelBox = new HBox();
-		        	labelBox.getChildren().add(new Label(topRightSelList.getCheckModel().getCheckedItems().get(i) + ": "));
+		        	Label name = new Label(topRightSelList.getCheckModel().getCheckedItems().get(i) + ": ");
+		        	name.getStyleClass().add("chart-labels-bold");
+		        	labelBox.getChildren().add(name);
 		        	topRightLabels.add(new Label("No Value"));
+		        	topRightLabels.get(i).getStyleClass().add("chart-labels");
 		        	topRightLabelMap.put(topRightSelList.getCheckModel().getCheckedItems().get(i), topRightLabels.get(i));
 		        	labelBox.getChildren().add(topRightLabels.get(i));
 		        	topRightLabelBox.getChildren().add(labelBox);
@@ -195,8 +201,11 @@ public class EngineScreenController extends Controller {
 		        	 * Cleanup labels and add new to map
 		        	 */
 		        	HBox labelBox = new HBox();
-		        	labelBox.getChildren().add(new Label(bottomLeftSelList.getCheckModel().getCheckedItems().get(i) + ": "));
+		        	Label name = new Label(bottomLeftSelList.getCheckModel().getCheckedItems().get(i) + ": ");
+		        	name.getStyleClass().add("chart-labels-bold");
+		        	labelBox.getChildren().add(name);
 		        	bottomLeftLabels.add(new Label("No Value"));
+		        	bottomLeftLabels.get(i).getStyleClass().add("chart-labels");
 		        	bottomLeftLabelMap.put(bottomLeftSelList.getCheckModel().getCheckedItems().get(i), bottomLeftLabels.get(i));
 		        	labelBox.getChildren().add(bottomLeftLabels.get(i));
 		        	bottomLeftLabelBox.getChildren().add(labelBox);
@@ -225,8 +234,11 @@ public class EngineScreenController extends Controller {
 		        	 * Cleanup labels and add new to map
 		        	 */
 		        	HBox labelBox = new HBox();
-		        	labelBox.getChildren().add(new Label(bottomRightSelList.getCheckModel().getCheckedItems().get(i) + ": "));
+		        	Label name = new Label(bottomRightSelList.getCheckModel().getCheckedItems().get(i) + ": ");
+		        	name.getStyleClass().add("chart-labels-bold");
+		        	labelBox.getChildren().add(name);
 		        	bottomRightLabels.add(new Label("No Value"));
+		        	bottomRightLabels.get(i).getStyleClass().add("chart-labels");
 		        	bottomRightLabelMap.put(bottomRightSelList.getCheckModel().getCheckedItems().get(i), bottomRightLabels.get(i));
 		        	labelBox.getChildren().add(bottomRightLabels.get(i));
 		        	bottomRightLabelBox.getChildren().add(labelBox);
