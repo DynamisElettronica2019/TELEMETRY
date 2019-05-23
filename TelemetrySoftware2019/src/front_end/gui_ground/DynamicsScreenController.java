@@ -308,29 +308,33 @@ public class DynamicsScreenController extends Controller {
 	      label = createDataThresholdLabel(value);
 	      setOnMouseEntered(new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent mouseEvent) {
-	        	for(int i=0;i<rpm.getData().size();i++){
-	              if(ts.equals(rpm.getData().get(i).getXValue())){
-	            	  ((HoveredThresholdNode) rpm.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) rpm.getData().get(i).getNode()).getLabel());
-	            	  ((HoveredThresholdNode) rpm.getData().get(i).getNode()).getLabel().toFront();
-	            	  ((HoveredThresholdNode) sw.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) sw.getData().get(i).getNode()).getLabel());
-	            	  ((HoveredThresholdNode) sw.getData().get(i).getNode()).getLabel().toFront();
-	            	  ((HoveredThresholdNode) gear.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) gear.getData().get(i).getNode()).getLabel());
-	            	  ((HoveredThresholdNode) gear.getData().get(i).getNode()).getLabel().toFront();
-	            	  ((HoveredThresholdNode) speed.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) speed.getData().get(i).getNode()).getLabel());
-	            	  ((HoveredThresholdNode) speed.getData().get(i).getNode()).getLabel().toFront();
-	            	  index = i;  
-	              }
-	          }
-	          setCursor(Cursor.NONE);
+	        	if(pauseButton.isSelected()) {
+	        		for(int i=0;i<rpm.getData().size();i++){
+	  	              if(ts.equals(rpm.getData().get(i).getXValue())){
+	  	            	  ((HoveredThresholdNode) rpm.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) rpm.getData().get(i).getNode()).getLabel());
+	  	            	  ((HoveredThresholdNode) rpm.getData().get(i).getNode()).getLabel().toFront();
+	  	            	  ((HoveredThresholdNode) sw.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) sw.getData().get(i).getNode()).getLabel());
+	  	            	  ((HoveredThresholdNode) sw.getData().get(i).getNode()).getLabel().toFront();
+	  	            	  ((HoveredThresholdNode) gear.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) gear.getData().get(i).getNode()).getLabel());
+	  	            	  ((HoveredThresholdNode) gear.getData().get(i).getNode()).getLabel().toFront();
+	  	            	  ((HoveredThresholdNode) speed.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) speed.getData().get(i).getNode()).getLabel());
+	  	            	  ((HoveredThresholdNode) speed.getData().get(i).getNode()).getLabel().toFront();
+	  	            	  index = i;  
+	  	              }
+	  	        	}
+	  	        	setCursor(Cursor.NONE);
+	        	}
 	        }
 	      });
 	      setOnMouseExited(new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent mouseEvent) {
-	          ((HoveredThresholdNode) rpm.getData().get(index).getNode()).getChildren().clear();
-	          ((HoveredThresholdNode) sw.getData().get(index).getNode()).getChildren().clear();
-	          ((HoveredThresholdNode) gear.getData().get(index).getNode()).getChildren().clear();
-	          ((HoveredThresholdNode) speed.getData().get(index).getNode()).getChildren().clear();
-	          setCursor(Cursor.CROSSHAIR);
+	        	if(pauseButton.isSelected()) {
+	  	          ((HoveredThresholdNode) rpm.getData().get(index).getNode()).getChildren().clear();
+		          ((HoveredThresholdNode) sw.getData().get(index).getNode()).getChildren().clear();
+		          ((HoveredThresholdNode) gear.getData().get(index).getNode()).getChildren().clear();
+		          ((HoveredThresholdNode) speed.getData().get(index).getNode()).getChildren().clear();
+		          setCursor(Cursor.CROSSHAIR);
+	        	}
 	        }
 	      });
 	    }
