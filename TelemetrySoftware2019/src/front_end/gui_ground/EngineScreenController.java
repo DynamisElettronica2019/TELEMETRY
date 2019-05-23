@@ -46,7 +46,7 @@ public class EngineScreenController extends Controller {
 	private Series<String, Double> waterTempLIN, waterTempLOut;
 	private Series<String, Double> exhaust1Temp, exhaust2Temp;
 	private Series<String, Double> oilPress;
-	private ObservableList<XYChart.Series<String,Double>> waterTempChartData, oiltempChartData, exhaustTempChartData, pressChartData;
+	private ObservableList<XYChart.Series<String,Double>> bottomRightChartData, bottomLeftChartData, topLeftChartData, topRightChartData;
 	private ObservableList<Integer> elementNumberList;
 	private ArrayList<Boolean> toLoadList = new ArrayList<Boolean>();
 	private ArrayList<String> channelList;
@@ -55,12 +55,15 @@ public class EngineScreenController extends Controller {
 	private DateTimeFormatter timeColonFormatter;
 	private Integer size, offset;
 	private ArrayList<Series<String, Double>> topLeftSeries = new ArrayList<Series<String, Double>>();
+	private ArrayList<Series<String, Double>> topRightSeries = new ArrayList<Series<String, Double>>();
+	private ArrayList<Series<String, Double>> bottomLeftSeries = new ArrayList<Series<String, Double>>();
+	private ArrayList<Series<String, Double>> bottomRightSeries = new ArrayList<Series<String, Double>>();
 	@FXML
 	private ComboBox<Integer> numberValues;
 	@FXML
 	private CheckComboBox<String> topLeftSelList, topRightSelList, bottomLeftSelList, bottomRightSelList;
 	@FXML
-	private LineChart<String, Double> oilTempChart, waterTempChart, exhaustTempChart, pressChart;
+	private LineChart<String, Double> bottomLeftChart, bottomRightChart, topLeftChart, topRightChart;
 	@FXML
 	private Label oilTempInLabel, oilTempOutLabel, waterTempInLLabel, waterTempOutLLabel, exhaust1TempLabel, exhaust2TempLabel, oilPressLabel;
 	@FXML
@@ -101,11 +104,11 @@ public class EngineScreenController extends Controller {
 		topLeftSelList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
 		    public void onChanged(ListChangeListener.Change<? extends String> c) {
 		    	topLeftSeries.clear();
-		    	exhaustTempChartData.clear();
+		    	topLeftChartData.clear();
 		        for(int i=0; i< topLeftSelList.getCheckModel().getCheckedItems().size(); i++) {
 		        	topLeftSeries.add(new Series<>());
 		        	topLeftSeries.get(i).setName(topLeftSelList.getCheckModel().getCheckedItems().get(i));
-		        	exhaustTempChartData.add(topLeftSeries.get(i));
+		        	topLeftChartData.add(topLeftSeries.get(i));
 		        }
 		        for (int i=0; i<toLoadList.size(); i++) {
 					toLoadList.set(i, true);
@@ -115,19 +118,46 @@ public class EngineScreenController extends Controller {
 		
 		topRightSelList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
 		    public void onChanged(ListChangeListener.Change<? extends String> c) {
-		        System.out.println(topLeftSelList.getCheckModel().getCheckedItems());
+		    	topRightSeries.clear();
+		    	topRightChartData.clear();
+		        for(int i=0; i< topRightSelList.getCheckModel().getCheckedItems().size(); i++) {
+		        	topRightSeries.add(new Series<>());
+		        	topRightSeries.get(i).setName(topRightSelList.getCheckModel().getCheckedItems().get(i));
+		        	topRightChartData.add(topRightSeries.get(i));
+		        }
+		        for (int i=0; i<toLoadList.size(); i++) {
+					toLoadList.set(i, true);
+				}
 		    }
 		});
 		
 		bottomLeftSelList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
 		    public void onChanged(ListChangeListener.Change<? extends String> c) {
-		        System.out.println(topLeftSelList.getCheckModel().getCheckedItems());
+		    	bottomLeftSeries.clear();
+		    	bottomLeftChartData.clear();
+		        for(int i=0; i< topLeftSelList.getCheckModel().getCheckedItems().size(); i++) {
+		        	bottomLeftSeries.add(new Series<>());
+		        	bottomLeftSeries.get(i).setName(bottomLeftSelList.getCheckModel().getCheckedItems().get(i));
+		        	bottomLeftChartData.add(bottomLeftSeries.get(i));
+		        }
+		        for (int i=0; i<toLoadList.size(); i++) {
+					toLoadList.set(i, true);
+				}
 		    }
 		});
 		
 		bottomRightSelList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
 		    public void onChanged(ListChangeListener.Change<? extends String> c) {
-		        System.out.println(topLeftSelList.getCheckModel().getCheckedItems());
+		    	bottomRightSeries.clear();
+		    	bottomRightChartData.clear();
+		        for(int i=0; i< bottomRightSelList.getCheckModel().getCheckedItems().size(); i++) {
+		        	bottomRightSeries.add(new Series<>());
+		        	bottomRightSeries.get(i).setName(bottomRightSelList.getCheckModel().getCheckedItems().get(i));
+		        	bottomRightChartData.add(bottomRightSeries.get(i));
+		        }
+		        for (int i=0; i<toLoadList.size(); i++) {
+					toLoadList.set(i, true);
+				}
 		    }
 		});
 		
@@ -257,10 +287,10 @@ public class EngineScreenController extends Controller {
 	 *  link charts to series
 	 */
 	private void setChart() {
-		waterTempChartData = FXCollections.observableArrayList();
-		oiltempChartData = FXCollections.observableArrayList();
-		exhaustTempChartData = FXCollections.observableArrayList();
-		pressChartData = FXCollections.observableArrayList();
+		bottomRightChartData = FXCollections.observableArrayList();
+		bottomLeftChartData = FXCollections.observableArrayList();
+		topLeftChartData = FXCollections.observableArrayList();
+		topRightChartData = FXCollections.observableArrayList();
 		
 		oilTempIn = new Series<>();
 		oilTempOut = new Series<>();
@@ -278,18 +308,18 @@ public class EngineScreenController extends Controller {
 		exhaust2Temp.setName("Exhaust 2 Temp");
 		oilPress.setName("Oil Pression");
 		
-		waterTempChartData.add(waterTempLIN);
-		waterTempChartData.add(waterTempLOut);
-		oiltempChartData.add(oilTempIn);
-		oiltempChartData.add(oilTempOut);
-		exhaustTempChartData.add(exhaust1Temp);
-		exhaustTempChartData.add(exhaust2Temp);
-		pressChartData.add(oilPress);
+		bottomRightChartData.add(waterTempLIN);
+		bottomRightChartData.add(waterTempLOut);
+		bottomLeftChartData.add(oilTempIn);
+		bottomLeftChartData.add(oilTempOut);
+		topLeftChartData.add(exhaust1Temp);
+		topLeftChartData.add(exhaust2Temp);
+		topRightChartData.add(oilPress);
 		
-		waterTempChart.setData(waterTempChartData);
-		oilTempChart.setData(oiltempChartData);
-		exhaustTempChart.setData(exhaustTempChartData);
-		pressChart.setData(pressChartData);
+		bottomRightChart.setData(bottomRightChartData);
+		bottomLeftChart.setData(bottomLeftChartData);
+		topLeftChart.setData(topLeftChartData);
+		topRightChart.setData(topRightChartData);
 		
 		chartLabelMap.put("tOil_In", oilTempInLabel);
 		chartLabelMap.put("tOil_Out", oilTempOutLabel);
