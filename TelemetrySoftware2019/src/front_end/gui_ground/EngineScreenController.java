@@ -41,7 +41,10 @@ import javafx.scene.chart.XYChart.Data;
 
 public class EngineScreenController extends Controller {
 	private Map<String, Label> chartLabelMap = new HashMap<>();
-	private Map<String, Series<String, Double>> chartChannelMap = new HashMap<>();
+	private Map<String, Series<String, Double>> topLeftChannelMap = new HashMap<>();
+	private Map<String, Series<String, Double>> topRightChannelMap = new HashMap<>();
+	private Map<String, Series<String, Double>> bottomLeftChannelMap = new HashMap<>();
+	private Map<String, Series<String, Double>> bottomRightChannelMap = new HashMap<>();
 	private ObservableList<XYChart.Series<String,Double>> bottomRightChartData, bottomLeftChartData, topLeftChartData, topRightChartData;
 	private ObservableList<Integer> elementNumberList;
 	private ArrayList<Boolean> toLoadList = new ArrayList<Boolean>();
@@ -101,13 +104,12 @@ public class EngineScreenController extends Controller {
 		    public void onChanged(ListChangeListener.Change<? extends String> c) {
 		    	topLeftSeries.clear();
 		    	topLeftChartData.clear();
+		    	topLeftChannelMap.clear();
 		        for(int i=0; i< topLeftSelList.getCheckModel().getCheckedItems().size(); i++) {
 		        	topLeftSeries.add(new Series<>());
 		        	topLeftSeries.get(i).setName(topLeftSelList.getCheckModel().getCheckedItems().get(i));
 		        	topLeftChartData.add(topLeftSeries.get(i));
-		        	if(chartChannelMap.get(topLeftSelList.getCheckModel().getCheckedItems().get(i)) == null) {
-		        		chartChannelMap.put(topLeftSelList.getCheckModel().getCheckedItems().get(i), topLeftSeries.get(i));
-		        	}
+		        	topLeftChannelMap.put(topLeftSelList.getCheckModel().getCheckedItems().get(i), topLeftSeries.get(i));
 		        }
 		        for (int i=0; i<toLoadList.size(); i++) {
 					toLoadList.set(i, true);
@@ -119,13 +121,12 @@ public class EngineScreenController extends Controller {
 		    public void onChanged(ListChangeListener.Change<? extends String> c) {
 		    	topRightSeries.clear();
 		    	topRightChartData.clear();
+		    	topRightChannelMap.clear();
 		        for(int i=0; i< topRightSelList.getCheckModel().getCheckedItems().size(); i++) {
 		        	topRightSeries.add(new Series<>());
 		        	topRightSeries.get(i).setName(topRightSelList.getCheckModel().getCheckedItems().get(i));
 		        	topRightChartData.add(topRightSeries.get(i));
-		        	if(chartChannelMap.get(topRightSelList.getCheckModel().getCheckedItems().get(i)) == null) {
-		        		chartChannelMap.put(topRightSelList.getCheckModel().getCheckedItems().get(i), topRightSeries.get(i));
-		        	}	
+		        	topRightChannelMap.put(topLeftSelList.getCheckModel().getCheckedItems().get(i), topLeftSeries.get(i));	
 		        }
 		        for (int i=0; i<toLoadList.size(); i++) {
 					toLoadList.set(i, true);
@@ -137,13 +138,12 @@ public class EngineScreenController extends Controller {
 		    public void onChanged(ListChangeListener.Change<? extends String> c) {
 		    	bottomLeftSeries.clear();
 		    	bottomLeftChartData.clear();
+		    	bottomLeftChannelMap.clear();
 		        for(int i=0; i< topLeftSelList.getCheckModel().getCheckedItems().size(); i++) {
 		        	bottomLeftSeries.add(new Series<>());
 		        	bottomLeftSeries.get(i).setName(bottomLeftSelList.getCheckModel().getCheckedItems().get(i));
 		        	bottomLeftChartData.add(bottomLeftSeries.get(i));
-		        	if(chartChannelMap.get(bottomLeftSelList.getCheckModel().getCheckedItems().get(i)) == null) {
-		        		chartChannelMap.put(bottomLeftSelList.getCheckModel().getCheckedItems().get(i), bottomLeftSeries.get(i));
-		        	}	
+		        	bottomLeftChannelMap.put(topLeftSelList.getCheckModel().getCheckedItems().get(i), topLeftSeries.get(i));	
 		        }
 		        for (int i=0; i<toLoadList.size(); i++) {
 					toLoadList.set(i, true);
@@ -155,13 +155,12 @@ public class EngineScreenController extends Controller {
 		    public void onChanged(ListChangeListener.Change<? extends String> c) {
 		    	bottomRightSeries.clear();
 		    	bottomRightChartData.clear();
+		    	bottomRightChannelMap.clear();
 		        for(int i=0; i< bottomRightSelList.getCheckModel().getCheckedItems().size(); i++) {
 		        	bottomRightSeries.add(new Series<>());
 		        	bottomRightSeries.get(i).setName(bottomRightSelList.getCheckModel().getCheckedItems().get(i));
 		        	bottomRightChartData.add(bottomRightSeries.get(i));
-		        	if(chartChannelMap.get(bottomRightSelList.getCheckModel().getCheckedItems().get(i)) == null) {
-		        		chartChannelMap.put(bottomRightSelList.getCheckModel().getCheckedItems().get(i), bottomRightSeries.get(i));
-		        	}	
+		        	bottomRightChannelMap.put(topLeftSelList.getCheckModel().getCheckedItems().get(i), topLeftSeries.get(i));	
 		        }
 		        for (int i=0; i<toLoadList.size(); i++) {
 					toLoadList.set(i, true);
@@ -233,18 +232,18 @@ public class EngineScreenController extends Controller {
 			Platform.runLater(new Runnable() {
 			    @Override
 			    public void run() {
-			    	if(chartChannelMap.get(channel.getName()) != null) {
+			    	if(topLeftChannelMap.get(channel.getName()) != null) {
 			    		if (toLoadList.get(loadArrayMap.get(channel.getName()))) {
-			    			chartChannelMap.get(channel.getName()).setData(getLastnChartElemOffset(channel, offset));		    			
+			    			topLeftChannelMap.get(channel.getName()).setData(getLastnChartElemOffset(channel, offset));		    			
 			    			toLoadList.set(loadArrayMap.get(channel.getName()), false);
 			    		}
 			    		else {
 			    			if (!pauseButton.isSelected()) {
-			    				if(chartChannelMap.get(channel.getName()) != null) {
-			    					chartChannelMap.get(channel.getName()).getData().add(getLastChartElem(channel));
+			    				if(topLeftChannelMap.get(channel.getName()) != null) {
+			    					topLeftChannelMap.get(channel.getName()).getData().add(getLastChartElem(channel));
 			    					//chartLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));
-			    					if(chartChannelMap.get(channel.getName()).getData().size() > numberValues.getValue()) {
-			    						chartChannelMap.get(channel.getName()).getData().remove(0);
+			    					if(topLeftChannelMap.get(channel.getName()).getData().size() > numberValues.getValue()) {
+			    						topLeftChannelMap.get(channel.getName()).getData().remove(0);
 			    					}
 			    				}
 			    			}
@@ -255,8 +254,8 @@ public class EngineScreenController extends Controller {
 		}
 		else {
 			if(channel != null) {
-				if(chartChannelMap.get(channel.getName()) != null) {
-					chartChannelMap.get(channel.getName()).getData().clear();
+				if(topLeftChannelMap.get(channel.getName()) != null) {
+					topLeftChannelMap.get(channel.getName()).getData().clear();
 				}
 				if(chartLabelMap.get(channel.getName()) != null) {
 					//chartLabelMap.get(channel.getName()).setText("No value");
