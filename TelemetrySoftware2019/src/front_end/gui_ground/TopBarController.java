@@ -34,7 +34,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 public class TopBarController extends Controller {
-	private final int STATES = 6;
+	private final int STATES = 5;
 	private final String MAP_CHANNEL = "GCU_AUTOX_FB";
 	private final String TRACTION_CHANNEL = "GCU_TRACTION_FB";
 	private final String ACQUISITION_ON_STATE = "Acquisition ON";
@@ -118,10 +118,14 @@ public class TopBarController extends Controller {
 	@Override
 	public void editState(State state) {
 		if(state.getValue() == true) {
-			stateMap.get(state.getName()).setFill(Color.web("#009432"));
+			if(stateMap.get(state.getName()) != null) {
+				stateMap.get(state.getName()).setFill(Color.web("#009432"));
+			}
 		}
 		if(state.getValue() == false) {
-			stateMap.get(state.getName()).setFill(Color.web("#EA2027"));
+			if(stateMap.get(state.getName()) != null) {
+				stateMap.get(state.getName()).setFill(Color.web("#EA2027"));
+			}
 		}
 		if((state.getName().equals(ACQUISITION_ON_STATE))&&(state.getValue())) {
 			if(!saveCsvButton.isSelected()) {
