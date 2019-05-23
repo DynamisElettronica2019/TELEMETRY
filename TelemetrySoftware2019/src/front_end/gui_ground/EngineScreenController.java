@@ -42,10 +42,6 @@ import javafx.scene.chart.XYChart.Data;
 public class EngineScreenController extends Controller {
 	private Map<String, Label> chartLabelMap = new HashMap<>();
 	private Map<String, Series<String, Double>> chartChannelMap = new HashMap<>();
-	private Series<String, Double> oilTempIn, oilTempOut;
-	private Series<String, Double> waterTempLIN, waterTempLOut;
-	private Series<String, Double> exhaust1Temp, exhaust2Temp;
-	private Series<String, Double> oilPress;
 	private ObservableList<XYChart.Series<String,Double>> bottomRightChartData, bottomLeftChartData, topLeftChartData, topRightChartData;
 	private ObservableList<Integer> elementNumberList;
 	private ArrayList<Boolean> toLoadList = new ArrayList<Boolean>();
@@ -109,6 +105,9 @@ public class EngineScreenController extends Controller {
 		        	topLeftSeries.add(new Series<>());
 		        	topLeftSeries.get(i).setName(topLeftSelList.getCheckModel().getCheckedItems().get(i));
 		        	topLeftChartData.add(topLeftSeries.get(i));
+		        	if(chartChannelMap.get(topLeftSelList.getCheckModel().getCheckedItems().get(i)) == null) {
+		        		chartChannelMap.put(topLeftSelList.getCheckModel().getCheckedItems().get(i), topLeftSeries.get(i));
+		        	}
 		        }
 		        for (int i=0; i<toLoadList.size(); i++) {
 					toLoadList.set(i, true);
@@ -124,6 +123,9 @@ public class EngineScreenController extends Controller {
 		        	topRightSeries.add(new Series<>());
 		        	topRightSeries.get(i).setName(topRightSelList.getCheckModel().getCheckedItems().get(i));
 		        	topRightChartData.add(topRightSeries.get(i));
+		        	if(chartChannelMap.get(topRightSelList.getCheckModel().getCheckedItems().get(i)) == null) {
+		        		chartChannelMap.put(topRightSelList.getCheckModel().getCheckedItems().get(i), topRightSeries.get(i));
+		        	}	
 		        }
 		        for (int i=0; i<toLoadList.size(); i++) {
 					toLoadList.set(i, true);
@@ -139,6 +141,9 @@ public class EngineScreenController extends Controller {
 		        	bottomLeftSeries.add(new Series<>());
 		        	bottomLeftSeries.get(i).setName(bottomLeftSelList.getCheckModel().getCheckedItems().get(i));
 		        	bottomLeftChartData.add(bottomLeftSeries.get(i));
+		        	if(chartChannelMap.get(bottomLeftSelList.getCheckModel().getCheckedItems().get(i)) == null) {
+		        		chartChannelMap.put(bottomLeftSelList.getCheckModel().getCheckedItems().get(i), bottomLeftSeries.get(i));
+		        	}	
 		        }
 		        for (int i=0; i<toLoadList.size(); i++) {
 					toLoadList.set(i, true);
@@ -154,6 +159,9 @@ public class EngineScreenController extends Controller {
 		        	bottomRightSeries.add(new Series<>());
 		        	bottomRightSeries.get(i).setName(bottomRightSelList.getCheckModel().getCheckedItems().get(i));
 		        	bottomRightChartData.add(bottomRightSeries.get(i));
+		        	if(chartChannelMap.get(bottomRightSelList.getCheckModel().getCheckedItems().get(i)) == null) {
+		        		chartChannelMap.put(bottomRightSelList.getCheckModel().getCheckedItems().get(i), bottomRightSeries.get(i));
+		        	}	
 		        }
 		        for (int i=0; i<toLoadList.size(); i++) {
 					toLoadList.set(i, true);
@@ -292,30 +300,6 @@ public class EngineScreenController extends Controller {
 		topLeftChartData = FXCollections.observableArrayList();
 		topRightChartData = FXCollections.observableArrayList();
 		
-		oilTempIn = new Series<>();
-		oilTempOut = new Series<>();
-		waterTempLIN = new Series<>();
-		waterTempLOut = new Series<>();
-		exhaust1Temp = new Series<>();
-		exhaust2Temp = new Series<>();
-		oilPress = new Series<>();
-		
-		oilTempIn.setName("Oil Temp In");
-		oilTempOut.setName("Oil Temp Out");
-		waterTempLIN.setName("Water temp left In");
-		waterTempLOut.setName("Water temp left Out");
-		exhaust1Temp.setName("Exhaust 1 Temp");
-		exhaust2Temp.setName("Exhaust 2 Temp");
-		oilPress.setName("Oil Pression");
-		
-		bottomRightChartData.add(waterTempLIN);
-		bottomRightChartData.add(waterTempLOut);
-		bottomLeftChartData.add(oilTempIn);
-		bottomLeftChartData.add(oilTempOut);
-		topLeftChartData.add(exhaust1Temp);
-		topLeftChartData.add(exhaust2Temp);
-		topRightChartData.add(oilPress);
-		
 		bottomRightChart.setData(bottomRightChartData);
 		bottomLeftChart.setData(bottomLeftChartData);
 		topLeftChart.setData(topLeftChartData);
@@ -328,14 +312,6 @@ public class EngineScreenController extends Controller {
 		chartLabelMap.put("tExhaust_1", exhaust1TempLabel);
 		chartLabelMap.put("tExhaust_2", exhaust2TempLabel);
 		chartLabelMap.put("pOil", oilPressLabel);
-		
-		chartChannelMap.put("tOil_In", oilTempIn);
-		chartChannelMap.put("tOil_Out", oilTempOut);
-		chartChannelMap.put("tWaterL_In", waterTempLIN);
-		chartChannelMap.put("tWaterL_Out", waterTempLOut);
-		chartChannelMap.put("tExhaust_1", exhaust1Temp);
-		chartChannelMap.put("tExhaust_2", exhaust2Temp);
-		chartChannelMap.put("pOil", oilPress);
 	}
 	
 	/*
@@ -373,22 +349,24 @@ public class EngineScreenController extends Controller {
 	      label = createDataThresholdLabel(value);
 	      setOnMouseEntered(new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent mouseEvent) {
-	        	for(int i=0;i<oilTempOut.getData().size();i++){
-	              if(ts.equals(oilTempOut.getData().get(i).getXValue())){
-	            	  ((HoveredThresholdNode) oilTempIn.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) oilTempIn.getData().get(i).getNode()).getLabel());
-	            	  ((HoveredThresholdNode) oilTempIn.getData().get(i).getNode()).getLabel().toFront();
-	            	  ((HoveredThresholdNode) oilTempOut.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) oilTempOut.getData().get(i).getNode()).getLabel());
-	            	  ((HoveredThresholdNode) oilTempOut.getData().get(i).getNode()).getLabel().toFront();
-	            	  ((HoveredThresholdNode) waterTempLIN.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) waterTempLIN.getData().get(i).getNode()).getLabel());
-	            	  ((HoveredThresholdNode) waterTempLIN.getData().get(i).getNode()).getLabel().toFront();
-	            	  ((HoveredThresholdNode) waterTempLOut.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) waterTempLOut.getData().get(i).getNode()).getLabel());
-	            	  ((HoveredThresholdNode) waterTempLOut.getData().get(i).getNode()).getLabel().toFront();
-	            	  ((HoveredThresholdNode) exhaust1Temp.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) exhaust1Temp.getData().get(i).getNode()).getLabel());
-	            	  ((HoveredThresholdNode) exhaust1Temp.getData().get(i).getNode()).getLabel().toFront();
-	            	  ((HoveredThresholdNode) exhaust2Temp.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) exhaust2Temp.getData().get(i).getNode()).getLabel());
-	            	  ((HoveredThresholdNode) exhaust2Temp.getData().get(i).getNode()).getLabel().toFront();
-	            	  ((HoveredThresholdNode) oilPress.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) oilPress.getData().get(i).getNode()).getLabel());
-	            	  ((HoveredThresholdNode) oilPress.getData().get(i).getNode()).getLabel().toFront();
+	        	for(int i=0;i<topLeftSeries.get(0).getData().size();i++){
+	              if(ts.equals(topLeftSeries.get(0).getData().get(i).getXValue())){
+	            	  for(Series<String, Double> serie: topLeftSeries) {
+	            		  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel());
+		            	  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel().toFront();
+	            	  }
+	            	  for(Series<String, Double> serie: topRightSeries) {
+	            		  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel());
+		            	  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel().toFront();
+	            	  }
+	            	  for(Series<String, Double> serie: bottomLeftSeries) {
+	            		  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel());
+		            	  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel().toFront();
+	            	  }
+	            	  for(Series<String, Double> serie: bottomRightSeries) {
+	            		  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel());
+		            	  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel().toFront();
+	            	  }
 	            	  index = i;  
 	              }
 	          }
@@ -397,13 +375,18 @@ public class EngineScreenController extends Controller {
 	      });
 	      setOnMouseExited(new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent mouseEvent) {
-	          ((HoveredThresholdNode) oilTempIn.getData().get(index).getNode()).getChildren().clear();
-	          ((HoveredThresholdNode) oilTempOut.getData().get(index).getNode()).getChildren().clear();
-	          ((HoveredThresholdNode) waterTempLIN.getData().get(index).getNode()).getChildren().clear();
-	          ((HoveredThresholdNode) waterTempLOut.getData().get(index).getNode()).getChildren().clear();
-	          ((HoveredThresholdNode) exhaust1Temp.getData().get(index).getNode()).getChildren().clear();
-	          ((HoveredThresholdNode) exhaust2Temp.getData().get(index).getNode()).getChildren().clear();
-	          ((HoveredThresholdNode) oilPress.getData().get(index).getNode()).getChildren().clear();
+          	  for(Series<String, Double> serie: topLeftSeries) {
+          		((HoveredThresholdNode) serie.getData().get(index).getNode()).getChildren().clear();
+        	  }
+        	  for(Series<String, Double> serie: topRightSeries) {
+        		  ((HoveredThresholdNode) serie.getData().get(index).getNode()).getChildren().clear();
+        	  }
+        	  for(Series<String, Double> serie: bottomLeftSeries) {
+        		  ((HoveredThresholdNode) serie.getData().get(index).getNode()).getChildren().clear();
+        	  }
+        	  for(Series<String, Double> serie: bottomRightSeries) {
+        		  ((HoveredThresholdNode) serie.getData().get(index).getNode()).getChildren().clear();
+        	  }
 	          setCursor(Cursor.CROSSHAIR);
 	        }
 	      });
