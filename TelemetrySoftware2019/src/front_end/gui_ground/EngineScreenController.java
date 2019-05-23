@@ -242,7 +242,7 @@ public class EngineScreenController extends Controller {
 			    			if (!pauseButton.isSelected()) {
 			    				if(chartChannelMap.get(channel.getName()) != null) {
 			    					chartChannelMap.get(channel.getName()).getData().add(getLastChartElem(channel));
-			    					chartLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));
+			    					//chartLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));
 			    					if(chartChannelMap.get(channel.getName()).getData().size() > numberValues.getValue()) {
 			    						chartChannelMap.get(channel.getName()).getData().remove(0);
 			    					}
@@ -259,7 +259,7 @@ public class EngineScreenController extends Controller {
 					chartChannelMap.get(channel.getName()).getData().clear();
 				}
 				if(chartLabelMap.get(channel.getName()) != null) {
-					chartLabelMap.get(channel.getName()).setText("No value");
+					//chartLabelMap.get(channel.getName()).setText("No value");
 				}
 			}
 		}
