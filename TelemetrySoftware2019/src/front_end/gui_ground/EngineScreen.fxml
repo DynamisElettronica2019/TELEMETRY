@@ -44,28 +44,6 @@
                            </yAxis>
                         </LineChart>
                         <VBox fx:id="topLeftLabelBox" minWidth="200.0" prefWidth="200.0" spacing="5.0">
-                           <children>
-                              <HBox>
-                                 <children>
-                                    <Label styleClass="chart-labels-bold" text="Exhaust 1 Temp:">
-                                       <HBox.margin>
-                                          <Insets right="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                    <Label fx:id="exhaust1TempLabel" styleClass="chart-labels" text="No Value" />
-                                 </children>
-                              </HBox>
-                              <HBox>
-                                 <children>
-                                    <Label styleClass="chart-labels-bold" text="Exhaust 2 Temp:">
-                                       <HBox.margin>
-                                          <Insets right="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                    <Label fx:id="exhaust2TempLabel" styleClass="chart-labels" text="No Value" />
-                                 </children>
-                              </HBox>
-                           </children>
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -87,19 +65,6 @@
                            </yAxis>
                         </LineChart>
                         <VBox fx:id="topRightLabelBox" minWidth="200.0" prefWidth="200.0" spacing="5.0">
-                           <children>
-                              <HBox>
-                                 <children>
-                                    <Label styleClass="chart-labels-bold" text="Oil Pression:">
-                                       <HBox.margin>
-                                          <Insets right="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                    <Label fx:id="oilPressLabel" styleClass="chart-labels" text="No Value" />
-                                 </children>
-                              </HBox>
-                              <HBox />
-                           </children>
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -121,28 +86,6 @@
                           </yAxis>
                         </LineChart>
                         <VBox fx:id="bottomLeftLabelBox" minWidth="200.0" prefWidth="200.0" spacing="5.0">
-                           <children>
-                              <HBox>
-                                 <children>
-                                    <Label styleClass="chart-labels-bold" text="Oil Temp in:">
-                                       <HBox.margin>
-                                          <Insets right="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                    <Label fx:id="oilTempInLabel" styleClass="chart-labels" text="No Value" />
-                                 </children>
-                              </HBox>
-                              <HBox>
-                                 <children>
-                                    <Label styleClass="chart-labels-bold" text="Oil Temp out:">
-                                       <HBox.margin>
-                                          <Insets right="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                    <Label fx:id="oilTempOutLabel" styleClass="chart-labels" text="No Value" />
-                                 </children>
-                              </HBox>
-                           </children>
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
@@ -164,28 +107,6 @@
                            </yAxis>
                         </LineChart>
                         <VBox fx:id="bottomRightLabelBox" minWidth="200.0" prefWidth="200.0" spacing="5.0">
-                           <children>
-                              <HBox>
-                                 <children>
-                                    <Label styleClass="chart-labels-bold" text="Water Temp in Left:">
-                                       <HBox.margin>
-                                          <Insets right="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                    <Label fx:id="waterTempInLLabel" styleClass="chart-labels" text="No Value" />
-                                 </children>
-                              </HBox>
-                              <HBox>
-                                 <children>
-                                    <Label styleClass="chart-labels-bold" text="Water Temp in Right:">
-                                       <HBox.margin>
-                                          <Insets right="5.0" />
-                                       </HBox.margin>
-                                    </Label>
-                                    <Label fx:id="waterTempOutLLabel" styleClass="chart-labels" text="No Value" />
-                                 </children>
-                              </HBox>
-                           </children>
                            <padding>
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </padding>
