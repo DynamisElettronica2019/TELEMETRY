@@ -23,6 +23,7 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -53,6 +54,7 @@ public class EngineScreenController extends Controller {
 	private String timePattern;
 	private DateTimeFormatter timeColonFormatter;
 	private Integer size, offset;
+	private ArrayList<Series<String, Double>> topLeftSeries = new ArrayList<Series<String, Double>>();
 	@FXML
 	private ComboBox<Integer> numberValues;
 	@FXML
@@ -87,7 +89,58 @@ public class EngineScreenController extends Controller {
 		for (int i=0; i<channelList.size(); i++) {
 			toLoadList.add(true);
 			loadArrayMap.put(channelList.get(i), i);
+			topLeftSelList.getItems().add(channelList.get(i));
+			topRightSelList.getItems().add(channelList.get(i));
+			bottomLeftSelList.getItems().add(channelList.get(i));
+			bottomRightSelList.getItems().add(channelList.get(i));
 		}
+		
+		/*
+		 * Add listeners for CheckComboBoxes
+		 */
+		topLeftSelList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
+		    public void onChanged(ListChangeListener.Change<? extends String> c) {
+		    	topLeftSeries.clear();
+		    	exhaustTempChartData.clear();
+		        for(int i=0; i< topLeftSelList.getCheckModel().getCheckedItems().size(); i++) {
+		        	topLeftSeries.add(new Series<>());
+		        	topLeftSeries.get(i).setName(topLeftSelList.getCheckModel().getCheckedItems().get(i));
+		        	exhaustTempChartData.add(topLeftSeries.get(i));
+		        }
+		        for (int i=0; i<toLoadList.size(); i++) {
+					toLoadList.set(i, true);
+				}
+		    }
+		});
+		
+		topRightSelList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
+		    public void onChanged(ListChangeListener.Change<? extends String> c) {
+		        System.out.println(topLeftSelList.getCheckModel().getCheckedItems());
+		    }
+		});
+		
+		bottomLeftSelList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
+		    public void onChanged(ListChangeListener.Change<? extends String> c) {
+		        System.out.println(topLeftSelList.getCheckModel().getCheckedItems());
+		    }
+		});
+		
+		bottomRightSelList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
+		    public void onChanged(ListChangeListener.Change<? extends String> c) {
+		        System.out.println(topLeftSelList.getCheckModel().getCheckedItems());
+		    }
+		});
+		
+		/*
+		 * Initialize channels
+		 */
+		topLeftSelList.getCheckModel().check("tExhaust_1");
+		topLeftSelList.getCheckModel().check("tExhaust_2");
+		topRightSelList.getCheckModel().check("pOil");
+		bottomLeftSelList.getCheckModel().check("tOil_In");
+		bottomLeftSelList.getCheckModel().check("tOil_Out");
+		bottomRightSelList.getCheckModel().check("tWaterL_In");
+		bottomRightSelList.getCheckModel().check("tWaterL_Out");
 		
 		/*
 		 * Listener on the number of values to display
