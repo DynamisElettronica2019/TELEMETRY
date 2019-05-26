@@ -70,7 +70,7 @@ public class GuiView extends View {
         vboxSX = new VBox(0);
         AnchorPaneSX = new AnchorPane();
         sceneSX = new Scene(AnchorPaneSX);
-        //sceneSX.getStylesheets().add(getStylesheetString());
+        sceneSX.getStylesheets().add(getStylesheetString());
         stageSX.setScene(sceneSX);
         stageSX.show();
 	}

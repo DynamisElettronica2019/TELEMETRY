@@ -35,7 +35,6 @@
                      <children>
                         <Gauge skinType="LINEAR" />
                         <Gauge skinType="FLAT" />
-                        <Gauge />
                      </children>
                   </HBox>
                </children>
