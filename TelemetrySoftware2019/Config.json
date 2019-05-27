@@ -7,8 +7,8 @@
 				"names": ["(7)Recognizer[>0]","(6)time","vWheelFR[>50]","vWheelFL","vWheelRR","vWheelRL","tWaterL_In","tWaterL_Out","tWaterR_In","tWaterR_Out","tOil_In","tOil_Out","tWaterEngine","Vbattery","nGear","nRPM","XTPS","XPedal","vCar","XSlipTarget",
                           "XSlip","bFuel","bFan","bDutyWaterPump","bLaunch","pFuel","pOil","rLambda","FlagSMOT","bDiagIgn_1","bDiagIgn_2","tExhaust_1","tExhaust_2","xWheel_FR","fLoad_FR","pBrakeFront","xWheel_FL","fLoad_FL","pBrakeRear","aSteering",
                           "xWheel_RL","fLoad_RL","xWheel_RR","fLoad_RR","APPS_1","APPS_2","tTyreFL_Out","tTyreFL_Mid","tTyreFL_In","tTyreFR_Out","tTyreFR_Mid","tTyreFR_In","tTyreRL_Out","tTyreRL_Mid","tTyreRL_In","tTyreRR_Out","tTyreRR_Mid","tTyreRR_In","Ax_DCU","Ay_DCU",
-                          "Az_DCU","GyroX_DCU","GyroY_DCU","GyroZ_DCU","aHeading_DCU","GCU_CLUTCH","GCU_ACC_FB","GCU_AUTOX_FB","GCU_TRACTION_FB","GCU_DRS_FB","prova","a","b","c","d","e","f","g","h","i","j","k","l","m","n"],
-				"packetLen": 552,
+                          "Az_DCU","GyroX_DCU","GyroY_DCU","GyroZ_DCU","aHeading_DCU","GCU_CLUTCH","GCU_ACC_FB","GCU_AUTOX_FB","GCU_TRACTION_FB","GCU_DRS_FB","prova","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r"],
+				"packetLen": 584,
 				"recogniser": "1"
 				},
 		"states": {
@@ -33,6 +33,10 @@
 				"name": "CLOSE_FILE_ERROR",
 				"code": "S"
 				}
+				{
+				"name": "Command error",
+				"code": "B"
+				}
 			]
 		},
 	"command": {
@@ -41,13 +45,43 @@
 		"list": [
 				{
 				"name": "Start telemetry",
-				"code": "M",
+				"code": "A",
 				"board": "D",
 				"params": 0
 				},
 				{
 				"name": "Stop telemetry",
-				"code": "N",
+				"code": "M",
+				"board": "D",
+				"params": 0
+				},
+				{
+				"name": "Start acquisition",
+				"code": "B",
+				"board": "D",
+				"params": 0
+				},
+				{
+				"name": "Stop acquisition",
+				"code": "V",
+				"board": "D",
+				"params": 0
+				},
+				{
+				"name": "Get rtc time",
+				"code": "J",
+				"board": "D",
+				"params": 0
+				},
+				{
+				"name": "Get rtc date",
+				"code": "H",
+				"board": "D",
+				"params": 0
+				},
+				{
+				"name": "Get rtc date",
+				"code": "R",
 				"board": "D",
 				"params": 0
 				}
