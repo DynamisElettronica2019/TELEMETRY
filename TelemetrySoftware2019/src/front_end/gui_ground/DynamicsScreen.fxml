@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane prefHeight="1200.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.gui_ground.DynamicsScreenController">
+<GridPane prefHeight="1200.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.gui_ground.DynamicsScreenController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" percentWidth="70.0" />
@@ -52,12 +52,12 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="blue-menu-background" stylesheets="@../../../style/style.css" GridPane.rowSpan="4">
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="blue-menu-background" GridPane.rowSpan="4">
          <children>
-            <Label id="nValuesLabel" stylesheets="@../../../style/style.css" text="Pause auto-refresh:" />
-            <HBox styleClass="grey-button-box-background" stylesheets="@../../../style/style.css">
+            <Label id="nValuesLabel" text="Pause auto-refresh:" />
+            <HBox styleClass="grey-button-box-background">
                <children>
-                  <ToggleButton fx:id="pauseButton" mnemonicParsing="false" onAction="#PressButtonClick" prefWidth="200.0" style="-fx-font-size: 18;" styleClass="transparent-button-background" stylesheets="@../../../style/style.css" text="Pause">
+                  <ToggleButton fx:id="pauseButton" mnemonicParsing="false" onAction="#PressButtonClick" prefWidth="200.0" style="-fx-font-size: 18;" styleClass="transparent-button-background" text="Pause">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
@@ -67,8 +67,8 @@
                   <DropShadow />
                </effect>
             </HBox>
-            <Label id="nValuesLabel" stylesheets="@../../../style/style.css" text="Number of Values:" />
-            <ComboBox fx:id="numberValues" prefWidth="200.0" styleClass="combo-box-sidebar" stylesheets="@../../../style/style.css">
+            <Label id="nValuesLabel" text="Number of Values:" />
+            <ComboBox fx:id="numberValues" prefWidth="200.0" styleClass="combo-box-sidebar">
                <effect>
                   <DropShadow />
                </effect></ComboBox>
@@ -84,12 +84,12 @@
          <children>
             <HBox>
                <children>
-                  <Label styleClass="chart-labels-bold" stylesheets="@../../../style/style.css" text="RPM:">
+                  <Label styleClass="chart-labels-bold" text="RPM:">
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="rpmLabel" styleClass="chart-labels" stylesheets="@../../../style/style.css" text="No Value" />
+                  <Label fx:id="rpmLabel" styleClass="chart-labels" text="No Value" />
                </children>
             </HBox>
          </children>
@@ -101,12 +101,12 @@
          <children>
             <HBox>
                <children>
-                  <Label styleClass="chart-labels-bold" stylesheets="@../../../style/style.css" text="Speed:">
+                  <Label styleClass="chart-labels-bold" text="Speed:">
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="speedLabel" styleClass="chart-labels" stylesheets="@../../../style/style.css" text="No Value" />
+                  <Label fx:id="speedLabel" styleClass="chart-labels" text="No Value" />
                </children>
             </HBox>
          </children>
@@ -118,12 +118,12 @@
          <children>
             <HBox>
                <children>
-                  <Label styleClass="chart-labels-bold" stylesheets="@../../../style/style.css" text="SW Angle:">
+                  <Label styleClass="chart-labels-bold" text="SW Angle:">
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="swLabel" styleClass="chart-labels" stylesheets="@../../../style/style.css" text="No Value" />
+                  <Label fx:id="swLabel" styleClass="chart-labels" text="No Value" />
                </children>
             </HBox>
          </children>
@@ -135,12 +135,12 @@
          <children>
             <HBox>
                <children>
-                  <Label styleClass="chart-labels-bold" stylesheets="@../../../style/style.css" text="Gear:">
+                  <Label styleClass="chart-labels-bold" text="Gear:">
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="gearLabel" styleClass="chart-labels" stylesheets="@../../../style/style.css" text="No Value" />
+                  <Label fx:id="gearLabel" styleClass="chart-labels" text="No Value" />
                </children>
             </HBox>
          </children>

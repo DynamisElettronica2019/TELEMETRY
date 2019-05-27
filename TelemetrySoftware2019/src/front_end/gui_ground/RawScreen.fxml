@@ -37,12 +37,12 @@
             <TableColumn fx:id="stateValueColumn" prefWidth="75.0" text="Value" />
          </columns>
       </TableView>
-      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="blue-menu-background" stylesheets="@../../../style/style.css">
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" styleClass="blue-menu-background">
          <children>
             <Label id="nValuesLabel" text="Data to display:" />
             <HBox styleClass="grey-button-box-background">
                <children>
-                  <CheckBox fx:id="channelsCheckbox" mnemonicParsing="false" selected="true" styleClass="check-box-grey" stylesheets="@../../../style/style.css" text="Channels" />
+                  <CheckBox fx:id="channelsCheckbox" mnemonicParsing="false" selected="true" styleClass="check-box-grey" text="Channels" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -53,7 +53,7 @@
             </HBox>
             <HBox styleClass="grey-button-box-background">
                <children>
-                  <CheckBox fx:id="debugCheckbox" mnemonicParsing="false" selected="true" styleClass="check-box-grey" stylesheets="@../../../style/style.css" text="Debug" />
+                  <CheckBox fx:id="debugCheckbox" mnemonicParsing="false" selected="true" styleClass="check-box-grey" text="Debug" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -64,7 +64,7 @@
             </HBox>
             <HBox styleClass="grey-button-box-background">
                <children>
-                  <CheckBox fx:id="statesCheckbox" mnemonicParsing="false" selected="true" styleClass="check-box-grey" stylesheets="@../../../style/style.css" text="States" />
+                  <CheckBox fx:id="statesCheckbox" mnemonicParsing="false" selected="true" styleClass="check-box-grey" text="States" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

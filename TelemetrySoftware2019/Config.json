@@ -17,7 +17,7 @@
 				"recogniser": "2" 
 				},
 		"debug": {
-				"names": ["A","B","C","D","E","F","G","H","I","L","M","N","O","P","Q","R","S","T","U"],
+				"names": ["DCU_TEMP","DCU_CURRENT","DAU_FL_TEMP","DAU_FL_CURRENT","DAU_FR_TEMP","DAU_FR_CURRENT","DAU_REAR_TEMP","DAU_REAR_CURRENT","I","L","M","N","O","P","Q","R","S","T","U"],
 				"packetLen": 96,
 				"recogniser": "D"
 				}

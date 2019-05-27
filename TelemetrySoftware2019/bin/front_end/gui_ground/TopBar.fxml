@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
-<HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.gui_ground.TopBarController">
+<HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.gui_ground.TopBarController">
    <children>
-      <StackPane id="stackPaneLogo" minWidth="200.0" stylesheets="@../../../style/style.css">
+      <StackPane id="stackPaneLogo" minWidth="200.0">
          <children>
             <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="CENTER">
                <image>
@@ -30,13 +34,13 @@
             <Insets left="10.0" right="10.0" />
          </padding>
       </StackPane>
-      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="1080.0" spacing="5.0" styleClass="blue-menu-background" stylesheets="@../../../style/style.css" HBox.hgrow="ALWAYS">
+      <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="1080.0" spacing="5.0" styleClass="blue-menu-background" HBox.hgrow="ALWAYS">
          <children>
-            <HBox id="menuBar" fx:id="buttonBox" spacing="20.0" stylesheets="@../../../style/style.css">
+            <HBox id="menuBar" fx:id="buttonBox" spacing="20.0">
                <children>
-                  <VBox styleClass="grey-button-box-background" stylesheets="@../../../style/style.css">
+                  <VBox styleClass="grey-button-box-background">
                      <children>
-                        <Button fx:id="enginePage" mnemonicParsing="false" onAction="#engClick" styleClass="transparent-button-background" stylesheets="@../../../style/style.css" text="Engine">
+                        <Button fx:id="enginePage" mnemonicParsing="false" onAction="#engClick" styleClass="transparent-button-background" text="Engine">
                            <HBox.margin>
                               <Insets left="5.0" />
                            </HBox.margin>
@@ -46,74 +50,74 @@
                         <DropShadow />
                      </effect>
                   </VBox>
-                  <VBox styleClass="grey-button-box-background" stylesheets="@../../../style/style.css">
+                  <VBox styleClass="grey-button-box-background">
                      <children>
-                        <Button fx:id="dynamicsPage" mnemonicParsing="false" onAction="#dynClick" styleClass="transparent-button-background" stylesheets="@../../../style/style.css" text="Dynamics" />
+                        <Button fx:id="dynamicsPage" mnemonicParsing="false" onAction="#dynClick" styleClass="transparent-button-background" text="Dynamics" />
                      </children>
                      <effect>
                         <DropShadow />
                      </effect>
                   </VBox>
-                  <VBox styleClass="grey-button-box-background" stylesheets="@../../../style/style.css">
+                  <VBox styleClass="grey-button-box-background">
                      <children>
-                        <Button fx:id="commandsPage" mnemonicParsing="false" onAction="#commandClick" styleClass="transparent-button-background" stylesheets="@../../../style/style.css" text="Commands" />
+                        <Button fx:id="commandsPage" mnemonicParsing="false" onAction="#commandClick" styleClass="transparent-button-background" text="Commands" />
                      </children>
                      <effect>
                         <DropShadow />
                      </effect>
                   </VBox>
-                  <VBox styleClass="grey-button-box-background" stylesheets="@../../../style/style.css">
+                  <VBox styleClass="grey-button-box-background">
                      <children>
-                        <Button fx:id="rawPage" mnemonicParsing="false" onAction="#rawClick" styleClass="transparent-button-background" stylesheets="@../../../style/style.css" text="Raw Data" />
+                        <Button fx:id="rawPage" mnemonicParsing="false" onAction="#rawClick" styleClass="transparent-button-background" text="Raw Data" />
                      </children>
                      <effect>
                         <DropShadow />
                      </effect>
                   </VBox>
-                  <VBox styleClass="grey-button-box-background" stylesheets="@../../../style/style.css">
+                  <VBox styleClass="grey-button-box-background">
                      <children>
-                        <Button fx:id="debugPage" mnemonicParsing="false" onAction="#debugClick" styleClass="transparent-button-background" stylesheets="@../../../style/style.css" text="Debug" />
+                        <Button fx:id="debugPage" mnemonicParsing="false" onAction="#debugClick" styleClass="transparent-button-background" text="Debug" />
                      </children>
                      <effect>
                         <DropShadow />
                      </effect>
                   </VBox>
-                  <VBox styleClass="grey-button-box-background" stylesheets="@../../../style/style.css">
+                  <VBox styleClass="grey-button-box-background">
                      <children>
-                        <Button fx:id="laptimerPage" mnemonicParsing="false" onAction="#laptimerClick" styleClass="transparent-button-background" stylesheets="@../../../style/style.css" text="Laptimer" />
+                        <Button fx:id="laptimerPage" mnemonicParsing="false" onAction="#laptimerClick" styleClass="transparent-button-background" text="Laptimer" />
                      </children>
                      <effect>
                         <DropShadow />
                      </effect>
                   </VBox>
-                  <VBox styleClass="grey-button-box-background" stylesheets="@../../../style/style.css">
+                  <VBox styleClass="grey-button-box-background">
                      <children>
-                        <Button fx:id="errorPage" mnemonicParsing="false" onAction="#errorClick" styleClass="transparent-button-background" stylesheets="@../../../style/style.css" text="Errors" />
+                        <Button fx:id="errorPage" mnemonicParsing="false" onAction="#errorClick" styleClass="transparent-button-background" text="Errors" />
                      </children>
                      <effect>
                         <DropShadow />
                      </effect>
                   </VBox>
                   <Region HBox.hgrow="ALWAYS" />
-                  <VBox styleClass="grey-button-box-background" stylesheets="@../../../style/style.css">
+                  <VBox styleClass="grey-button-box-background">
                      <children>
-                        <Button fx:id="loadCsvButton" mnemonicParsing="false" onAction="#LoadCsvClick" styleClass="transparent-button-background" stylesheets="@../../../style/style.css" text="Load CSV" />
+                        <Button fx:id="loadCsvButton" mnemonicParsing="false" onAction="#LoadCsvClick" styleClass="transparent-button-background" text="Load CSV" />
                      </children>
                      <effect>
                         <DropShadow />
                      </effect>
                   </VBox>
-                  <VBox styleClass="grey-button-box-background" stylesheets="@../../../style/style.css">
+                  <VBox styleClass="grey-button-box-background">
                      <children>
-                        <ToggleButton fx:id="saveCsvButton" mnemonicParsing="false" onAction="#SaveCsvClick" styleClass="transparent-button-background" stylesheets="@../../../style/style.css" text="Save CSV" />
+                        <ToggleButton fx:id="saveCsvButton" mnemonicParsing="false" onAction="#SaveCsvClick" styleClass="transparent-button-background" text="Save CSV" />
                      </children>
                      <effect>
                         <DropShadow />
                      </effect>
                   </VBox>
-                  <VBox styleClass="grey-button-box-background" stylesheets="@../../../style/style.css">
+                  <VBox styleClass="grey-button-box-background">
                      <children>
-                        <Button fx:id="resetButton" mnemonicParsing="false" styleClass="transparent-button-background" stylesheets="@../../../style/style.css" text="Reset">
+                        <Button fx:id="resetButton" mnemonicParsing="false" styleClass="transparent-button-background" text="Reset">
                            <HBox.margin>
                               <Insets right="5.0" />
                            </HBox.margin>
@@ -146,7 +150,7 @@
                               <DropShadow />
                            </effect>
                         </Circle>
-                        <Label fx:id="label1" styleClass="bold-quicksand-text" stylesheets="@../../../style/style.css" text="USB Present" textAlignment="CENTER" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER" />
+                        <Label fx:id="label1" styleClass="bold-quicksand-text" text="USB Present" textAlignment="CENTER" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER" />
                      </children>
                   </StackPane>
                   <StackPane>
@@ -156,7 +160,7 @@
                               <DropShadow />
                            </effect>
                         </Circle>
-                        <Label fx:id="label2" styleClass="bold-quicksand-text" stylesheets="@../../../style/style.css" text="USB Ready" textAlignment="CENTER" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER" />
+                        <Label fx:id="label2" styleClass="bold-quicksand-text" text="USB Ready" textAlignment="CENTER" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER" />
                      </children>
                   </StackPane>
                   <StackPane>
@@ -166,7 +170,7 @@
                               <DropShadow />
                            </effect>
                         </Circle>
-                        <Label fx:id="label3" styleClass="bold-quicksand-text" stylesheets="@../../../style/style.css" text="Acquisition ON" textAlignment="CENTER" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER" />
+                        <Label fx:id="label3" styleClass="bold-quicksand-text" text="Acquisition ON" textAlignment="CENTER" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER" />
                      </children>
                   </StackPane>
                   <StackPane>
@@ -176,7 +180,7 @@
                               <DropShadow />
                            </effect>
                         </Circle>
-                        <Label fx:id="label4" styleClass="bold-quicksand-text" stylesheets="@../../../style/style.css" text="Telemetry ON" textAlignment="CENTER" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER" />
+                        <Label fx:id="label4" styleClass="bold-quicksand-text" text="Telemetry ON" textAlignment="CENTER" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER" />
                      </children>
                   </StackPane>
                   <StackPane>
@@ -186,7 +190,7 @@
                               <DropShadow />
                            </effect>
                         </Circle>
-                        <Label fx:id="label5" styleClass="bold-quicksand-text" stylesheets="@../../../style/style.css" text="SD Present" textAlignment="CENTER" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER" />
+                        <Label fx:id="label5" styleClass="bold-quicksand-text" text="SD Present" textAlignment="CENTER" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER" />
                      </children>
                   </StackPane>
                   <StackPane>
@@ -196,7 +200,7 @@
                               <DropShadow />
                            </effect>
                         </Circle>
-                        <Label fx:id="label6" styleClass="bold-quicksand-text" stylesheets="@../../../style/style.css" text="SD Ready" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER" />
+                        <Label fx:id="label6" styleClass="bold-quicksand-text" text="SD Ready" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER" />
                      </children>
                   </StackPane>
                   <StackPane>
@@ -206,7 +210,7 @@
                               <DropShadow />
                            </effect>
                         </Circle>
-                        <Label fx:id="label7" styleClass="bold-quicksand-text" stylesheets="@../../../style/style.css" text="P Oil" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER" />
+                        <Label fx:id="label7" styleClass="bold-quicksand-text" text="P Oil" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER" />
                      </children>
                   </StackPane>
                   <StackPane>
@@ -216,7 +220,7 @@
                               <DropShadow />
                            </effect>
                         </Circle>
-                        <Label fx:id="label8" styleClass="bold-quicksand-text" stylesheets="@../../../style/style.css" text="Oil Temperature" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER" />
+                        <Label fx:id="label8" styleClass="bold-quicksand-text" text="Oil Temperature" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER" />
                      </children>
                   </StackPane>
                   <StackPane>
@@ -226,7 +230,7 @@
                               <DropShadow />
                            </effect>
                         </Circle>
-                        <Label fx:id="label9" styleClass="bold-quicksand-text" stylesheets="@../../../style/style.css" text="H2O Temperature" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER" />
+                        <Label fx:id="label9" styleClass="bold-quicksand-text" text="H2O Temperature" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER" />
                      </children>
                   </StackPane>
                   <StackPane>
@@ -236,7 +240,7 @@
                               <DropShadow />
                            </effect>
                         </Circle>
-                        <Label fx:id="label10" styleClass="bold-quicksand-text" stylesheets="@../../../style/style.css" text="Fuel Pressure" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER" />
+                        <Label fx:id="label10" styleClass="bold-quicksand-text" text="Fuel Pressure" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER" />
                      </children>
                   </StackPane>
                   <StackPane>
@@ -246,15 +250,15 @@
                               <DropShadow />
                            </effect>
                         </Circle>
-                        <Label fx:id="label11" styleClass="bold-quicksand-text" stylesheets="@../../../style/style.css" text="Battery Voltage" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER" />
+                        <Label fx:id="label11" styleClass="bold-quicksand-text" text="Battery Voltage" textFill="WHITE" StackPane.alignment="BOTTOM_CENTER" />
                      </children>
                   </StackPane>
                   <Region maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
-                  <HBox id="stateLabelPane" spacing="5.0" stylesheets="@../../../style/style.css">
+                  <HBox id="stateLabelPane" spacing="5.0">
                      <children>
                         <VBox layoutX="60.328125" prefWidth="50.0">
                            <children>
-                              <Label styleClass="bold-quicksand-text" stylesheets="@../../../style/style.css" text="Traction" textFill="WHITE" />
+                              <Label styleClass="bold-quicksand-text" text="Traction" textFill="WHITE" />
                               <Label fx:id="traction" text="/" textFill="WHITE">
                                  <font>
                                     <Font size="24.0" />
@@ -270,7 +274,7 @@
                         </VBox>
                         <VBox layoutX="0.328125" prefWidth="50.0">
                            <children>
-                              <Label styleClass="bold-quicksand-text" stylesheets="@../../../style/style.css" text="Mappa" textFill="WHITE" />
+                              <Label styleClass="bold-quicksand-text" text="Mappa" textFill="WHITE" />
                               <Label fx:id="map" text="/" textFill="WHITE">
                                  <font>
                                     <Font size="24.0" />
@@ -280,7 +284,7 @@
                         </VBox>
                         <VBox layoutX="125.328125" prefWidth="90.0">
                            <children>
-                              <Label styleClass="bold-quicksand-text" stylesheets="@../../../style/style.css" text="Last lap" textFill="WHITE" />
+                              <Label styleClass="bold-quicksand-text" text="Last lap" textFill="WHITE" />
                               <Label fx:id="lastLap" text="0:00:00" textFill="WHITE">
                                  <font>
                                     <Font size="24.0" />

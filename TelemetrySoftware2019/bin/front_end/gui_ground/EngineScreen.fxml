@@ -19,7 +19,7 @@
 
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.gui_ground.EngineScreenController">
    <children>
-      <GridPane prefHeight="1200.0" prefWidth="1080.0" stylesheets="@../../../style/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
+      <GridPane prefHeight="1200.0" prefWidth="1080.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="300.0" />
@@ -115,43 +115,43 @@
                   </HBox>
                </children>
             </HBox>
-            <VBox spacing="10.0" styleClass="blue-menu-background" stylesheets="@../../../style/style.css" GridPane.rowSpan="3">
+            <VBox spacing="10.0" styleClass="blue-menu-background" GridPane.rowSpan="3">
                <children>
-                  <Label id="nValuesLabel" stylesheets="@../../../style/style.css" text="Pause auto-refresh:" />
-                  <HBox styleClass="grey-button-box-background" stylesheets="@../../../style/style.css">
+                  <Label id="nValuesLabel" text="Pause auto-refresh:" />
+                  <HBox styleClass="grey-button-box-background">
                      <children>
-                        <ToggleButton fx:id="pauseButton" mnemonicParsing="false" onAction="#PressButtonClick" prefWidth="200.0" style="-fx-font-size: 18;" styleClass="transparent-button-background" stylesheets="@../../../style/style.css" text="Pause" HBox.hgrow="ALWAYS" />
+                        <ToggleButton fx:id="pauseButton" mnemonicParsing="false" onAction="#PressButtonClick" prefWidth="200.0" style="-fx-font-size: 18;" styleClass="transparent-button-background" text="Pause" HBox.hgrow="ALWAYS" />
                      </children>
                      <effect>
                         <DropShadow />
                      </effect>
                   </HBox>
-                  <Label id="nValuesLabel" stylesheets="@../../../style/style.css" text="Number of Values:" />
-                  <ComboBox fx:id="numberValues" prefWidth="200.0" styleClass="combo-box-sidebar" stylesheets="@../../../style/style.css">
+                  <Label id="nValuesLabel" text="Number of Values:" />
+                  <ComboBox fx:id="numberValues" prefWidth="200.0" styleClass="combo-box-sidebar">
                      <effect>
                         <DropShadow />
                      </effect>
                   </ComboBox>
-                  <Label id="nValuesLabel" stylesheets="@../../../style/style.css" text="Top-Left Chart:" />
-                  <CheckComboBox id="check-combo" fx:id="topLeftSelList" prefWidth="200.0" stylesheets="@../../../style/style.css">
+                  <Label id="nValuesLabel" text="Top-Left Chart:" />
+                  <CheckComboBox id="check-combo" fx:id="topLeftSelList" prefWidth="200.0">
                      <effect>
                         <DropShadow />
                      </effect>
                   </CheckComboBox>
-                  <Label id="nValuesLabel" stylesheets="@../../../style/style.css" text="Top-Right Chart:" />
-                  <CheckComboBox id="check-combo" fx:id="topRightSelList" prefWidth="200.0" stylesheets="@../../../style/style.css">
+                  <Label id="nValuesLabel" text="Top-Right Chart:" />
+                  <CheckComboBox id="check-combo" fx:id="topRightSelList" prefWidth="200.0">
                      <effect>
                         <DropShadow />
                      </effect>
                   </CheckComboBox>
-                  <Label id="nValuesLabel" stylesheets="@../../../style/style.css" text="Bottom-Left Chart:" />
-                  <CheckComboBox id="check-combo" fx:id="bottomLeftSelList" prefWidth="200.0" stylesheets="@../../../style/style.css">
+                  <Label id="nValuesLabel" text="Bottom-Left Chart:" />
+                  <CheckComboBox id="check-combo" fx:id="bottomLeftSelList" prefWidth="200.0">
                      <effect>
                         <DropShadow />
                      </effect>
                   </CheckComboBox>
-                  <Label id="nValuesLabel" stylesheets="@../../../style/style.css" text="Bottom-Right Chart:" />
-                  <CheckComboBox id="check-combo" fx:id="bottomRightSelList" prefWidth="200.0" stylesheets="@../../../style/style.css">
+                  <Label id="nValuesLabel" text="Bottom-Right Chart:" />
+                  <CheckComboBox id="check-combo" fx:id="bottomRightSelList" prefWidth="200.0">
                      <effect>
                         <DropShadow />
                      </effect>
