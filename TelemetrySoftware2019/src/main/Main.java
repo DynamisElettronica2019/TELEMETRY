@@ -21,7 +21,7 @@ public class Main extends Application {
 	public void start(Stage arg0) throws Exception {
 		
 		//Set std err to file
-		System.setErr(new PrintStream(new FileOutputStream("err.txt")));
+		//System.setErr(new PrintStream(new FileOutputStream("err.txt")));
 		
 		//View construction
 		ArrayList<View> myViews = ModeLauncher.createViews();
