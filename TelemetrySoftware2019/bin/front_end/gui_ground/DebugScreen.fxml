@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import eu.hansolo.medusa.Gauge?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import org.controlsfx.control.CheckComboBox?>
 
 <GridPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.131" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.gui_ground.DebugScreenController">
    <columnConstraints>
@@ -18,54 +18,21 @@
       <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="blue-menu-background" />
-      <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="blue-menu-background">
          <children>
-            <VBox prefHeight="332.0" prefWidth="409.0">
-               <children>
-                  <Label text="DCU" />
-                  <HBox prefHeight="315.0" prefWidth="102.0">
-                     <children>
-                        <Gauge fx:id="dcuTemp" prefWidth="89.0" skinType="LINEAR" />
-                        <Gauge fx:id="dcuCurrCurr" skinType="FLAT" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <VBox prefHeight="332.0" prefWidth="409.0">
-               <children>
-                  <Label text="DAU_FL" />
-                  <HBox prefHeight="315.0" prefWidth="102.0">
-                     <children>
-                        <Gauge fx:id="dauFLTemp" prefWidth="89.0" skinType="LINEAR" />
-                        <Gauge fx:id="dauFLCurr" skinType="FLAT" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <VBox prefHeight="332.0" prefWidth="409.0">
-               <children>
-                  <Label text="DAU_FR" />
-                  <HBox prefHeight="315.0" prefWidth="102.0">
-                     <children>
-                        <Gauge fx:id="dauFRTemp" prefWidth="89.0" skinType="LINEAR" />
-                        <Gauge fx:id="dauFRCurr" skinType="FLAT" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-            <VBox prefHeight="332.0" prefWidth="409.0">
-               <children>
-                  <Label text="DAU_REAR" />
-                  <HBox prefHeight="315.0" prefWidth="102.0">
-                     <children>
-                        <Gauge fx:id="dauRearTemp" prefWidth="89.0" skinType="LINEAR" />
-                        <Gauge fx:id="dauRearCurr" skinType="FLAT" />
-                     </children>
-                  </HBox>
-               </children>
-            </VBox>
-         </children>
-      </FlowPane>
+            <Label id="nValuesLabel" text="Temperature" />
+            <CheckComboBox id="check-combo" fx:id="allTempList" prefHeight="41.0" prefWidth="178.0">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </CheckComboBox>
+            <Label id="nValuesLabel" text="Current" />
+            <CheckComboBox id="check-combo" fx:id="allCurrentList" prefHeight="41.0" prefWidth="178.0">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </CheckComboBox>
+         </children></VBox>
+      <FlowPane fx:id="gaugePane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
    </children>
 </GridPane>

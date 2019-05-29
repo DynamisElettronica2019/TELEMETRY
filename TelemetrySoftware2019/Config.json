@@ -17,6 +17,7 @@
 				"recogniser": "2" 
 				},
 		"debug": {
+				"_names": "names must end with _TEMP or _CURRENT",
 				"names": ["DCU_TEMP","DCU_CURRENT","DAU_FL_TEMP","DAU_FL_CURRENT","DAU_FR_TEMP","DAU_FR_CURRENT","DAU_REAR_TEMP","DAU_REAR_CURRENT","I","L","M","N","O","P","Q","R","S","T","U"],
 				"packetLen": 96,
 				"recogniser": "D"
