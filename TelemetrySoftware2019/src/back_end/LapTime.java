@@ -21,6 +21,7 @@ public class LapTime {
 		lapNumber = pl.convertLapNumber();
 		minutes = pl.convertLapTime()[0];
 		seconds = pl.convertLapTime()[1];
+		mSeconds = pl.convertLapTime()[2];
 		ts = LocalDateTime.now();
 	}
 	

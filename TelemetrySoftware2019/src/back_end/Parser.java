@@ -152,10 +152,15 @@ public class Parser {
 	 * Decode string received from hex to normal characters
 	 */
 	public void decodeString(byte[] strToDecode) {
-		if (strToDecode[0] == ((byte) recogniserAckComm) || strToDecode[0] == ((byte) recogniserDcuErr)) { // Set command message identifier here
+		if (strToDecode[0] == ((byte) recogniserAckComm) || strToDecode[0] == ((byte) recogniserDcuErr) || strToDecode[0] == ((byte) recogniserLapAccMode) || strToDecode[0] == ((byte) recogniserLapEndMode)) { // Set command message identifier here
 			try {
 				byte[] noBracketStr;
-				noBracketStr = Arrays.copyOfRange(strToDecode, 0, 2); // Remove brackets
+				if(strToDecode[0] == ((byte) recogniserAckComm) || strToDecode[0] == ((byte) recogniserDcuErr)) {
+					noBracketStr = Arrays.copyOfRange(strToDecode, 0, 2); // Remove brackets
+				}
+				else {
+					noBracketStr = Arrays.copyOfRange(strToDecode, 0, 15); // Remove brackets
+				}
 				parseString(new String(noBracketStr)); // Call the string parsing function
 			} catch (InvalidReadingException | InvalidUpdateException e) {
 				e.log(); 
