@@ -1,14 +1,15 @@
 {	
 	"_mode": "Accepted: GROUND,LAPTOP,GUI_ROW,CLI",
-	"mode": "GROUND",
+	"mode": "LAPTOP",
 	"data":	{
 		"channels":	{
 				"_names": "use name[<double] || name[>double] for threshold indicator // use (int)name for send to server with a specific number",
-				"names": ["(7)Recognizer[>0]","(6)time","vWheelFR[>50]","vWheelFL","vWheelRR","vWheelRL","tWaterL_In","tWaterL_Out","tWaterR_In","tWaterR_Out","tOil_In","tOil_Out","tWaterEngine","Vbattery","nGear","nRPM","XTPS","XPedal","vCar","XSlipTarget",
-                          "XSlip","bFuel","bFan","bDutyWaterPump","bLaunch","pFuel","pOil","rLambda","FlagSMOT","bDiagIgn_1","bDiagIgn_2","tExhaust_1","tExhaust_2","xWheel_FR","fLoad_FR","pBrakeFront","xWheel_FL","fLoad_FL","pBrakeRear","aSteering",
-                          "xWheel_RL","fLoad_RL","xWheel_RR","fLoad_RR","APPS_1","APPS_2","tTyreFL_Out","tTyreFL_Mid","tTyreFL_In","tTyreFR_Out","tTyreFR_Mid","tTyreFR_In","tTyreRL_Out","tTyreRL_Mid","tTyreRL_In","tTyreRR_Out","tTyreRR_Mid","tTyreRR_In","Ax_DCU","Ay_DCU",
-                          "Az_DCU","GyroX_DCU","GyroY_DCU","GyroZ_DCU","aHeading_DCU","GCU_CLUTCH","GCU_ACC_FB","GCU_AUTOX_FB","GCU_TRACTION_FB","GCU_DRS_FB","prova","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s"],
-				"packetLen": 584,
+				"names": ["(7)Recognizer","(6)TIMESTAMP","HALL_EFFECT_FR","HALL_EFFECT_FL","HALL_EFFECT_RR","HALL_EFFECT_RL","T_H20_SX_IN","T_H20_SX_OUT","T_H20_DX_IN","T_H20_DX_OUT","tOil_In","tOil_Out","tWaterEngine","Vbattery","nGear","nRPM","TPS","PH2O","VH_SPEED","XSlipTarget",
+                          "XSlip","MANUAL_LIMITER_ACTIVE","bFan","H2O Duty Cycle","PIT_LANE_ACTIVE","pFuel","pOil","rLambda","FlagSMOT","L_FUEL","tExhaust_1","tExhaust_2","xWheel_FR","fLoad_FR","BPS Front","APPS","xWheel_FL","fLoad_FL","BPS Rear","SW Angle",
+                          "xWheel_RL","fLoad_RL","xWheel_RR","fLoad_RR","IR1_FL","IR2_FL","IR3_FL","BRAKE_IR_FL","IR1_FR","IR2_FR","IR3_FR","BRAKE_IR_FR","IR1_RL","IR2_RL","IR3_RL","BRAKE_IR_RL","IR1_RR","IR2_RR","IR3_RR","BRAKE_IR_RR",
+                          "IMU1 ACC X","IMU1 ACC Y","IMU1 GYR X","IMU1 GYR Z","IMU1 HEADING","IMU1 ACC Z","IMU1 GYR Y","IMU1 SENSORS CALIBRATION","IMU2 ACC X","IMU2 ACC Y","IMU2 GYR X","IMU2 GYR Z","IMU2 HEADING","IMU2 ACC Z","IMU2 GYR Y","IMU2 SENSORS CALIBRATION","IMU DCU HEADING",
+                          "IMU DCU ACC Z","IMU DCU GYR Y","IMU DCU ACC X","IMU DCU ACC Y","IMU DCU GYR X","IMU DCU GYR Z","IMU DCU SENSORS CALIBRATION","GPS LATITUDE MINUTES","GPS LONGITUDE MINUTES","GPS SPEED"],
+				"packetLen": 581,
 				"recogniser": "1"
 				},
 		"states": {
@@ -18,7 +19,7 @@
 				},
 		"debug": {
 				"_names": "names must end with _TEMP or _CURRENT",
-				"names": ["DCU_TEMP","DCU_CURRENT","DAU_FL_TEMP","DAU_FL_CURRENT","DAU_FR_TEMP","DAU_FR_CURRENT","DAU_REAR_TEMP","DAU_REAR_CURRENT","I","L","M","N","O","P","Q","R","S","T","U"],
+				"names": ["DAU_FR_TEMP","DAU_FR_CURRENT","DAU_FL_TEMP","DAU_FL_CURRENT","DAU_REAR_TEMP","DAU_REAR_CURRENT","SW_TEMP","SW_CURRENT","GCU_TEMP","GCU_CURRENT","H2O_PUMP_CURRENT","FUEL_PUMP_CURRENT","GEARMOTOR_CURRENT","CLUTCH_CURRENT","FAN_SX_CURRENT","FAN_DX_CURREN","DCU_TEMP","DCU_CURRENT","XBEE_CURRENT","DCU_3V3_CURRENT","DCU_12V_VOLTAGE","DCU_5V_VOLTAGE","DCU_3V3_VOLTAGE","LAP_FLAG"],
 				"packetLen": 96,
 				"recogniser": "D"
 				}
