@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.CheckComboBox;
+
 import back_end.Channel;
 import back_end.Command;
 import back_end.Debug;
@@ -16,10 +18,12 @@ import back_end.LapTimer;
 import back_end.State;
 import back_end.Threshold;
 import configuration.ConfReader;
+import front_end.gui_ground.EngineScreenController.HoveredThresholdNode;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -34,12 +38,21 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 public class DynamicsScreenController extends Controller {
-	private Series<String, Double> rpm, speed, sw, gear;
-	private ObservableList<XYChart.Series<String,Double>> rpmChartData, speedChartData, swChartData, gearChartData;
+	private Map<String, Label> topLeftLabelMap = new HashMap<>();
+	private Map<String, Label> topRightLabelMap = new HashMap<>();
+	private Map<String, Label> bottomLeftLabelMap = new HashMap<>();
+	private Map<String, Label> bottomRightLabelMap = new HashMap<>();
+	private Map<String, Series<String, Double>> topLeftChannelMap = new HashMap<>();
+	private Map<String, Series<String, Double>> topRightChannelMap = new HashMap<>();
+	private Map<String, Series<String, Double>> bottomLeftChannelMap = new HashMap<>();
+	private Map<String, Series<String, Double>> bottomRightChannelMap = new HashMap<>();
+	private ObservableList<XYChart.Series<String,Double>> bottomRightChartData, bottomLeftChartData, topLeftChartData, topRightChartData;
 	private ObservableList<Integer> elementNumberList;
 	private String timePattern;
 	private DateTimeFormatter timeColonFormatter;
@@ -49,16 +62,26 @@ public class DynamicsScreenController extends Controller {
 	private Map<String, Series<String, Double>> chartChannelMap = new HashMap<>();
 	private Map<String, Label> chartLabelMap = new HashMap<>();
 	private Integer size, offset;
+	private ArrayList<Series<String, Double>> topLeftSeries = new ArrayList<Series<String, Double>>();
+	private ArrayList<Series<String, Double>> topRightSeries = new ArrayList<Series<String, Double>>();
+	private ArrayList<Series<String, Double>> bottomLeftSeries = new ArrayList<Series<String, Double>>();
+	private ArrayList<Series<String, Double>> bottomRightSeries = new ArrayList<Series<String, Double>>();
+	private ArrayList<Label> topLeftLabels = new ArrayList<Label>();
+	private ArrayList<Label> topRightLabels = new ArrayList<Label>();
+	private ArrayList<Label> bottomLeftLabels = new ArrayList<Label>();
+	private ArrayList<Label> bottomRightLabels = new ArrayList<Label>();
 	@FXML
-	private LineChart<String, Double> rpmChart, speedChart, swChart, gearChart;
+	private CheckComboBox<String> topLeftSelList, topRightSelList, bottomLeftSelList, bottomRightSelList;
+	@FXML
+	private LineChart<String, Double> bottomLeftChart, bottomRightChart, topLeftChart, topRightChart;
 	@FXML
 	private ComboBox<Integer> numberValues;
-	@FXML
-	private Label rpmLabel, speedLabel, swLabel, gearLabel;
 	@FXML
 	private ToggleButton pauseButton;
 	@FXML
 	private Slider slider;
+	@FXML
+	private VBox topLeftLabelBox, topRightLabelBox, bottomLeftLabelBox, bottomRightLabelBox;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -84,55 +107,175 @@ public class DynamicsScreenController extends Controller {
 		for (int i=0; i<channelList.size(); i++) {
 			toLoadList.add(true);
 			loadArrayMap.put(channelList.get(i), i);
+			topLeftSelList.getItems().add(channelList.get(i));
+			topRightSelList.getItems().add(channelList.get(i));
+			bottomLeftSelList.getItems().add(channelList.get(i));
+			bottomRightSelList.getItems().add(channelList.get(i));
 		}
+		
+		/*
+		 * Add listeners for CheckComboBoxes
+		 */
+		topLeftSelList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
+		    public void onChanged(ListChangeListener.Change<? extends String> c) {
+		    	/*
+		    	 * Cleanup older series
+		    	 */
+		    	topLeftSeries.clear();
+		    	topLeftChartData.clear();
+		    	topLeftChannelMap.clear();
+		    	topLeftLabels.clear();
+		    	topLeftLabelBox.getChildren().clear();
+		    	topLeftLabelMap.clear();
+		    	/*
+		    	 * Add new series
+		    	 */
+		        for(int i=0; i< topLeftSelList.getCheckModel().getCheckedItems().size(); i++) {
+		        	topLeftSeries.add(new Series<>());
+		        	topLeftSeries.get(i).setName(topLeftSelList.getCheckModel().getCheckedItems().get(i));
+		        	topLeftChartData.add(topLeftSeries.get(i));
+		        	topLeftChannelMap.put(topLeftSelList.getCheckModel().getCheckedItems().get(i), topLeftSeries.get(i));
+		        	
+		        	/*
+		        	 * Cleanup labels and add new to map
+		        	 */
+		        	HBox labelBox = new HBox();
+		        	Label name = new Label(topLeftSelList.getCheckModel().getCheckedItems().get(i) + ": ");
+		        	name.getStyleClass().add("chart-labels-bold");
+		        	labelBox.getChildren().add(name);
+		        	topLeftLabels.add(new Label("No Value"));
+		        	topLeftLabels.get(i).getStyleClass().add("chart-labels");
+		        	topLeftLabelMap.put(topLeftSelList.getCheckModel().getCheckedItems().get(i), topLeftLabels.get(i));
+		        	labelBox.getChildren().add(topLeftLabels.get(i));
+		        	topLeftLabelBox.getChildren().add(labelBox);
+		        }
+		        for (int i=0; i<toLoadList.size(); i++) {
+					toLoadList.set(i, true);
+				}
+		    }
+		});
+		
+		topRightSelList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
+		    public void onChanged(ListChangeListener.Change<? extends String> c) {
+		    	topRightSeries.clear();
+		    	topRightChartData.clear();
+		    	topRightChannelMap.clear();
+		    	topRightLabels.clear();
+		    	topRightLabelBox.getChildren().clear();
+		    	topRightLabelMap.clear();
+		        for(int i=0; i< topRightSelList.getCheckModel().getCheckedItems().size(); i++) {
+		        	topRightSeries.add(new Series<>());
+		        	topRightSeries.get(i).setName(topRightSelList.getCheckModel().getCheckedItems().get(i));
+		        	topRightChartData.add(topRightSeries.get(i));
+		        	topRightChannelMap.put(topRightSelList.getCheckModel().getCheckedItems().get(i), topRightSeries.get(i));
+		        	
+		        	/*
+		        	 * Cleanup labels and add new to map
+		        	 */
+		        	HBox labelBox = new HBox();
+		        	Label name = new Label(topRightSelList.getCheckModel().getCheckedItems().get(i) + ": ");
+		        	name.getStyleClass().add("chart-labels-bold");
+		        	labelBox.getChildren().add(name);
+		        	topRightLabels.add(new Label("No Value"));
+		        	topRightLabels.get(i).getStyleClass().add("chart-labels");
+		        	topRightLabelMap.put(topRightSelList.getCheckModel().getCheckedItems().get(i), topRightLabels.get(i));
+		        	labelBox.getChildren().add(topRightLabels.get(i));
+		        	topRightLabelBox.getChildren().add(labelBox);
+		        }
+		        for (int i=0; i<toLoadList.size(); i++) {
+					toLoadList.set(i, true);
+				}
+		    }
+		});
+		
+		bottomLeftSelList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
+		    public void onChanged(ListChangeListener.Change<? extends String> c) {
+		    	bottomLeftSeries.clear();
+		    	bottomLeftChartData.clear();
+		    	bottomLeftChannelMap.clear();
+		    	bottomLeftLabels.clear();
+		    	bottomLeftLabelBox.getChildren().clear();
+		    	bottomLeftLabelMap.clear();
+		        for(int i=0; i< bottomLeftSelList.getCheckModel().getCheckedItems().size(); i++) {
+		        	bottomLeftSeries.add(new Series<>());
+		        	bottomLeftSeries.get(i).setName(bottomLeftSelList.getCheckModel().getCheckedItems().get(i));
+		        	bottomLeftChartData.add(bottomLeftSeries.get(i));
+		        	bottomLeftChannelMap.put(bottomLeftSelList.getCheckModel().getCheckedItems().get(i), bottomLeftSeries.get(i));
+		        	
+		        	/*
+		        	 * Cleanup labels and add new to map
+		        	 */
+		        	HBox labelBox = new HBox();
+		        	Label name = new Label(bottomLeftSelList.getCheckModel().getCheckedItems().get(i) + ": ");
+		        	name.getStyleClass().add("chart-labels-bold");
+		        	labelBox.getChildren().add(name);
+		        	bottomLeftLabels.add(new Label("No Value"));
+		        	bottomLeftLabels.get(i).getStyleClass().add("chart-labels");
+		        	bottomLeftLabelMap.put(bottomLeftSelList.getCheckModel().getCheckedItems().get(i), bottomLeftLabels.get(i));
+		        	labelBox.getChildren().add(bottomLeftLabels.get(i));
+		        	bottomLeftLabelBox.getChildren().add(labelBox);
+		        }
+		        for (int i=0; i<toLoadList.size(); i++) {
+					toLoadList.set(i, true);
+				}
+		    }
+		});
+		
+		bottomRightSelList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
+		    public void onChanged(ListChangeListener.Change<? extends String> c) {
+		    	bottomRightSeries.clear();
+		    	bottomRightChartData.clear();
+		    	bottomRightChannelMap.clear();
+		    	bottomRightLabels.clear();
+		    	bottomRightLabelBox.getChildren().clear();
+		    	bottomRightLabelMap.clear();
+		        for(int i=0; i< bottomRightSelList.getCheckModel().getCheckedItems().size(); i++) {
+		        	bottomRightSeries.add(new Series<>());
+		        	bottomRightSeries.get(i).setName(bottomRightSelList.getCheckModel().getCheckedItems().get(i));
+		        	bottomRightChartData.add(bottomRightSeries.get(i));
+		        	bottomRightChannelMap.put(bottomRightSelList.getCheckModel().getCheckedItems().get(i), bottomRightSeries.get(i));
+		        	
+		        	/*
+		        	 * Cleanup labels and add new to map
+		        	 */
+		        	HBox labelBox = new HBox();
+		        	Label name = new Label(bottomRightSelList.getCheckModel().getCheckedItems().get(i) + ": ");
+		        	name.getStyleClass().add("chart-labels-bold");
+		        	labelBox.getChildren().add(name);
+		        	bottomRightLabels.add(new Label("No Value"));
+		        	bottomRightLabels.get(i).getStyleClass().add("chart-labels");
+		        	bottomRightLabelMap.put(bottomRightSelList.getCheckModel().getCheckedItems().get(i), bottomRightLabels.get(i));
+		        	labelBox.getChildren().add(bottomRightLabels.get(i));
+		        	bottomRightLabelBox.getChildren().add(labelBox);
+		        }
+		        for (int i=0; i<toLoadList.size(); i++) {
+					toLoadList.set(i, true);
+				}
+		    }
+		});
 		
 		/*
 		 * Do not show x axis
 		 */
-		rpmChart.getXAxis().setTickLabelsVisible(false);
-		rpmChart.getXAxis().setTickMarkVisible(false);
-		speedChart.getXAxis().setTickLabelsVisible(false);
-		speedChart.getXAxis().setTickMarkVisible(false);
-		swChart.getXAxis().setTickLabelsVisible(false);
-		swChart.getXAxis().setTickMarkVisible(false);
+		bottomLeftChart.getXAxis().setTickLabelsVisible(false);
+		bottomLeftChart.getXAxis().setTickMarkVisible(false);
+		bottomRightChart.getXAxis().setTickLabelsVisible(false);
+		bottomRightChart.getXAxis().setTickMarkVisible(false);
+		topLeftChart.getXAxis().setTickLabelsVisible(false);
+		topRightChart.getXAxis().setTickMarkVisible(false);
 		
 		/*
 		 *  Chart initialization
 		 */
-		rpmChartData = FXCollections.observableArrayList();
-		speedChartData = FXCollections.observableArrayList();
-		swChartData = FXCollections.observableArrayList();
-		gearChartData = FXCollections.observableArrayList();
+		bottomLeftChartData = FXCollections.observableArrayList();
+		bottomRightChartData = FXCollections.observableArrayList();
+		topLeftChartData = FXCollections.observableArrayList();
+		topRightChartData = FXCollections.observableArrayList();
 		
-		rpm = new Series<>();
-		speed = new Series<>();
-		sw = new Series<>();
-		gear = new Series<>();
-		
-		rpm.setName("RPM");
-		speed.setName("Speed");
-		sw.setName("Steering Wheel Angle");
-		gear.setName("Gear");
-		
-		rpmChartData.add(rpm);
-		speedChartData.add(speed);
-		swChartData.add(sw);
-		gearChartData.add(gear);
-		
-		rpmChart.setData(rpmChartData);
-		speedChart.setData(speedChartData);
-		swChart.setData(swChartData);
-		gearChart.setData(gearChartData);
-		
-		chartLabelMap.put("nRPM", rpmLabel);
-		chartLabelMap.put("vCar", speedLabel);
-		chartLabelMap.put("aSteering", swLabel);
-		chartLabelMap.put("nGear", gearLabel);
-		
-		chartChannelMap.put("nRPM", rpm);
-		chartChannelMap.put("vCar", speed);
-		chartChannelMap.put("aSteering", sw);
-		chartChannelMap.put("nGear", gear);
+		bottomRightChart.setData(bottomRightChartData);
+		bottomLeftChart.setData(bottomLeftChartData);
+		topLeftChart.setData(topLeftChartData);
+		topRightChart.setData(topRightChartData);
 		
 		/*
 		 * Listener on the number of values to display
@@ -301,6 +444,9 @@ public class DynamicsScreenController extends Controller {
 	/*
 	 *  Displays a value on hover, set as node on creation
 	 */
+	/*
+	 *  Displays a value on hover, set as node on creation
+	 */
 	class HoveredThresholdNode extends StackPane {
 		private Label label;
 		private Integer index;
@@ -308,32 +454,48 @@ public class DynamicsScreenController extends Controller {
 	      label = createDataThresholdLabel(value);
 	      setOnMouseEntered(new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent mouseEvent) {
-	        	if(pauseButton.isSelected()) {
-	        		for(int i=0;i<rpm.getData().size();i++){
-	  	              if(ts.equals(rpm.getData().get(i).getXValue())){
-	  	            	  ((HoveredThresholdNode) rpm.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) rpm.getData().get(i).getNode()).getLabel());
-	  	            	  ((HoveredThresholdNode) rpm.getData().get(i).getNode()).getLabel().toFront();
-	  	            	  ((HoveredThresholdNode) sw.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) sw.getData().get(i).getNode()).getLabel());
-	  	            	  ((HoveredThresholdNode) sw.getData().get(i).getNode()).getLabel().toFront();
-	  	            	  ((HoveredThresholdNode) gear.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) gear.getData().get(i).getNode()).getLabel());
-	  	            	  ((HoveredThresholdNode) gear.getData().get(i).getNode()).getLabel().toFront();
-	  	            	  ((HoveredThresholdNode) speed.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) speed.getData().get(i).getNode()).getLabel());
-	  	            	  ((HoveredThresholdNode) speed.getData().get(i).getNode()).getLabel().toFront();
-	  	            	  index = i;  
-	  	              }
-	  	        	}
-	  	        	setCursor(Cursor.NONE);
+	        	if (pauseButton.isSelected()) {
+		        		for(int i=0;i<topLeftSeries.get(0).getData().size();i++){
+			              if(ts.equals(topLeftSeries.get(0).getData().get(i).getXValue())){
+			            	  for(Series<String, Double> serie: topLeftSeries) {
+			            		  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel());
+				            	  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel().toFront();
+			            	  }
+			            	  for(Series<String, Double> serie: topRightSeries) {
+			            		  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel());
+				            	  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel().toFront();
+			            	  }
+			            	  for(Series<String, Double> serie: bottomLeftSeries) {
+			            		  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel());
+				            	  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel().toFront();
+			            	  }
+			            	  for(Series<String, Double> serie: bottomRightSeries) {
+			            		  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel());
+				            	  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel().toFront();
+			            	  }
+			            	  index = i;  
+			              }
+		        		}
+		        	setCursor(Cursor.NONE);
 	        	}
 	        }
 	      });
 	      setOnMouseExited(new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent mouseEvent) {
 	        	if(pauseButton.isSelected()) {
-	  	          ((HoveredThresholdNode) rpm.getData().get(index).getNode()).getChildren().clear();
-		          ((HoveredThresholdNode) sw.getData().get(index).getNode()).getChildren().clear();
-		          ((HoveredThresholdNode) gear.getData().get(index).getNode()).getChildren().clear();
-		          ((HoveredThresholdNode) speed.getData().get(index).getNode()).getChildren().clear();
-		          setCursor(Cursor.CROSSHAIR);
+	            	  for(Series<String, Double> serie: topLeftSeries) {
+	                		((HoveredThresholdNode) serie.getData().get(index).getNode()).getChildren().clear();
+	              	  }
+	              	  for(Series<String, Double> serie: topRightSeries) {
+	              		  ((HoveredThresholdNode) serie.getData().get(index).getNode()).getChildren().clear();
+	              	  }
+	              	  for(Series<String, Double> serie: bottomLeftSeries) {
+	              		  ((HoveredThresholdNode) serie.getData().get(index).getNode()).getChildren().clear();
+	              	  }
+	              	  for(Series<String, Double> serie: bottomRightSeries) {
+	              		  ((HoveredThresholdNode) serie.getData().get(index).getNode()).getChildren().clear();
+	              	  }
+	      	          setCursor(Cursor.CROSSHAIR);
 	        	}
 	        }
 	      });
