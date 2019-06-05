@@ -252,13 +252,16 @@ public class EngineScreenController extends Controller {
 		/*
 		 * Initialize channels
 		 */
-		topLeftSelList.getCheckModel().check("tExhaust_1");
-		topLeftSelList.getCheckModel().check("tExhaust_2");
-		topRightSelList.getCheckModel().check("pOil");
-		bottomLeftSelList.getCheckModel().check("tOil_In");
-		bottomLeftSelList.getCheckModel().check("tOil_Out");
-		bottomRightSelList.getCheckModel().check("tWaterL_In");
-		bottomRightSelList.getCheckModel().check("tWaterL_Out");
+		topLeftSelList.getCheckModel().check("T EXHAUST 1");
+		topLeftSelList.getCheckModel().check("T EXHAUST 2");
+		topRightSelList.getCheckModel().check("P OIL");
+		bottomLeftSelList.getCheckModel().check("T OIL IN");
+		bottomLeftSelList.getCheckModel().check("T OIL OUT");
+		bottomRightSelList.getCheckModel().check("T H20 SX IN");
+		bottomRightSelList.getCheckModel().check("T H20 SX OUT");
+		bottomRightSelList.getCheckModel().check("T H20 DX IN");
+		bottomRightSelList.getCheckModel().check("T H20 DX OUT");
+		bottomRightSelList.getCheckModel().check("T WATER ENGINE");
 		
 		/*
 		 * Listener on the number of values to display
