@@ -67,6 +67,7 @@ public class Parser {
 		decodeMap.put((byte) 0xb, '.');
 		decodeMap.put((byte) 0x5, '[');
 		decodeMap.put((byte) 0x6, ']');
+		decodeMap.put((byte) 0xe, '-');
 	}
 
 	/*
