@@ -278,6 +278,17 @@ public class DynamicsScreenController extends Controller {
 		topRightChart.setData(topRightChartData);
 		
 		/*
+		 * Initialize channels
+		 */
+		topLeftSelList.getCheckModel().check("RPM");
+		topRightSelList.getCheckModel().check("VH SPEED");
+		topRightSelList.getCheckModel().check("GPS SPEED");
+		bottomLeftSelList.getCheckModel().check("BPS FRONT");
+		bottomLeftSelList.getCheckModel().check("BPS REAR");
+		bottomLeftSelList.getCheckModel().check("TPS");
+		bottomRightSelList.getCheckModel().check("SW ANGLE");
+		
+		/*
 		 * Listener on the number of values to display
 		 * Removes the unnecessary data if the newValue is lower than before
 		 * Set to update the channel load list
