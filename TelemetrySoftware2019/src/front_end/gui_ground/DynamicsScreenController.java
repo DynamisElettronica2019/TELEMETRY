@@ -338,42 +338,97 @@ public class DynamicsScreenController extends Controller {
 		if(!channel.isEmpty()){
 			size = channel.getSize();
 			slider.setMax(size);
-			if(chartChannelMap.get(channel.getName()) != null) {
-				if (toLoadList.get(loadArrayMap.get(channel.getName()))) {
-					Platform.runLater(new Runnable() {
-					    @Override
-					    public void run() {
-			    			chartChannelMap.get(channel.getName()).setData(getLastnChartElemOffset(channel, offset));	    			
-			    			toLoadList.set(loadArrayMap.get(channel.getName()), false);	    	
-					    }
-					});
-	    		}
-				else {
-					if (!pauseButton.isSelected()) {
-						Platform.runLater(new Runnable() {
-						    @Override
-						    public void run() {
-						    	if(chartChannelMap.get(channel.getName()) != null) {
-						    		chartChannelMap.get(channel.getName()).getData().add(getLastChartElem(channel));
-									chartLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));	
-						    		if(chartChannelMap.get(channel.getName()).getData().size() > numberValues.getValue()) {
-								    	chartChannelMap.get(channel.getName()).getData().remove(0);
-								    }
-						    	}	    	
-						    }
-						});
-					}
-				}
-			}
+			Platform.runLater(new Runnable() {
+			    @Override
+			    public void run() {
+			    	if(topLeftChannelMap.get(channel.getName()) != null) {
+			    		if (toLoadList.get(loadArrayMap.get(channel.getName()))) {
+			    			topLeftChannelMap.get(channel.getName()).setData(getLastnChartElemOffset(channel, offset));		    			
+			    			toLoadList.set(loadArrayMap.get(channel.getName()), false);
+			    		}
+			    		else {
+			    			if (!pauseButton.isSelected()) {
+			    				if(topLeftChannelMap.get(channel.getName()) != null) {
+			    					topLeftChannelMap.get(channel.getName()).getData().add(getLastChartElem(channel));
+			    					topLeftLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));
+			    					if(topLeftChannelMap.get(channel.getName()).getData().size() > numberValues.getValue()) {
+			    						topLeftChannelMap.get(channel.getName()).getData().remove(0);
+			    					}
+			    				}
+			    			}
+			    		}
+			    	}
+			    	else if(topRightChannelMap.get(channel.getName()) != null) {
+			    		if (toLoadList.get(loadArrayMap.get(channel.getName()))) {
+			    			topRightChannelMap.get(channel.getName()).setData(getLastnChartElemOffset(channel, offset));		    			
+			    			toLoadList.set(loadArrayMap.get(channel.getName()), false);
+			    		}
+			    		else {
+			    			if (!pauseButton.isSelected()) {
+			    				if(topRightChannelMap.get(channel.getName()) != null) {
+			    					topRightChannelMap.get(channel.getName()).getData().add(getLastChartElem(channel));
+			    					topRightLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));
+			    					if(topRightChannelMap.get(channel.getName()).getData().size() > numberValues.getValue()) {
+			    						topRightChannelMap.get(channel.getName()).getData().remove(0);
+			    					}
+			    				}
+			    			}
+			    		}
+			    	}
+			    	else if(bottomLeftChannelMap.get(channel.getName()) != null) {
+			    		if (toLoadList.get(loadArrayMap.get(channel.getName()))) {
+			    			bottomLeftChannelMap.get(channel.getName()).setData(getLastnChartElemOffset(channel, offset));		    			
+			    			toLoadList.set(loadArrayMap.get(channel.getName()), false);
+			    		}
+			    		else {
+			    			if (!pauseButton.isSelected()) {
+			    				if(bottomLeftChannelMap.get(channel.getName()) != null) {
+			    					bottomLeftChannelMap.get(channel.getName()).getData().add(getLastChartElem(channel));
+			    					bottomLeftLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));
+			    					if(bottomLeftChannelMap.get(channel.getName()).getData().size() > numberValues.getValue()) {
+			    						bottomLeftChannelMap.get(channel.getName()).getData().remove(0);
+			    					}
+			    				}
+			    			}
+			    		}
+			    	}
+			    	else if(bottomRightChannelMap.get(channel.getName()) != null) {
+			    		if (toLoadList.get(loadArrayMap.get(channel.getName()))) {
+			    			bottomRightChannelMap.get(channel.getName()).setData(getLastnChartElemOffset(channel, offset));		    			
+			    			toLoadList.set(loadArrayMap.get(channel.getName()), false);
+			    		}
+			    		else {
+			    			if (!pauseButton.isSelected()) {
+			    				if(bottomRightChannelMap.get(channel.getName()) != null) {
+			    					bottomRightChannelMap.get(channel.getName()).getData().add(getLastChartElem(channel));
+			    					bottomRightLabelMap.get(channel.getName()).setText(Double.toString(channel.getLastElems(1).get(0)));
+			    					if(bottomRightChannelMap.get(channel.getName()).getData().size() > numberValues.getValue()) {
+			    						bottomRightChannelMap.get(channel.getName()).getData().remove(0);
+			    					}
+			    				}
+			    			}
+			    		}
+			    	}
+			    }
+			});
 		}
 		else {
 			if(channel != null) {
-				if(chartChannelMap.get(channel.getName()) != null) {
-					chartChannelMap.get(channel.getName()).getData().clear();
+				if(topLeftChannelMap.get(channel.getName()) != null) {
+					topLeftChannelMap.get(channel.getName()).getData().clear();
 				}
-			}
-			if(chartLabelMap.get(channel.getName()) != null) {
-				chartLabelMap.get(channel.getName()).setText("No value");
+				else if(topRightChannelMap.get(channel.getName()) != null) {
+					topRightChannelMap.get(channel.getName()).getData().clear();
+				}
+				else if(bottomLeftChannelMap.get(channel.getName()) != null) {
+					bottomLeftChannelMap.get(channel.getName()).getData().clear();
+				}
+				else if(bottomRightChannelMap.get(channel.getName()) != null) {
+					bottomRightChannelMap.get(channel.getName()).getData().clear();
+				}
+				if(topLeftLabelMap.get(channel.getName()) != null) {
+					topLeftLabelMap.get(channel.getName()).setText("No value");
+				}
 			}
 		}
 	}
