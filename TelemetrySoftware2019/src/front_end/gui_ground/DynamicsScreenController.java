@@ -259,10 +259,10 @@ public class DynamicsScreenController extends Controller {
 		 */
 		bottomLeftChart.getXAxis().setTickLabelsVisible(false);
 		bottomLeftChart.getXAxis().setTickMarkVisible(false);
-		bottomRightChart.getXAxis().setTickLabelsVisible(false);
-		bottomRightChart.getXAxis().setTickMarkVisible(false);
-		topLeftChart.getXAxis().setTickLabelsVisible(false);
+		topRightChart.getXAxis().setTickLabelsVisible(false);
 		topRightChart.getXAxis().setTickMarkVisible(false);
+		topLeftChart.getXAxis().setTickLabelsVisible(false);
+		topLeftChart.getXAxis().setTickMarkVisible(false);
 		
 		/*
 		 *  Chart initialization

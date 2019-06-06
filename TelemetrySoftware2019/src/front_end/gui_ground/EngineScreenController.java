@@ -254,14 +254,14 @@ public class EngineScreenController extends Controller {
 		 */
 		topLeftSelList.getCheckModel().check("T EXHAUST 1");
 		topLeftSelList.getCheckModel().check("T EXHAUST 2");
-		topRightSelList.getCheckModel().check("P OIL");
+		topRightSelList.getCheckModel().check("P OIL[<3500]");
 		bottomLeftSelList.getCheckModel().check("T OIL IN");
 		bottomLeftSelList.getCheckModel().check("T OIL OUT");
 		bottomRightSelList.getCheckModel().check("T H20 SX IN");
 		bottomRightSelList.getCheckModel().check("T H20 SX OUT");
 		bottomRightSelList.getCheckModel().check("T H20 DX IN");
 		bottomRightSelList.getCheckModel().check("T H20 DX OUT");
-		bottomRightSelList.getCheckModel().check("T WATER ENGINE");
+		bottomRightSelList.getCheckModel().check("T WATER ENGINE[>95]");
 		
 		/*
 		 * Listener on the number of values to display
