@@ -81,7 +81,7 @@ public class Receiver {
 
 		@Override
 		public int getPacketSize() {
-			return 1;
+			return 4;
 		}
 
 		@Override
