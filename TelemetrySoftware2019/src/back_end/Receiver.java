@@ -95,6 +95,7 @@ public class Receiver {
 					} else if (openBracketIndex != -1) { // Cerco una parentesi chiusa solo se ne ho trovata una aperta
 						if (strRead[strIndex] == pktEnd) {
 							closeBracketIndex = strIndex;
+							clearRTS(); // Stop receiving
 							createString(); // Chiamata alla funziona che crea la stringa da inviare
 						}
 					}

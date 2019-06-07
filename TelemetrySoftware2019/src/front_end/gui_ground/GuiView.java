@@ -87,42 +87,49 @@ public class GuiView extends View {
 		public void UpdateChannel(Channel channel, boolean loadMode) {
 			SXTopBarController.editChannel(channel);
 			SXMainController.editChannel(channel);
+			commandSender.setRTS();
 		}
 
 		@Override
 		public void UpdateCommand(Command command) {
 			SXTopBarController.editCommand(command);
 			SXMainController.editCommand(command);
+			commandSender.setRTS();
 		}
 
 		@Override
 		public void UpdateDebug(Debug debug) {
 			SXTopBarController.editDebug(debug);
 			SXMainController.editDebug(debug);
+			commandSender.setRTS();
 		}
 
 		@Override
 		public void UpdateError(Error error) {
 			SXTopBarController.editError(error);
 			SXMainController.editError(error);
+			commandSender.setRTS();
 		}
 
 		@Override
 		public void UpdateState(State state) {
 			SXTopBarController.editState(state);
 			SXMainController.editState(state);
+			commandSender.setRTS();
 		}
 
 		@Override
 		public void UpdateLap(LapTimer lapTimer) {
 			SXTopBarController.editLap(lapTimer);
 			SXMainController.editLap(lapTimer);
+			commandSender.setRTS();
 		}
 
 		@Override
 		public void UpdateTS(Threshold thresholdState) {
 			SXTopBarController.editTS(thresholdState);
 			SXMainController.editTS(thresholdState);
+			commandSender.setRTS();
 		}
 		
 		

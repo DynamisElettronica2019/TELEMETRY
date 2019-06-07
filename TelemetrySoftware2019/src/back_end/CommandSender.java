@@ -82,8 +82,8 @@ public class CommandSender {
 	/*
 	 * Clear rts
 	 */
-	public void clearRTS() {
-		receiver.clearRTS();
+	public void setRTS() {
+		receiver.setRTS();
 	}
 
 }
