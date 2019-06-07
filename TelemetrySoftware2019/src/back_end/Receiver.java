@@ -157,5 +157,19 @@ public class Receiver {
 		closeBracketIndex = -1;
 		parser.decodeString(strToSend);
 	}
+	
+	/*
+	 * Set rts
+	 */
+	public void setRTS() {
+		comPort.setRTS();
+	}
+	
+	/*
+	 * Set rts
+	 */
+	public void clearRTS() {
+		comPort.clearRTS();
+	}
 
 }

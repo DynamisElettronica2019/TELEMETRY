@@ -78,5 +78,12 @@ public class CommandSender {
 	public ArrayList<LapTime> LoadLaps() {
 		return data.getLapTimer().getLapTimes();
 	}
+	
+	/*
+	 * Clear rts
+	 */
+	public void clearRTS() {
+		receiver.clearRTS();
+	}
 
 }
