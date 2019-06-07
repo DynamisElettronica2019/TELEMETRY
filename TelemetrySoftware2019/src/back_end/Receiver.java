@@ -141,6 +141,7 @@ public class Receiver {
 		});
 		portListener.start();
 		comPort.setBaudRate(baudRate);
+		comPort.setFlowControl(SerialPort.FLOW_CONTROL_RTS_ENABLED | SerialPort.FLOW_CONTROL_CTS_ENABLED);
 		PacketListener listener = new PacketListener();
 		comPort.addDataListener(listener);
 	}
