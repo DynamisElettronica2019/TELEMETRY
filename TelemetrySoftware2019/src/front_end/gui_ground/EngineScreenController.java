@@ -17,6 +17,7 @@ import back_end.Error;
 import back_end.LapTimer;
 import back_end.State;
 import back_end.Threshold;
+import back_end.ThresholdChannel;
 import configuration.ConfReader;
 import front_end.gui_ground.DynamicsScreenController.HoveredThresholdNode;
 import javafx.application.Platform;
@@ -101,11 +102,23 @@ public class EngineScreenController extends Controller {
 		channelList = ConfReader.getNames("channels");
 		for (int i=0; i<channelList.size(); i++) {
 			toLoadList.add(true);
-			loadArrayMap.put(channelList.get(i), i);
-			topLeftSelList.getItems().add(channelList.get(i));
-			topRightSelList.getItems().add(channelList.get(i));
-			bottomLeftSelList.getItems().add(channelList.get(i));
-			bottomRightSelList.getItems().add(channelList.get(i));
+			String[] NaTh = ConfReader.haveThresholdAndServer(channelList.get(i));
+			if(NaTh.length==2) {
+				topLeftSelList.getItems().add(NaTh[1]);
+				topRightSelList.getItems().add(NaTh[1]);
+				bottomLeftSelList.getItems().add(NaTh[1]);
+				bottomRightSelList.getItems().add(NaTh[1]);
+				loadArrayMap.put(NaTh[1], i);
+				
+			}
+			else {
+				topLeftSelList.getItems().add(NaTh[1]);
+				topRightSelList.getItems().add(NaTh[1]);
+				bottomLeftSelList.getItems().add(NaTh[1]);
+				bottomRightSelList.getItems().add(NaTh[1]);
+				loadArrayMap.put(NaTh[1], i);
+			}
+			
 		}
 		
 		/*

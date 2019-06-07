@@ -18,6 +18,7 @@ import back_end.Threshold;
 import configuration.ConfReader;
 import eu.hansolo.medusa.Gauge;
 import eu.hansolo.medusa.Gauge.SkinType;
+import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.layout.FlowPane;
@@ -129,7 +130,12 @@ public class DebugScreenController extends Controller {
 
 	@Override
 	public void editDebug(Debug debug) {
-		if(debugMap.get(debug.getName())!=null) debugMap.get(debug.getName()).setValue(debug.getValue());
+		Platform.runLater(new Runnable() {
+		    @Override
+		    public void run() {
+		    	if(debugMap.get(debug.getName())!=null) debugMap.get(debug.getName()).setValue(debug.getValue());
+		    }
+		});
 	}
 
 	@Override

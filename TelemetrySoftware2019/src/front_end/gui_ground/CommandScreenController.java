@@ -33,15 +33,12 @@ public class CommandScreenController extends Controller {
 	private ToolBar buttonBar;
 	@FXML
 	private Button StartAcqButton, StopAcqButton, StartTelemButton, StopTelemButton;
-	@FXML
-	private ComboBox<String> PilotMessageList;
 	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		super.initialize(location, resources);
 		driverMessages = FXCollections.observableArrayList("Stop the car", "Keep going", "Pit");
-		PilotMessageList.setItems(driverMessages);
 		
 		//Set all the buttons from config file
 		nameButtonList = new ArrayList<String>();
@@ -111,11 +108,6 @@ public class CommandScreenController extends Controller {
 	public void editTS(Threshold thresholdState) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	@FXML
-	private void SendToDriverAction() {
-		view.getCommandSender().sendCommand(driverMessageMap.get(PilotMessageList.getValue()), "");
 	}
 
 	@Override
