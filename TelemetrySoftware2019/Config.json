@@ -1,6 +1,6 @@
 {	
 	"_mode": "Accepted: GROUND,LAPTOP,GUI_ROW,CLI",
-	"mode": "LAPTOP",
+	"mode": "GROUND",
 	"data":	{
 		"channels":	{
 				"_names": "use name[<double] || name[>double] for threshold indicator // use (int)name for send to server with a specific number",
@@ -87,6 +87,12 @@
 				"board": "D",
 				"params": 0
 				}
+				{
+				"name": "Send lap",
+				"code": "S",
+				"board": "D",
+				"params": 0
+				}		
 			]
 	},
 	"laptimer": {

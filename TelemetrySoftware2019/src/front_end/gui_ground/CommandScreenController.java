@@ -89,7 +89,6 @@ public class CommandScreenController extends Controller {
 	@Override
 	public void editLap(LapTimer lapTimer) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override

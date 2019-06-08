@@ -19,6 +19,7 @@ import back_end.State;
 import back_end.Threshold;
 import back_end.Error;
 import back_end.LapTimer;
+import back_end.LapType;
 import configuration.ConfReader;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -204,6 +205,16 @@ public class TopBarController extends Controller {
 		    	}
 		    }
 		});
+		/*
+		 * Send telemetry command
+		 */
+		if(lapTimer != null) {
+			if((lapTimer != null) && (lapTimer.getLastTime() != null)) {
+				if (lapTimer.getLastTime().getType() == LapType.LAP) {
+					view.getCommandSender().sendCommand("Send lap", "");
+				}
+			}
+		}
 	}
 
 	//Set labels, you cannot have more than 5 Threshold states
