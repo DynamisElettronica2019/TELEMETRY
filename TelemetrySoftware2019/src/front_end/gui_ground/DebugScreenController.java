@@ -67,7 +67,8 @@ public class DebugScreenController extends Controller {
 		    	 String name = c.toString().split(" ")[1].substring(1, c.toString().split(" ")[1].length()-1)+"_TEMP";
 		    	 String addRem = c.toString().split(" ")[2];
 		         if(addRem.equals("added") && debugMap.get(name)==null){
-		        	 Gauge temp = new Gauge(SkinType.LINEAR); 
+		        	 Gauge temp = new Gauge(SkinType.LINEAR);
+		        	 temp.setPrefSize(300, 300);
 					 temp.setId(name);
 					 temp.setTitle(subTemp(name));
 					 gaugePane.getChildren().add(indexMap.get(name)-elementsOutBefore[indexMap.get(name)], temp);
@@ -89,6 +90,7 @@ public class DebugScreenController extends Controller {
 		    	 String addRem = c.toString().split(" ")[2];
 		    	 if(addRem.equals("added") && debugMap.get(name)==null){
 		        	 Gauge temp = new Gauge(SkinType.FLAT);
+		        	 temp.setPrefSize(150, 150);
 					 temp.setId(name);
 					 temp.setTitle(subCurrent(name));
 					 gaugePane.getChildren().add(indexMap.get(name)-elementsOutBefore[indexMap.get(name)], temp);
