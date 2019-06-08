@@ -31,7 +31,12 @@ public class CommandSender {
 		try {
 			char myCode = data.authorizedNameAndParams(comm, params);
 			data.startTimer(myCode);
-			receiver.send(""+data.getBoard(myCode)+myCode);
+			if(params.equals("")) {
+				receiver.send(""+data.getBoard(myCode)+myCode);
+			}
+			else {
+				receiver.send(""+data.getBoard(myCode)+myCode+';'+params);
+			}
 		} catch (InvalidCodeException e) {
 			e.log();
 		}

@@ -1,6 +1,8 @@
 package front_end.gui_ground;
 
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,6 +50,14 @@ public class CommandScreenController extends Controller {
 			but.setOnAction((event) -> {
 				view.getCommandSender().sendCommand(buttonMap.get(but), "");
 				but.setDisable(true);
+			});
+		}
+		
+		if(buttonMapReverse.get("Set rtc") != null) {
+			buttonMapReverse.get("Set rtc").setOnAction((event) -> {
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss;dd:MM:yyyy");
+				view.getCommandSender().sendCommand(buttonMap.get(buttonMapReverse.get("Set rtc")), LocalDateTime.now().format(formatter));
+				buttonMapReverse.get("Set rtc").setDisable(true);
 			});
 		}
 	}
