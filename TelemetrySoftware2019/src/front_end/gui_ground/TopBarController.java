@@ -36,8 +36,8 @@ import javafx.scene.paint.Color;
 
 public class TopBarController extends Controller {
 	private final int STATES = 5;
-	private final String MAP_CHANNEL = "GCU_AUTOX_FB";
-	private final String TRACTION_CHANNEL = "GCU_TRACTION_FB";
+	private final String MAP_CHANNEL = "TRACTION";
+	private final String TRACTION_CHANNEL = "MAP";
 	private final String ACQUISITION_ON_STATE = "Acquisition ON";
 	private Map<String, Circle> stateMap = new HashMap<>();
 	private ArrayList<String> stateList;
