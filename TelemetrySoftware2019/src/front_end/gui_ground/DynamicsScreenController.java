@@ -125,6 +125,19 @@ public class DynamicsScreenController extends Controller {
 		}
 		
 		/*
+		 *  Chart initialization
+		 */
+		bottomLeftChartData = FXCollections.observableArrayList();
+		bottomRightChartData = FXCollections.observableArrayList();
+		topLeftChartData = FXCollections.observableArrayList();
+		topRightChartData = FXCollections.observableArrayList();
+		
+		bottomRightChart.setData(bottomRightChartData);
+		bottomLeftChart.setData(bottomLeftChartData);
+		topLeftChart.setData(topLeftChartData);
+		topRightChart.setData(topRightChartData);
+		
+		/*
 		 * Add listeners for CheckComboBoxes
 		 */
 		topLeftSelList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {
@@ -274,19 +287,6 @@ public class DynamicsScreenController extends Controller {
 		topRightChart.getXAxis().setTickMarkVisible(false);
 		topLeftChart.getXAxis().setTickLabelsVisible(false);
 		topLeftChart.getXAxis().setTickMarkVisible(false);
-		
-		/*
-		 *  Chart initialization
-		 */
-		bottomLeftChartData = FXCollections.observableArrayList();
-		bottomRightChartData = FXCollections.observableArrayList();
-		topLeftChartData = FXCollections.observableArrayList();
-		topRightChartData = FXCollections.observableArrayList();
-		
-		bottomRightChart.setData(bottomRightChartData);
-		bottomLeftChart.setData(bottomLeftChartData);
-		topLeftChart.setData(topLeftChartData);
-		topRightChart.setData(topRightChartData);
 		
 		/*
 		 * Initialize channels
