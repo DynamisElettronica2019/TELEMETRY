@@ -1,0 +1,172 @@
+.text-error {
+    -fx-text-fill: red;
+}
+
+#stackPaneLogo {
+	-fx-background-color: #EA2027;
+}
+
+.blue-menu-background {
+	-fx-background-image: url("CarbonTexture.jpg");
+	-fx-background-size: 1500 1500;
+}
+
+.transparent-button-background {
+	-fx-background-color: transparent;
+	-fx-text-fill: white;
+	-fx-font-family: Quicksand;
+	-fx-font-weight: bold;
+}
+
+.transparent-button-background:hover {
+	-fx-background-color: #EA2027;
+}
+
+.transparent-button-background:selected {
+	-fx-background-color: #EA2027;
+}
+
+.grey-button-box-background {
+	-fx-background-color: #7f8c8d;
+	-fx-background-radius: 4px;
+}
+
+.white-background {
+	-fx-background-color: white;
+}
+
+.effect-shadow {
+	-fx-effect: dropshadow;
+}
+
+.bold-quicksand-text {
+	-fx-font-family: Quicksand;
+	-fx-font-weight: bold;
+}
+
+.combo-box-sidebar {
+	-fx-background-color: #7f8c8d;
+	-fx-background-radius: 4px;
+	-fx-font-family: Quicksand;
+	-fx-prompt-text-fill: white;
+	-fx-font-weight: bold;
+}
+
+.combo-box-sidebar .arrow {
+	-fx-background-color: white;
+}
+
+.combo-box-sidebar .list-view .list-cell {
+	-fx-background-color: #7f8c8d;
+	-fx-font-family: Quicksand;
+	-fx-text-fill: white;
+}
+
+.combo-box-sidebar .list-view .list-cell:hover {
+	-fx-background-color: #EA2027;
+}
+
+.combo-box-sidebar .list-cell {
+	-fx-text-fill: white;
+	-fx-font-size: 14pt ;
+}
+
+#check-combo .combo-box {
+   	-fx-background-color: #7f8c8d;
+	-fx-background-radius: 4px;
+	-fx-font-family: Quicksand;
+	-fx-prompt-text-fill: white;
+	-fx-font-weight: bold;
+}
+
+#check-combo .combo-box .arrow {
+	-fx-background-color: white;
+}
+
+#check-combo .list-view .list-cell {
+	-fx-background-color: #7f8c8d;
+	-fx-font-family: Quicksand;
+	-fx-text-fill: white;
+}
+
+#check-combo .list-view .list-cell:hover {
+	-fx-background-color: #EA2027;
+}
+
+#check-combo .list-cell {
+	-fx-text-fill: white;
+	-fx-font-size: 14pt ;
+}
+
+#nValuesLabel {
+	-fx-text-fill: white;
+	-fx-font-size: 14pt ;
+	-fx-font-family: Quicksand;
+	-fx-font-weight: bold;
+}
+
+#menuBar {
+	-fx-background-image: url("CarbonTextureTop.jpg");
+	-fx-background-size: 1000 1000;
+}
+
+#stateLabelPane {
+	-fx-background-image: url("CarbonTextureTop.jpg");
+	-fx-background-size: 1000 1000;
+	-fx-background-color: #222f3e;
+}
+
+.check-box-grey {
+	-fx-font-size: 14pt;
+	-fx-font-family: Quicksand;
+	-fx-text-fill: white;
+	-fx-font-weight: bold;
+}
+
+.check-box-grey .box {
+	-fx-background-color: white;
+	-fx-border-color:black;
+	-fx-border-radius:3px; 
+}
+
+.chart-alternative-row-fill {
+    -fx-fill: #dcdde1;
+    -fx-stroke: transparent;
+    -fx-stroke-width: 0;
+}
+
+.chart-plot-background {
+    -fx-background-color: #ecf0f1;
+}
+
+.default-color0.chart-series-line { -fx-stroke: #EA2027; }
+.default-color1.chart-series-line { -fx-stroke: #2980b9; }
+.default-color2.chart-series-line { -fx-stroke: #16a085; }
+ 
+.default-color0.chart-line-symbol { -fx-background-color: #EA2027, white; }
+.default-color1.chart-line-symbol { -fx-background-color: #2980b9, white; }
+.default-color2.chart-line-symbol { -fx-background-color: #16a085, white; }
+
+.chart-labels {
+	-fx-font-family: Quicksand;
+}
+
+.chart-labels-bold {
+	-fx-font-family: Quicksand;
+	-fx-font-weight: bold;
+}
+
+.command-buttons {
+	-fx-background-color: #7f8c8d;
+	-fx-background-radius: 4px;
+	-fx-font-size: 14pt;
+	-fx-font-family: Quicksand;
+	-fx-text-fill: white;
+	-fx-font-weight: bold;
+	-fx-border-color:black;
+	-fx-border-radius: 4px;
+}
+
+.command-buttons:hover {
+	-fx-background-color: #EA2027;
+}

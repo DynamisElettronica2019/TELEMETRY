@@ -1,0 +1,130 @@
+{	
+	"_mode": "Accepted: GROUND,LAPTOP,GUI_ROW,CLI",
+	"mode": "GROUND",
+	"data":	{
+		"channels":	{
+				"_names": "use name[<double] || name[>double] for threshold indicator // use (int)name for send to server with a specific number",
+				"names": ["(6)TIMESTAMP","HALL EFFECT FR","HALL EFFECT FL","HALL EFFECT RR","HALL EFFECT RL","T H20 SX IN","T H20 SX OUT","T H20 DX IN","T H20 DX OUT","T OIL IN[>120]","T OIL OUT","T WATER ENGINE[>95]","BATTERY VOLTAGE[<11.5]","GEAR","RPM","TPS","P H2O","VH SPEED","SLIP TARGET",
+                          "SLIP","GEAR AD BITS","MANUAL LIMITER ACTIVE","FAN","H2O DUTY CYCLE","PIT LANE ACTIVE","P FUEL[<4500]","P OIL[<3500]","LAMBDA","FLAG SMOT","L FUEL","T EXHAUST 1","T EXHAUST 2","TC_ACTIVE","LINEAR FR","LOAD FR","BPS FRONT","APPS","LINEAR FL","LOAD FL","BPS REAR","SW ANGLE",
+                          "LINEAR RL","LOAD RL","LINEAR RR","LOAD RR","IR IN FL","IR MIDDLE FL","IR OUT FL","BRAKE IR FL","IR IN FR","IR MIDDLE FR","IR OUT FR","BRAKE IR FR","IR IN RL","IR MIDDLE RL","IR OUT RL","BRAKE IR RL","IR IN RR","IR MIDDLE RR","IR OUT RR","BRAKE IR RR",
+                          "IMU1 ACC X","IMU1 ACC Y","IMU1 GYR X","IMU1 GYR Z","IMU1 HEADING","IMU1 ACC Z","IMU1 GYR Y","IMU1 SENSORS CALIBRATION","IMU2 ACC X","IMU2 ACC Y","IMU2 GYR X","IMU2 GYR Z","IMU2 HEADING","IMU2 ACC Z","IMU2 GYR Y","IMU2 SENSORS CALIBRATION","IMU DCU HEADING",
+                          "IMU DCU ACC Z","IMU DCU GYR Y","IMU DCU ACC X","IMU DCU ACC Y","IMU DCU GYR X","IMU DCU GYR Z","IMU DCU SENSORS CALIBRATION","GPS LATITUDE MINUTES","GPS LONGITUDE MINUTES","GPS SPEED","CLUTCH", "MODE", "MAP", "ANTISTALL",
+                          "TRACTION", "RPM LIMITER", "AUTO GEARSHIFT", "ACCELERATION", "LAP FLAG", "DATRON DISTANCE", "DATRON X", "DATRON Y", "DATRON ANGLE"],
+				"packetLen": 648,
+				"recogniser": "1"
+				},
+		"states": {
+				"names": ["USB Ready","SD Present","SD Ready","Acquisition ON","Telemetry ON"],
+				"packetLen": 11,
+				"recogniser": "2" 
+				},
+		"debug": {
+				"_names": "names must end with _TEMP or _CURRENT",
+				"names": ["DAU_FR_TEMP","DAU_FR_CURRENT","DAU_FL_TEMP","DAU_FL_CURRENT","DAU_REAR_TEMP","DAU_REAR_CURRENT","SW_TEMP","SW_CURRENT","GCU_TEMP","GCU_CURRENT","H2O_PUMP_CURRENT","FUEL_PUMP_CURRENT","GEARMOTOR_CURRENT","CLUTCH_CURRENT","FAN_SX_CURRENT","FAN_DX_CURRENT","DCU_TEMP","DCU_CURRENT","XBEE_CURRENT","DCU_3V3_CURRENT","DCU_12V_VOLTAGE_CURRENT","DCU_5V_VOLTAGE_CURRENT","DCU_3V3_VOLTAGE_CURRENT"],
+				"packetLen": 96,
+				"recogniser": "D"
+				}
+		},
+	"error": {
+		"recogniser": "4",
+		"list": [
+				{
+				"name": "Open file error",
+				"code": "E"
+				},
+				{
+				"name": "Close file error",
+				"code": "F"
+				}
+				{
+				"name": "USB write file error",
+				"code": "G"
+				}
+				{
+				"name": "USB overcurrent error",
+				"code": "P"
+				}
+				{
+				"name": "State machine error",
+				"code": "B"
+				}
+				{
+				"name": "Rx Init Error",
+				"code": "J"
+				}
+			]
+		},
+	"command": {
+		"recogniser": "3",
+		"timer": 5000,
+		"list": [
+				{
+				"name": "Start telemetry",
+				"code": "A",
+				"board": "D",
+				"params": 0
+				},
+				{
+				"name": "Stop telemetry",
+				"code": "M",
+				"board": "D",
+				"params": 0
+				},
+				{
+				"name": "Start acquisition",
+				"code": "B",
+				"board": "D",
+				"params": 0
+				},
+				{
+				"name": "Stop acquisition",
+				"code": "V",
+				"board": "D",
+				"params": 0
+				},
+				{
+				"name": "Get rtc time",
+				"code": "J",
+				"board": "D",
+				"params": 0
+				},
+				{
+				"name": "Get rtc date",
+				"code": "H",
+				"board": "D",
+				"params": 0
+				},
+				{
+				"name": "Set rtc",
+				"code": "R",
+				"board": "D",
+				"params": 1
+				}
+				{
+				"name": "Send lap",
+				"code": "S",
+				"board": "D",
+				"params": 0
+				}		
+			]
+	},
+	"laptimer": {
+		"accModeRecogniser": "K",
+		"endModeRecogniser": "G",
+		"intTypeRecogniser": "I",
+		"lapTypeRecogniser": "E",
+		"packetLen": 15,
+	},
+    "receiver": {
+        "carBaudRate": 230400,
+        "carCommPort": "COM9",
+        "lapBaudRate": 9600,
+        "lapCommPort": "COM3",
+        "pktStart": "[",
+        "pktEnd": "]"
+    },
+    "server": {
+    	"serverPort": 8081,
+    	"freq": 1000
+    }
+}

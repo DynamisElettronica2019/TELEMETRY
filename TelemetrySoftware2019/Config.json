@@ -29,15 +29,23 @@
 		"recogniser": "4",
 		"list": [
 				{
-				"name": "Open File Error",
-				"code": "Q"
+				"name": "Open file error",
+				"code": "E"
 				},
 				{
-				"name": "Close File Error",
-				"code": "S"
+				"name": "Close file error",
+				"code": "F"
 				}
 				{
-				"name": "Command error",
+				"name": "USB write file error",
+				"code": "G"
+				}
+				{
+				"name": "USB overcurrent error",
+				"code": "P"
+				}
+				{
+				"name": "State machine error",
 				"code": "B"
 				}
 				{
