@@ -498,7 +498,6 @@ public class DynamicsScreenController extends Controller {
 	private Data<String, Double> getLastChartElem(Channel channel) {
 		LocalDateTime ts = channel.getLastTs();
 		Data<String, Double> data = new Data<String, Double>(ts.format(timeColonFormatter), channel.getLastElems());
-		data.setNode(new HoveredThresholdNode(ts.format(timeColonFormatter), channel.getLastElems()));
 		return data;
 	}
 	
@@ -512,7 +511,9 @@ public class DynamicsScreenController extends Controller {
 		ArrayList<LocalDateTime> tsList = channel.getLastTsOffset(numberValues.getValue(), offset);
 		for (int i=0; i<channelDataList.size(); i++) {
 			Data<String, Double> data = new Data<String, Double>(tsList.get(i).format(timeColonFormatter), channelDataList.get(i));
-			data.setNode(new HoveredThresholdNode(tsList.get(i).format(timeColonFormatter), channelDataList.get(i)));
+			if(pauseButton.isSelected()) {
+				data.setNode(new HoveredThresholdNode(tsList.get(i).format(timeColonFormatter), channelDataList.get(i)));
+			}
 			newDataList.add(data);
 		}
 		return newDataList;

@@ -481,7 +481,9 @@ public class EngineScreenController extends Controller {
 		ArrayList<LocalDateTime> tsList = channel.getLastTsOffset(numberValues.getValue(), offset);
 		for (int i=0; i<channelDataList.size(); i++) {
 			Data<String, Double> data = new Data<String, Double>(tsList.get(i).format(timeColonFormatter), channelDataList.get(i));
-			data.setNode(new HoveredThresholdNode(tsList.get(i).format(timeColonFormatter), channelDataList.get(i)));
+			if(pauseButton.isSelected()) {
+				data.setNode(new HoveredThresholdNode(tsList.get(i).format(timeColonFormatter), channelDataList.get(i)));
+			}
 			newDataList.add(data);
 		}
 		return newDataList;

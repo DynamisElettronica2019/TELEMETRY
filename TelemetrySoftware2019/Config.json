@@ -5,12 +5,12 @@
 		"channels":	{
 				"_names": "use name[<double] || name[>double] for threshold indicator // use (int)name for send to server with a specific number",
 				"names": ["(6)TIMESTAMP","HALL EFFECT FR","HALL EFFECT FL","HALL EFFECT RR","HALL EFFECT RL","T H20 SX IN","T H20 SX OUT","T H20 DX IN","T H20 DX OUT","T OIL IN[>120]","T OIL OUT","T WATER ENGINE[>95]","BATTERY VOLTAGE[<11.5]","GEAR","RPM","TPS","P H2O","VH SPEED","SLIP TARGET",
-                          "SLIP","GEAR AD BITS","MANUAL LIMITER ACTIVE","FAN","H2O DUTY CYCLE","PIT LANE ACTIVE","P FUEL[<4500]","P OIL[<3500]","LAMBDA","FLAG SMOT","L FUEL","T EXHAUST 1","T EXHAUST 2","LINEAR FR","LOAD FR","BPS FRONT","APPS","LINEAR FL","LOAD FL","BPS REAR","SW ANGLE",
+                          "SLIP","GEAR AD BITS","MANUAL LIMITER ACTIVE","FAN","H2O DUTY CYCLE","PIT LANE ACTIVE","P FUEL[<4500]","P OIL[<3500]","LAMBDA","FLAG SMOT","L FUEL","T EXHAUST 1","T EXHAUST 2","TC_ACTIVE","LINEAR FR","LOAD FR","BPS FRONT","APPS","LINEAR FL","LOAD FL","BPS REAR","SW ANGLE",
                           "LINEAR RL","LOAD RL","LINEAR RR","LOAD RR","IR IN FL","IR MIDDLE FL","IR OUT FL","BRAKE IR FL","IR IN FR","IR MIDDLE FR","IR OUT FR","BRAKE IR FR","IR IN RL","IR MIDDLE RL","IR OUT RL","BRAKE IR RL","IR IN RR","IR MIDDLE RR","IR OUT RR","BRAKE IR RR",
                           "IMU1 ACC X","IMU1 ACC Y","IMU1 GYR X","IMU1 GYR Z","IMU1 HEADING","IMU1 ACC Z","IMU1 GYR Y","IMU1 SENSORS CALIBRATION","IMU2 ACC X","IMU2 ACC Y","IMU2 GYR X","IMU2 GYR Z","IMU2 HEADING","IMU2 ACC Z","IMU2 GYR Y","IMU2 SENSORS CALIBRATION","IMU DCU HEADING",
                           "IMU DCU ACC Z","IMU DCU GYR Y","IMU DCU ACC X","IMU DCU ACC Y","IMU DCU GYR X","IMU DCU GYR Z","IMU DCU SENSORS CALIBRATION","GPS LATITUDE MINUTES","GPS LONGITUDE MINUTES","GPS SPEED","CLUTCH", "MODE", "MAP", "ANTISTALL",
                           "TRACTION", "RPM LIMITER", "AUTO GEARSHIFT", "ACCELERATION", "LAP FLAG", "DATRON DISTANCE", "DATRON X", "DATRON Y", "DATRON ANGLE"],
-				"packetLen": 646,
+				"packetLen": 648,
 				"recogniser": "1"
 				},
 		"states": {
@@ -29,11 +29,11 @@
 		"recogniser": "4",
 		"list": [
 				{
-				"name": "OPEN_FILE_ERROR",
+				"name": "Open File Error",
 				"code": "Q"
 				},
 				{
-				"name": "CLOSE_FILE_ERROR",
+				"name": "Close File Error",
 				"code": "S"
 				}
 				{
@@ -41,12 +41,8 @@
 				"code": "B"
 				}
 				{
-				"name": "Init error",
+				"name": "Rx Init Error",
 				"code": "J"
-				}
-				{
-				"name": "Callback",
-				"code": "K"
 				}
 			]
 		},
@@ -113,7 +109,7 @@
 	},
     "receiver": {
         "carBaudRate": 230400,
-        "carCommPort": "COM10",
+        "carCommPort": "COM9",
         "lapBaudRate": 9600,
         "lapCommPort": "COM3",
         "pktStart": "[",

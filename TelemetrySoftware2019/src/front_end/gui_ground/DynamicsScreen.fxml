@@ -29,7 +29,7 @@
       <RowConstraints minHeight="10.0" percentHeight="31.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <LineChart fx:id="topLeftChart" animated="false" legendSide="RIGHT" GridPane.columnIndex="1">
+      <LineChart fx:id="topLeftChart" animated="false" createSymbols="false" legendSide="RIGHT" GridPane.columnIndex="1">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -37,7 +37,7 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <LineChart fx:id="topRightChart" animated="false" legendSide="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <LineChart fx:id="topRightChart" animated="false" createSymbols="false" legendSide="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="1">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -45,7 +45,7 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <LineChart fx:id="bottomLeftChart" animated="false" legendSide="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <LineChart fx:id="bottomLeftChart" animated="false" createSymbols="false" legendSide="RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="2">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -127,7 +127,7 @@
       </VBox>
       <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <children>
-            <LineChart fx:id="bottomRightChart" animated="false" legendSide="RIGHT">
+            <LineChart fx:id="bottomRightChart" animated="false" createSymbols="false" legendSide="RIGHT">
                <xAxis>
                   <CategoryAxis side="BOTTOM" />
                </xAxis>
