@@ -170,3 +170,7 @@
 .command-buttons:hover {
 	-fx-background-color: #EA2027;
 }
+
+.pedals {
+	-fx-accent: #c80000;
+}
