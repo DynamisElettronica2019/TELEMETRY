@@ -113,7 +113,7 @@
 		"endModeRecogniser": "G",
 		"intTypeRecogniser": "I",
 		"lapTypeRecogniser": "E",
-		"packetLen": 16,
+		"packetLen": 15,
 	},
     "receiver": {
         "carBaudRate": 230400,
