@@ -33,17 +33,17 @@
                      <children>
                         <ImageView fitHeight="17.0" fitWidth="18.0" layoutX="351.0" layoutY="581.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="file:/C:/Users/marco/Desktop/fuel.png" />
+                              <Image url="/front_end/gui_ground/fuel.png" />
                            </image>
                         </ImageView>
                         <ImageView fitHeight="17.0" fitWidth="18.0" layoutX="619.0" layoutY="581.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="file:/C:/Users/marco/Desktop/temp.png" />
+                              <Image url="/front_end/gui_ground/temp.png" />
                            </image>
                         </ImageView>
                         <ImageView fx:id="wheel" fitHeight="300.0" fitWidth="500.0" layoutX="243.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="file:/C:/Users/marco/Desktop/CSL-E-F1-SET-M_07.png" />
+                              <Image url="/front_end/gui_ground/CSL-E-F1-SET-M_07.png" />
                            </image>
                         </ImageView>
                         <Label layoutX="291.0" layoutY="598.0" text="E">
