@@ -13,19 +13,40 @@ import back_end.Threshold;
 import configuration.ConfReader;
 import eu.hansolo.medusa.Gauge;
 import eu.hansolo.medusa.Section;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.ValueAxis;
+import javafx.scene.chart.XYChart.Data;
+import javafx.scene.chart.XYChart.Series;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 public class DashScreenController extends Controller {
+	private final String RPM_CHANNEL = "RPM";
+	private final String SPEED_CHANNEL = "VH SPEED";
+	private final String FUEL_CHANNEL = "L FUEL";
+	private final String WATER_CHANNEL = "T WATER ENGINE";
+	private final String SW_ANGLE_CHANNEL = "SW ANGLE";
+	private final String THROTTLE_CHANNEL = "TPS";
+	private final String BRAKE_CHANNEL = "BPS FRONT";
+	private final String CLUTCH_CHANNEL = "CLUTCH";
+	private final String GPS_LATITUDE = "GPS LATITUDE MINUTES";
+	private final String GPS_LONGITUDE = "GPS LONGITUDE MINUTES";
+	
+	Series<Double, Double> series = new Series<Double, Double>();
+	Double latLastValue;
+	
 	@FXML
 	Gauge rpm, speed, fuel, water;
 	@FXML
 	ProgressBar throttle, brake, clutch;
 	@FXML
 	ImageView wheel;
+	@FXML
+	LineChart<Double, Double> gps;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -35,12 +56,21 @@ public class DashScreenController extends Controller {
 		water.addSection(new Section(95, 120, Color.web("0xc80000ff")));
 		fuel.addSection(new Section(0, 1, Color.web("0xc80000ff")));
 		
-		throttle.setProgress(0.5);
-		brake.setProgress(0.4);
-		clutch.setProgress(0.3);
-		wheel.setRotate(50);
-		rpm.setValue(3.5);
-		speed.setValue(70);
+		gps.getXAxis().setAutoRanging(false);
+		gps.getYAxis().setAutoRanging(false);
+		((ValueAxis<Double>) gps.getXAxis()).setUpperBound(100);
+		((ValueAxis<Double>) gps.getXAxis()).setLowerBound(-100);
+		((ValueAxis<Double>) gps.getYAxis()).setUpperBound(100);
+		((ValueAxis<Double>) gps.getYAxis()).setLowerBound(-100);
+		
+		((ValueAxis<Double>) gps.getXAxis()).setTickLabelsVisible(false);
+		((ValueAxis<Double>) gps.getXAxis()).setMinorTickVisible(false);
+		((ValueAxis<Double>) gps.getXAxis()).setTickMarkVisible(false);
+		((ValueAxis<Double>) gps.getYAxis()).setTickLabelsVisible(false);
+		((ValueAxis<Double>) gps.getYAxis()).setMinorTickVisible(false);
+		((ValueAxis<Double>) gps.getYAxis()).setTickMarkVisible(false);
+		
+		gps.getData().add(series);
 	}
 
 	@Override
@@ -57,8 +87,88 @@ public class DashScreenController extends Controller {
 
 	@Override
 	public void editChannel(Channel channel) {
-		// TODO Auto-generated method stub
-
+		if(!channel.isEmpty()){
+			if (channel.getName().equals(RPM_CHANNEL)) {
+				Platform.runLater(new Runnable() {
+				    @Override
+				    public void run() {
+				    	rpm.setValue(channel.getLastElems(1).get(0)/1000);
+				    }
+				});
+			}
+			else if (channel.getName().equals(SPEED_CHANNEL)) {
+				Platform.runLater(new Runnable() {
+				    @Override
+				    public void run() {
+				    	speed.setValue(channel.getLastElems(1).get(0));
+				    }
+				});
+			}
+			else if (channel.getName().equals(FUEL_CHANNEL)) {
+				Platform.runLater(new Runnable() {
+				    @Override
+				    public void run() {
+				    	fuel.setValue(channel.getLastElems(1).get(0));
+				    }
+				});
+			}
+			else if (channel.getName().equals(WATER_CHANNEL)) {
+				Platform.runLater(new Runnable() {
+				    @Override
+				    public void run() {
+				    	water.setValue(channel.getLastElems(1).get(0));
+				    }
+				});
+			}
+			else if (channel.getName().equals(SW_ANGLE_CHANNEL)) {
+				Platform.runLater(new Runnable() {
+				    @Override
+				    public void run() {
+				    	wheel.setRotate(channel.getLastElems(1).get(0));
+				    }
+				});
+			}
+			else if (channel.getName().equals(THROTTLE_CHANNEL)) {
+				Platform.runLater(new Runnable() {
+				    @Override
+				    public void run() {
+				    	throttle.setProgress(channel.getLastElems(1).get(0)/100);
+				    }
+				});
+			}
+			else if (channel.getName().equals(BRAKE_CHANNEL)) {
+				Platform.runLater(new Runnable() {
+				    @Override
+				    public void run() {
+				    	brake.setProgress(channel.getLastElems(1).get(0)/40);
+				    }
+				});
+			}
+			else if (channel.getName().equals(CLUTCH_CHANNEL)) {
+				Platform.runLater(new Runnable() {
+				    @Override
+				    public void run() {
+				    	clutch.setProgress(channel.getLastElems(1).get(0)/100);
+				    }
+				});
+			}
+			else if (channel.getName().equals(GPS_LATITUDE)) {
+				Platform.runLater(new Runnable() {
+				    @Override
+				    public void run() {
+				    	latLastValue = channel.getLastElems(1).get(0);
+				    }
+				});
+			}
+			else if (channel.getName().equals(GPS_LONGITUDE)) {
+				Platform.runLater(new Runnable() {
+				    @Override
+				    public void run() {
+				    	series.getData().add(new Data<Double, Double>(latLastValue, channel.getLastElems(1).get(0)));	
+				    }
+				});
+			}
+		}
 	}
 
 	@Override
