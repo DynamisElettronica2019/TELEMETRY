@@ -109,6 +109,9 @@ public class TopBarController extends Controller {
 		labelList[3] = label4;
 		labelList[4] = label5;
 		labelList[5] = label6;
+		
+		circle6.setVisible(false);
+		label6.setVisible(false);
 				
 		for(int i=0; i<STATES; i++) {
 			stateMap.put(stateList.get(i), circleList[i]);
