@@ -38,6 +38,8 @@ public class DashScreenController extends Controller {
 	
 	Series<Double, Double> series = new Series<Double, Double>();
 	Double latLastValue;
+	Double latOffset, lonOffset;
+	Boolean toCalibrate = true;
 	
 	@FXML
 	Gauge rpm, speed, fuel, water;
@@ -58,10 +60,10 @@ public class DashScreenController extends Controller {
 		
 		gps.getXAxis().setAutoRanging(false);
 		gps.getYAxis().setAutoRanging(false);
-		((ValueAxis<Double>) gps.getXAxis()).setUpperBound(100);
-		((ValueAxis<Double>) gps.getXAxis()).setLowerBound(-100);
-		((ValueAxis<Double>) gps.getYAxis()).setUpperBound(100);
-		((ValueAxis<Double>) gps.getYAxis()).setLowerBound(-100);
+		((ValueAxis<Double>) gps.getXAxis()).setUpperBound(500);
+		((ValueAxis<Double>) gps.getXAxis()).setLowerBound(-500);
+		((ValueAxis<Double>) gps.getYAxis()).setUpperBound(500);
+		((ValueAxis<Double>) gps.getYAxis()).setLowerBound(-500);
 		
 		((ValueAxis<Double>) gps.getXAxis()).setTickLabelsVisible(false);
 		((ValueAxis<Double>) gps.getXAxis()).setMinorTickVisible(false);
@@ -156,7 +158,14 @@ public class DashScreenController extends Controller {
 				Platform.runLater(new Runnable() {
 				    @Override
 				    public void run() {
-				    	latLastValue = channel.getLastElems(1).get(0);
+				    	if(toCalibrate) {
+				    		if(channel.getLastElems(1).get(0) > 0) {
+				    			latOffset = channel.getLastElems(1).get(0);
+				    		}
+				    	}
+				    	else {
+				    		latLastValue = channel.getLastElems(1).get(0);
+				    	}
 				    }
 				});
 			}
@@ -164,7 +173,15 @@ public class DashScreenController extends Controller {
 				Platform.runLater(new Runnable() {
 				    @Override
 				    public void run() {
-				    	series.getData().add(new Data<Double, Double>(latLastValue, channel.getLastElems(1).get(0)));	
+				    	if(toCalibrate) {
+				    		if(channel.getLastElems(1).get(0) > 0) {
+				    			lonOffset = channel.getLastElems(1).get(0);
+				    			toCalibrate = false;
+				    		}
+				    	}
+				    	else {
+				    		series.getData().add(new Data<Double, Double>(latLastValue - latOffset, channel.getLastElems(1).get(0) - lonOffset));	
+				    	}
 				    }
 				});
 			}
