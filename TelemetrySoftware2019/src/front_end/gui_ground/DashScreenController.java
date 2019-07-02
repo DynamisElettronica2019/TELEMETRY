@@ -25,6 +25,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 public class DashScreenController extends Controller {
 	private final String RPM_CHANNEL = "RPM";
@@ -56,6 +57,8 @@ public class DashScreenController extends Controller {
 	Pane wheelRot;
 	@FXML
 	Label gear;
+	@FXML
+	Circle circle1, circle2, circle3, circle4, circle5, circle6, circle7, circle8, circle9, circle10, circle11, circle12;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -102,6 +105,78 @@ public class DashScreenController extends Controller {
 				    @Override
 				    public void run() {
 				    	rpm.setValue(channel.getLastElems(1).get(0)/1000);
+				    	if(channel.getLastElems(1).get(0)>0) {
+				    		circle1.setVisible(true);
+				    	}
+				    	else {
+				    		circle1.setVisible(false);
+				    	}
+				    	if(channel.getLastElems(1).get(0)>=1000) {
+				    		circle2.setVisible(true);
+				    	}
+				    	else {
+				    		circle2.setVisible(false);
+				    	}
+				    	if(channel.getLastElems(1).get(0)>=2000) {
+				    		circle3.setVisible(true);
+				    	}
+				    	else {
+				    		circle3.setVisible(false);
+				    	}
+				    	if(channel.getLastElems(1).get(0)>=3000) {
+				    		circle4.setVisible(true);
+				    	}
+				    	else {
+				    		circle4.setVisible(false);
+				    	}
+				    	if(channel.getLastElems(1).get(0)>=4000) {
+				    		circle5.setVisible(true);
+				    	}
+				    	else {
+				    		circle5.setVisible(false);
+				    	}
+				    	if(channel.getLastElems(1).get(0)>=5000) {
+				    		circle6.setVisible(true);
+				    	}
+				    	else {
+				    		circle6.setVisible(false);
+				    	}
+				    	if(channel.getLastElems(1).get(0)>=6000) {
+				    		circle7.setVisible(true);
+				    	}
+				    	else {
+				    		circle7.setVisible(false);
+				    	}
+				    	if(channel.getLastElems(1).get(0)>=7000) {
+				    		circle8.setVisible(true);
+				    	}
+				    	else {
+				    		circle8.setVisible(false);
+				    	}
+				    	if(channel.getLastElems(1).get(0)>=8000) {
+				    		circle9.setVisible(true);
+				    	}
+				    	else {
+				    		circle9.setVisible(false);
+				    	}
+				    	if(channel.getLastElems(1).get(0)>=9000) {
+				    		circle10.setVisible(true);
+				    	}
+				    	else {
+				    		circle10.setVisible(false);
+				    	}
+				    	if(channel.getLastElems(1).get(0)>=10000) {
+				    		circle11.setVisible(true);
+				    	}
+				    	else {
+				    		circle11.setVisible(false);
+				    	}
+				    	if(channel.getLastElems(1).get(0)>=11000) {
+				    		circle12.setVisible(true);
+				    	}
+				    	else {
+				    		circle12.setVisible(false);
+				    	}
 				    }
 				});
 			}
@@ -166,6 +241,9 @@ public class DashScreenController extends Controller {
 				    @Override
 				    public void run() {
 				    	gear.setText(Integer.toString(((int)Math.round(channel.getLastElems(1).get(0)))));
+				    	if(channel.getLastElems(1).get(0) == 0) {
+				    		gear.setText("N");
+				    	}
 				    }
 				});
 			}
