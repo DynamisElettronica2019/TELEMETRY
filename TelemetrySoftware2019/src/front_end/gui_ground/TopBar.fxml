@@ -98,6 +98,14 @@
                         <DropShadow />
                      </effect>
                   </VBox>
+                  <VBox styleClass="grey-button-box-background">
+                     <children>
+                        <Button fx:id="dashPage" mnemonicParsing="false" onAction="#dashClick" styleClass="transparent-button-background" text="Dashboard" />
+                     </children>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </VBox>
                   <Region HBox.hgrow="ALWAYS" />
                   <VBox styleClass="grey-button-box-background">
                      <children>

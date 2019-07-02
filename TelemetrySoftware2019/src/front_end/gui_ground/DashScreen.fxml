@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import eu.hansolo.medusa.Gauge?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<GridPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="front_end.gui_ground.DashScreenController">
+   <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+   </rowConstraints>
+   <children>
+      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="blue-menu-background" />
+      <StackPane GridPane.columnIndex="1">
+         <children>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <AnchorPane layoutX="27.0" layoutY="23.0" prefHeight="639.0" prefWidth="783.0" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0">
+                     <children>
+                        <Gauge fx:id="water" keepAspect="false" knobType="FLAT" layoutX="483.0" layoutY="440.0" lcdDesign="BLACK_RED" lcdFont="DIGITAL" majorTickMarksVisible="false" maxValue="120.0" mediumTickMarkType="BOX" minorTickMarksVisible="false" needleShape="FLAT" needleSize="THICK" prefHeight="70.0" prefWidth="100.0" rotate="90.0" scaleDirection="COUNTER_CLOCKWISE" sectionsVisible="true" shadowsEnabled="true" skinType="QUARTER" tickLabelsVisible="false" valueVisible="false" AnchorPane.bottomAnchor="220.0" />
+                        <Gauge fx:id="fuel" keepAspect="false" knobType="FLAT" layoutX="193.0" layoutY="435.0" lcdDesign="BLACK_RED" lcdFont="DIGITAL" majorTickMarksVisible="false" maxValue="5.0" mediumTickMarkType="BOX" minorTickMarksVisible="false" needleShape="FLAT" needleSize="THICK" prefHeight="70.0" prefWidth="100.0" sectionsVisible="true" shadowsEnabled="true" skinType="QUARTER" tickLabelsVisible="false" valueVisible="false" AnchorPane.bottomAnchor="220.0" />
+                        <ImageView fitHeight="17.0" fitWidth="18.0" layoutX="268.0" layoutY="382.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="240.0">
+                           <image>
+                              <Image url="/front_end/gui_ground/fuel.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="17.0" fitWidth="18.0" layoutX="509.0" layoutY="382.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="240.0">
+                           <image>
+                              <Image url="/front_end/gui_ground/temp.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="wheel" fitHeight="200.0" fitWidth="400.0" layoutX="212.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="/front_end/gui_ground/CSL-E-F1-SET-M_07.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="218.0" layoutY="484.0" text="E" AnchorPane.bottomAnchor="225.0">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="282.0" layoutY="443.0" text="F" AnchorPane.bottomAnchor="265.0">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="488.0" layoutY="448.0" text="120" AnchorPane.bottomAnchor="265.0">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="550.0" layoutY="489.0" text="0" AnchorPane.bottomAnchor="225.0">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <Gauge fx:id="speed" knobType="FLAT" layoutY="475.0" lcdDesign="BLACK_RED" lcdFont="DIGITAL" lcdVisible="true" maxValue="120.0" mediumTickMarkType="BOX" needleShape="FLAT" prefHeight="180.0" shadowsEnabled="true" unit="KM/H" AnchorPane.bottomAnchor="0.0" />
+                        <Gauge fx:id="rpm" knobType="FLAT" layoutX="533.0" layoutY="475.0" lcdDesign="BLACK_RED" lcdFont="DIGITAL" lcdVisible="true" majorTickSpace="1.0" maxValue="12.0" mediumTickMarkType="BOX" minorTickSpace="0.2" needleShape="FLAT" prefHeight="180.0" sectionsVisible="true" shadowsEnabled="true" unit="RPM (x1000)" AnchorPane.bottomAnchor="0.0" />
+                        <ProgressBar fx:id="throttle" layoutX="214.0" layoutY="511.0" prefWidth="200.0" progress="0.0" rotate="-90.0" styleClass="throttle-pedal" AnchorPane.bottomAnchor="180.0" />
+                        <ProgressBar fx:id="brake" layoutX="291.0" layoutY="511.0" prefWidth="200.0" progress="0.0" rotate="-90.0" styleClass="brake-pedal" AnchorPane.bottomAnchor="180.0" />
+                        <ProgressBar fx:id="clutch" layoutX="371.0" layoutY="511.0" prefWidth="200.0" progress="0.0" rotate="-90.0" styleClass="clutch-pedal" AnchorPane.bottomAnchor="180.0" />
+                        <Label layoutX="293.0" layoutY="622.0" text="Throttle" AnchorPane.bottomAnchor="70.0" />
+                        <Label layoutX="376.0" layoutY="622.0" text="Brake" AnchorPane.bottomAnchor="70.0" />
+                        <Label layoutX="454.0" layoutY="622.0" text="Clutch" AnchorPane.bottomAnchor="70.0" />
+                     </children>
+                  </AnchorPane>
+                  <LineChart fx:id="gps" alternativeRowFillVisible="false" animated="false" axisSortingPolicy="NONE" createSymbols="false" horizontalGridLinesVisible="false" layoutX="860.0" layoutY="58.0" legendVisible="false" maxHeight="250.0" maxWidth="250.0" prefHeight="250.0" prefWidth="250.0" verticalGridLinesVisible="false" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+                    <xAxis>
+                      <NumberAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                  </LineChart>
+               </children>
+            </AnchorPane>
+         </children>
+      </StackPane>
+   </children>
+</GridPane>
