@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -43,11 +44,20 @@
                               <Image url="/front_end/gui_ground/temp.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="wheel" fitHeight="200.0" fitWidth="400.0" layoutX="212.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="/front_end/gui_ground/CSL-E-F1-SET-M_07.png" />
-                           </image>
-                        </ImageView>
+                        <Pane fx:id="wheelRot" layoutX="237.0" layoutY="60.0">
+                           <children>
+                              <ImageView fx:id="wheel" fitHeight="225.0" fitWidth="450.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="/front_end/gui_ground/wheel.png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="gear" layoutX="135.0" layoutY="49.0" text="N" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="48.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
                         <Label layoutX="218.0" layoutY="484.0" text="E" AnchorPane.bottomAnchor="225.0">
                            <font>
                               <Font name="System Bold" size="12.0" />

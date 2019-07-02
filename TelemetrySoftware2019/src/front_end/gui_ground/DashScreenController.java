@@ -19,9 +19,11 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.ValueAxis;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 public class DashScreenController extends Controller {
@@ -35,6 +37,7 @@ public class DashScreenController extends Controller {
 	private final String CLUTCH_CHANNEL = "CLUTCH";
 	private final String GPS_LATITUDE = "GPS LATITUDE MINUTES";
 	private final String GPS_LONGITUDE = "GPS LONGITUDE MINUTES";
+	private final String GEAR_CHANNEL = "GEAR";
 	
 	Series<Double, Double> series = new Series<Double, Double>();
 	Double latLastValue;
@@ -49,6 +52,10 @@ public class DashScreenController extends Controller {
 	ImageView wheel;
 	@FXML
 	LineChart<Double, Double> gps;
+	@FXML
+	Pane wheelRot;
+	@FXML
+	Label gear;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -126,7 +133,7 @@ public class DashScreenController extends Controller {
 				Platform.runLater(new Runnable() {
 				    @Override
 				    public void run() {
-				    	wheel.setRotate(channel.getLastElems(1).get(0));
+				    	wheelRot.setRotate(channel.getLastElems(1).get(0));
 				    }
 				});
 			}
@@ -151,6 +158,14 @@ public class DashScreenController extends Controller {
 				    @Override
 				    public void run() {
 				    	clutch.setProgress(channel.getLastElems(1).get(0)/100);
+				    }
+				});
+			}
+			else if (channel.getName().equals(GEAR_CHANNEL)) {
+				Platform.runLater(new Runnable() {
+				    @Override
+				    public void run() {
+				    	gear.setText(Integer.toString(((int)Math.round(channel.getLastElems(1).get(0)))));
 				    }
 				});
 			}
