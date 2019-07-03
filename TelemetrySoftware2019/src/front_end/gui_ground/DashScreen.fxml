@@ -58,8 +58,8 @@
                                  </font>
                               </Label>
                               <Circle fx:id="circle1" fill="RED" layoutX="100.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
-                              <Circle fx:id="circle2" fill="RED" layoutX="120.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
-                              <Circle fx:id="circle3" fill="RED" layoutX="110.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+                              <Circle fx:id="circle3" fill="RED" layoutX="120.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+                              <Circle fx:id="circle2" fill="RED" layoutX="110.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
                               <Circle fx:id="circle4" fill="RED" layoutX="130.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
                               <Circle fx:id="circle5" fill="RED" layoutX="150.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
                               <Circle fx:id="circle6" fill="RED" layoutX="140.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
