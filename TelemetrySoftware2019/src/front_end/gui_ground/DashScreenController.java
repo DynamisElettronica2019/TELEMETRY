@@ -70,10 +70,10 @@ public class DashScreenController extends Controller {
 		
 		gps.getXAxis().setAutoRanging(false);
 		gps.getYAxis().setAutoRanging(false);
-		((ValueAxis<Double>) gps.getXAxis()).setUpperBound(500);
-		((ValueAxis<Double>) gps.getXAxis()).setLowerBound(-500);
-		((ValueAxis<Double>) gps.getYAxis()).setUpperBound(500);
-		((ValueAxis<Double>) gps.getYAxis()).setLowerBound(-500);
+		((ValueAxis<Double>) gps.getXAxis()).setUpperBound(5000);
+		((ValueAxis<Double>) gps.getXAxis()).setLowerBound(-5000);
+		((ValueAxis<Double>) gps.getYAxis()).setUpperBound(5000);
+		((ValueAxis<Double>) gps.getYAxis()).setLowerBound(-5000);
 		
 		((ValueAxis<Double>) gps.getXAxis()).setTickLabelsVisible(false);
 		((ValueAxis<Double>) gps.getXAxis()).setMinorTickVisible(false);

@@ -170,3 +170,15 @@
 .command-buttons:hover {
 	-fx-background-color: #EA2027;
 }
+
+.throttle-pedal {
+	-fx-accent: green;
+}
+
+.brake-pedal {
+	-fx-accent: #c80000;
+}
+
+.clutch-pedal {
+	-fx-accent: blue;
+}
