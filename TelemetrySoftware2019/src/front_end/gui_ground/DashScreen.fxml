@@ -58,15 +58,15 @@
                                  </font>
                               </Label>
                               <Circle fx:id="circle1" fill="RED" layoutX="100.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
-                              <Circle fx:id="circle3" fill="RED" layoutX="120.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
                               <Circle fx:id="circle2" fill="RED" layoutX="110.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+                              <Circle fx:id="circle3" fill="RED" layoutX="120.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
                               <Circle fx:id="circle4" fill="RED" layoutX="130.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
-                              <Circle fx:id="circle5" fill="RED" layoutX="150.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
-                              <Circle fx:id="circle6" fill="RED" layoutX="140.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
-                              <Circle fx:id="circle7" fill="RED" layoutX="170.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
-                              <Circle fx:id="circle8" fill="RED" layoutX="160.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
-                              <Circle fx:id="circle9" fill="RED" layoutX="189.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
-                              <Circle fx:id="circle10" fill="RED" layoutX="180.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+                              <Circle fx:id="circle5" fill="RED" layoutX="140.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+                              <Circle fx:id="circle6" fill="RED" layoutX="150.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+                              <Circle fx:id="circle7" fill="RED" layoutX="160.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+                              <Circle fx:id="circle8" fill="RED" layoutX="170.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+                              <Circle fx:id="circle9" fill="RED" layoutX="180.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+                              <Circle fx:id="circle10" fill="RED" layoutX="189.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
                               <Circle fx:id="circle11" fill="RED" layoutX="199.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
                               <Circle fx:id="circle12" fill="RED" layoutX="208.0" layoutY="17.0" radius="4.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
                            </children>
