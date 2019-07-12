@@ -3,7 +3,7 @@ myHost = "ws://127.0.0.1:8081";
 
 //************* SETTARE MAPPING CHANNEL-DATASETNUMB (n.b. non ripetere valori tra CHANNEL, settare DATASETNUMB da 0 a N, settare defaultMapping a 0)
 var mapping = { 
-"5": "0", "6": "1", "7": "2", "8": "3", "11": "4", "9": "5", "10": "6", "24": "7", "25": "8"
+"0": "0", "1": "1", "2": "2", "3": "3", "4": "4", "5": "5", "6": "6", "7": "7", "8": "8"
 };
 var defaultMapping = 0; //0 -> disabilitato (conta quello sopra specificato), >0 -> numero di canali
 
