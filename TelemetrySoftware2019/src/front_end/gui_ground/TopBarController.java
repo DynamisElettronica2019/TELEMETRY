@@ -238,7 +238,7 @@ public class TopBarController extends Controller {
 			String[] NaTh = ConfReader.haveThresholdAndServer(chNames.get(i));
 			if (NaTh.length>2) {
 				stateMap.put(NaTh[1], circleList[element]);
-				labelList[element].setText(chNames.get(i));
+				labelList[element].setText(NaTh[1]);
 				element++;
 			}
 			if (element > 11) {
