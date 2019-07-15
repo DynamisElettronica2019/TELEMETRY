@@ -68,12 +68,8 @@ public class DashScreenController extends Controller {
 		water.addSection(new Section(95, 120, Color.web("0xc80000ff")));
 		fuel.addSection(new Section(0, 1, Color.web("0xc80000ff")));
 		
-		gps.getXAxis().setAutoRanging(false);
-		gps.getYAxis().setAutoRanging(false);
-		((ValueAxis<Double>) gps.getXAxis()).setUpperBound(5000);
-		((ValueAxis<Double>) gps.getXAxis()).setLowerBound(-5000);
-		((ValueAxis<Double>) gps.getYAxis()).setUpperBound(5000);
-		((ValueAxis<Double>) gps.getYAxis()).setLowerBound(-5000);
+		gps.getXAxis().setAutoRanging(true);
+		gps.getYAxis().setAutoRanging(true);
 		
 		((ValueAxis<Double>) gps.getXAxis()).setTickLabelsVisible(false);
 		((ValueAxis<Double>) gps.getXAxis()).setMinorTickVisible(false);
