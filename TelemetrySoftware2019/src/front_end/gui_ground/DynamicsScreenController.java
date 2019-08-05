@@ -536,20 +536,16 @@ public class DynamicsScreenController extends Controller {
 		        		for(int i=0;i<topLeftSeries.get(0).getData().size();i++){
 			              if(ts.equals(topLeftSeries.get(0).getData().get(i).getXValue())){
 			            	  for(Series<String, Double> serie: topLeftSeries) {
-			            		  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel());
-				            	  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel().toFront();
+				            	  topLeftLabelMap.get(serie.getName()).setText(serie.getData().get(i).getYValue().toString());
 			            	  }
 			            	  for(Series<String, Double> serie: topRightSeries) {
-			            		  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel());
-				            	  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel().toFront();
+			            		  topRightLabelMap.get(serie.getName()).setText(serie.getData().get(i).getYValue().toString());
 			            	  }
 			            	  for(Series<String, Double> serie: bottomLeftSeries) {
-			            		  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel());
-				            	  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel().toFront();
+			            		  bottomLeftLabelMap.get(serie.getName()).setText(serie.getData().get(i).getYValue().toString());
 			            	  }
 			            	  for(Series<String, Double> serie: bottomRightSeries) {
-			            		  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getChildren().setAll(((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel());
-				            	  ((HoveredThresholdNode) serie.getData().get(i).getNode()).getLabel().toFront();
+			            		  bottomRightLabelMap.get(serie.getName()).setText(serie.getData().get(i).getYValue().toString());
 			            	  }
 			            	  index = i;  
 			              }
@@ -561,18 +557,6 @@ public class DynamicsScreenController extends Controller {
 	      setOnMouseExited(new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent mouseEvent) {
 	        	if(pauseButton.isSelected()) {
-	            	  for(Series<String, Double> serie: topLeftSeries) {
-	                		((HoveredThresholdNode) serie.getData().get(index).getNode()).getChildren().clear();
-	              	  }
-	              	  for(Series<String, Double> serie: topRightSeries) {
-	              		  ((HoveredThresholdNode) serie.getData().get(index).getNode()).getChildren().clear();
-	              	  }
-	              	  for(Series<String, Double> serie: bottomLeftSeries) {
-	              		  ((HoveredThresholdNode) serie.getData().get(index).getNode()).getChildren().clear();
-	              	  }
-	              	  for(Series<String, Double> serie: bottomRightSeries) {
-	              		  ((HoveredThresholdNode) serie.getData().get(index).getNode()).getChildren().clear();
-	              	  }
 	      	          setCursor(Cursor.CROSSHAIR);
 	        	}
 	        }
