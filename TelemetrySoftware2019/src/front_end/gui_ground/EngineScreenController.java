@@ -490,6 +490,7 @@ public class EngineScreenController extends Controller {
 			Data<String, Double> data = new Data<String, Double>(tsList.get(i).format(timeColonFormatter), channelDataList.get(i));
 			if(pauseButton.isSelected()) {
 				data.setNode(new HoveredThresholdNode(tsList.get(i).format(timeColonFormatter), channelDataList.get(i)));
+				data.getNode().setVisible(false);
 			}
 			newDataList.add(data);
 		}
@@ -524,14 +525,13 @@ public class EngineScreenController extends Controller {
 			            	  index = i;  
 			              }
 		        		}
-		        	setCursor(Cursor.NONE);
 	        	}
 	        }
 	      });
 	      setOnMouseExited(new EventHandler<MouseEvent>() {
 	        @Override public void handle(MouseEvent mouseEvent) {
 	        	if(pauseButton.isSelected()) {
-	      	          setCursor(Cursor.CROSSHAIR);
+	      	          //Fill if needed
 	        	}
 	        }
 	      });
@@ -539,7 +539,7 @@ public class EngineScreenController extends Controller {
 	    
 	    private Label createDataThresholdLabel(double value) {
 	        final Label label = new Label(value + "");
-	        label.getStyleClass().addAll("default-color0", "chart-line-symbol", "chart-series-line");
+	        label.getStyleClass().addAll("default-color0", "chart-series-line");
 	        label.setStyle("-fx-font-size: 20; -fx-font-weight: bold;");
 	        label.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
 	        return label;
