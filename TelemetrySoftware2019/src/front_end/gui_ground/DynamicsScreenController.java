@@ -513,7 +513,7 @@ public class DynamicsScreenController extends Controller {
 			Data<String, Double> data = new Data<String, Double>(tsList.get(i).format(timeColonFormatter), channelDataList.get(i));
 			if(pauseButton.isSelected()) {
 				data.setNode(new HoveredThresholdNode(tsList.get(i).format(timeColonFormatter), channelDataList.get(i)));
-				data.getNode().setVisible(false);
+				((StackPane)data.getNode()).setPrefSize(4, 4);
 			}
 			newDataList.add(data);
 		}
