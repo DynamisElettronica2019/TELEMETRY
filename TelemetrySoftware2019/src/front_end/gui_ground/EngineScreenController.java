@@ -122,6 +122,14 @@ public class EngineScreenController extends Controller {
 		}
 		
 		/*
+		 * Alphabetical order
+		 */
+		topLeftSelList.getItems().sort(String.CASE_INSENSITIVE_ORDER);
+		topRightSelList.getItems().sort(String.CASE_INSENSITIVE_ORDER);
+		bottomLeftSelList.getItems().sort(String.CASE_INSENSITIVE_ORDER);
+		bottomRightSelList.getItems().sort(String.CASE_INSENSITIVE_ORDER);
+		
+		/*
 		 * Add listeners for CheckComboBoxes
 		 */
 		topLeftSelList.getCheckModel().getCheckedItems().addListener(new ListChangeListener<String>() {

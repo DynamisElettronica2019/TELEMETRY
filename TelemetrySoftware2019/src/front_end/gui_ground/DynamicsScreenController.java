@@ -125,6 +125,14 @@ public class DynamicsScreenController extends Controller {
 		}
 		
 		/*
+		 * Alphabetical order
+		 */
+		topLeftSelList.getItems().sort(String.CASE_INSENSITIVE_ORDER);
+		topRightSelList.getItems().sort(String.CASE_INSENSITIVE_ORDER);
+		bottomLeftSelList.getItems().sort(String.CASE_INSENSITIVE_ORDER);
+		bottomRightSelList.getItems().sort(String.CASE_INSENSITIVE_ORDER);
+		
+		/*
 		 *  Chart initialization
 		 */
 		bottomLeftChartData = FXCollections.observableArrayList();
